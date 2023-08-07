@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/sunstoriy/static/css/main.073c9b0a.css",
+    "main.js": "/sunstoriy/static/js/main.06379bb6.js",
+    "static/js/787.900340bd.chunk.js": "/sunstoriy/static/js/787.900340bd.chunk.js",
+    "index.html": "/sunstoriy/index.html",
+    "main.073c9b0a.css.map": "/sunstoriy/static/css/main.073c9b0a.css.map",
+    "main.06379bb6.js.map": "/sunstoriy/static/js/main.06379bb6.js.map",
+    "787.900340bd.chunk.js.map": "/sunstoriy/static/js/787.900340bd.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.06379bb6.js"
+  ]
+}
