@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import { FaChildren } from "react-icons/fa6";
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { FaChildren } from 'react-icons/fa6';
 
 export const LeftHeaderNavWrapper = styled.div`
   margin-top: 20px;
@@ -16,7 +16,7 @@ export const LeftHeaderContainer = styled.div`
   border-radius: 8px;
   display: flex;
   flex-direction: column;
-  align-self: center;
+
   padding: 5px;
 `;
 export const LeftHeaderLink = styled(Link)`
@@ -60,18 +60,18 @@ export const LeftHeaderItem = styled.li`
   &:hover ${IconChildren} {
     fill: var(--main-yellow);
   }
-  ${(props) => {
+  ${props => {
     const { active } = props.children.props;
-    if (active === "active") {
+    if (active === 'active') {
       return `
         border: 1px solid var(--main-yellow);
       `;
     }
   }}
 
-  ${(props) => {
+  ${props => {
     const { active } = props.children.props;
-    if (active === "active") {
+    if (active === 'active') {
       return `
         & ${LeftHeaderLink},${IconChildren} {
           color: var(--main-yellow);

@@ -1,11 +1,11 @@
 // import { format } from "date-fns";
-import { useState } from "react";
-import { DayPicker } from "react-day-picker";
-import "react-day-picker/dist/style.css";
-import { format } from "date-fns";
-import { uk } from "date-fns/locale";
-import { PickerContainer, PickerFooter } from "./DayPicker.styled";
-const mainGreenColor = "var(--main-green)";
+import { useState } from 'react';
+import { DayPicker } from 'react-day-picker';
+import 'react-day-picker/dist/style.css';
+import { format } from 'date-fns';
+import { uk } from 'date-fns/locale';
+import { PickerContainer, PickerFooter } from './DayPicker.styled';
+const mainGreenColor = 'var(--main-green)';
 
 const css = `
   .my-selected:not([disabled]) { 
@@ -33,14 +33,14 @@ const css = `
 export default function HeaderDayPicker() {
   const [range, setRange] = useState(null);
 
-  let footer = <PickerFooter>Виберіть перший день диапазону</PickerFooter>;
+  let footer = <PickerFooter>Виберіть перший день</PickerFooter>;
   if (range?.from) {
     if (!range.to) {
-      footer = <PickerFooter>{format(range.from, "dd.MM.yyyy")}</PickerFooter>;
+      footer = <PickerFooter>{format(range.from, 'dd.MM.yyyy')}</PickerFooter>;
     } else if (range.to) {
       footer = (
         <PickerFooter>
-          {format(range.from, "dd.MM.yyyy")}– –{format(range.to, "dd.MM.yyyy")}
+          {format(range.from, 'dd.MM.yyyy')}– –{format(range.to, 'dd.MM.yyyy')}
         </PickerFooter>
       );
     }
@@ -58,11 +58,11 @@ export default function HeaderDayPicker() {
         onSelect={setRange}
         locale={uk}
         modifiersClassNames={{
-          selected: "my-selected",
-          today: "my-today",
+          selected: 'my-selected',
+          today: 'my-today',
         }}
         styles={{
-          caption: { color: " var(--main-green" },
+          caption: { color: ' var(--main-green' },
         }}
       />
     </PickerContainer>

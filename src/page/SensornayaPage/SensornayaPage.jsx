@@ -1,10 +1,11 @@
-import Container from "../../components/Container/Container";
+import MainTable from 'components/Sensornaya/MainTable/MainTable';
+import Container from 'components/Container/Container';
 
 function SensornayaPage() {
   return (
     <>
       <Container>
-        <h3>SensornayaPage</h3>
+        <MainTable />
       </Container>
     </>
   );
