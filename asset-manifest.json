@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/sunstoriy/static/css/main.86603d5a.css",
-    "main.js": "/sunstoriy/static/js/main.d901e372.js",
+    "main.css": "/sunstoriy/static/css/main.4e0187a5.css",
+    "main.js": "/sunstoriy/static/js/main.17779193.js",
     "static/js/787.900340bd.chunk.js": "/sunstoriy/static/js/787.900340bd.chunk.js",
     "static/media/Poppins-Thin.ttf": "/sunstoriy/static/media/Poppins-Thin.59ff6a729e30c99b478e.ttf",
     "static/media/Poppins-ExtraLight.ttf": "/sunstoriy/static/media/Poppins-ExtraLight.333cb30c20e31999802a.ttf",
@@ -15,12 +15,12 @@
     "static/media/LogoSunstoriy.jpg": "/sunstoriy/static/media/LogoSunstoriy.7c919168504ffb55e14e.jpg",
     "static/media/OlgaAvatar.jpg": "/sunstoriy/static/media/OlgaAvatar.21183aa09187ba2c1bff.jpg",
     "index.html": "/sunstoriy/index.html",
-    "main.86603d5a.css.map": "/sunstoriy/static/css/main.86603d5a.css.map",
-    "main.d901e372.js.map": "/sunstoriy/static/js/main.d901e372.js.map",
+    "main.4e0187a5.css.map": "/sunstoriy/static/css/main.4e0187a5.css.map",
+    "main.17779193.js.map": "/sunstoriy/static/js/main.17779193.js.map",
     "787.900340bd.chunk.js.map": "/sunstoriy/static/js/787.900340bd.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.86603d5a.css",
-    "static/js/main.d901e372.js"
+    "static/css/main.4e0187a5.css",
+    "static/js/main.17779193.js"
   ]
 }
