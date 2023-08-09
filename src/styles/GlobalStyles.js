@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import normalize from 'normalize.css';
 
 import PoppinsBlack from './fonts/Poppins-Black.ttf';
 import PoppinsBold from './fonts/Poppins-Bold.ttf';
@@ -11,7 +12,7 @@ import PoppinsSemiBold from './fonts/Poppins-SemiBold.ttf';
 import PoppinsThin from './fonts/Poppins-Thin.ttf';
 
 const GlobalStyles = createGlobalStyle`
- 
+  ${normalize}
   /* Font Face */
   @font-face {
     font-family: 'Poppins';

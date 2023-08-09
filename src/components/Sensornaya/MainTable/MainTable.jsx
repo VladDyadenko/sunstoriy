@@ -1,95 +1,46 @@
-import { OneDayLessons, timeLesson } from 'assets/constants/mainConstans';
+import { OneDayLessons, daysOfWeekUkr } from 'assets/constants/mainConstans';
 import {
-  TimeContainer,
-  TableItem,
-  TimeItem,
-  MainWrapper,
   LessonsWrapper,
-  AllTimesContainer,
-  AllTimesItem,
-  CardInfo,
-  OneTimeContainer,
-  OneTimeItem,
+  LessonsContainer,
+  LessonsItem,
+  DayDeafult,
+  DayDeafultInfo,
 } from './MainTable.styled';
 
 function MainTable() {
+  const uniqueDates = [...new Set(OneDayLessons.map(val => val.date))];
+
+  const groupedLessons = uniqueDates.map(date =>
+    OneDayLessons.filter(lesson => lesson.date === date)
+  );
+
   return (
-    <MainWrapper>
-      <TimeContainer>
-        {OneDayLessons.map(val => {
+    <>
+      <LessonsWrapper>
+        {groupedLessons.map((unikDate, index) => {
+          const parts = uniqueDates[index].split('.');
+          const currentDate = new Date(parts[2], parts[1] - 1, parts[0]);
+          const dayOfWeekUkr = daysOfWeekUkr[currentDate.getDay()];
           return (
-            <TableItem key={val.id}>
-              <TimeItem>{val.time}</TimeItem>
-            </TableItem>
+            <LessonsContainer key={index}>
+              <DayDeafult>
+                <DayDeafultInfo>{uniqueDates[index]}</DayDeafultInfo>
+                <DayDeafultInfo>{dayOfWeekUkr}</DayDeafultInfo>
+              </DayDeafult>
+              {unikDate.map(val => {
+                const { child, teacherId, id } = val;
+
+                return (
+                  <LessonsItem currentcolor={teacherId} key={id}>
+                    <p>{child}</p>
+                  </LessonsItem>
+                );
+              })}
+            </LessonsContainer>
           );
         })}
-      </TimeContainer>
-      <LessonsWrapper>
-        <AllTimesContainer>
-          <AllTimesItem>
-            <OneTimeContainer>
-              <OneTimeItem>
-                <CardInfo>Card</CardInfo>
-              </OneTimeItem>
-              <OneTimeItem>
-                <CardInfo>Card</CardInfo>
-              </OneTimeItem>
-              <OneTimeItem>
-                <CardInfo>Card</CardInfo>
-              </OneTimeItem>
-              <OneTimeItem>
-                <CardInfo>Card</CardInfo>
-              </OneTimeItem>
-              <OneTimeItem>
-                <CardInfo>Card</CardInfo>
-              </OneTimeItem>
-              <OneTimeItem>
-                <CardInfo>Card</CardInfo>
-              </OneTimeItem>
-              <OneTimeItem>
-                <CardInfo>Card</CardInfo>
-              </OneTimeItem>
-            </OneTimeContainer>
-          </AllTimesItem>
-          <li>
-            <p>Card</p>
-          </li>
-          <li>
-            <p>Card</p>
-          </li>
-          <li>
-            <p>Card</p>
-          </li>
-          <li>
-            <p>Card</p>
-          </li>
-          <li>
-            <p>Card</p>
-          </li>
-          <li>
-            <p>Card</p>
-          </li>
-          <li>
-            <p>Card</p>
-          </li>
-          <li>
-            <p>Card</p>
-          </li>
-          <li>
-            <p>Card</p>
-          </li>
-          <li>
-            <p>Card</p>
-          </li>
-          <li>
-            <p>Card</p>
-          </li>
-          <li>
-            <p>Card</p>
-          </li>
-        </AllTimesContainer>
       </LessonsWrapper>
-    </MainWrapper>
+    </>
   );
 }
 
