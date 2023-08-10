@@ -1,8 +1,7 @@
 {
   "files": {
     "main.css": "/sunstoriy/static/css/main.4e0187a5.css",
-    "main.js": "/sunstoriy/static/js/main.8daa9b26.js",
-    "static/js/787.900340bd.chunk.js": "/sunstoriy/static/js/787.900340bd.chunk.js",
+    "main.js": "/sunstoriy/static/js/main.f568d094.js",
     "static/media/RobotoSlab-Black.ttf": "/sunstoriy/static/media/RobotoSlab-Black.e42c176e3c87124b6be2.ttf",
     "static/media/RobotoSlab-ExtraBold.ttf": "/sunstoriy/static/media/RobotoSlab-ExtraBold.8ce75f350dc914f40148.ttf",
     "static/media/RobotoSlab-SemiBold.ttf": "/sunstoriy/static/media/RobotoSlab-SemiBold.119b7a42ae7091270b61.ttf",
@@ -16,11 +15,10 @@
     "static/media/OlgaAvatar.jpg": "/sunstoriy/static/media/OlgaAvatar.21183aa09187ba2c1bff.jpg",
     "index.html": "/sunstoriy/index.html",
     "main.4e0187a5.css.map": "/sunstoriy/static/css/main.4e0187a5.css.map",
-    "main.8daa9b26.js.map": "/sunstoriy/static/js/main.8daa9b26.js.map",
-    "787.900340bd.chunk.js.map": "/sunstoriy/static/js/787.900340bd.chunk.js.map"
+    "main.f568d094.js.map": "/sunstoriy/static/js/main.f568d094.js.map"
   },
   "entrypoints": [
     "static/css/main.4e0187a5.css",
-    "static/js/main.8daa9b26.js"
+    "static/js/main.f568d094.js"
   ]
 }
