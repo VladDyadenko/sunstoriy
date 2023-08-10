@@ -71,7 +71,7 @@ export const LessonsItem = styled.li`
       case '2':
         return `
     background-color: var(--teacher-color-2);
-   
+     color:var(--header-main-color);   
   `;
 
       case '3':
@@ -83,13 +83,12 @@ export const LessonsItem = styled.li`
       case '4':
         return `
     background-color: var(--teacher-color-4);
-         
+     color:var(--header-main-color);         
   `;
 
       default:
         return `
-    background-color: var(--header-main-color);;
-    
+    background-color: var(--header-main-color);
   `;
     }
   }}

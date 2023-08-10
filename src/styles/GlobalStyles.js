@@ -11,20 +11,9 @@ import RobotoSlabRegular from './fonts Slab/RobotoSlab-Regular.ttf';
 import RobotoSlabSemiBold from './fonts Slab/RobotoSlab-SemiBold.ttf';
 import RobotoSlabThin from './fonts Slab/RobotoSlab-Thin.ttf';
 
-// import PoppinsBlack from './fonts/Poppins-Black.ttf';
-// import PoppinsBold from './fonts/Poppins-Bold.ttf';
-// import PoppinsExtraBold from './fonts/Poppins-ExtraBold.ttf';
-// import PoppinsExtraLight from './fonts/Poppins-ExtraLight.ttf';
-// import PoppinsLight from './fonts/Poppins-Light.ttf';
-// import PoppinsMedium from './fonts/Poppins-Medium.ttf';
-// import PoppinsRegular from './fonts/Poppins-Regular.ttf';
-// import PoppinsSemiBold from './fonts/Poppins-SemiBold.ttf';
-// import PoppinsThin from './fonts/Poppins-Thin.ttf';
-
 const GlobalStyles = createGlobalStyle`
   ${normalize}
-  /* Font Face */
-
+ 
   @font-face {
     font-family:'RobotoSlab ';
     font-weight: 900;
@@ -183,10 +172,10 @@ body,
     --main-blue:#c8ebf1;
     --header-main-color:#f0f0f0;
 
-    --teacher-color-1:#86A633;
-    --teacher-color-2:#00FFFF;
-    --teacher-color-3:#FF00FF;
-    --teacher-color-4:#00FF00;
+    --teacher-color-1:#6A5ACD;
+    --teacher-color-2:#FF6347;
+    --teacher-color-3:#20B2AA;
+    --teacher-color-4:#2F4F4F;
   }
 
 

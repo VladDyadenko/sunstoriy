@@ -134,7 +134,7 @@ export const OneDayLessons = [
     day: 'Вівторок',
     time: '8:00 - 9:00',
     teacherId: '2',
-    id: '0',
+    id: '13',
     child: 'Міша',
   },
   {
@@ -142,7 +142,7 @@ export const OneDayLessons = [
     day: 'Вівторок',
     time: '9:00 - 10:00',
     teacherId: '2',
-    id: '1',
+    id: '14',
     child: 'Міша',
   },
   {
@@ -150,7 +150,7 @@ export const OneDayLessons = [
     day: 'Вівторок',
     time: '10:00 - 11:00',
     teacherId: '2',
-    id: '2',
+    id: '15',
     child: 'Міша',
   },
   {
@@ -158,7 +158,7 @@ export const OneDayLessons = [
     day: 'Вівторок',
     time: '11:00 - 12:00',
     teacherId: '2',
-    id: '3',
+    id: '16',
     child: 'Міша',
   },
   {
@@ -166,7 +166,7 @@ export const OneDayLessons = [
     day: 'Вівторок',
     time: '12:00 - 13:00',
     teacherId: '2',
-    id: '4',
+    id: '17',
     child: 'Міша',
   },
   {
@@ -174,7 +174,7 @@ export const OneDayLessons = [
     day: 'Вівторок',
     time: '13:00 - 14:00',
     teacherId: '4',
-    id: '5',
+    id: '18',
     child: 'Міша',
   },
   {
@@ -182,7 +182,7 @@ export const OneDayLessons = [
     day: 'Вівторок',
     time: '14:00 - 15:00',
     teacherId: '4',
-    id: '6',
+    id: '19',
     child: 'Міша',
   },
   {
@@ -190,7 +190,7 @@ export const OneDayLessons = [
     day: 'Вівторок',
     time: '15:00 - 16:00',
     teacherId: '4',
-    id: '7',
+    id: '20',
     child: 'Міша',
   },
   {
@@ -198,7 +198,7 @@ export const OneDayLessons = [
     day: 'Вівторок',
     time: '16:00 - 17:00',
     teacherId: '4',
-    id: '8',
+    id: '21',
     child: 'Міша',
   },
   {
@@ -206,7 +206,7 @@ export const OneDayLessons = [
     day: 'Вівторок',
     time: '17:00 - 18:00',
     teacherId: '3',
-    id: '9',
+    id: '22',
     child: 'Міша',
   },
   {
@@ -214,7 +214,7 @@ export const OneDayLessons = [
     day: 'Вівторок',
     time: '18:00 - 19:00',
     teacherId: '3',
-    id: '10',
+    id: '23',
     child: 'Міша',
   },
   {
@@ -222,7 +222,7 @@ export const OneDayLessons = [
     day: 'Вівторок',
     time: '19:00 - 20:00',
     teacherId: '1',
-    id: '11',
+    id: '24',
     child: 'Міша',
   },
   {
@@ -230,7 +230,7 @@ export const OneDayLessons = [
     day: 'Вівторок',
     time: '20:00 - 21:00',
     teacherId: '1',
-    id: '12',
+    id: '25',
     child: 'Міша',
   },
   {
@@ -238,7 +238,7 @@ export const OneDayLessons = [
     day: 'Вівторок',
     time: '8:00 - 9:00',
     teacherId: '2',
-    id: '0',
+    id: '26',
     child: 'Міша',
   },
   {
@@ -246,7 +246,7 @@ export const OneDayLessons = [
     day: 'Вівторок',
     time: '9:00 - 10:00',
     teacherId: '2',
-    id: '1',
+    id: '27',
     child: 'Міша',
   },
   {
@@ -254,7 +254,7 @@ export const OneDayLessons = [
     day: 'Вівторок',
     time: '10:00 - 11:00',
     teacherId: '2',
-    id: '2',
+    id: '28',
     child: 'Міша',
   },
   {
@@ -262,7 +262,7 @@ export const OneDayLessons = [
     day: 'Вівторок',
     time: '11:00 - 12:00',
     teacherId: '2',
-    id: '3',
+    id: '29',
     child: 'Міша',
   },
   {
@@ -270,7 +270,7 @@ export const OneDayLessons = [
     day: 'Вівторок',
     time: '12:00 - 13:00',
     teacherId: '2',
-    id: '4',
+    id: '30',
     child: 'Міша',
   },
   {
@@ -278,7 +278,7 @@ export const OneDayLessons = [
     day: 'Вівторок',
     time: '13:00 - 14:00',
     teacherId: '4',
-    id: '5',
+    id: '31',
     child: 'Міша',
   },
   {
@@ -286,7 +286,7 @@ export const OneDayLessons = [
     day: 'Вівторок',
     time: '14:00 - 15:00',
     teacherId: '4',
-    id: '6',
+    id: '32',
     child: 'Міша',
   },
   {
@@ -294,7 +294,7 @@ export const OneDayLessons = [
     day: 'Вівторок',
     time: '15:00 - 16:00',
     teacherId: '4',
-    id: '7',
+    id: '33',
     child: 'Міша',
   },
   {
@@ -302,7 +302,7 @@ export const OneDayLessons = [
     day: 'Вівторок',
     time: '16:00 - 17:00',
     teacherId: '4',
-    id: '8',
+    id: '34',
     child: 'Міша',
   },
   {
@@ -310,7 +310,7 @@ export const OneDayLessons = [
     day: 'Вівторок',
     time: '17:00 - 18:00',
     teacherId: '3',
-    id: '9',
+    id: '35',
     child: 'Міша',
   },
   {
@@ -318,7 +318,7 @@ export const OneDayLessons = [
     day: 'Вівторок',
     time: '18:00 - 19:00',
     teacherId: '3',
-    id: '10',
+    id: '36',
     child: 'Міша',
   },
   {
@@ -326,7 +326,7 @@ export const OneDayLessons = [
     day: 'Вівторок',
     time: '19:00 - 20:00',
     teacherId: '1',
-    id: '11',
+    id: '37',
     child: 'Міша',
   },
   {
@@ -334,7 +334,7 @@ export const OneDayLessons = [
     day: 'Вівторок',
     time: '20:00 - 21:00',
     teacherId: '1',
-    id: '12',
+    id: '38',
     child: 'Міша',
   },
 ];

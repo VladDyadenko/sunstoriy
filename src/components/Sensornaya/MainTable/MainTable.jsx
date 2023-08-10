@@ -6,16 +6,30 @@ import {
   DayDeafult,
   DayDeafultInfo,
 } from './MainTable.styled';
+import { useState } from 'react';
+import Modal from 'components/Modal/Modal';
 
 function MainTable() {
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [currentLesson, setCurrentLesson] = useState(null);
+
+  console.log(currentLesson);
   const uniqueDates = [...new Set(OneDayLessons.map(val => val.date))];
 
   const groupedLessons = uniqueDates.map(date =>
     OneDayLessons.filter(lesson => lesson.date === date)
   );
 
+  function handleModalLessonCard(id) {
+    setCurrentLesson(id);
+    setIsOpenModal(true);
+  }
+
   return (
     <>
+      {isOpenModal && (
+        <Modal onClose={isOpenModal} setIsOpenModal={setIsOpenModal} />
+      )}
       <LessonsWrapper>
         {groupedLessons.map((unikDate, index) => {
           const parts = uniqueDates[index].split('.');
@@ -31,7 +45,11 @@ function MainTable() {
                 const { child, teacherId, id } = val;
 
                 return (
-                  <LessonsItem currentcolor={teacherId} key={id}>
+                  <LessonsItem
+                    onClick={() => handleModalLessonCard(id)}
+                    currentcolor={teacherId}
+                    key={id}
+                  >
                     <p>{child}</p>
                   </LessonsItem>
                 );
