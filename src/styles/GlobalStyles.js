@@ -1,83 +1,96 @@
 import { createGlobalStyle } from 'styled-components';
 import normalize from 'normalize.css';
 
-import PoppinsBlack from './fonts/Poppins-Black.ttf';
-import PoppinsBold from './fonts/Poppins-Bold.ttf';
-import PoppinsExtraBold from './fonts/Poppins-ExtraBold.ttf';
-import PoppinsExtraLight from './fonts/Poppins-ExtraLight.ttf';
-import PoppinsLight from './fonts/Poppins-Light.ttf';
-import PoppinsMedium from './fonts/Poppins-Medium.ttf';
-import PoppinsRegular from './fonts/Poppins-Regular.ttf';
-import PoppinsSemiBold from './fonts/Poppins-SemiBold.ttf';
-import PoppinsThin from './fonts/Poppins-Thin.ttf';
+import RobotoSlabBlack from './fonts Slab/RobotoSlab-Black.ttf';
+import RobotoSlabBold from './fonts Slab/RobotoSlab-Bold.ttf';
+import RobotoSlabExtraBold from './fonts Slab/RobotoSlab-ExtraBold.ttf';
+import RobotoSlabExtraLight from './fonts Slab/RobotoSlab-ExtraLight.ttf';
+import RobotoSlabLight from './fonts Slab/RobotoSlab-Light.ttf';
+import RobotoSlabMedium from './fonts Slab/RobotoSlab-Medium.ttf';
+import RobotoSlabRegular from './fonts Slab/RobotoSlab-Regular.ttf';
+import RobotoSlabSemiBold from './fonts Slab/RobotoSlab-SemiBold.ttf';
+import RobotoSlabThin from './fonts Slab/RobotoSlab-Thin.ttf';
+
+// import PoppinsBlack from './fonts/Poppins-Black.ttf';
+// import PoppinsBold from './fonts/Poppins-Bold.ttf';
+// import PoppinsExtraBold from './fonts/Poppins-ExtraBold.ttf';
+// import PoppinsExtraLight from './fonts/Poppins-ExtraLight.ttf';
+// import PoppinsLight from './fonts/Poppins-Light.ttf';
+// import PoppinsMedium from './fonts/Poppins-Medium.ttf';
+// import PoppinsRegular from './fonts/Poppins-Regular.ttf';
+// import PoppinsSemiBold from './fonts/Poppins-SemiBold.ttf';
+// import PoppinsThin from './fonts/Poppins-Thin.ttf';
 
 const GlobalStyles = createGlobalStyle`
   ${normalize}
   /* Font Face */
+
   @font-face {
-    font-family: 'Poppins';
+    font-family:'RobotoSlab ';
     font-weight: 900;
     font-style: normal;
-    src: url(${PoppinsBlack}) format('truetype');
+    src: url(${RobotoSlabBlack}) format('truetype');
   }
 
   @font-face {
-    font-family: 'Poppins';
+    font-family: 'RobotoSlab';
     font-weight: 700;
     font-style: normal;
-    src: url(${PoppinsBold}) format('truetype');
+    src: url(${RobotoSlabBold}) format('truetype');
   }
 
   @font-face {
-    font-family: 'Poppins';
+    font-family: 'RobotoSlab';
     font-weight: 800;
     font-style: normal;
-    src: url(${PoppinsExtraBold}) format('truetype');
+    src: url(${RobotoSlabExtraBold}) format('truetype');
   }
 
   @font-face {
-    font-family: 'Poppins';
+    font-family: 'RobotoSlab';
     font-weight: 200;
     font-style: normal;
-    src: url(${PoppinsExtraLight}) format('truetype');
+    src: url(${RobotoSlabExtraLight}) format('truetype');
   }
 
   @font-face {
-    font-family: 'Poppins';
+    font-family: 'RobotoSlab';
     font-weight: 300;
     font-style: normal;
-    src: url(${PoppinsLight}) format('truetype');
+    src: url(${RobotoSlabLight}) format('truetype');
   }
 
   @font-face {
-    font-family: 'Poppins';
+    font-family: 'RobotoSlab';
     font-weight: 500;
     font-style: normal;
-    src: url(${PoppinsMedium}) format('truetype');
+    src: url(${RobotoSlabMedium}) format('truetype');
   }
 
   @font-face {
-    font-family: 'Poppins';
+    font-family: 'RobotoSlab';
     font-weight: 400;
     font-style: normal;
-    src: url(${PoppinsRegular}) format('truetype');
+    src: url(${RobotoSlabRegular}) format('truetype');
   }
 
   @font-face {
-    font-family: 'Poppins';
+    font-family: 'RobotoSlab';
     font-weight: 600;
     font-style: normal;
-    src: url(${PoppinsSemiBold}) format('truetype');
+    src: url(${RobotoSlabSemiBold}) format('truetype');
   }
 
   @font-face {
-    font-family: 'Poppins';
+    font-family: 'RobotoSlab';
     font-weight: 100;
     font-style: normal;
-    src: url(${PoppinsThin}) format('truetype');
+    src: url(${RobotoSlabThin}) format('truetype');
   }
+
+
  body {
-    font-family: 'Poppins', sans-serif;
+   font-family: 'Roboto Slab', serif;
    
   }
 
@@ -169,6 +182,11 @@ body,
     --main-yellow:#fddc10;
     --main-blue:#c8ebf1;
     --header-main-color:#f0f0f0;
+
+    --teacher-color-1:#86A633;
+    --teacher-color-2:#00FFFF;
+    --teacher-color-3:#FF00FF;
+    --teacher-color-4:#00FF00;
   }
 
 

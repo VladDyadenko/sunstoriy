@@ -6,7 +6,7 @@ export const HeaderContainer = styled.header`
   margin: 0 auto;
   background-image: linear-gradient(
     to bottom,
-    hsl(198, 86%, 90%),
+    hsl(198, 86%, 70%),
     hsl(120, 43%, 57%),
     hsl(100, 49%, 38%)
   );
@@ -26,6 +26,8 @@ export const HeaderSection = styled.section`
   }
 `;
 export const HeaderLink = styled(Link)`
+  font-family: 'RobotoSlab';
+  font-weight: 500;
   font-size: 24px;
   line-height: 18px;
   font-weight: 500;

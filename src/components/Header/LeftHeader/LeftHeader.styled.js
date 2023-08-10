@@ -20,6 +20,8 @@ export const LeftHeaderContainer = styled.div`
   padding: 5px;
 `;
 export const LeftHeaderLink = styled(Link)`
+  font-family: 'RobotoSlab';
+  font-weight: 500;
   display: flex;
   align-items: center;
   justify-content: center;

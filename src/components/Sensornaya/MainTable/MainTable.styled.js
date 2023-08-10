@@ -4,7 +4,7 @@ export const MainWrapper = styled.div`
   width: 100%;
   padding: 5px 5px;
   border-radius: 8px;
-  border: 2px solid var(--main-yellow);
+  /* border: 2px solid var(--main-yellow); */
   display: flex;
   align-items: center;
   justify-content: start;
@@ -22,19 +22,27 @@ export const DayDeafult = styled.div`
   padding: 10px 5px;
   text-align: center;
   border-radius: 8px;
-  border: 2px solid var(--main-green);
+  /* border: 2px solid transparent; */
   margin-bottom: 10px;
+  background-color: var(--main-green);
+  :not(:last-child) {
+    margin-bottom: 5px;
+  }
 `;
 export const DayDeafultInfo = styled.p`
-  font-family: 'Poppins', sans-serif;
+  font-family: 'RobotoSlab';
   font-weight: 500;
   text-align: center;
+  color: var(--header-main-color);
 `;
 
 export const LessonsContainer = styled.ul`
   padding: 0 5px;
 `;
 export const LessonsItem = styled.li`
+  font-family: 'RobotoSlab';
+  font-weight: 400;
+  cursor: pointer;
   height: 70px;
   width: 200px;
   padding: 5px;
@@ -42,8 +50,13 @@ export const LessonsItem = styled.li`
   align-items: center;
   justify-content: space-between;
   border-radius: 8px;
-  border: 2px solid var(--main-green);
+  /* border: 2px solid var(--main-green); */
   margin-bottom: 10px;
+  transition: cubic-bezier(0.4, 0, 0.2, 1) 250ms;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 
   ${props => {
     const { currentcolor } = props;
@@ -51,41 +64,38 @@ export const LessonsItem = styled.li`
     switch (currentcolor) {
       case '1':
         return `
-    background-color: #86A633;
-    border: 2px solid #86A633;
-    color:#fff
+    background-color: var(--teacher-color-1);
+    color:var(--header-main-color);
   `;
 
       case '2':
         return `
-    background-color: #00FFFF;
-    border: 2px solid #00FFFF;
+    background-color: var(--teacher-color-2);
+   
   `;
 
       case '3':
         return `
-    background-color: #FF00FF;
-     border: 2px solid #FF00FF;
-      color:#fff
-  `;
+    background-color: var(--teacher-color-3);
+    color:var(--header-main-color);
+    `;
 
       case '4':
         return `
-    background-color: #00FF00;
-     border: 2px solid #00FF00;
-     
+    background-color: var(--teacher-color-4);
+         
   `;
 
       default:
         return `
-    background-color: #FFF;
-    border: 2px solid #FFF;
+    background-color: var(--header-main-color);;
+    
   `;
     }
   }}
 `;
 export const CardInfo = styled.p`
-  font-family: 'Poppins', sans-serif;
+  font-family: 'RobotoSlab';
   font-weight: 500;
   font-size: 14px;
   padding: 5px;
@@ -99,7 +109,7 @@ export const OneTimeContainer = styled.ul`
 `;
 export const OneTimeItem = styled.li`
   height: 70px;
-  border: 2px solid var(--main-green);
+  /* border: 2px solid var(--main-green); */
   border-radius: 8px;
   display: flex;
   align-items: center;
