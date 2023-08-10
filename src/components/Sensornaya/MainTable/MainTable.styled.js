@@ -59,9 +59,9 @@ export const LessonsItem = styled.li`
   }
 
   ${props => {
-    const { currentcolor } = props;
+    const { 'aria-current': ariaCurrent } = props;
 
-    switch (currentcolor) {
+    switch (ariaCurrent) {
       case '1':
         return `
     background-color: var(--teacher-color-1);

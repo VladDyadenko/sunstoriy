@@ -47,7 +47,7 @@ function MainTable() {
                 return (
                   <LessonsItem
                     onClick={() => handleModalLessonCard(id)}
-                    currentcolor={teacherId}
+                    aria-current={teacherId}
                     key={id}
                   >
                     <p>{child}</p>
