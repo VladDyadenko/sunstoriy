@@ -24,10 +24,9 @@ export const daysOfWeekUkr = [
   'Субота',
 ];
 
-export const OneDayLessons = [
+export const Lessons_List = [
   {
     date: '08.08.2023',
-    day: 'Вівторок',
     time: '8:00 - 9:00',
     teacherId: '1',
     id: '0',
@@ -35,7 +34,6 @@ export const OneDayLessons = [
   },
   {
     date: '08.08.2023',
-    day: 'Вівторок',
     time: '9:00 - 10:00',
     teacherId: '1',
     id: '1',
@@ -43,7 +41,6 @@ export const OneDayLessons = [
   },
   {
     date: '08.08.2023',
-    day: 'Вівторок',
     time: '10:00 - 11:00',
     teacherId: '1',
     id: '2',
@@ -51,7 +48,6 @@ export const OneDayLessons = [
   },
   {
     date: '08.08.2023',
-    day: 'Вівторок',
     time: '11:00 - 12:00',
     teacherId: '2',
     id: '3',
@@ -59,7 +55,6 @@ export const OneDayLessons = [
   },
   {
     date: '08.08.2023',
-    day: 'Вівторок',
     time: '12:00 - 13:00',
     teacherId: '2',
     id: '4',
@@ -67,7 +62,6 @@ export const OneDayLessons = [
   },
   {
     date: '08.08.2023',
-    day: 'Вівторок',
     time: '13:00 - 14:00',
     teacherId: '2',
     id: '5',
@@ -75,7 +69,6 @@ export const OneDayLessons = [
   },
   {
     date: '08.08.2023',
-    day: 'Вівторок',
     time: '14:00 - 15:00',
     teacherId: '4',
     id: '6',
@@ -83,7 +76,6 @@ export const OneDayLessons = [
   },
   {
     date: '08.08.2023',
-    day: 'Вівторок',
     time: '15:00 - 16:00',
     teacherId: '2',
     id: '7',
@@ -91,7 +83,6 @@ export const OneDayLessons = [
   },
   {
     date: '08.08.2023',
-    day: 'Вівторок',
     time: '16:00 - 17:00',
     teacherId: '3',
     id: '8',
@@ -99,7 +90,6 @@ export const OneDayLessons = [
   },
   {
     date: '08.08.2023',
-    day: 'Вівторок',
     time: '17:00 - 18:00',
     teacherId: '3',
     id: '9',
@@ -107,7 +97,6 @@ export const OneDayLessons = [
   },
   {
     date: '08.08.2023',
-    day: 'Вівторок',
     time: '18:00 - 19:00',
     teacherId: '3',
     id: '10',
@@ -115,7 +104,6 @@ export const OneDayLessons = [
   },
   {
     date: '08.08.2023',
-    day: 'Вівторок',
     time: '19:00 - 20:00',
     teacherId: '3',
     id: '11',
@@ -123,23 +111,14 @@ export const OneDayLessons = [
   },
   {
     date: '08.08.2023',
-    day: 'Вівторок',
     time: '20:00 - 21:00',
     teacherId: '3',
     id: '12',
     child: 'Міша',
   },
+
   {
     date: '09.08.2023',
-    day: 'Вівторок',
-    time: '8:00 - 9:00',
-    teacherId: '2',
-    id: '13',
-    child: 'Міша',
-  },
-  {
-    date: '09.08.2023',
-    day: 'Вівторок',
     time: '9:00 - 10:00',
     teacherId: '2',
     id: '14',
@@ -147,7 +126,6 @@ export const OneDayLessons = [
   },
   {
     date: '09.08.2023',
-    day: 'Вівторок',
     time: '10:00 - 11:00',
     teacherId: '2',
     id: '15',
@@ -155,7 +133,6 @@ export const OneDayLessons = [
   },
   {
     date: '09.08.2023',
-    day: 'Вівторок',
     time: '11:00 - 12:00',
     teacherId: '2',
     id: '16',
@@ -163,7 +140,6 @@ export const OneDayLessons = [
   },
   {
     date: '09.08.2023',
-    day: 'Вівторок',
     time: '12:00 - 13:00',
     teacherId: '2',
     id: '17',
@@ -171,7 +147,6 @@ export const OneDayLessons = [
   },
   {
     date: '09.08.2023',
-    day: 'Вівторок',
     time: '13:00 - 14:00',
     teacherId: '4',
     id: '18',
@@ -179,7 +154,6 @@ export const OneDayLessons = [
   },
   {
     date: '09.08.2023',
-    day: 'Вівторок',
     time: '14:00 - 15:00',
     teacherId: '4',
     id: '19',
@@ -187,7 +161,6 @@ export const OneDayLessons = [
   },
   {
     date: '09.08.2023',
-    day: 'Вівторок',
     time: '15:00 - 16:00',
     teacherId: '4',
     id: '20',
@@ -195,7 +168,6 @@ export const OneDayLessons = [
   },
   {
     date: '09.08.2023',
-    day: 'Вівторок',
     time: '16:00 - 17:00',
     teacherId: '4',
     id: '21',
@@ -203,7 +175,6 @@ export const OneDayLessons = [
   },
   {
     date: '09.08.2023',
-    day: 'Вівторок',
     time: '17:00 - 18:00',
     teacherId: '3',
     id: '22',
@@ -211,7 +182,6 @@ export const OneDayLessons = [
   },
   {
     date: '09.08.2023',
-    day: 'Вівторок',
     time: '18:00 - 19:00',
     teacherId: '3',
     id: '23',
@@ -219,7 +189,6 @@ export const OneDayLessons = [
   },
   {
     date: '09.08.2023',
-    day: 'Вівторок',
     time: '19:00 - 20:00',
     teacherId: '1',
     id: '24',
@@ -227,7 +196,6 @@ export const OneDayLessons = [
   },
   {
     date: '09.08.2023',
-    day: 'Вівторок',
     time: '20:00 - 21:00',
     teacherId: '1',
     id: '25',
@@ -235,7 +203,6 @@ export const OneDayLessons = [
   },
   {
     date: '10.08.2023',
-    day: 'Вівторок',
     time: '8:00 - 9:00',
     teacherId: '2',
     id: '26',
@@ -243,7 +210,6 @@ export const OneDayLessons = [
   },
   {
     date: '10.08.2023',
-    day: 'Вівторок',
     time: '9:00 - 10:00',
     teacherId: '2',
     id: '27',
@@ -251,7 +217,6 @@ export const OneDayLessons = [
   },
   {
     date: '10.08.2023',
-    day: 'Вівторок',
     time: '10:00 - 11:00',
     teacherId: '2',
     id: '28',
@@ -259,23 +224,14 @@ export const OneDayLessons = [
   },
   {
     date: '10.08.2023',
-    day: 'Вівторок',
     time: '11:00 - 12:00',
     teacherId: '2',
     id: '29',
     child: 'Міша',
   },
+
   {
     date: '10.08.2023',
-    day: 'Вівторок',
-    time: '12:00 - 13:00',
-    teacherId: '2',
-    id: '30',
-    child: 'Міша',
-  },
-  {
-    date: '10.08.2023',
-    day: 'Вівторок',
     time: '13:00 - 14:00',
     teacherId: '4',
     id: '31',
@@ -283,7 +239,6 @@ export const OneDayLessons = [
   },
   {
     date: '10.08.2023',
-    day: 'Вівторок',
     time: '14:00 - 15:00',
     teacherId: '4',
     id: '32',
@@ -291,7 +246,6 @@ export const OneDayLessons = [
   },
   {
     date: '10.08.2023',
-    day: 'Вівторок',
     time: '15:00 - 16:00',
     teacherId: '4',
     id: '33',
@@ -299,7 +253,6 @@ export const OneDayLessons = [
   },
   {
     date: '10.08.2023',
-    day: 'Вівторок',
     time: '16:00 - 17:00',
     teacherId: '4',
     id: '34',
@@ -307,7 +260,6 @@ export const OneDayLessons = [
   },
   {
     date: '10.08.2023',
-    day: 'Вівторок',
     time: '17:00 - 18:00',
     teacherId: '3',
     id: '35',
@@ -315,7 +267,13 @@ export const OneDayLessons = [
   },
   {
     date: '10.08.2023',
-    day: 'Вівторок',
+    time: '17:30 - 18:30',
+    teacherId: '3',
+    id: '35',
+    child: 'Міша',
+  },
+  {
+    date: '10.08.2023',
     time: '18:00 - 19:00',
     teacherId: '3',
     id: '36',
@@ -323,7 +281,6 @@ export const OneDayLessons = [
   },
   {
     date: '10.08.2023',
-    day: 'Вівторок',
     time: '19:00 - 20:00',
     teacherId: '1',
     id: '37',
@@ -331,7 +288,13 @@ export const OneDayLessons = [
   },
   {
     date: '10.08.2023',
-    day: 'Вівторок',
+    time: '20:00 - 21:00',
+    teacherId: '1',
+    id: '38',
+    child: 'Міша',
+  },
+  {
+    date: '11.08.2023',
     time: '20:00 - 21:00',
     teacherId: '1',
     id: '38',

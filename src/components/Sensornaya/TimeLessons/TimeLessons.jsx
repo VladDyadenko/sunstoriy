@@ -1,4 +1,3 @@
-import { timeLesson } from 'assets/constants/mainConstans';
 import {
   TableItem,
   TableItemDefault,
@@ -6,15 +5,15 @@ import {
   TimeItem,
 } from './TimeLessons.stayled';
 
-function TimeLessons() {
+function TimeLessons({ timeLessonOnList }) {
   return (
     <>
       <TimeContainer>
         <TableItemDefault></TableItemDefault>
-        {timeLesson.map(val => {
+        {timeLessonOnList.map(val => {
           return (
-            <TableItem key={val.id}>
-              <TimeItem>{val.time}</TimeItem>
+            <TableItem key={val}>
+              <TimeItem>{val}</TimeItem>
             </TableItem>
           );
         })}

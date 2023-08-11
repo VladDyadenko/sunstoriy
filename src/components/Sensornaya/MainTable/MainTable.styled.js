@@ -6,27 +6,39 @@ export const MainWrapper = styled.div`
   border-radius: 8px;
   /* border: 2px solid var(--main-yellow); */
   display: flex;
+  align-items: start;
+  justify-content: start;
+`;
+export const DayWrapper = styled.div`
+  width: 100%;
+  /* padding: 5px 5px; */
+  display: flex;
   align-items: center;
   justify-content: start;
 `;
 export const LessonsWrapper = styled.div`
-  display: flex;
-  align-items: center;
-
-  padding: 0 5px;
   flex: 1;
 `;
 export const DayDeafult = styled.div`
+  font-family: 'RobotoSlab';
+  font-weight: 400;
+  cursor: pointer;
+  border-radius: 8px;
   height: 70px;
-  width: 200px;
-  padding: 10px 5px;
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 5px;
+  background-color: var(--main-green);
+`;
+export const DayContainer = styled.div`
+  width: 100%;
+
   text-align: center;
   border-radius: 8px;
-  /* border: 2px solid transparent; */
   margin-bottom: 10px;
-  background-color: var(--main-green);
+  margin-right: 10px;
   :not(:last-child) {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
   }
 `;
 export const DayDeafultInfo = styled.p`
@@ -36,15 +48,13 @@ export const DayDeafultInfo = styled.p`
   color: var(--header-main-color);
 `;
 
-export const LessonsContainer = styled.ul`
-  padding: 0 5px;
-`;
+export const LessonsContainer = styled.ul``;
 export const LessonsItem = styled.li`
   font-family: 'RobotoSlab';
   font-weight: 400;
   cursor: pointer;
   height: 70px;
-  width: 200px;
+  width: 100%;
   padding: 5px;
   display: flex;
   align-items: center;
