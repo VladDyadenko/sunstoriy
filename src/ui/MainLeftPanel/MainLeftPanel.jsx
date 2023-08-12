@@ -1,12 +1,12 @@
-import MainDayPicker from 'components/MainDayPicker/MainDayPicker';
+import MainDayPicker from 'ui/MainDayPicker/MainDayPicker';
 import { MainLeftContainer } from './MainLeftPanel.styled';
 import TeacherPanel from 'ui/TeachersPanel/TeacherPanel';
 
-function MainLeftPanel() {
+function MainLeftPanel({ teachersData }) {
   return (
     <MainLeftContainer>
       <MainDayPicker />
-      <TeacherPanel />
+      <TeacherPanel teachersData={teachersData} />
     </MainLeftContainer>
   );
 }

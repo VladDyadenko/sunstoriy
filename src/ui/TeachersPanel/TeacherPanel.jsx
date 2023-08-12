@@ -1,4 +1,3 @@
-import { TEACHERS_SENSORNAYA } from 'assets/constants/mainConstans';
 import {
   ColorMarker,
   InfoContainer,
@@ -8,23 +7,21 @@ import {
   WrapperTeacher,
 } from './TeacherPanel.styled';
 
-function TeacherPanel() {
+function TeacherPanel({ teachersData }) {
   return (
     <WrapperTeacher>
       <TeacherTitle>Cпеціалісти:</TeacherTitle>
       <ul>
-        {TEACHERS_SENSORNAYA.map(
-          ({ teacherName, teacherSurname, teacherColor }) => (
-            <li>
-              <InfoContainer>
-                <TeacherInfo>{teacherName}</TeacherInfo>
-                <TeacherInfo>{teacherSurname}</TeacherInfo>
-              </InfoContainer>
-              <ColorMarker aria-current={teacherColor} />
-              <TacherCheck type="checkbox" />
-            </li>
-          )
-        )}
+        {teachersData.map(({ teacherName, teacherSurname, teacherColor }) => (
+          <li>
+            <InfoContainer>
+              <TeacherInfo>{teacherName}</TeacherInfo>
+              <TeacherInfo>{teacherSurname}</TeacherInfo>
+            </InfoContainer>
+            <ColorMarker aria-current={teacherColor} />
+            <TacherCheck type="checkbox" />
+          </li>
+        ))}
       </ul>
     </WrapperTeacher>
   );

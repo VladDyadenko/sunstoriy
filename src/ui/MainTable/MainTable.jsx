@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { nanoid } from 'nanoid';
 
-import { Lessons_List, daysOfWeekUkr } from 'assets/constants/mainConstans';
-import TimeLessons from 'components/TimeLessons/TimeLessons';
+import { daysOfWeekUkr } from 'assets/constants/mainConstans';
+import TimeLessons from 'ui/TimeLessons/TimeLessons';
 import Modal from 'components/Modal/Modal';
 
 import {
@@ -17,12 +17,12 @@ import {
 import FreeTableItem from 'ui/FreeTableItem/FreeTableItem';
 import LessonTableCard from 'ui/LessonTableCard/LessonTableCard';
 
-function MainTable() {
+function MainTable({ lessonsData }) {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [currentLesson, setCurrentLesson] = useState(null);
 
   const timeLessonOnList = [
-    ...new Set(Lessons_List.map(lesson => lesson.time)),
+    ...new Set(lessonsData.map(lesson => lesson.time)),
   ].sort((a, b) => {
     const [startA, endA] = a.split('-').map(time => parseInt(time));
     const [startB, endB] = b.split('-').map(time => parseInt(time));
@@ -35,10 +35,22 @@ function MainTable() {
   });
 
   console.log(currentLesson);
-  const uniqueDates = [...new Set(Lessons_List.map(val => val.date))];
+  const uniqueDates = [...new Set(lessonsData.map(val => val.date))].sort(
+    (a, b) => {
+      const [dayA, monthA, yearA] = a.split('.').map(part => parseInt(part));
+      const [dayB, monthB, yearB] = b.split('.').map(part => parseInt(part));
 
+      if (yearA !== yearB) {
+        return yearA - yearB;
+      }
+      if (monthA !== monthB) {
+        return monthA - monthB;
+      }
+      return dayA - dayB;
+    }
+  );
   const groupedLessons = uniqueDates.map(date =>
-    Lessons_List.filter(lesson => lesson.date === date)
+    lessonsData.filter(lesson => lesson.date === date)
   );
 
   function handleModalLessonCard(id) {
