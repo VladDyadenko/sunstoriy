@@ -27,14 +27,14 @@ export const daysOfWeekUkr = [
 export const Lessons_List = [
   {
     date: '08.08.2023',
-    time: '8:00 - 9:00',
+    time: '08:00 - 08:45',
     teacherId: '1',
     id: '0',
     child: 'Міша',
   },
   {
     date: '08.08.2023',
-    time: '9:00 - 10:00',
+    time: '09:00 - 10:00',
     teacherId: '1',
     id: '1',
     child: 'Міша',
@@ -119,7 +119,7 @@ export const Lessons_List = [
 
   {
     date: '09.08.2023',
-    time: '9:00 - 10:00',
+    time: '09:00 - 10:00',
     teacherId: '2',
     id: '14',
     child: 'Міша',
@@ -203,14 +203,14 @@ export const Lessons_List = [
   },
   {
     date: '10.08.2023',
-    time: '8:00 - 9:00',
+    time: '08:00 - 09:00',
     teacherId: '2',
     id: '26',
     child: 'Міша',
   },
   {
     date: '10.08.2023',
-    time: '9:00 - 10:00',
+    time: '09:00 - 10:00',
     teacherId: '2',
     id: '27',
     child: 'Міша',
@@ -300,31 +300,38 @@ export const Lessons_List = [
     id: '38',
     child: 'Міша',
   },
+  {
+    date: '12.08.2023',
+    time: '08:00 - 09:00',
+    teacherId: '3',
+    id: '38',
+    child: 'Соня',
+  },
 ];
 
-export const teachers = [
+export const TEACHERS_SENSORNAYA = [
   {
     teacherName: 'Olga',
     teacherSurname: 'Dyadenko',
-    teacherColor: '#86A633',
+    teacherColor: '#483D8B',
     teacherId: '1',
   },
   {
     teacherName: 'Olga',
     teacherSurname: 'Famely',
-    teacherColor: '#00FFFF',
+    teacherColor: '#4B0082',
     teacherId: '2',
   },
   {
     teacherName: 'Katy',
     teacherSurname: 'Famely',
-    teacherColor: '#FF00FF',
+    teacherColor: '#FF6347',
     teacherId: '3',
   },
   {
     teacherName: 'Masha',
     teacherSurname: 'Famely',
-    teacherColor: '#00FF00',
+    teacherColor: '#FF00FF',
     teacherId: '4',
   },
 ];

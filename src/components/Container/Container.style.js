@@ -7,11 +7,11 @@ const ContainerMedia = styled.div`
   width: var(--small-screen);
 
   @media (min-width: 768px) {
-    width: 468px;
+    width: 768px;
   }
 
   @media (min-width: 1440px) {
-    width: 1140px;
+    width: 1440px;
   }
 `;
 

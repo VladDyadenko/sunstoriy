@@ -1,50 +1,36 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { FaChildren } from 'react-icons/fa6';
 
-export const LeftHeaderNavWrapper = styled.div`
-  margin-top: 20px;
-  padding: 30px 15px;
+export const FooterNavWrapper = styled.div`
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 10px 15px;
   background-color: var(--main-green);
   border-radius: 8px;
   border: 1px solid var(--main-yellow);
   flex: 1;
 `;
-export const LeftHeaderContainer = styled.div`
-  width: 290px;
-  border: 2px solid var(--main-green);
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
 
-  padding: 5px;
+export const FooterNav = styled.ul`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 10px;
 `;
-export const LeftHeaderLink = styled(Link)`
+export const FooterLink = styled(Link)`
   font-family: 'RobotoSlab';
   font-weight: 500;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 30px;
+  font-size: 24px;
   font-weight: 500;
   letter-spacing: -0.02em;
   text-decoration: none;
   color: var(--header-main-color);
 `;
-export const LeftHeadreNav = styled.ul`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 10px;
-`;
-export const IconChildren = styled(FaChildren)`
-  fill: var(--header-main-color);
-  width: 30px;
-  height: 30px;
-  margin-right: 10px;
-`;
-export const LeftHeaderItem = styled.li`
+export const FooterItem = styled.li`
   padding: 5px;
   min-width: 150px;
   display: flex;
@@ -56,11 +42,8 @@ export const LeftHeaderItem = styled.li`
   &:hover {
     border: 1px solid var(--main-yellow);
   }
-  &:hover ${LeftHeaderLink} {
+  &:hover ${FooterLink} {
     color: var(--main-yellow);
-  }
-  &:hover ${IconChildren} {
-    fill: var(--main-yellow);
   }
   ${props => {
     const { active } = props.children.props;
@@ -75,13 +58,10 @@ export const LeftHeaderItem = styled.li`
     const { active } = props.children.props;
     if (active === 'active') {
       return `
-        & ${LeftHeaderLink},${IconChildren} {
+        & ${FooterLink} {
           color: var(--main-yellow);
         }
-        & ${IconChildren} {
-          fill: var(--main-yellow);
-        }
-      `;
+            `;
     }
   }}
 `;

@@ -172,10 +172,10 @@ body,
     --main-blue:#c8ebf1;
     --header-main-color:#f0f0f0;
 
-    --teacher-color-1:#6A5ACD;
-    --teacher-color-2:#FF6347;
-    --teacher-color-3:#20B2AA;
-    --teacher-color-4:#2F4F4F;
+    --teacher-color-1:#483D8B;
+    --teacher-color-2:#4B0082;
+    --teacher-color-3:#FF6347;
+    --teacher-color-4:#FF00FF;
   }
 
 

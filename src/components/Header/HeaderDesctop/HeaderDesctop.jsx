@@ -57,6 +57,14 @@ const HeaderDesctop = () => {
                   Корекційний
                 </HeaderLink>
               </NavItem>
+              <NavItem>
+                <HeaderLink
+                  active={currentPath === '/children' ? 'active' : ''}
+                  to={'/children'}
+                >
+                  Діти
+                </HeaderLink>
+              </NavItem>
             </HeaderList>
           </nav>
           <UserContainer>

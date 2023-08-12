@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import MainLayout from './page/MainLayout/MainLayout';
+import MainLayout from './layouts/MainLayout/MainLayout';
 import MainPage from './page/MainPage/MainPage';
 import SensornayaPage from './page/SensornayaPage/SensornayaPage';
 import LogopedPage from './page/LogopedPage/LogopedPage';

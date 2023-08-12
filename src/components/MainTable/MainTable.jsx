@@ -1,4 +1,10 @@
+import { useState } from 'react';
+import { nanoid } from 'nanoid';
+
 import { Lessons_List, daysOfWeekUkr } from 'assets/constants/mainConstans';
+import TimeLessons from 'components/TimeLessons/TimeLessons';
+import Modal from 'components/Modal/Modal';
+
 import {
   LessonsWrapper,
   LessonsContainer,
@@ -8,10 +14,8 @@ import {
   DayWrapper,
   DayContainer,
 } from './MainTable.styled';
-import { useState } from 'react';
-import Modal from 'components/Modal/Modal';
-import TimeLessons from '../TimeLessons/TimeLessons';
-import { nanoid } from 'nanoid';
+import FreeTableItem from 'ui/FreeTableItem/FreeTableItem';
+import LessonTableCard from 'ui/LessonTableCard/LessonTableCard';
 
 function MainTable() {
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -76,13 +80,9 @@ function MainTable() {
                         key={timeIndex}
                       >
                         {lesson ? (
-                          <>
-                            <p>{lesson.child}</p>
-                            <p>{lesson.time}</p>
-                            <p>{lesson.date}</p>
-                          </>
+                          <LessonTableCard lesson={lesson} />
                         ) : (
-                          <p>Free</p>
+                          <FreeTableItem />
                         )}
                       </LessonsItem>
                     );

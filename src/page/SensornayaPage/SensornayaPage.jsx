@@ -1,12 +1,14 @@
-import MainTable from 'components/Sensornaya/MainTable/MainTable';
+import MainTable from 'components/MainTable/MainTable';
 import Container from 'components/Container/Container';
-import { MainWrapper } from 'components/Sensornaya/MainTable/MainTable.styled';
+import MainLeftPanel from 'components/MainLeftPanel/MainLeftPanel';
+import { MainWrapper } from './SensornayaPage.styled';
 
 function SensornayaPage() {
   return (
     <>
       <Container>
         <MainWrapper>
+          <MainLeftPanel />
           <MainTable />
         </MainWrapper>
       </Container>

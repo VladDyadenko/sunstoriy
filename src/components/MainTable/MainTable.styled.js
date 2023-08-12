@@ -1,23 +1,14 @@
 import styled from 'styled-components';
 
-export const MainWrapper = styled.div`
-  width: 100%;
-  padding: 5px 5px;
-  border-radius: 8px;
-  /* border: 2px solid var(--main-yellow); */
-  display: flex;
-  align-items: start;
-  justify-content: start;
-`;
 export const DayWrapper = styled.div`
   width: 100%;
-  /* padding: 5px 5px; */
   display: flex;
   align-items: center;
   justify-content: start;
+  gap: 10px;
 `;
 export const LessonsWrapper = styled.div`
-  flex: 1;
+  width: 100%;
 `;
 export const DayDeafult = styled.div`
   font-family: 'RobotoSlab';
@@ -27,25 +18,24 @@ export const DayDeafult = styled.div`
   height: 70px;
   width: 100%;
   padding: 5px;
-  margin-bottom: 5px;
-  background-color: var(--main-green);
+  margin-bottom: 10px;
+  background-color: var(--main-blue);
+  border: 2px solid var(--main-green);
+`;
+
+export const DayDeafultInfo = styled.p`
+  font-family: 'RobotoSlab';
+  font-weight: 900;
+  text-align: center;
+  color: var(--main-green);
+  margin-bottom: 10px;
 `;
 export const DayContainer = styled.div`
   width: 100%;
-
   text-align: center;
   border-radius: 8px;
   margin-bottom: 10px;
   margin-right: 10px;
-  :not(:last-child) {
-    margin-bottom: 10px;
-  }
-`;
-export const DayDeafultInfo = styled.p`
-  font-family: 'RobotoSlab';
-  font-weight: 500;
-  text-align: center;
-  color: var(--header-main-color);
 `;
 
 export const LessonsContainer = styled.ul``;
@@ -53,14 +43,11 @@ export const LessonsItem = styled.li`
   font-family: 'RobotoSlab';
   font-weight: 400;
   cursor: pointer;
-  height: 70px;
+  height: 80px;
   width: 100%;
-  padding: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
   border-radius: 8px;
-  /* border: 2px solid var(--main-green); */
+  border: 2px solid transparent;
   margin-bottom: 10px;
   transition: cubic-bezier(0.4, 0, 0.2, 1) 250ms;
 
@@ -74,35 +61,40 @@ export const LessonsItem = styled.li`
     switch (ariaCurrent) {
       case '1':
         return `
-    background-color: var(--teacher-color-1);
-    color:var(--header-main-color);
+        border: 2px solid var(--teacher-color-1);
+        color:var(--teacher-color-1);
+   
   `;
 
       case '2':
         return `
-    background-color: var(--teacher-color-2);
-     color:var(--header-main-color);   
+        border: 2px solid var(--teacher-color-2);
+        color:var(--teacher-color-2);
+    
   `;
 
       case '3':
         return `
-    background-color: var(--teacher-color-3);
-    color:var(--header-main-color);
+        border: 2px solid var(--teacher-color-3);
+        color:var(--teacher-color-3);
+    
     `;
 
       case '4':
         return `
-    background-color: var(--teacher-color-4);
-     color:var(--header-main-color);         
+        border: 2px solid var(--teacher-color-4);
+         color:var(--teacher-color-4);
   `;
 
       default:
         return `
-    background-color: var(--header-main-color);
+    border: 2px solid inherit;
+    color:inherit;
   `;
     }
   }}
 `;
+
 export const CardInfo = styled.p`
   font-family: 'RobotoSlab';
   font-weight: 500;
@@ -118,7 +110,6 @@ export const OneTimeContainer = styled.ul`
 `;
 export const OneTimeItem = styled.li`
   height: 70px;
-  /* border: 2px solid var(--main-green); */
   border-radius: 8px;
   display: flex;
   align-items: center;

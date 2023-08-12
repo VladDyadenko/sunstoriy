@@ -4,7 +4,7 @@ import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 import { format } from 'date-fns';
 import { uk } from 'date-fns/locale';
-import { PickerContainer, PickerFooter } from './DayPicker.styled';
+import { PickerContainer, PickerFooter } from './MainDayPicker.styled';
 const mainGreenColor = 'var(--main-green)';
 
 const css = `
@@ -20,17 +20,17 @@ const css = `
   }
   .my-today { 
     font-weight: bold;
-    font-size: 140%; 
+    font-size: 120%; 
     color: red;
   }
   .rdp-button:hover:not([disabled]):not(.rdp-day_selected) {
     background-color: #fff;
 }
 .rdp {
-    --rdp-cell-size: 35px;}
+    --rdp-cell-size: 30px;}
 `;
 
-export default function HeaderDayPicker() {
+export default function MainDayPicker() {
   const [range, setRange] = useState(null);
 
   let footer = <PickerFooter>Виберіть перший день</PickerFooter>;
