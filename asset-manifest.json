@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/sunstoriy/static/css/main.4e0187a5.css",
-    "main.js": "/sunstoriy/static/js/main.85d3ec62.js",
+    "main.js": "/sunstoriy/static/js/main.737cad5f.js",
     "static/media/RobotoSlab-Black.ttf": "/sunstoriy/static/media/RobotoSlab-Black.e42c176e3c87124b6be2.ttf",
     "static/media/RobotoSlab-ExtraBold.ttf": "/sunstoriy/static/media/RobotoSlab-ExtraBold.8ce75f350dc914f40148.ttf",
     "static/media/RobotoSlab-SemiBold.ttf": "/sunstoriy/static/media/RobotoSlab-SemiBold.119b7a42ae7091270b61.ttf",
@@ -11,14 +11,17 @@
     "static/media/RobotoSlab-Light.ttf": "/sunstoriy/static/media/RobotoSlab-Light.58305cc6b8c75d6abddc.ttf",
     "static/media/RobotoSlab-Regular.ttf": "/sunstoriy/static/media/RobotoSlab-Regular.a699ec33d3b46442674d.ttf",
     "static/media/RobotoSlab-Thin.ttf": "/sunstoriy/static/media/RobotoSlab-Thin.e89728fba4e833e97cb1.ttf",
+    "static/media/children.jpg": "/sunstoriy/static/media/children.7e8b4c005547f5f9dcbd.jpg",
     "static/media/LogoSunstoriy.jpg": "/sunstoriy/static/media/LogoSunstoriy.7c919168504ffb55e14e.jpg",
+    "static/media/children_desctop.jpg": "/sunstoriy/static/media/children_desctop.a3a5a943809e0025814c.jpg",
+    "static/media/children_mobil.jpg": "/sunstoriy/static/media/children_mobil.ee61376a932ef9add563.jpg",
     "static/media/OlgaAvatar.jpg": "/sunstoriy/static/media/OlgaAvatar.21183aa09187ba2c1bff.jpg",
     "index.html": "/sunstoriy/index.html",
     "main.4e0187a5.css.map": "/sunstoriy/static/css/main.4e0187a5.css.map",
-    "main.85d3ec62.js.map": "/sunstoriy/static/js/main.85d3ec62.js.map"
+    "main.737cad5f.js.map": "/sunstoriy/static/js/main.737cad5f.js.map"
   },
   "entrypoints": [
     "static/css/main.4e0187a5.css",
-    "static/js/main.85d3ec62.js"
+    "static/js/main.737cad5f.js"
   ]
 }
