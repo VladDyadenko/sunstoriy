@@ -29,8 +29,6 @@ export const HeaderLink = styled(Link)`
   font-family: 'RobotoSlab';
   font-weight: 500;
   font-size: 24px;
-  line-height: 18px;
-  font-weight: 500;
   letter-spacing: -0.02em;
   text-decoration: none;
   color: var(--header-main-color);

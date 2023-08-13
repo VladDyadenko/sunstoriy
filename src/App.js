@@ -9,6 +9,7 @@ import CorrectionPage from './page/CorrectionPage/CorrectionPage';
 import ChildrenPage from './page/ChildrenPage/ChildrenPage';
 import FinancialPage from './page/FinancialPage/FinancialPage';
 import NotFoundPage from './page/NotFoundPage/NotFoundPage';
+import WelcomePage from 'page/WelcomePage/WelcomePage';
 
 function App() {
   const navigate = useNavigate();
@@ -24,9 +25,10 @@ function App() {
   return (
     <>
       <Routes>
+        <Route index element={<WelcomePage />} />
         <Route path="/auth/:id" element={<h4>AuthPage</h4>} />
         <Route path="/" element={<MainLayout />}>
-          <Route index element={<MainPage />} />
+          <Route path="main" element={<MainPage />} />
           <Route path="sensornaya" element={<SensornayaPage />} />
           <Route path="logoped" element={<LogopedPage />} />
           <Route path="correction" element={<CorrectionPage />} />

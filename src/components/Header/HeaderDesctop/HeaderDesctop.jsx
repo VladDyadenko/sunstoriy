@@ -27,8 +27,8 @@ const HeaderDesctop = () => {
             <HeaderList>
               <NavItem>
                 <HeaderLink
-                  active={currentPath === '/' ? 'active' : ''}
-                  to={'/'}
+                  active={currentPath === '/main' ? 'active' : ''}
+                  to={'/main'}
                 >
                   Головна
                 </HeaderLink>
