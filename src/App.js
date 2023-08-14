@@ -10,6 +10,7 @@ import ChildrenPage from './page/ChildrenPage/ChildrenPage';
 import FinancialPage from './page/FinancialPage/FinancialPage';
 import NotFoundPage from './page/NotFoundPage/NotFoundPage';
 import WelcomePage from 'page/WelcomePage/WelcomePage';
+import AuthPage from 'page/AuthPage/AuthPage';
 
 function App() {
   const navigate = useNavigate();
@@ -26,14 +27,14 @@ function App() {
     <>
       <Routes>
         <Route index element={<WelcomePage />} />
-        <Route path="/auth/:id" element={<h4>AuthPage</h4>} />
+        <Route path="/auth/:id" element={<AuthPage />} />
         <Route path="/" element={<MainLayout />}>
-          <Route path="main" element={<MainPage />} />
-          <Route path="sensornaya" element={<SensornayaPage />} />
-          <Route path="logoped" element={<LogopedPage />} />
-          <Route path="correction" element={<CorrectionPage />} />
-          <Route path="children" element={<ChildrenPage />} />
-          <Route path="financial" element={<FinancialPage />} />
+          <Route path="/main" element={<MainPage />} />
+          <Route path="/sensornaya" element={<SensornayaPage />} />
+          <Route path="/logoped" element={<LogopedPage />} />
+          <Route path="/correction" element={<CorrectionPage />} />
+          <Route path="/children" element={<ChildrenPage />} />
+          <Route path="/financial" element={<FinancialPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
