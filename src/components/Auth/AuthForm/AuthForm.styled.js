@@ -47,7 +47,8 @@ export const BtnRegister = styled.button`
   font-family: 'RobotoSlab';
   font-weight: 400;
   width: 100%;
-  padding: 14px 110px;
+  padding: 14px 50px;
+
   color: #fafafa;
   background-color: #2ab576;
   border-radius: 6px;
@@ -79,13 +80,13 @@ export const StyledNavLink = styled(NavLink)`
   font-family: 'RobotoSlab';
   font-weight: 400;
   color: #693393;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 400;
   text-decoration: underline;
   cursor: pointer;
 
   @media screen and (min-width: 768px) {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 400;
   }
 
