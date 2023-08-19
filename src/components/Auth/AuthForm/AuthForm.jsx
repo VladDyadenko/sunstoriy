@@ -14,21 +14,23 @@ import {
   Title,
 } from './AuthForm.styled';
 import InputAuth from '../InputAuth/InputAuth';
+import { useDispatch } from 'react-redux';
+import { registerThunk, signinThunk } from 'redux/auth/authOperetion';
 
 function AuthForm({ isRegistration }) {
-  //      const dispatch = useDispatch();
-  //   const handleSubmit = async (values, { resetForm }) => {
-  //     const { email, password } = values;
-  //     try {
-  //       isRegistration
-  //         ? await dispatch(registerThunk(values))
-  //         : await dispatch(signinThunk({ email, password }));
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
+  const dispatch = useDispatch();
+  const handleSubmit = async (values, { resetForm }) => {
+    const { email, password } = values;
+    try {
+      isRegistration
+        ? await dispatch(registerThunk(values))
+        : await dispatch(signinThunk({ email, password }));
+    } catch (error) {
+      console.log(error);
+    }
 
-  //     resetForm();
-  //   };
+    resetForm();
+  };
 
   return (
     <div>
@@ -37,6 +39,7 @@ function AuthForm({ isRegistration }) {
           isRegistration ? initialValuesRegister : initialValuesSignIn
         }
         validationSchema={isRegistration ? schemaRegister : schemaSignIn}
+        onSubmit={handleSubmit}
       >
         {({ errors, touched }) => (
           <FormAuth>

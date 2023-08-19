@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Notify } from 'notiflix';
 
-axios.defaults.baseURL = 'https://yummy-service.onrender.com/';
+axios.defaults.baseURL = 'https://sunstoriy-back.onrender.com';
 
 const tokenOperation = {
   setToken: token => {
@@ -14,7 +14,8 @@ const tokenOperation = {
 
 export const registerApi = async (user, thunkAPI) => {
   try {
-    const { data } = await axios.post('/users/register', user);
+    const { data } = await axios.post('/register', user);
+    console.log(data);
     tokenOperation.setToken(data.token);
     Notify.success('Registrated succesfully!');
     return data;
@@ -30,7 +31,7 @@ export const registerApi = async (user, thunkAPI) => {
 
 export const signinApi = async (user, thunkAPI) => {
   try {
-    const { data } = await axios.post('/users/login', user);
+    const { data } = await axios.post('/login', user);
     tokenOperation.setToken(data.token);
     Notify.success('Login sucess!');
     return data;
@@ -42,7 +43,7 @@ export const signinApi = async (user, thunkAPI) => {
 
 export const logoutApi = async (_, thunkAPI) => {
   try {
-    const { data } = await axios.post('/users/logout');
+    const { data } = await axios.patch('/logout/:id');
     Notify.info('Logout');
     return data;
   } catch (error) {
@@ -61,8 +62,8 @@ export const currentApi = async (_, thunkAPI) => {
 
   try {
     tokenOperation.setToken(persistedToken);
-    const { data } = await axios.get('/users/current');
-
+    const { data } = await axios.get('/current');
+    console.log(data);
     return data;
   } catch (error) {
     Notify.info('Token is obsolete');
@@ -73,7 +74,7 @@ export const currentApi = async (_, thunkAPI) => {
 export const updateNameAndAvatar = async ({ name, avatar }, thunkAPI) => {
   try {
     const { data } = await axios.put(
-      '/users/update',
+      '/users/update/',
       {
         name,
         avatar,

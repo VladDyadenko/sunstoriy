@@ -11,9 +11,19 @@ import FinancialPage from './page/FinancialPage/FinancialPage';
 import NotFoundPage from './page/NotFoundPage/NotFoundPage';
 import WelcomePage from 'page/WelcomePage/WelcomePage';
 import AuthPage from 'page/AuthPage/AuthPage';
+import RestrictedRoute from 'route/RestrictedRoute';
+import { PrivateRoute } from 'route/PrivateRoute';
+import { useDispatch } from 'react-redux';
+import { currentThunk } from 'redux/auth/authOperetion';
 
 function App() {
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(currentThunk());
+  }, [dispatch]);
 
   useEffect(() => {
     const handleRouteChange = () => {
@@ -26,9 +36,15 @@ function App() {
   return (
     <>
       <Routes>
-        <Route index element={<WelcomePage />} />
-        <Route path="/auth/:id" element={<AuthPage />} />
-        <Route path="/" element={<MainLayout />}>
+        <Route
+          index
+          element={<RestrictedRoute component={<WelcomePage />} />}
+        />
+        <Route
+          path="/auth/:id"
+          element={<RestrictedRoute component={<AuthPage />} />}
+        />
+        <Route path="/" element={<PrivateRoute component={<MainLayout />} />}>
           <Route path="/main" element={<MainPage />} />
           <Route path="/sensornaya" element={<SensornayaPage />} />
           <Route path="/logoped" element={<LogopedPage />} />
