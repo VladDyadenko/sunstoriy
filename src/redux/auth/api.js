@@ -63,7 +63,6 @@ export const currentApi = async (_, thunkAPI) => {
   try {
     tokenOperation.setToken(persistedToken);
     const { data } = await axios.get('/current');
-    console.log(data);
     return data;
   } catch (error) {
     Notify.info('Token is obsolete');
@@ -73,8 +72,9 @@ export const currentApi = async (_, thunkAPI) => {
 
 export const updateNameAndAvatar = async ({ name, avatar }, thunkAPI) => {
   try {
+    // console.log(name, avatar);
     const { data } = await axios.put(
-      '/users/update/',
+      '/update/',
       {
         name,
         avatar,
@@ -84,7 +84,7 @@ export const updateNameAndAvatar = async ({ name, avatar }, thunkAPI) => {
       }
     );
     Notify.success('User profile updated successfully!');
-
+    console.log(data);
     return data;
   } catch (error) {
     Notify.info('Failed to update the name');

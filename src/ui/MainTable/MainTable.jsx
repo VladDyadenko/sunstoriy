@@ -20,6 +20,7 @@ import LessonTableCard from 'ui/LessonTableCard/LessonTableCard';
 function MainTable({ lessonsData }) {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [currentLesson, setCurrentLesson] = useState(null);
+  console.log(currentLesson);
 
   const timeLessonOnList = [
     ...new Set(lessonsData.map(lesson => lesson.time)),
@@ -34,7 +35,6 @@ function MainTable({ lessonsData }) {
     return startA - startB;
   });
 
-  console.log(currentLesson);
   const uniqueDates = [...new Set(lessonsData.map(val => val.date))].sort(
     (a, b) => {
       const [dayA, monthA, yearA] = a.split('.').map(part => parseInt(part));

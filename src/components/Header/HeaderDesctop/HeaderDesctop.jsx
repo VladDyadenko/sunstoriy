@@ -1,6 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
 import logo from '../../../assets/images/Header/LogoSunstoriy.jpg';
-import avatarUser from '../../../assets/images/Header/OlgaAvatar.jpg';
 import {
   HeaderContainer,
   HeaderLink,
@@ -8,13 +7,16 @@ import {
   HeaderSection,
   NavItem,
   UserContainer,
-  UserName,
 } from './HeaderDesctop.styled';
 import { Avatar } from '@mui/material';
+import { useSelector } from 'react-redux';
+import { selectAuthUser } from 'redux/auth/authSelector';
+import DrawerSite from 'components/Header/Drawer/Drawer';
 
 const HeaderDesctop = () => {
   const location = useLocation();
   const currentPath = location.pathname;
+  const { name, avatarUrl } = useSelector(selectAuthUser);
 
   return (
     <>
@@ -68,8 +70,9 @@ const HeaderDesctop = () => {
             </HeaderList>
           </nav>
           <UserContainer>
-            <Avatar alt="User foto" src={avatarUser} />
-            <UserName>Olga</UserName>
+            <Avatar alt="User foto" src={avatarUrl} />
+            <DrawerSite userName={name} />
+            {/* <UserName>{name}</UserName> */}
           </UserContainer>
         </HeaderSection>
       </HeaderContainer>

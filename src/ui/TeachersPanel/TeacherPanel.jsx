@@ -13,7 +13,7 @@ function TeacherPanel({ teachersData }) {
       <TeacherTitle>Cпеціалісти:</TeacherTitle>
       <ul>
         {teachersData.map(({ teacherName, teacherSurname, teacherColor }) => (
-          <li>
+          <li key={teacherColor}>
             <InfoContainer>
               <TeacherInfo>{teacherName}</TeacherInfo>
               <TeacherInfo>{teacherSurname}</TeacherInfo>
