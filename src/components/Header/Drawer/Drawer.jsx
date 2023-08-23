@@ -20,7 +20,7 @@ const DrawerSite = ({ userName }) => {
         onClose={onClose}
         open={open}
       >
-        <UserProfile />
+        <UserProfile onClose={onClose} />
       </DrawerMain>
     </>
   );

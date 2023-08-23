@@ -16,6 +16,23 @@ export const ImageContainer = styled.div`
   margin-right: auto;
 `;
 
+export const ModalLogOutButton = styled.div`
+  margin-top: 40px;
+  border-radius: 6px;
+  background: var(--main-dark-blue);
+  padding: 21px 18px;
+  font-family: 'RobotoSlab';
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  cursor: pointer;
+  width: 100%;
+  color: var(--header-main-color);
+`;
+
 export const Image = styled.img`
   width: 88px;
   height: 88px;

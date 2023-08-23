@@ -14,8 +14,7 @@ const tokenOperation = {
 
 export const registerApi = async (user, thunkAPI) => {
   try {
-    const { data } = await axios.post('/register', user);
-    console.log(data);
+    const { data } = await axios.post('/auth/register', user);
     tokenOperation.setToken(data.token);
     Notify.success('Registrated succesfully!');
     return data;
@@ -31,7 +30,7 @@ export const registerApi = async (user, thunkAPI) => {
 
 export const signinApi = async (user, thunkAPI) => {
   try {
-    const { data } = await axios.post('/login', user);
+    const { data } = await axios.post('/auth/login', user);
     tokenOperation.setToken(data.token);
     Notify.success('Login sucess!');
     return data;
@@ -43,8 +42,9 @@ export const signinApi = async (user, thunkAPI) => {
 
 export const logoutApi = async (_, thunkAPI) => {
   try {
-    const { data } = await axios.patch('/logout/:id');
+    const { data } = await axios.post(`/auth/logout`);
     Notify.info('Logout');
+    console.log(data);
     return data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);
@@ -62,7 +62,7 @@ export const currentApi = async (_, thunkAPI) => {
 
   try {
     tokenOperation.setToken(persistedToken);
-    const { data } = await axios.get('/current');
+    const { data } = await axios.get('/auth/current');
     return data;
   } catch (error) {
     Notify.info('Token is obsolete');
@@ -72,9 +72,8 @@ export const currentApi = async (_, thunkAPI) => {
 
 export const updateNameAndAvatar = async ({ name, avatar }, thunkAPI) => {
   try {
-    // console.log(name, avatar);
-    const { data } = await axios.put(
-      '/update/',
+    const { data } = await axios.post(
+      '/auth/upload',
       {
         name,
         avatar,
@@ -84,7 +83,6 @@ export const updateNameAndAvatar = async ({ name, avatar }, thunkAPI) => {
       }
     );
     Notify.success('User profile updated successfully!');
-    console.log(data);
     return data;
   } catch (error) {
     Notify.info('Failed to update the name');

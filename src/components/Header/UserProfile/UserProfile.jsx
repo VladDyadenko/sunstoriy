@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateNameThunk } from 'redux/auth/authOperetion';
+import { logoutThunk, updateNameThunk } from 'redux/auth/authOperetion';
 import { selectAuthUser } from 'redux/auth/authSelector';
 import {
   AddAvatarIcon,
@@ -11,13 +11,14 @@ import {
   Input,
   InputPhoto,
   Label,
+  ModalLogOutButton,
   ModalSaveButton,
   PanIcon,
   UserIconContainer,
   UserNameIcon,
 } from './UserProfile.stiled';
 
-function UserProfile() {
+function UserProfile({ onClose }) {
   const user = useSelector(selectAuthUser);
 
   const dispatch = useDispatch();
@@ -49,7 +50,10 @@ function UserProfile() {
   };
 
   const onSubmitEditUserProfileForm = async () => {
-    dispatch(updateNameThunk(state));
+    dispatch(updateNameThunk(state)).then(res => {
+      onClose();
+      return;
+    });
   };
   return (
     <>
@@ -64,7 +68,7 @@ function UserProfile() {
             src={
               typeof state.avatar === 'string'
                 ? state.avatar
-                : URL.createObjectURL(state.avatar)
+                : URL.createObjectURL(state?.avatar)
             }
             alt="User Avatar"
           />
@@ -95,6 +99,9 @@ function UserProfile() {
 
         <ModalSaveButton type="submit">Зберегти зміни</ModalSaveButton>
       </form>
+      <ModalLogOutButton type="button" onClick={() => dispatch(logoutThunk())}>
+        Вийти з програми
+      </ModalLogOutButton>
     </>
   );
 }

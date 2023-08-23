@@ -72,7 +72,6 @@ const HeaderDesctop = () => {
           <UserContainer>
             <Avatar alt="User foto" src={avatarUrl} />
             <DrawerSite userName={name} />
-            {/* <UserName>{name}</UserName> */}
           </UserContainer>
         </HeaderSection>
       </HeaderContainer>

@@ -19,10 +19,7 @@ const initialState = {
     email: null,
     avatarUrl: null,
     children: null,
-    teachers: null,
-    sensornaya: null,
-    logoped: null,
-    correction: null,
+    lessons: null,
     createdAt: null,
   },
   token: null,
@@ -56,8 +53,8 @@ const handleIsRejected = (state, { payload }) => {
 };
 
 const handleUpdateName = (state, { payload }) => {
-  state.user.name = payload.user.name;
-  state.user.avatarUrl = payload.user.avatarUrl;
+  state.user.name = payload.updateUser.name;
+  state.user.avatarUrl = payload.updateUser.avatarUrl;
 };
 
 const handlePending = state => {
