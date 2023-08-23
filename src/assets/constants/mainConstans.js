@@ -24,6 +24,14 @@ export const daysOfWeekUkr = [
   'Субота',
 ];
 
+export const navSitePage = [
+  { page: 'Головна', path: '/main' },
+  { page: 'Сенсорна', path: '/sensornaya' },
+  { page: 'Логопед', path: '/logoped' },
+  { page: 'Корекційний', path: '/correction' },
+  { page: 'Діти', path: '/children' },
+];
+
 export const Lessons_List_Logoped = [
   {
     date: '11.08.2023',

@@ -12,11 +12,15 @@ export const FooterNavWrapper = styled.div`
 `;
 
 export const FooterNav = styled.ul`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-  gap: 10px;
+  display: none;
+
+  @media screen and (min-width: 768px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 10px;
+  }
 `;
 export const FooterLink = styled(Link)`
   font-family: 'RobotoSlab';

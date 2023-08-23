@@ -11,9 +11,17 @@ export const HeaderContainer = styled.header`
     hsl(100, 49%, 38%)
   );
 `;
+
+export const MainNavSite = styled.nav`
+  display: none;
+  @media screen and (min-width: 768.1px) {
+    display: block;
+  }
+`;
+
 export const HeaderSection = styled.section`
   width: var(--small-screen);
-  padding: 10px 15px;
+  padding: 10px 30px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -54,7 +62,7 @@ export const NavItem = styled.li`
     color: var(--main-yellow);
   }
   ${props => {
-    const { active } = props.children.props;
+    const { active } = props.children.props.active;
     if (active === 'active') {
       return `
         border: 1px solid var(--main-yellow);

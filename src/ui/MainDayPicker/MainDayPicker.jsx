@@ -27,7 +27,11 @@ const css = `
     background-color: #fff;
 }
 .rdp {
-    --rdp-cell-size: 30px;}
+    --rdp-cell-size: 44px;
+   @media screen and (min-width: 768.1px) {
+    --rdp-cell-size: 30px;
+  }
+  }
 `;
 
 export default function MainDayPicker() {

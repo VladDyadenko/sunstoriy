@@ -5,6 +5,7 @@ import {
   HeaderLink,
   HeaderList,
   HeaderSection,
+  MainNavSite,
   NavItem,
   UserContainer,
 } from './HeaderDesctop.styled';
@@ -12,12 +13,13 @@ import { Avatar } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { selectAuthUser } from 'redux/auth/authSelector';
 import DrawerSite from 'components/Header/Drawer/Drawer';
+import { navSitePage } from 'assets/constants/mainConstans';
 
 const HeaderDesctop = () => {
   const location = useLocation();
   const currentPath = location.pathname;
   const { name, avatarUrl } = useSelector(selectAuthUser);
-
+  console.log(currentPath);
   return (
     <>
       <HeaderContainer>
@@ -25,50 +27,22 @@ const HeaderDesctop = () => {
           <Link to="/">
             <img src={logo} alt="Logo" width={140} />
           </Link>
-          <nav>
+          <MainNavSite>
             <HeaderList>
-              <NavItem>
-                <HeaderLink
-                  active={currentPath === '/main' ? 'active' : ''}
-                  to={'/main'}
-                >
-                  Головна
-                </HeaderLink>
-              </NavItem>
-              <NavItem>
-                <HeaderLink
-                  active={currentPath === '/sensornaya' ? 'active' : ''}
-                  to={'/sensornaya'}
-                >
-                  Сенсорна
-                </HeaderLink>
-              </NavItem>
-              <NavItem>
-                <HeaderLink
-                  active={currentPath === '/logoped' ? 'active' : ''}
-                  to={'/logoped'}
-                >
-                  Логопед
-                </HeaderLink>
-              </NavItem>
-              <NavItem>
-                <HeaderLink
-                  active={currentPath === '/correction' ? 'active' : ''}
-                  to={'/correction'}
-                >
-                  Корекційний
-                </HeaderLink>
-              </NavItem>
-              <NavItem>
-                <HeaderLink
-                  active={currentPath === '/children' ? 'active' : ''}
-                  to={'/children'}
-                >
-                  Діти
-                </HeaderLink>
-              </NavItem>
+              {navSitePage.map(({ page, path }) => {
+                return (
+                  <NavItem key={path}>
+                    <HeaderLink
+                      active={currentPath === path ? 'active' : ''}
+                      to={path}
+                    >
+                      {page}
+                    </HeaderLink>
+                  </NavItem>
+                );
+              })}
             </HeaderList>
-          </nav>
+          </MainNavSite>
           <UserContainer>
             <Avatar alt="User foto" src={avatarUrl} />
             <DrawerSite userName={name} />

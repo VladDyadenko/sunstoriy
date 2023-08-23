@@ -6,6 +6,7 @@ export const WrapperTeacher = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 
   & ul {
     width: 100%;
@@ -13,6 +14,7 @@ export const WrapperTeacher = styled.div`
     & li {
       display: flex;
       align-items: center;
+      justify-content: center;
       margin-bottom: 10px;
     }
   }

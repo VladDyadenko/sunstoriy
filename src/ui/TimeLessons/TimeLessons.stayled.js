@@ -2,9 +2,12 @@ import styled from 'styled-components';
 
 export const TimeContainer = styled.ul`
   width: 50px;
-
+  display: none;
   padding: 0 5px;
   margin-right: 10px;
+  @media screen and (min-width: 768.1px) {
+    display: block;
+  }
 `;
 export const TableItem = styled.li`
   display: flex;

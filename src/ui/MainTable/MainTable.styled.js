@@ -5,10 +5,17 @@ export const DayWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: start;
+  flex-direction: column;
   gap: 10px;
+
+  @media screen and (min-width: 376px) {
+    width: 100%;
+    flex-direction: row;
+  }
 `;
 export const LessonsWrapper = styled.div`
   width: 100%;
+  overflow-x: auto;
 `;
 export const DayDeafult = styled.div`
   font-family: 'RobotoSlab';
@@ -35,7 +42,11 @@ export const DayContainer = styled.div`
   text-align: center;
   border-radius: 8px;
   margin-bottom: 10px;
-  margin-right: 10px;
+
+  @media screen and (min-width: 376px) {
+    min-width: 190px;
+    margin-right: 10px;
+  }
 `;
 
 export const LessonsContainer = styled.ul``;
