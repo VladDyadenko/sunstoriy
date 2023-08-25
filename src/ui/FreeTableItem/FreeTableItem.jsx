@@ -9,7 +9,3 @@ function FreeTableItem() {
 }
 
 export default FreeTableItem;
-// BsPlusCircle;
-// BsPlusCircleDotted;
-// BsPlusCircleFill;
-// BsPlusSquare;

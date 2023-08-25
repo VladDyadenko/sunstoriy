@@ -1,17 +1,17 @@
-import { useLocation } from 'react-router-dom';
-import {
-  FooterItem,
-  FooterLink,
-  FooterNav,
-  FooterNavWrapper,
-} from './Footer.styled';
+// import { useLocation } from 'react-router-dom';
+// import {
+//   FooterItem,
+//   FooterLink,
+//   FooterNav,
+//   FooterNavWrapper,
+// } from './Footer.styled';
 
 const Footer = () => {
-  const location = useLocation();
-  const currentPath = location.pathname;
+  // const location = useLocation();
+  // const currentPath = location.pathname;
   return (
     <>
-      <FooterNavWrapper>
+      {/* <FooterNavWrapper>
         <FooterNav>
           <FooterItem>
             <FooterLink>Діагностика</FooterLink>
@@ -28,7 +28,7 @@ const Footer = () => {
             </FooterLink>
           </FooterItem>
         </FooterNav>
-      </FooterNavWrapper>
+      </FooterNavWrapper> */}
     </>
   );
 };

@@ -8,7 +8,7 @@ export const HeaderContainer = styled.header`
     to bottom,
     hsl(198, 86%, 70%),
     hsl(120, 43%, 57%),
-    hsl(100, 49%, 38%)
+    hsl(100, 50%, 50%)
   );
 `;
 

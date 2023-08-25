@@ -1,11 +1,15 @@
-import Container from "../../components/Container/Container";
-// import LeftHeader from "../../components/MainPage/LeftHeader/LeftHeader";
+import { Watermark } from 'antd';
+import Container from '../../components/Container/Container';
 
 function MainPage() {
   return (
     <>
       <Container>
-        <h3>MainPage</h3>
+        <Watermark content="Sunstoriy">
+          <div style={{ height: '100vh' }}>
+            <h4>MainPage</h4>
+          </div>
+        </Watermark>
       </Container>
     </>
   );

@@ -5,9 +5,8 @@ export const FooterNavWrapper = styled.div`
   max-width: 1440px;
   margin: 0 auto;
   padding: 10px 15px;
-  background-color: var(--main-green);
   border-radius: 8px;
-  border: 1px solid var(--main-yellow);
+  border: 1px solid var(--main-dark-blue-bg);
   flex: 1;
 `;
 

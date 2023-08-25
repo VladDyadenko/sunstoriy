@@ -19,7 +19,6 @@ const HeaderDesctop = () => {
   const location = useLocation();
   const currentPath = location.pathname;
   const { name, avatarUrl } = useSelector(selectAuthUser);
-  console.log(currentPath);
   return (
     <>
       <HeaderContainer>

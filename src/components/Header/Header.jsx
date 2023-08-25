@@ -1,9 +1,9 @@
-import HeaderDesctop from "./HeaderDesctop/HeaderDesctop";
+import HeaderMain from './HeaderMain/HeaderMain';
 
 const Header = () => {
   return (
     <>
-      <HeaderDesctop />
+      <HeaderMain />
     </>
   );
 };

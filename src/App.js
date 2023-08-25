@@ -15,6 +15,7 @@ import RestrictedRoute from 'route/RestrictedRoute';
 import { PrivateRoute } from 'route/PrivateRoute';
 import { useDispatch } from 'react-redux';
 import { currentThunk } from 'redux/auth/authOperetion';
+import Lesson from 'page/Lesson/Lesson';
 
 function App() {
   const navigate = useNavigate();
@@ -46,6 +47,7 @@ function App() {
         />
         <Route path="/" element={<PrivateRoute component={<MainLayout />} />}>
           <Route path="/main" element={<MainPage />} />
+          <Route path="/lesson/:lessonId" element={<Lesson />} />
           <Route path="/sensornaya" element={<SensornayaPage />} />
           <Route path="/logoped" element={<LogopedPage />} />
           <Route path="/correction" element={<CorrectionPage />} />

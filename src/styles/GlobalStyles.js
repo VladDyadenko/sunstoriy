@@ -171,6 +171,7 @@ body,
     --main-yellow:#fddc10;
     --main-blue:#c8ebf1;
     --main-dark-blue:#0456ba;
+    --main-dark-blue-bg:#1976d2;
     --header-main-color:#f0f0f0;
 
     --teacher-color-1:#483D8B;

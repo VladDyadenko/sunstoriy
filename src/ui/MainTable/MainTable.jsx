@@ -1,9 +1,6 @@
-import { useState } from 'react';
 import { nanoid } from 'nanoid';
-
 import { daysOfWeekUkr } from 'assets/constants/mainConstans';
 import TimeLessons from 'ui/TimeLessons/TimeLessons';
-import Modal from 'components/Modal/Modal';
 
 import {
   LessonsWrapper,
@@ -16,12 +13,9 @@ import {
 } from './MainTable.styled';
 import FreeTableItem from 'ui/FreeTableItem/FreeTableItem';
 import LessonTableCard from 'ui/LessonTableCard/LessonTableCard';
+import { Link } from 'react-router-dom';
 
 function MainTable({ lessonsData }) {
-  const [isOpenModal, setIsOpenModal] = useState(false);
-  const [currentLesson, setCurrentLesson] = useState(null);
-  console.log(currentLesson);
-
   const timeLessonOnList = [
     ...new Set(lessonsData.map(lesson => lesson.time)),
   ].sort((a, b) => {
@@ -53,16 +47,8 @@ function MainTable({ lessonsData }) {
     lessonsData.filter(lesson => lesson.date === date)
   );
 
-  function handleModalLessonCard(id) {
-    setCurrentLesson(id);
-    setIsOpenModal(true);
-  }
-
   return (
     <>
-      {isOpenModal && (
-        <Modal onClose={isOpenModal} setIsOpenModal={setIsOpenModal} />
-      )}
       <TimeLessons timeLessonOnList={timeLessonOnList} />
       <LessonsWrapper>
         <DayWrapper>
@@ -81,20 +67,20 @@ function MainTable({ lessonsData }) {
                     const lesson = groupedLessons[index].find(
                       day => day.time === time
                     );
+
                     return (
                       <LessonsItem
-                        onClick={() =>
-                          lesson
-                            ? handleModalLessonCard(lesson.id)
-                            : handleModalLessonCard(nanoid())
-                        }
                         aria-current={lesson ? lesson.teacherId : ''}
                         key={timeIndex}
                       >
                         {lesson ? (
-                          <LessonTableCard lesson={lesson} />
+                          <Link to={`/lesson/${lesson.id}`}>
+                            <LessonTableCard lesson={lesson} />
+                          </Link>
                         ) : (
-                          <FreeTableItem />
+                          <Link to={`/lesson/${nanoid()}`}>
+                            <FreeTableItem />
+                          </Link>
                         )}
                       </LessonsItem>
                     );

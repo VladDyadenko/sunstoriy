@@ -30,6 +30,7 @@ export const navSitePage = [
   { page: 'Логопед', path: '/logoped' },
   { page: 'Корекційний', path: '/correction' },
   { page: 'Діти', path: '/children' },
+  { page: 'Кабінет', path: '/financial' },
 ];
 
 export const Lessons_List_Logoped = [

@@ -1,3 +1,5 @@
+import { Popconfirm } from 'antd';
+import { QuestionCircleOutlined } from '@ant-design/icons';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutThunk, updateNameThunk } from 'redux/auth/authOperetion';
@@ -99,9 +101,25 @@ function UserProfile({ onClose }) {
 
         <ModalSaveButton type="submit">Зберегти зміни</ModalSaveButton>
       </form>
-      <ModalLogOutButton type="button" onClick={() => dispatch(logoutThunk())}>
+
+      {/* <ModalLogOutButton type="button" onClick={() => dispatch(logoutThunk())}>
         Вийти з програми
-      </ModalLogOutButton>
+      </ModalLogOutButton> */}
+      <Popconfirm
+        title="Вийти"
+        description="Ви впевнені, що хочете вийти з програми?"
+        icon={
+          <QuestionCircleOutlined
+            style={{
+              color: 'red',
+            }}
+          />
+        }
+        onCancel={() => onClose()}
+        onConfirm={() => dispatch(logoutThunk())}
+      >
+        <ModalLogOutButton primary="true">Вийти з програми</ModalLogOutButton>
+      </Popconfirm>
     </>
   );
 }

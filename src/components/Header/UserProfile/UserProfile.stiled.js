@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import { AiOutlineUser } from 'react-icons/ai';
 import { AiTwotoneEdit } from 'react-icons/ai';
+import { Button } from 'antd';
 
 export const ImageContainer = styled.div`
   width: 100%;
@@ -14,23 +15,6 @@ export const ImageContainer = styled.div`
   right: 0;
   margin-left: auto;
   margin-right: auto;
-`;
-
-export const ModalLogOutButton = styled.div`
-  margin-top: 40px;
-  border-radius: 6px;
-  background: var(--main-dark-blue);
-  padding: 21px 18px;
-  font-family: 'RobotoSlab';
-  font-weight: 500;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-  cursor: pointer;
-  width: 100%;
-  color: var(--header-main-color);
 `;
 
 export const Image = styled.img`
@@ -108,23 +92,29 @@ export const ModalSaveButton = styled.button`
   border-radius: 6px;
   font-family: 'RobotoSlab';
   font-weight: 400;
-  font-size: 22px;
   border: none;
   background: var(--main-green);
-  padding: 21px 18px;
-  display: flex;
-  justify-content: center;
-  font-size: 14px;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-  margin-right: 8px;
+  padding: 15px;
   cursor: pointer;
   width: 100%;
-  color: #fff;
-  @media screen and (min-width: 768px) {
-    margin-right: 16px;
-    font-size: 16px;
+  color: var(--header-main-color);
+`;
+export const ModalLogOutButton = styled(Button)`
+  margin-top: 40px;
+  border-radius: 6px;
+  height: 44px;
+  border: none;
+  background: var(--main-dark-blue);
+
+  cursor: pointer;
+  width: 100%;
+  color: var(--header-main-color);
+  font-family: 'RobotoSlab';
+  font-weight: 500;
+
+  & hover {
+    color: var(--main-dark-blue);
+    background: var(--header-main-color);
   }
 `;
 

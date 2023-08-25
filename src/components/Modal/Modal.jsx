@@ -1,6 +1,5 @@
 import { createPortal } from 'react-dom';
 import { OverlayModal } from './Modal.styled';
-import LessonCard from 'components/LessonCard/LessonCard';
 import { useEffect } from 'react';
 
 const modalRoot = document.querySelector('#modal-root');
@@ -21,9 +20,7 @@ function Modal({ onClose, setIsOpenModal }) {
   return (
     <>
       {createPortal(
-        <OverlayModal onClick={handleBackdropClick}>
-          <LessonCard />
-        </OverlayModal>,
+        <OverlayModal onClick={handleBackdropClick}></OverlayModal>,
         modalRoot
       )}
     </>
