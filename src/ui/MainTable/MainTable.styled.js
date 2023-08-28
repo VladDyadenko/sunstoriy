@@ -3,19 +3,27 @@ import styled from 'styled-components';
 export const DayWrapper = styled.div`
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: start;
   flex-direction: column;
   gap: 10px;
 
-  @media screen and (min-width: 376px) {
+  @media screen and (min-width: 768px) {
     width: 100%;
     flex-direction: row;
+    align-items: center;
   }
 `;
 export const LessonsWrapper = styled.div`
   width: 100%;
   overflow-x: auto;
+`;
+export const MainTableContainer = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  gap: 15px;
 `;
 export const DayDeafult = styled.div`
   font-family: 'RobotoSlab';

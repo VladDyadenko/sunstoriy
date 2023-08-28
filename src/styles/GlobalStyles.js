@@ -174,7 +174,7 @@ body,
     --main-dark-blue-bg:#1976d2;
     --header-main-color:#f0f0f0;
 
-    --teacher-color-1:#483D8B;
+    --teacher-color-1:#006400;
     --teacher-color-2:#4B0082;
     --teacher-color-3:#FF6347;
     --teacher-color-4:#FF00FF;
@@ -210,6 +210,8 @@ body,
       animation:  easeOut;
     }
   }
+
+  
 
 `;
 

@@ -9,8 +9,4 @@ export const MainWrapper = styled.div`
   align-items: start;
   justify-content: start;
   gap: 10px;
-
-  @media screen and (min-width: 768.1px) {
-    flex-direction: row;
-  }
 `;

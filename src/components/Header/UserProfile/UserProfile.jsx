@@ -31,6 +31,11 @@ function UserProfile({ onClose }) {
     };
   });
 
+  const avatarURL =
+    typeof state.avatar === 'object' && 'blob' in state.avatar
+      ? URL.createObjectURL(state.avatar)
+      : state.avatar;
+
   const handleInputChange = (name, value) => {
     setState(prevData => ({
       ...prevData,
@@ -66,14 +71,7 @@ function UserProfile({ onClose }) {
         }}
       >
         <ImageContainer>
-          <Image
-            src={
-              typeof state.avatar === 'string'
-                ? state.avatar
-                : URL.createObjectURL(state?.avatar)
-            }
-            alt="User Avatar"
-          />
+          <Image src={avatarURL} alt="User Avatar" />
           <AddIconContainer htmlFor="photo">
             <InputPhoto
               type="file"

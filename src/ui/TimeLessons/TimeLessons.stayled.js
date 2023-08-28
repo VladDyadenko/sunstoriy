@@ -2,10 +2,10 @@ import styled from 'styled-components';
 
 export const TimeContainer = styled.ul`
   width: 50px;
-  display: none;
+  display: block;
   padding: 0 5px;
   margin-right: 10px;
-  @media screen and (min-width: 768.1px) {
+  @media screen and (min-width: 375.1px) {
     display: block;
   }
 `;

@@ -33,6 +33,33 @@ export const navSitePage = [
   { page: 'Кабінет', path: '/financial' },
 ];
 
+export const TEACHERS_SENSORNAYA = [
+  {
+    teacherName: 'Olga',
+    teacherSurname: 'Dyadenko',
+    teacherColor: '#006400',
+    teacherId: '1',
+  },
+  {
+    teacherName: 'Olga',
+    teacherSurname: 'Famely',
+    teacherColor: '#4B0082',
+    teacherId: '2',
+  },
+  {
+    teacherName: 'Katy',
+    teacherSurname: 'Famely',
+    teacherColor: '#FF6347',
+    teacherId: '3',
+  },
+  {
+    teacherName: 'Masha',
+    teacherSurname: 'Famely',
+    teacherColor: '#FF00FF',
+    teacherId: '4',
+  },
+];
+
 export const Lessons_List_Logoped = [
   {
     date: '11.08.2023',
@@ -530,32 +557,5 @@ export const Lessons_List = [
     teacherId: '3',
     id: '38',
     child: 'Соня',
-  },
-];
-
-export const TEACHERS_SENSORNAYA = [
-  {
-    teacherName: 'Olga',
-    teacherSurname: 'Dyadenko',
-    teacherColor: '#483D8B',
-    teacherId: '1',
-  },
-  {
-    teacherName: 'Olga',
-    teacherSurname: 'Famely',
-    teacherColor: '#4B0082',
-    teacherId: '2',
-  },
-  {
-    teacherName: 'Katy',
-    teacherSurname: 'Famely',
-    teacherColor: '#FF6347',
-    teacherId: '3',
-  },
-  {
-    teacherName: 'Masha',
-    teacherSurname: 'Famely',
-    teacherColor: '#FF00FF',
-    teacherId: '4',
   },
 ];

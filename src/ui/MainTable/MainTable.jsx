@@ -10,6 +10,7 @@ import {
   DayDeafultInfo,
   DayWrapper,
   DayContainer,
+  MainTableContainer,
 } from './MainTable.styled';
 import FreeTableItem from 'ui/FreeTableItem/FreeTableItem';
 import LessonTableCard from 'ui/LessonTableCard/LessonTableCard';
@@ -48,7 +49,7 @@ function MainTable({ lessonsData }) {
   );
 
   return (
-    <>
+    <MainTableContainer>
       <TimeLessons timeLessonOnList={timeLessonOnList} />
       <LessonsWrapper>
         <DayWrapper>
@@ -91,7 +92,7 @@ function MainTable({ lessonsData }) {
           })}
         </DayWrapper>
       </LessonsWrapper>
-    </>
+    </MainTableContainer>
   );
 }
 

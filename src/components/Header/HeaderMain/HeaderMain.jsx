@@ -42,7 +42,13 @@ function HeaderMain() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar
+      position="static"
+      sx={{
+        background:
+          'linear-gradient(to bottom, hsl(198, 86%, 70%), hsl(120, 43%, 57%), hsl(100, 50%, 50%))',
+      }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <LogoLink to="/">

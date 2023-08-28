@@ -31,11 +31,12 @@ export const HeaderLink = styled(NavLink)`
     if (active === 'active') {
       return `
         border: 1px solid var(--main-yellow);
-         color: var(--main-dark-blue-bg);
+         color: var(--main-green);
       `;
     }
   }}
 `;
+
 export const HeaderLinkDesctop = styled(NavLink)`
   font-family: 'RobotoSlab';
   font-weight: 500;
