@@ -1,7 +1,7 @@
 import Container from 'components/Container/Container';
-import { LessonWrapper } from './Lesson.style';
+import { LessonWrapper } from './LessonPage.style';
 
-function Lesson() {
+function LessonPage() {
   return (
     <Container>
       <LessonWrapper>
@@ -11,4 +11,4 @@ function Lesson() {
   );
 }
 
-export default Lesson;
+export default LessonPage;

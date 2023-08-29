@@ -16,6 +16,8 @@ export const LessonDrawerWrapper = styled.div`
 export const DateDescr = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
+  min-width: 240px;
   width: 100%;
   height: 50px;
   border-radius: 8px;

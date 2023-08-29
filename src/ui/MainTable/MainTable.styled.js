@@ -17,6 +17,7 @@ export const DayWrapper = styled.div`
 export const LessonsWrapper = styled.div`
   width: 100%;
   overflow-x: auto;
+  padding: 0 10px;
 `;
 export const MainTableContainer = styled.div`
   width: 100%;

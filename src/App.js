@@ -1,21 +1,23 @@
 import { Route, Routes } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
-import MainLayout from './layouts/MainLayout/MainLayout';
-import MainPage from './page/MainPage/MainPage';
-import SensornayaPage from './page/SensornayaPage/SensornayaPage';
-import LogopedPage from './page/LogopedPage/LogopedPage';
-import CorrectionPage from './page/CorrectionPage/CorrectionPage';
-import ChildrenPage from './page/ChildrenPage/ChildrenPage';
-import FinancialPage from './page/FinancialPage/FinancialPage';
-import NotFoundPage from './page/NotFoundPage/NotFoundPage';
-import WelcomePage from 'page/WelcomePage/WelcomePage';
-import AuthPage from 'page/AuthPage/AuthPage';
-import RestrictedRoute from 'route/RestrictedRoute';
+import { useEffect, lazy } from 'react';
 import { PrivateRoute } from 'route/PrivateRoute';
 import { useDispatch } from 'react-redux';
 import { currentThunk } from 'redux/auth/authOperetion';
-import Lesson from 'page/Lesson/Lesson';
+
+import MainLayout from './layouts/MainLayout/MainLayout';
+import WelcomePage from 'page/WelcomePage/WelcomePage';
+import AuthPage from 'page/AuthPage/AuthPage';
+import RestrictedRoute from 'route/RestrictedRoute';
+
+const SensornayaPage = lazy(() => import('page/SensornayaPage/SensornayaPage'));
+const LogopedPage = lazy(() => import('page/LogopedPage/LogopedPage'));
+const MainPage = lazy(() => import('page/MainPage/MainPage'));
+const CorrectionPage = lazy(() => import('page/CorrectionPage/CorrectionPage'));
+const ChildrenPage = lazy(() => import('page/ChildrenPage/ChildrenPage'));
+const FinancialPage = lazy(() => import('page/FinancialPage/FinancialPage'));
+const LessonPage = lazy(() => import('page/LessonPage/LessonPage'));
+const NotFoundPage = lazy(() => import('page/NotFoundPage/NotFoundPage'));
 
 function App() {
   const navigate = useNavigate();
@@ -47,7 +49,7 @@ function App() {
         />
         <Route path="/" element={<PrivateRoute component={<MainLayout />} />}>
           <Route path="/main" element={<MainPage />} />
-          <Route path="/lesson/:lessonId" element={<Lesson />} />
+          <Route path="/lesson/:lessonId" element={<LessonPage />} />
           <Route path="/sensornaya" element={<SensornayaPage />} />
           <Route path="/logoped" element={<LogopedPage />} />
           <Route path="/correction" element={<CorrectionPage />} />
