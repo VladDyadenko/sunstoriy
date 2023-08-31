@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/sunstoriy/static/css/main.58462fbc.css",
-    "main.js": "/sunstoriy/static/js/main.cc897545.js",
+    "main.js": "/sunstoriy/static/js/main.bc804aa5.js",
     "static/css/615.8d3c608b.chunk.css": "/sunstoriy/static/css/615.8d3c608b.chunk.css",
     "static/js/615.87aee897.chunk.js": "/sunstoriy/static/js/615.87aee897.chunk.js",
     "static/css/161.8d3c608b.chunk.css": "/sunstoriy/static/css/161.8d3c608b.chunk.css",
@@ -12,8 +12,8 @@
     "static/js/629.b4c15ff3.chunk.js": "/sunstoriy/static/js/629.b4c15ff3.chunk.js",
     "static/js/254.07b4865a.chunk.js": "/sunstoriy/static/js/254.07b4865a.chunk.js",
     "static/js/925.d4e19cf6.chunk.js": "/sunstoriy/static/js/925.d4e19cf6.chunk.js",
-    "static/js/795.525b0ee2.chunk.js": "/sunstoriy/static/js/795.525b0ee2.chunk.js",
-    "static/js/16.65f66260.chunk.js": "/sunstoriy/static/js/16.65f66260.chunk.js",
+    "static/js/401.bf63b767.chunk.js": "/sunstoriy/static/js/401.bf63b767.chunk.js",
+    "static/js/16.2901c92e.chunk.js": "/sunstoriy/static/js/16.2901c92e.chunk.js",
     "static/media/RAS_tablet.jpg": "/sunstoriy/static/media/RAS_tablet.6ce9f1065ed36196fcbc.jpg",
     "static/media/RobotoSlab-Black.ttf": "/sunstoriy/static/media/RobotoSlab-Black.e42c176e3c87124b6be2.ttf",
     "static/media/RobotoSlab-ExtraBold.ttf": "/sunstoriy/static/media/RobotoSlab-ExtraBold.8ce75f350dc914f40148.ttf",
@@ -32,7 +32,7 @@
     "static/media/symbol-defs.svg": "/sunstoriy/static/media/symbol-defs.3ea2db432ca94c24613bc9cc08df3ce9.svg",
     "index.html": "/sunstoriy/index.html",
     "main.58462fbc.css.map": "/sunstoriy/static/css/main.58462fbc.css.map",
-    "main.cc897545.js.map": "/sunstoriy/static/js/main.cc897545.js.map",
+    "main.bc804aa5.js.map": "/sunstoriy/static/js/main.bc804aa5.js.map",
     "615.8d3c608b.chunk.css.map": "/sunstoriy/static/css/615.8d3c608b.chunk.css.map",
     "615.87aee897.chunk.js.map": "/sunstoriy/static/js/615.87aee897.chunk.js.map",
     "161.8d3c608b.chunk.css.map": "/sunstoriy/static/css/161.8d3c608b.chunk.css.map",
@@ -43,11 +43,11 @@
     "629.b4c15ff3.chunk.js.map": "/sunstoriy/static/js/629.b4c15ff3.chunk.js.map",
     "254.07b4865a.chunk.js.map": "/sunstoriy/static/js/254.07b4865a.chunk.js.map",
     "925.d4e19cf6.chunk.js.map": "/sunstoriy/static/js/925.d4e19cf6.chunk.js.map",
-    "795.525b0ee2.chunk.js.map": "/sunstoriy/static/js/795.525b0ee2.chunk.js.map",
-    "16.65f66260.chunk.js.map": "/sunstoriy/static/js/16.65f66260.chunk.js.map"
+    "401.bf63b767.chunk.js.map": "/sunstoriy/static/js/401.bf63b767.chunk.js.map",
+    "16.2901c92e.chunk.js.map": "/sunstoriy/static/js/16.2901c92e.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.58462fbc.css",
-    "static/js/main.cc897545.js"
+    "static/js/main.bc804aa5.js"
   ]
 }
