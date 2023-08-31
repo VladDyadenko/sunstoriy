@@ -47,14 +47,15 @@ export const SpaceDrawer = styled(Space)`
   @media (min-width: 768px) {
     flex-direction: row;
   }
-  :where(.css-dev-only-do-not-override-17a39f8).ant-btn-primary {
+  .ant-btn {
     background-color: #68bf48;
     padding: 5px 20px;
     height: 50px;
+    &:not(:disabled):not(.ant-btn-disabled):hover {
+      background-color: var(--main-green);
+    }
   }
-  :where(.css-dev-only-do-not-override-17a39f8).ant-btn-primary:not(
-      :disabled
-    ):not(.ant-btn-disabled):hover {
+  .ant-btn:hover {
     background-color: var(--main-green);
   }
 
