@@ -1,5 +1,5 @@
 import {
-  FieldMather,
+  FieldParents,
   MatherTitle,
   ParentsWrapper,
 } from './ParentsContainer.styled';
@@ -9,8 +9,8 @@ function ParentsContainer({ title, inputName, inputPhone }) {
     <>
       <ParentsWrapper>
         <MatherTitle>{title} дитини:</MatherTitle>
-        <FieldMather name={inputName} type="text" placeholder="Ім'я" />
-        <FieldMather
+        <FieldParents name={inputName} type="text" placeholder="Ім'я" />
+        <FieldParents
           name={inputPhone}
           type="tel"
           placeholder="+380(__)___ __ __"

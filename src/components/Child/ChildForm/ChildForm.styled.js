@@ -22,6 +22,7 @@ export const FormImgContainer = styled.div`
   display: flex;
   width: 100%;
   gap: 10px;
+  margin: 20px 0;
 
   @media (min-width: 768px) {
     gap: 30px;
@@ -39,10 +40,14 @@ export const FieldChild = styled(Field)`
   font-size: 16px;
   line-height: normal;
   letter-spacing: -0.28px;
-  border: solid 1px var(--main-green);
+  border: solid 2px var(--bg-main-color);
   border-radius: 6px;
   opacity: 0.8;
   background-color: transparent;
+
+  &:focus-visible {
+    border: solid 2px var(--main-green);
+  }
 `;
 
 export const NameFormChild = styled.div`
@@ -58,7 +63,7 @@ export const FormButton = styled.button`
   border-radius: 4px;
   margin: 0 auto;
   width: 200px;
-  background-color: #68bf48;
+  background-color: var(--bg-main-color);
   color: var(--header-main-color);
   border-radius: 8px;
   border: 1px solid transparent;
@@ -87,10 +92,14 @@ export const FieldChildBirth = styled(Field)`
   font-size: 16px;
   line-height: normal;
   letter-spacing: -0.28px;
-  border: solid 1px var(--main-green);
+  border: solid 2px var(--bg-main-color);
   border-radius: 6px;
   opacity: 0.8;
   background-color: transparent;
+
+  &:focus-visible {
+    border: solid 2px var(--main-green);
+  }
 `;
 export const AgeDiscr = styled.div`
   height: 40px;
@@ -102,7 +111,7 @@ export const AgeDiscr = styled.div`
   font-size: 18px;
   line-height: normal;
   letter-spacing: -0.28px;
-  border: solid 1px var(--main-green);
+  border: solid 2px var(--bg-main-color);
   border-radius: 6px;
   opacity: 0.8;
   background-color: transparent;
@@ -129,5 +138,38 @@ export const AdgTitle = styled.span`
 
   @media (min-width: 768px) {
     display: block;
+  }
+`;
+
+export const FieldTextarea = styled(Field)`
+  width: 100%;
+  padding: 12px 20px;
+  color: #2a2a2a;
+  font-family: 'RobotoSlab';
+  font-weight: 500;
+  font-size: 16px;
+  line-height: normal;
+  letter-spacing: -0.28px;
+  border: solid 2px var(--bg-main-color);
+  border-radius: 6px;
+  opacity: 0.8;
+  background-color: transparent;
+  margin-bottom: 20px;
+
+  &:focus-visible {
+    border: solid 2px var(--main-green);
+  }
+`;
+export const TextAreaTitle = styled.label`
+  font-family: 'RobotoSlab';
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--main-green);
+  margin-bottom: 5px;
+  margin-top: 15px;
+  text-align: center;
+
+  @media (min-width: 768px) {
+    text-align: start;
   }
 `;

@@ -48,7 +48,7 @@ export const SpaceDrawer = styled(Space)`
     flex-direction: row;
   }
   .ant-btn {
-    background-color: #68bf48;
+    background-color: var(--bg-main-color);
     padding: 5px 20px;
     height: 50px;
     &:not(:disabled):not(.ant-btn-disabled):hover {
