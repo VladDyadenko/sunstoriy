@@ -1,9 +1,11 @@
 import { Formik } from 'formik';
-import ChildUpdateFile from '../ChildUpdateFile/ChildUpdateFile';
+import { parse } from 'date-fns';
+import { useState } from 'react';
 import {
   AdgTitle,
   AgeConteiner,
   AgeDiscr,
+  ErrorInfo,
   FieldChild,
   FieldChildBirth,
   FieldTextarea,
@@ -13,10 +15,10 @@ import {
   NameFormChild,
   TextAreaTitle,
 } from './ChildForm.styled';
-import { parse } from 'date-fns';
-import { useState } from 'react';
+import ChildUpdateFile from '../ChildUpdateFile/ChildUpdateFile';
 import ParentsContainer from '../ParentsContainer/ParentsContainer';
 import UploadFiles from '../UploadFiles/UploadFiles';
+import { initialValuesChildForm, schemaChildUpdate } from '../Schemas/schema';
 
 function ChildForm() {
   const [age, setAge] = useState(null);
@@ -32,35 +34,24 @@ function ChildForm() {
 
   return (
     <Formik
-      initialValues={{
-        name: '',
-        surname: '',
-        birthDate: '',
-        age: '',
-        file: null,
-        mather: '',
-        matherPhone: '',
-        father: '',
-        fatherPhone: '',
-        about: '',
-        sensornaya: '',
-        logoped: '',
-        correction: '',
-        tutor: '',
-        rehabilitation: '',
-        childFiles: [],
-      }}
+      initialValues={initialValuesChildForm}
+      validationSchema={schemaChildUpdate}
       onSubmit={values => {
         console.log(values);
+        console.log(values.age);
       }}
     >
-      {({ values, setFieldValue }) => (
+      {({ errors, touched, values, setFieldValue }) => (
         <FormChild>
           <FormImgContainer>
             <ChildUpdateFile file={values.file} setFieldValue={setFieldValue} />
             <NameFormChild>
               <FieldChild name="name" type="text" placeholder="Ім'я" />
+              {touched.name && errors.name && (
+                <ErrorInfo>{errors.name}</ErrorInfo>
+              )}
               <FieldChild name="surname" type="text" placeholder="Фамілія" />
+              {errors.surname && <ErrorInfo>{errors.surname}</ErrorInfo>}
               <AgeConteiner>
                 <FieldChildBirth
                   name="birthDate"
@@ -81,11 +72,15 @@ function ChildForm() {
             title={'Мама'}
             inputName={'mather'}
             inputPhone={'matherPhone'}
+            touched={touched}
+            errors={errors}
           />
           <ParentsContainer
             title={'Батько'}
             inputName={'father'}
             inputPhone={'fatherPhone'}
+            touched={touched}
+            errors={errors}
           />
           <TextAreaTitle>Запит батьків:</TextAreaTitle>
           <FieldTextarea name="about" component="textarea" rows={6} />

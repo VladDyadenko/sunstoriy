@@ -1,6 +1,6 @@
 import { Popconfirm } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutThunk, updateNameThunk } from 'redux/auth/authOperetion';
 import { selectAuthUser } from 'redux/auth/authSelector';
@@ -24,11 +24,17 @@ function UserProfile({ onClose }) {
   const user = useSelector(selectAuthUser);
 
   const dispatch = useDispatch();
-  const [state, setState] = useState(() => {
-    return {
+
+  useEffect(() => {
+    setState({
       name: user.name,
       avatar: user.avatarUrl,
-    };
+    });
+  }, [user]);
+
+  const [state, setState] = useState({
+    name: user.name,
+    avatar: user.avatarUrl,
   });
 
   const avatarURL =

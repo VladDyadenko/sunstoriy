@@ -28,6 +28,9 @@ export const FormImgContainer = styled.div`
     gap: 30px;
   }
 `;
+export const ErrorInfo = styled.p`
+  color: red;
+`;
 export const FieldChild = styled(Field)`
   width: 100%;
   height: 40px;
