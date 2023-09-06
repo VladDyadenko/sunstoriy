@@ -5,7 +5,7 @@ export const FormChild = styled(Form)`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 0 15px;
+  padding: 25px 15px 40px 15px;
   width: 375px;
 
   @media (min-width: 768px) {
@@ -70,7 +70,7 @@ export const FormButton = styled.button`
   padding: 10px 10px;
   font-family: 'RobotoSlab';
   font-weight: 400;
-  font-size: 13px;
+  font-size: 18px;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out,
     border-color 0.3s ease-in-out;
@@ -163,7 +163,7 @@ export const FieldTextarea = styled(Field)`
 export const TextAreaTitle = styled.label`
   font-family: 'RobotoSlab';
   font-weight: 500;
-  font-size: 16px;
+  font-size: 18px;
   color: var(--main-green);
   margin-bottom: 5px;
   margin-top: 15px;

@@ -12,7 +12,7 @@ export const PreviewFotoContainer = styled.div`
 `;
 export const UpdateFileButton = styled.button`
   border-radius: 4px;
-  background-color: #68bf48;
+  background-color: var(--main-dark-blue);
   color: var(--header-main-color);
   border-radius: 8px;
   border: 1px solid transparent;

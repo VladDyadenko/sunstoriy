@@ -16,6 +16,7 @@ import {
 import { parse } from 'date-fns';
 import { useState } from 'react';
 import ParentsContainer from '../ParentsContainer/ParentsContainer';
+import UploadFiles from '../UploadFiles/UploadFiles';
 
 function ChildForm() {
   const [age, setAge] = useState(null);
@@ -47,10 +48,10 @@ function ChildForm() {
         correction: '',
         tutor: '',
         rehabilitation: '',
+        childFiles: [],
       }}
       onSubmit={values => {
         console.log(values);
-        console.log(values.about);
       }}
     >
       {({ values, setFieldValue }) => (
@@ -88,6 +89,10 @@ function ChildForm() {
           />
           <TextAreaTitle>Запит батьків:</TextAreaTitle>
           <FieldTextarea name="about" component="textarea" rows={6} />
+          <UploadFiles
+            childFiles={values.childFiles}
+            setFieldValue={setFieldValue}
+          />
           <TextAreaTitle>Сенсорна:</TextAreaTitle>
           <FieldTextarea name="sensornaya" component="textarea" rows={6} />
           <TextAreaTitle>Логопед:</TextAreaTitle>
