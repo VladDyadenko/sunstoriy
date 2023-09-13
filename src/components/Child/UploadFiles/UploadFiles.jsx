@@ -60,7 +60,7 @@ function UploadFiles({ setFieldValue, childFiles }) {
     setFieldValue('childFiles', [...childFiles, ...newFilesArray]);
     setPreviews([...previews, ...newPreviews]);
   };
-
+ 
   return (
     <>
       <Modal

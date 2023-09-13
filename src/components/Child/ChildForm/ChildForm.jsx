@@ -19,9 +19,13 @@ import ChildUpdateFile from '../ChildUpdateFile/ChildUpdateFile';
 import ParentsContainer from '../ParentsContainer/ParentsContainer';
 import UploadFiles from '../UploadFiles/UploadFiles';
 import { initialValuesChildForm, schemaChildUpdate } from '../Schemas/schema';
+import { useDispatch } from 'react-redux';
+import { addChild } from 'redux/child/childOperetion';
 
 function ChildForm() {
   const [age, setAge] = useState(null);
+
+  const dispatch = useDispatch();
 
   const calculateAge = birthDate => {
     if (birthDate) {
@@ -37,14 +41,16 @@ function ChildForm() {
       initialValues={initialValuesChildForm}
       validationSchema={schemaChildUpdate}
       onSubmit={values => {
-        console.log(values);
-        console.log(values.age);
+        dispatch(addChild(values));
       }}
     >
       {({ errors, touched, values, setFieldValue }) => (
         <FormChild>
           <FormImgContainer>
-            <ChildUpdateFile file={values.file} setFieldValue={setFieldValue} />
+            <ChildUpdateFile
+              childImage={values.childImage}
+              setFieldValue={setFieldValue}
+            />
             <NameFormChild>
               <FieldChild name="name" type="text" placeholder="Ім'я" />
               {touched.name && errors.name && (

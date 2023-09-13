@@ -10,7 +10,7 @@ import {
 function ChildUpdateFile({ setFieldValue, file }) {
   const fileRef = useRef(null);
 
-  const [preview, setPreview] = useState(null);
+  const [preview, setPreview] = useState('');
 
   return (
     <>
@@ -20,7 +20,7 @@ function ChildUpdateFile({ setFieldValue, file }) {
         ref={fileRef}
         onChange={event => {
           const selectedFile = event.target.files[0];
-          setFieldValue('file', selectedFile);
+          setFieldValue('childImage', selectedFile);
           const reader = new FileReader();
           reader.readAsDataURL(selectedFile);
           reader.onload = () => {
