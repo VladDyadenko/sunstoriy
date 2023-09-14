@@ -1,5 +1,6 @@
 import { Watermark } from 'antd';
 import Container from '../../components/Container/Container';
+import MainContainer from 'components/MainPage/MainContainer/MainContainer';
 
 function MainPage() {
   return (
@@ -7,7 +8,8 @@ function MainPage() {
       <Container>
         <Watermark content="Sunstoriy">
           <div style={{ height: '100vh' }}>
-            <h4>MainPage</h4>
+            <MainContainer/>
+        
           </div>
         </Watermark>
       </Container>

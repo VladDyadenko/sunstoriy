@@ -105,7 +105,6 @@ export const ModalLogOutButton = styled(Button)`
   height: 44px;
   border: none;
   background: var(--main-dark-blue);
-
   cursor: pointer;
   width: 100%;
   color: var(--header-main-color);
