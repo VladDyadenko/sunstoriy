@@ -6,10 +6,10 @@ import {
   WelcomLogo,
   WelcomTitle,
 } from './WelcomePage.styled';
-import welcomeImgLarge from 'assets/images/different/children.jpg';
+import welcomeImgLarge from 'assets/images/authPage/authMainScreen.jpg';
 import welcomeImgMedium from 'assets/images/different/children_desctop.jpg';
 import welcomeImgSmall from 'assets/images/different/children_mobil.jpg';
-import logo from 'assets/images/Header/LogoSunstoriy.jpg';
+import logo from 'assets/images/authPage/authLogoScreen.jpg';
 import { useEffect, useState } from 'react';
 import BtnNav from 'ui/BtnNav/BtnNav';
 
@@ -41,7 +41,7 @@ function WelcomePage() {
         <WelcomTitle>
           Вітаємо Вас на сторінці робочого застосунку дитячого центру розвитку:
         </WelcomTitle>
-        <WelcomLogo src={logo} alt="logo" />
+        <WelcomLogo src={logo} alt="logo" width={300} height={125} />
         <WelcomTitle>
           Почніть з реєстрації або авторизації. І нехай ці посмішки надихають
           Вас на нові звершення!

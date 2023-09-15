@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const CardWrapper = styled.div`
@@ -33,9 +34,13 @@ export const TitleCard = styled.h4`
   font-weight: 500;
   font-size: 18px;
 `;
-export const ButtonCard = styled.button`
+export const ButtonCard = styled(NavLink)`
   width: 70%;
   padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
   font-family: 'RobotoSlab';
   font-weight: 500;
   font-size: 16px;

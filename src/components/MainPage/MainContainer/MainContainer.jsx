@@ -5,8 +5,16 @@ import { MainPageWrapper } from './MainContainer.styled';
 function MainContainer() {
   return (
     <MainPageWrapper>
-      {mainCardDescr.map(({ title, image }) => {
-        return <CardLink title={title} image={image} />;
+      {mainCardDescr.map(({ title, image, path, descr }) => {
+        return (
+          <CardLink
+            key={title}
+            title={title}
+            image={image}
+            path={path}
+            descr={descr}
+          />
+        );
       })}
     </MainPageWrapper>
   );

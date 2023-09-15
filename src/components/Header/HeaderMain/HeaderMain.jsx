@@ -8,7 +8,7 @@ import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import MenuItem from '@mui/material/MenuItem';
 import { useLocation } from 'react-router-dom';
-import logo from '../../../assets/images/Header/LogoSunstoriy.jpg';
+import logo from '../../../assets/images/Header/logoRightHeight.png';
 import {
   HeaderLink,
   HeaderLinkDesctop,
@@ -52,7 +52,7 @@ function HeaderMain() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <LogoLink to="/">
-            <img src={logo} alt="Logo" width={100} />
+            <img src={logo} alt="Logo" width={100} height={42} />
           </LogoLink>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -100,7 +100,7 @@ function HeaderMain() {
             </Menu>
           </Box>
           <LogoLinkMobil to="/">
-            <img src={logo} alt="Logo" width={100} />
+            <img src={logo} alt="Logo" width={100} height={42} />
           </LogoLinkMobil>
           <MainNavSite>
             <HeaderList>

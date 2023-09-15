@@ -8,8 +8,7 @@ function MainPage() {
       <Container>
         <Watermark content="Sunstoriy">
           <div style={{ height: '100vh' }}>
-            <MainContainer/>
-        
+            <MainContainer />
           </div>
         </Watermark>
       </Container>

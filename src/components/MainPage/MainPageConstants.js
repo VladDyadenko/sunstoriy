@@ -1,23 +1,31 @@
-import childCardFoto from 'assets/images/MainPage/children.jpg';
-import lessonCardFoto from 'assets/images/MainPage/lesson_4.jpg';
-import meetingWithChild from 'assets/images/MainPage/meetingWithChild.jpg';
-import teacher from 'assets/images/MainPage/teacher.png';
+import childCardFoto from 'assets/images/MainPage/addchild.jpg';
+import lessonCardFoto from 'assets/images/MainPage/lessons.jpg';
+import meetingWithChild from 'assets/images/MainPage/diagnostic.jpg';
+import teacher from 'assets/images/MainPage/newTeacher.jpg';
 
 export const mainCardDescr = [
   {
-    title: 'Тут Ви можете внести інформацію про нову дитину',
+    title: 'Внесіть дані про нову дитину',
     image: childCardFoto,
+    path: '/child',
+    descr: 'Створити',
   },
   {
     title: 'Заплануйте нову навчальну подорож',
     image: lessonCardFoto,
+    path: '/child',
+    descr: 'Створити',
   },
   {
     title: 'Заплануйте першу зустріч з дитиною',
     image: meetingWithChild,
+    path: '/child',
+    descr: 'Створити',
   },
   {
     title: 'Наш новий чарівник',
     image: teacher,
+    path: '/child',
+    descr: 'Створити',
   },
 ];

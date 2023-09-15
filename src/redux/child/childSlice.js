@@ -3,22 +3,6 @@ import { addChild } from './childOperetion';
 const { createSlice } = require('@reduxjs/toolkit');
 
 const initialState = {
-  // name: '',
-  // surname: '',
-  // birthDate: '',
-  // age: '',
-  // childImage: null,
-  // mather: '',
-  // matherPhone: '',
-  // father: '',
-  // fatherPhone: '',
-  // childFiles: null,
-  // about: '',
-  // sensornaya: '',
-  // logoped: '',
-  // correction: '',
-  // tutor: '',
-  // rehabilitation: '',
   child: [],
   isloading: false,
   error: null,

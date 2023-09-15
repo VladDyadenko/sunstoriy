@@ -6,17 +6,17 @@ import {
   TitleContainer,
 } from './CardLink.styled';
 
-function CardLink({ title, image }) {
+function CardLink({ title, image, path, descr }) {
   return (
     <>
       <CardWrapper>
         <ImedgeContainer>
-          <img src={image} alt="children" width="100%" height={150} />
+          <img src={image} alt="children" width={230} height={130} />
         </ImedgeContainer>
         <TitleContainer>
           <TitleCard>{title}</TitleCard>
         </TitleContainer>
-        <ButtonCard>Створити</ButtonCard>
+        <ButtonCard to={path}>{descr}</ButtonCard>
       </CardWrapper>
     </>
   );

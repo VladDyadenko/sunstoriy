@@ -56,6 +56,7 @@ function App() {
           <Route path="/correction" element={<CorrectionPage />} />
           <Route path="/children" element={<ChildrenPage />} />
           <Route path="/child/:childId" element={<ChildPage />} />
+          <Route path="/child" element={<ChildPage />} />
           <Route path="/financial" element={<FinancialPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
