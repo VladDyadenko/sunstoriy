@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   ChildImage,
   FotoBlock,
@@ -7,11 +7,13 @@ import {
   UpdateFileButton,
 } from './ChildUpdateFile.styled';
 
-function ChildUpdateFile({ setFieldValue, file }) {
+function ChildUpdateFile({ setFieldValue, childImages }) {
   const fileRef = useRef(null);
 
-  const [preview, setPreview] = useState('');
-
+  const [preview, setPreview] = useState(childImages);
+  useEffect(() => {
+    setPreview(childImages);
+  }, [childImages]);
   return (
     <>
       <input

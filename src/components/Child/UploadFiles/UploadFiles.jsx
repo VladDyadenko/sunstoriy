@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ChildImage } from '../ChildUpdateFile/ChildUpdateFile.styled';
 import { Modal } from 'antd';
 import {
@@ -13,14 +13,32 @@ import {
   PreviewImageContainer,
   UploadTitle,
 } from './UploadFiles.styled';
+import { decodeUTF8 } from '../decodeUTF8';
 
-function UploadFiles({ setFieldValue, childFiles }) {
+function UploadFiles({ setFieldValue, childFiles, arrayFile }) {
   const fileRef = useRef(null);
 
-  const [previews, setPreviews] = useState([]);
+  const [previews, setPreviews] = useState(arrayFile);
   const [imagePreview, setImagePreview] = useState(null);
   const [previewOpen, setPreviewOpen] = useState(false);
 
+  useEffect(() => {
+    const formattedPreviews = arrayFile.map(fileName => {
+      const trimmedFileName = fileName.replace(
+        './uploads/child/childFiles-',
+        ''
+      );
+
+      const decodedFileName = decodeUTF8(trimmedFileName);
+
+      return {
+        file: decodedFileName,
+        fileName: decodedFileName,
+      };
+    });
+
+    setPreviews(formattedPreviews);
+  }, [arrayFile]);
   const handlePreviewImage = imageSrc => {
     setPreviewOpen(true);
     setImagePreview(imageSrc);
@@ -60,7 +78,7 @@ function UploadFiles({ setFieldValue, childFiles }) {
     setFieldValue('childFiles', [...childFiles, ...newFilesArray]);
     setPreviews([...previews, ...newPreviews]);
   };
- 
+
   return (
     <>
       <Modal
@@ -92,8 +110,10 @@ function UploadFiles({ setFieldValue, childFiles }) {
         {previews.length > 0 &&
           previews.map((preview, index) => {
             const file = childFiles[index];
-            const fileNameSubstr = file.name.substring(0, 10);
-            if (file.type.startsWith('image/')) {
+            const fileNameSubstr = preview.fileName
+              ? preview.fileName.substring(0, 10)
+              : file.name.substring(0, 10);
+            if (file && file.type && file.type.startsWith('image/')) {
               // Если это изображение, отображаем как изображение
               return (
                 <PreviewImageContainer

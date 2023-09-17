@@ -8,3 +8,11 @@ export const getAllChild = async () => {
     console.log(err.message);
   }
 };
+export const getChildById = async id => {
+  try {
+    const { data } = await axios.get(`/child/${id}`);
+    return data;
+  } catch (err) {
+    console.log(err.message);
+  }
+};

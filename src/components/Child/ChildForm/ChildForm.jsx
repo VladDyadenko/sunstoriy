@@ -1,6 +1,6 @@
 import { Formik } from 'formik';
-import { parse } from 'date-fns';
-import { useState } from 'react';
+import { parse, format } from 'date-fns';
+import { useEffect, useState } from 'react';
 import {
   AdgTitle,
   AgeConteiner,
@@ -22,9 +22,13 @@ import { initialValuesChildForm, schemaChildUpdate } from '../Schemas/schema';
 import { useDispatch } from 'react-redux';
 import { addChild } from 'redux/child/childOperetion';
 
-function ChildForm() {
+function ChildForm({ child }) {
   const [age, setAge] = useState(null);
-
+  const [valuesChildForm, setValuesChildForm] = useState(
+    initialValuesChildForm
+  );
+  const [childImage, setChildImage] = useState('');
+  const [childFiles, setChildFiles] = useState([]);
   const dispatch = useDispatch();
 
   const calculateAge = birthDate => {
@@ -35,10 +39,36 @@ function ChildForm() {
       setAge(yearsDiff);
     }
   };
+  useEffect(() => {
+    if (child) {
+      const childData = {
+        name: child?.name,
+        surname: child?.surname,
+        birthDate: child?.birthDate,
+        age: child?.age,
+        childImage: child?.childImage,
+        mather: child?.mather,
+        matherPhone: child?.matherPhone,
+        father: child?.father,
+        fatherPhone: child?.fatherPhone,
+        about: child?.about,
+        sensornaya: child?.sensornaya,
+        logoped: child?.logoped,
+        correction: child?.correction,
+        tutor: child?.tutor,
+        reabilitation: child?.reabilitation,
+        childFiles: child?.childFiles,
+      };
+      setValuesChildForm(childData);
+      setChildImage(childData.childImage);
+      setChildFiles(childData.childFiles);
+    }
+  }, [child]);
 
   return (
     <Formik
-      initialValues={initialValuesChildForm}
+      enableReinitialize={true}
+      initialValues={valuesChildForm}
       validationSchema={schemaChildUpdate}
       onSubmit={values => {
         dispatch(addChild(values));
@@ -48,6 +78,7 @@ function ChildForm() {
         <FormChild>
           <FormImgContainer>
             <ChildUpdateFile
+              childImages={childImage}
               childImage={values.childImage}
               setFieldValue={setFieldValue}
             />
@@ -62,6 +93,11 @@ function ChildForm() {
                 <FieldChildBirth
                   name="birthDate"
                   type="date"
+                  value={
+                    values.birthDate
+                      ? format(new Date(values.birthDate), 'yyyy-MM-dd')
+                      : ''
+                  }
                   onChange={event => {
                     const selectedDate = event.target.value;
                     setFieldValue('birthDate', selectedDate);
@@ -70,7 +106,9 @@ function ChildForm() {
                   }}
                 />
                 <AdgTitle>Років:</AdgTitle>
-                <AgeDiscr> {age !== null ? `${age}` : ''}</AgeDiscr>
+                <AgeDiscr>
+                  {values.age ? values.age : calculateAge(values.birthDate)}
+                </AgeDiscr>
               </AgeConteiner>
             </NameFormChild>
           </FormImgContainer>
@@ -91,6 +129,7 @@ function ChildForm() {
           <TextAreaTitle>Запит батьків:</TextAreaTitle>
           <FieldTextarea name="about" component="textarea" rows={6} />
           <UploadFiles
+            arrayFile={childFiles}
             childFiles={values.childFiles}
             setFieldValue={setFieldValue}
           />
@@ -103,7 +142,7 @@ function ChildForm() {
           <TextAreaTitle>Підготовка до школи:</TextAreaTitle>
           <FieldTextarea name="tutor" component="textarea" rows={6} />
           <TextAreaTitle>Реабілітолог:</TextAreaTitle>
-          <FieldTextarea name="rehabilitation" component="textarea" rows={6} />
+          <FieldTextarea name="reabilitation" component="textarea" rows={6} />
           <FormButton type="submit">Зберегти зміни</FormButton>
         </FormChild>
       )}

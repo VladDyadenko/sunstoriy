@@ -11,7 +11,6 @@ import defaultImg from 'assets/images/Children/childrenPage_2.png';
 
 function ChildrenCard({ child }) {
   const { childImage, name, surname, _id } = child;
-  console.log(child);
   return (
     <>
       <ChildrenCardWrapper>

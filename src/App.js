@@ -9,13 +9,13 @@ import MainLayout from './layouts/MainLayout/MainLayout';
 import WelcomePage from 'page/WelcomePage/WelcomePage';
 import AuthPage from 'page/AuthPage/AuthPage';
 import RestrictedRoute from 'route/RestrictedRoute';
-import ChildPage from 'page/ChildPage/ChildPage';
 
 const SensornayaPage = lazy(() => import('page/SensornayaPage/SensornayaPage'));
 const LogopedPage = lazy(() => import('page/LogopedPage/LogopedPage'));
 const MainPage = lazy(() => import('page/MainPage/MainPage'));
 const CorrectionPage = lazy(() => import('page/CorrectionPage/CorrectionPage'));
 const ChildrenPage = lazy(() => import('page/ChildrenPage/ChildrenPage'));
+const ChildPage = lazy(() => import('page/ChildPage/ChildPage'));
 const FinancialPage = lazy(() => import('page/FinancialPage/FinancialPage'));
 const LessonPage = lazy(() => import('page/LessonPage/LessonPage'));
 const NotFoundPage = lazy(() => import('page/NotFoundPage/NotFoundPage'));

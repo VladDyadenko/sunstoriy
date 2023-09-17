@@ -8,7 +8,6 @@ import { ChildrenTitle } from './ChildrenPage.styled';
 
 function ChildrenPage() {
   const [allChildren, setAllChildren] = useState();
-  console.log(allChildren);
 
   useEffect(() => {
     async function fetchChildren() {
