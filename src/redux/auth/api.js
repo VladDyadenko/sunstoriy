@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Notify } from 'notiflix';
 
-axios.defaults.baseURL = 'https://sunstoriy-back.onrender.com';
+axios.defaults.baseURL = 'http://localhost:5000/';
 
 const tokenOperation = {
   setToken: token => {
@@ -55,7 +55,6 @@ export const currentApi = async (_, thunkAPI) => {
   const state = thunkAPI.getState();
 
   const persistedToken = state.auth.token;
-
   if (persistedToken === null) {
     return thunkAPI.rejectWithValue('Unable to fetch user');
   }

@@ -39,6 +39,18 @@ function UploadFiles({ setFieldValue, childFiles, arrayFile }) {
 
     setPreviews(formattedPreviews);
   }, [arrayFile]);
+
+  const handleOpenDocument = (fileData, fileName) => {
+    console.log(fileData);
+    const a = document.createElement('a');
+    a.href = fileData.file; // Поменяйте fileData.file на актуальный путь к файлу
+    a.download = fileName; // Имя файла для сохранения
+    a.rel = 'noopener noreferrer'; // Добавьте рекомендуемые атрибуты безопасности
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
+
   const handlePreviewImage = imageSrc => {
     setPreviewOpen(true);
     setImagePreview(imageSrc);
@@ -143,7 +155,16 @@ function UploadFiles({ setFieldValue, childFiles, arrayFile }) {
                   key={index}
                   onClick={e => {
                     e.stopPropagation();
-                    handleFileDelete(index);
+                    const isDeleteButtonClick =
+                      e.target.classList.contains('delete-button');
+                    if (!isDeleteButtonClick) {
+                      const fileNameSubstr = preview.fileName
+                        ? preview.fileName
+                        : file.name;
+                      console.log(file);
+                      console.log(fileNameSubstr);
+                      handleOpenDocument(file, fileNameSubstr);
+                    }
                   }}
                 >
                   <IconDoc />
@@ -151,6 +172,7 @@ function UploadFiles({ setFieldValue, childFiles, arrayFile }) {
                   <DeleteDocButton
                     type="button"
                     onClick={() => handleFileDelete(index)}
+                    className="delete-button" // Добавляем класс для кнопки удаления
                   >
                     <IconDelete />
                   </DeleteDocButton>

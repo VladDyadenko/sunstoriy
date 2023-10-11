@@ -1,6 +1,7 @@
 import { Formik } from 'formik';
 import { parse, format } from 'date-fns';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   AdgTitle,
   AgeConteiner,
@@ -17,10 +18,10 @@ import {
 } from './ChildForm.styled';
 import ChildUpdateFile from '../ChildUpdateFile/ChildUpdateFile';
 import ParentsContainer from '../ParentsContainer/ParentsContainer';
-import UploadFiles from '../UploadFiles/UploadFiles';
+// import UploadFiles from '../UploadFiles/UploadFiles';
 import { initialValuesChildForm, schemaChildUpdate } from '../Schemas/schema';
 import { useDispatch } from 'react-redux';
-import { addChild } from 'redux/child/childOperetion';
+import { addChild, updateChild } from 'redux/child/childOperetion';
 
 function ChildForm({ child }) {
   const [age, setAge] = useState(null);
@@ -28,7 +29,8 @@ function ChildForm({ child }) {
     initialValuesChildForm
   );
   const [childImage, setChildImage] = useState('');
-  const [childFiles, setChildFiles] = useState([]);
+  // const [childFiles, setChildFiles] = useState([]);
+  const history = useNavigate();
   const dispatch = useDispatch();
 
   const calculateAge = birthDate => {
@@ -42,26 +44,26 @@ function ChildForm({ child }) {
   useEffect(() => {
     if (child) {
       const childData = {
-        name: child?.name,
-        surname: child?.surname,
-        birthDate: child?.birthDate,
-        age: child?.age,
-        childImage: child?.childImage,
-        mather: child?.mather,
-        matherPhone: child?.matherPhone,
-        father: child?.father,
-        fatherPhone: child?.fatherPhone,
-        about: child?.about,
-        sensornaya: child?.sensornaya,
-        logoped: child?.logoped,
-        correction: child?.correction,
-        tutor: child?.tutor,
-        reabilitation: child?.reabilitation,
-        childFiles: child?.childFiles,
+        name: child.name ? child.name : '',
+        surname: child.surname ? child.surname : '',
+        birthDate: child.birthDate ? child.birthDate : '',
+        age: child.age ? child.age : '',
+        childImage: child.childImage ? child.childImage : '',
+        mather: child.mather ? child.mather : '',
+        matherPhone: child.matherPhone ? child.matherPhone : '',
+        father: child.father ? child.father : '',
+        fatherPhone: child.fatherPhone ? child.fatherPhone : '',
+        about: child.about ? child.about : '',
+        sensornaya: child.sensornaya ? child.sensornaya : '',
+        logoped: child.logoped ? child.logoped : '',
+        correction: child.correction ? child.correction : '',
+        tutor: child.tutor ? child.tutor : '',
+        reabilitation: child.reabilitation ? child.reabilitation : '',
+        childFiles: child.childFiles ? child.childFiles : '',
       };
       setValuesChildForm(childData);
       setChildImage(childData.childImage);
-      setChildFiles(childData.childFiles);
+      // setChildFiles(childData.childFiles);
     }
   }, [child]);
 
@@ -71,7 +73,14 @@ function ChildForm({ child }) {
       initialValues={valuesChildForm}
       validationSchema={schemaChildUpdate}
       onSubmit={values => {
-        dispatch(addChild(values));
+        if (child) {
+          const id = child._id;
+          const combinedData = { id, values };
+          dispatch(updateChild(combinedData));
+        } else {
+          dispatch(addChild(values));
+          history('/children');
+        }
       }}
     >
       {({ errors, touched, values, setFieldValue }) => (
@@ -128,11 +137,11 @@ function ChildForm({ child }) {
           />
           <TextAreaTitle>Запит батьків:</TextAreaTitle>
           <FieldTextarea name="about" component="textarea" rows={6} />
-          <UploadFiles
+          {/* <UploadFiles
             arrayFile={childFiles}
             childFiles={values.childFiles}
             setFieldValue={setFieldValue}
-          />
+          /> */}
           <TextAreaTitle>Сенсорна:</TextAreaTitle>
           <FieldTextarea name="sensornaya" component="textarea" rows={6} />
           <TextAreaTitle>Логопед:</TextAreaTitle>

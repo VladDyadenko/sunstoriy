@@ -10,16 +10,16 @@ export const addChild = createAsyncThunk(
 
       for (const key in childData) {
         const value = childData[key];
+
         if (Array.isArray(value)) {
           for (const file of value) {
-            const utf8FileName = new TextEncoder().encode(file.name);
-            const utf8FileNameBlob = new Blob([utf8FileName]);
-            formData.append(key, utf8FileNameBlob, file.name);
+            formData.append(key, file, file.name);
           }
         } else if (value !== '') {
           formData.append(key, value);
         }
       }
+
       const { data } = await axios.post('/child', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -27,6 +27,43 @@ export const addChild = createAsyncThunk(
       });
       if (data) {
         Notify.success('Child successful addad');
+      }
+      return data;
+    } catch (err) {
+      if (err) {
+        Notify.failure('Not found');
+      }
+      return thunkAPI.rejectWithValue(err.message);
+    }
+  }
+);
+export const updateChild = createAsyncThunk(
+  'child/updateChild',
+  async (childData, thunkAPI) => {
+    try {
+      const { id, values } = childData;
+
+      const formData = new FormData();
+
+      for (const key in values) {
+        const value = values[key];
+
+        if (Array.isArray(value)) {
+          for (const file of value) {
+            formData.append(key, file, file.name);
+          }
+        } else if (value !== '') {
+          formData.append(key, value);
+        }
+      }
+
+      const { data } = await axios.put(`/child/${id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      if (data) {
+        Notify.success('Child successful update');
       }
       return data;
     } catch (err) {
