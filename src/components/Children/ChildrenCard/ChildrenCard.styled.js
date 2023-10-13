@@ -1,7 +1,10 @@
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import { Button } from 'antd';
+import { AiFillCloseCircle } from 'react-icons/ai';
 
 export const ChildrenCardWrapper = styled.div`
+  position: relative;
   width: 250px;
   height: 300px;
   padding: 15px 10px;
@@ -13,6 +16,28 @@ export const ChildrenCardWrapper = styled.div`
   transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   box-shadow: 0px 10px 13px -6px rgba(0, 0, 0, 0.2),
     0px 20px 31px 3px rgba(0, 0, 0, 0.14), 0px 8px 38px 7px rgba(0, 0, 0, 0.12);
+`;
+export const IconChildDelete = styled(AiFillCloseCircle)`
+  width: 30px;
+  height: 30px;
+  fill: #fa4a3b;
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+
+  &:hover {
+    fill: #da292b;
+  }
+`;
+export const ButtonChildDelete = styled(Button)`
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
 `;
 
 export const ImedgeContainer = styled.div`

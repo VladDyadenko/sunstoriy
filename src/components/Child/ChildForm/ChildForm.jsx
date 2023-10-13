@@ -76,10 +76,13 @@ function ChildForm({ child }) {
         if (child) {
           const id = child._id;
           const combinedData = { id, values };
-          dispatch(updateChild(combinedData));
+          dispatch(updateChild(combinedData)).then(() => {
+            history('/children');
+          });
         } else {
-          dispatch(addChild(values));
-          history('/children');
+          dispatch(addChild(values)).then(() => {
+            history('/children');
+          });
         }
       }}
     >

@@ -2,6 +2,18 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { Notify } from 'notiflix';
 
+export const fetchChildren = createAsyncThunk(
+  'children',
+  async (_, thunkAPI) => {
+    try {
+      const { data } = await axios.get('/child');
+      return data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.message);
+    }
+  }
+);
+
 export const addChild = createAsyncThunk(
   'child/addChildren',
   async (childData, thunkAPI) => {
@@ -28,10 +40,11 @@ export const addChild = createAsyncThunk(
       if (data) {
         Notify.success('Child successful addad');
       }
+
       return data;
     } catch (err) {
       if (err) {
-        Notify.failure('Not found');
+        Notify.failure(err.response.data.message);
       }
       return thunkAPI.rejectWithValue(err.message);
     }
@@ -65,10 +78,28 @@ export const updateChild = createAsyncThunk(
       if (data) {
         Notify.success('Child successful update');
       }
+      console.log(data);
       return data;
     } catch (err) {
       if (err) {
-        Notify.failure('Not found');
+        Notify.failure(err.response.data.message);
+      }
+      return thunkAPI.rejectWithValue(err.message);
+    }
+  }
+);
+
+export const deleteChildById = createAsyncThunk(
+  'child/delete',
+  async (id, thunkAPI) => {
+    try {
+      const res = await axios.patch(`child/delete/${id}`);
+      if (res) {
+        Notify.success('Дитина успішно видалена зі списку!');
+      }
+    } catch (err) {
+      if (err) {
+        Notify.failure(err.message);
       }
       return thunkAPI.rejectWithValue(err.message);
     }

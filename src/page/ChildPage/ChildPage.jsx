@@ -13,7 +13,7 @@ function ChildPage() {
       return;
     }
 
-    async function fetshChild() {
+    async function fetchChild() {
       try {
         const child = await getChildById(childId);
         if (!child) {
@@ -24,7 +24,7 @@ function ChildPage() {
         Notify.failure('Child not found');
       }
     }
-    fetshChild();
+    fetchChild();
   }, [childId]);
 
   return (
