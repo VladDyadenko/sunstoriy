@@ -51,8 +51,6 @@ const childrenSlice = createSlice({
         state.error = null;
         const id = action.payload._id;
         const index = state.child.findIndex(vel => vel._id === id);
-        console.log(index);
-        console.log(id);
         if (index !== -1) {
           state.child[index] = action.payload;
         }

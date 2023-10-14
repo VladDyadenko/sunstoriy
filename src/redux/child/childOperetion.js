@@ -78,8 +78,7 @@ export const updateChild = createAsyncThunk(
       if (data) {
         Notify.success('Child successful update');
       }
-      console.log(data);
-      return data;
+       return data;
     } catch (err) {
       if (err) {
         Notify.failure(err.response.data.message);

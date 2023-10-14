@@ -6,10 +6,11 @@ import { ChildrenTitle } from './ChildrenPage.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchChildren } from 'redux/child/childOperetion';
 import { selectChildren } from 'redux/child/childSelector';
+import ChildrenSearch from 'components/Children/ChildrenSearch/ChildrenSearch';
 
 function ChildrenPage() {
   const [allChildren, setAllChildren] = useState();
-
+  const [visibleListChildren, setVisibleListChildren] = useState();
   const children = useSelector(selectChildren);
 
   useEffect(() => {
@@ -29,8 +30,12 @@ function ChildrenPage() {
   return (
     <>
       <Container>
+        <ChildrenSearch
+          allChildren={allChildren}
+          setVisibleListChildren={setVisibleListChildren}
+        />
         <ChildrenTitle>Наші мрійникі та фантазери</ChildrenTitle>
-        <ChildrenList allChildren={allChildren} />
+        <ChildrenList allChildren={visibleListChildren} />
       </Container>
     </>
   );
