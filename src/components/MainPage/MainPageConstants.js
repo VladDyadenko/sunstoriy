@@ -25,7 +25,7 @@ export const mainCardDescr = [
   {
     title: 'Наш новий чарівник',
     image: teacher,
-    path: '/child',
+    path: '/teacher',
     descr: 'Створити',
   },
 ];

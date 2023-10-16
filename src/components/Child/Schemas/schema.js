@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-const phoneRegexp = /^\+380\d{9}$/;
+// const phoneRegexp = /^\+380\d{9}$/;
 
 export const initialValuesChildForm = {
   name: '',
@@ -30,12 +30,7 @@ export const schemaChildUpdate = yup.object().shape({
   surname: yup.string().min(2, 'Закоротке!').max(40, 'Задовге!'),
   mather: yup.string().min(2, 'Закоротке!').max(40, 'Задовге!'),
 
-  matherPhone: yup
-    .string()
-    .test('phone-format', 'Invalid phone format', value => {
-      return phoneRegexp.test(value);
-    }),
-
+  matherPhone: yup.string(),
   father: yup.string().min(2, 'Закоротке!').max(40, 'Задовге!'),
   fatherPhone: yup.string(),
 });

@@ -16,12 +16,12 @@ import {
   NameFormChild,
   TextAreaTitle,
 } from './ChildForm.styled';
-import ChildUpdateFile from '../ChildUpdateFile/ChildUpdateFile';
 import ParentsContainer from '../ParentsContainer/ParentsContainer';
 // import UploadFiles from '../UploadFiles/UploadFiles';
 import { initialValuesChildForm, schemaChildUpdate } from '../Schemas/schema';
 import { useDispatch } from 'react-redux';
 import { addChild, updateChild } from 'redux/child/childOperetion';
+import UpdateAvatar from 'ui/UpdateAvatar/UpdateAvatar';
 
 function ChildForm({ child }) {
   const [age, setAge] = useState(null);
@@ -89,9 +89,9 @@ function ChildForm({ child }) {
       {({ errors, touched, values, setFieldValue }) => (
         <FormChild>
           <FormImgContainer>
-            <ChildUpdateFile
-              childImages={childImage}
-              childImage={values.childImage}
+            <UpdateAvatar
+              avatar={childImage}
+              fileName="childImage"
               setFieldValue={setFieldValue}
             />
             <NameFormChild>
