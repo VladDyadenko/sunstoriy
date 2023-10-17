@@ -32,7 +32,7 @@ function UpdateAvatar({ setFieldValue, avatar, fileName }) {
       />
       <FotoBlock>
         {preview ? (
-          <ImagePreview src={preview} alt="preview" width={110} height={110} />
+          <ImagePreview src={preview} alt="preview" width={130} height={110} />
         ) : (
           <PreviewFotoContainer>
             <FotoIcon />
