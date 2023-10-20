@@ -1,5 +1,6 @@
 import { Formik } from 'formik';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Select } from 'antd';
 import {
   initialValuesTeacherForm,
@@ -25,14 +26,54 @@ import {
   TextAreaTitle,
 } from './TeacherForm.styled';
 import UpdateAvatar from 'ui/UpdateAvatar/UpdateAvatar';
+import { useDispatch } from 'react-redux';
+import { addTeacher, updateTeacher } from 'redux/teacher/teacherOperetion';
+import { useNavigate } from 'react-router-dom';
 
-const TeacherForm = () => {
+const TeacherForm = ({ teacher }) => {
   const [valuesTeacherForm, setValuesChildForm] = useState(
     initialValuesTeacherForm
   );
   const [teacherImage, setTeacherImage] = useState('');
-
+  const [teacherSpecialization, setTeacherSpecialization] = useState([]);
   const [color, setColor] = useState('#0456BA');
+  const [buttonView, setButtonView] = useState(true);
+
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const source = searchParams.get('source');
+  useEffect(() => {
+    if (source === 'buttonViewing') {
+      setButtonView(false);
+    }
+  }, [source]);
+
+  const dispatch = useDispatch();
+  const history = useNavigate();
+
+  useEffect(() => {
+    if (teacher) {
+      const teacherData = {
+        name: teacher.name ? teacher.name : '',
+        surname: teacher.surname ? teacher.surname : '',
+        teacherImage: teacher.teacherImage ? teacher.teacherImage : '',
+        phone: teacher.phone ? teacher.phone : '',
+        email: teacher.email ? teacher.email : '',
+        color: teacher.color ? teacher.color : '#0456BA',
+        about: teacher.about ? teacher.about : '',
+        specialization:
+          teacher.specialization &&
+          teacher.specialization.length === 1 &&
+          teacher.specialization[0].trim() === ''
+            ? []
+            : teacher.specialization,
+      };
+      setValuesChildForm(teacherData);
+      setTeacherImage(teacherData.teacherImage);
+      setTeacherSpecialization(teacherData.specialization);
+      setColor(teacherData.color);
+    }
+  }, [teacher]);
 
   return (
     <>
@@ -41,18 +82,21 @@ const TeacherForm = () => {
         initialValues={valuesTeacherForm}
         validationSchema={schemaTeacherUpdate}
         onSubmit={values => {
-          console.log(values);
-          // if (child) {
-          //   const id = child._id;
-          //   const combinedData = { id, values };
-          //   dispatch(updateChild(combinedData)).then(() => {
-          //     history('/children');
-          //   });
-          // } else {
-          //   dispatch(addChild(values)).then(() => {
-          //     history('/children');
-          //   });
-          // }
+          if (buttonView) {
+            if (teacher) {
+              const id = teacher._id;
+              const combinedData = { id, values };
+              dispatch(updateTeacher(combinedData)).then(() => {
+                history('/teachers');
+              });
+            } else {
+              dispatch(addTeacher(values)).then(() => {
+                history('/teachers');
+              });
+            }
+          } else {
+            history('/teachers');
+          }
         }}
       >
         {({ errors, touched, values, setFieldValue }) => (
@@ -60,9 +104,7 @@ const TeacherForm = () => {
             <TeacherAddTitle>Картка фахівця</TeacherAddTitle>
             <FormImgContainer>
               <UpdateAvatar
-                setValuesChildForm={setValuesChildForm}
-                setTeacherImage={setTeacherImage}
-                childImages={teacherImage}
+                avatar={teacherImage}
                 fileName="teacherImage"
                 setFieldValue={setFieldValue}
               />
@@ -122,9 +164,13 @@ const TeacherForm = () => {
                   border: '2px solid #68bf48',
                   borderRadius: '8px',
                 }}
-                onChange={value => {
-                  const specialization = value;
-                  setFieldValue('specialization', specialization);
+                value={teacherSpecialization}
+                onChange={e => {
+                  setTeacherSpecialization(e);
+                  setFieldValue(
+                    'specialization',
+                    e ? e : teacherSpecialization
+                  );
                 }}
                 options={options}
               />
@@ -132,7 +178,10 @@ const TeacherForm = () => {
 
             <TextAreaTitle>Додаткова інформація:</TextAreaTitle>
             <FieldTextarea name="about" component="textarea" rows={6} />
-            <FormButton type="submit">Зберегти зміни</FormButton>
+
+            <FormButton type="submit">
+              {buttonView ? 'Зберегти зміни' : 'Назад'}
+            </FormButton>
           </FormTeacher>
         )}
       </Formik>

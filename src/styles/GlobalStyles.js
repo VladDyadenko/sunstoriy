@@ -174,6 +174,7 @@ body,
     --main-dark-blue-bg:#1976d2;
     --header-main-color:#f0f0f0;
     --bg-main-color:#68bf48;
+    --main-text-black:#2a2a2a;
 
     --teacher-color-1:#006400;
     --teacher-color-2:#4B0082;

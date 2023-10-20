@@ -30,7 +30,7 @@ export const navSitePage = [
   { page: 'Логопед', path: '/logoped' },
   { page: 'Корекційний', path: '/correction' },
   { page: 'Діти', path: '/children' },
-  { page: 'Кабінет', path: '/financial' },
+  { page: 'Фахівці', path: '/teachers' },
 ];
 
 export const TEACHERS_SENSORNAYA = [

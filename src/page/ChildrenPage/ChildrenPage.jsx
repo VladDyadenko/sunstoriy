@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react';
-
+import { useDispatch, useSelector } from 'react-redux';
 import ChildrenList from 'components/Children/ChildrenList/ChildrenList';
 import Container from '../../components/Container/Container';
+import ChildrenSearch from 'components/Children/ChildrenSearch/ChildrenSearch';
 import { ChildrenTitle } from './ChildrenPage.styled';
-import { useDispatch, useSelector } from 'react-redux';
 import { fetchChildren } from 'redux/child/childOperetion';
 import { selectChildren } from 'redux/child/childSelector';
-import ChildrenSearch from 'components/Children/ChildrenSearch/ChildrenSearch';
 
 function ChildrenPage() {
-  const [allChildren, setAllChildren] = useState();
+  const [allChildren, setAllChildren] = useState(null);
   const [visibleListChildren, setVisibleListChildren] = useState();
   const children = useSelector(selectChildren);
 

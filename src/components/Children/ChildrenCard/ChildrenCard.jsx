@@ -25,8 +25,8 @@ function ChildrenCard({ child }) {
           <ImedgeChild
             src={childImage ? childImage : defaultImg}
             alt="children"
-            width={230}
-            height={180}
+            width={130}
+            height={130}
           />
         </ImedgeContainer>
         <TitleContainer>

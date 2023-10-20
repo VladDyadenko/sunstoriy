@@ -41,13 +41,12 @@ export const ButtonChildDelete = styled(Button)`
 `;
 
 export const ImedgeContainer = styled.div`
-  width: 100%;
+  border-radius: 50%;
+  margin-bottom: 10px;
 `;
 export const ImedgeChild = styled.img`
-  width: 100%;
   display: block;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  border-radius: 50%;
 `;
 export const TitleContainer = styled.div`
   width: 100%;
