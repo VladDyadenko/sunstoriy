@@ -100,7 +100,7 @@ export const deleteTeacherById = createAsyncThunk(
     try {
       const res = await axios.patch(`teacher/delete/${id}`);
       if (res) {
-        Notify.success('Фахівець успішно видалений зі списку!');
+        Notify.success('Фахівець видалений зі списку!');
       }
     } catch (err) {
       if (err) {

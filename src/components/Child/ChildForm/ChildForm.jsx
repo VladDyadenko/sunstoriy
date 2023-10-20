@@ -1,7 +1,7 @@
 import { Formik } from 'formik';
 import { parse, format } from 'date-fns';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import {
   AdgTitle,
   AgeConteiner,
@@ -29,6 +29,17 @@ function ChildForm({ child }) {
     initialValuesChildForm
   );
   const [childImage, setChildImage] = useState('');
+  const [buttonView, setButtonView] = useState(true);
+
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const source = searchParams.get('source');
+  useEffect(() => {
+    if (source === 'buttonViewing') {
+      setButtonView(false);
+    }
+  }, [source]);
+
   // const [childFiles, setChildFiles] = useState([]);
   const history = useNavigate();
   const dispatch = useDispatch();
@@ -73,16 +84,20 @@ function ChildForm({ child }) {
       initialValues={valuesChildForm}
       validationSchema={schemaChildUpdate}
       onSubmit={values => {
-        if (child) {
-          const id = child._id;
-          const combinedData = { id, values };
-          dispatch(updateChild(combinedData)).then(() => {
-            history('/children');
-          });
+        if (buttonView) {
+          if (child) {
+            const id = child._id;
+            const combinedData = { id, values };
+            dispatch(updateChild(combinedData)).then(() => {
+              history('/children');
+            });
+          } else {
+            dispatch(addChild(values)).then(() => {
+              history('/children');
+            });
+          }
         } else {
-          dispatch(addChild(values)).then(() => {
-            history('/children');
-          });
+          history('/children');
         }
       }}
     >
@@ -155,7 +170,9 @@ function ChildForm({ child }) {
           <FieldTextarea name="tutor" component="textarea" rows={6} />
           <TextAreaTitle>Реабілітолог:</TextAreaTitle>
           <FieldTextarea name="reabilitation" component="textarea" rows={6} />
-          <FormButton type="submit">Зберегти зміни</FormButton>
+          <FormButton type="submit">
+            {buttonView ? 'Зберегти зміни' : 'Назад'}
+          </FormButton>
         </FormChild>
       )}
     </Formik>

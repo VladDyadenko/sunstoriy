@@ -1,7 +1,8 @@
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button } from 'antd';
-import { AiFillCloseCircle } from 'react-icons/ai';
+import { AiOutlineDelete } from 'react-icons/ai';
+import { AiFillEdit } from 'react-icons/ai';
 
 export const ChildrenCardWrapper = styled.div`
   position: relative;
@@ -17,27 +18,31 @@ export const ChildrenCardWrapper = styled.div`
   box-shadow: 0px 10px 13px -6px rgba(0, 0, 0, 0.2),
     0px 20px 31px 3px rgba(0, 0, 0, 0.14), 0px 8px 38px 7px rgba(0, 0, 0, 0.12);
 `;
-export const IconChildDelete = styled(AiFillCloseCircle)`
-  width: 30px;
-  height: 30px;
-  fill: #fa4a3b;
-  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-
-  &:hover {
-    fill: #da292b;
-  }
+export const IconChildDelete = styled(AiOutlineDelete)`
+  width: 20px;
+  height: 20px;
+  fill: var(--header-main-color);
 `;
 export const ButtonChildDelete = styled(Button)`
   position: absolute;
+  width: 30px;
+  height: 30px;
   top: -10px;
   right: -10px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
   border: none;
-  background-color: transparent;
+  background-color: #fa4a3b;
   cursor: pointer;
+
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+
+  &:hover {
+    background-color: #da292b;
+  }
 `;
 
 export const ImedgeContainer = styled.div`
@@ -88,4 +93,29 @@ export const ButtonCard = styled(NavLink)`
     color: var(--header-main-color);
     border: 1px solid transparent;
   }
+`;
+export const ButtonChildEdit = styled(NavLink)`
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 30px;
+  right: -10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border-radius: 50%;
+  background-color: var(--bg-main-color);
+  cursor: pointer;
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+
+  &:hover {
+    background-color: var(--main-green);
+    border: none;
+  }
+`;
+export const IconChildEdit = styled(AiFillEdit)`
+  width: 20px;
+  height: 20px;
+  fill: var(--header-main-color);
 `;

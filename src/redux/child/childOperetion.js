@@ -38,7 +38,7 @@ export const addChild = createAsyncThunk(
         },
       });
       if (data) {
-        Notify.success('Child successful addad');
+        Notify.success('Дитина успішно збережена!');
       }
 
       return data;
@@ -76,9 +76,9 @@ export const updateChild = createAsyncThunk(
         },
       });
       if (data) {
-        Notify.success('Child successful update');
+        Notify.success('Дані успішно змінені');
       }
-       return data;
+      return data;
     } catch (err) {
       if (err) {
         Notify.failure(err.response.data.message);
@@ -94,7 +94,7 @@ export const deleteChildById = createAsyncThunk(
     try {
       const res = await axios.patch(`child/delete/${id}`);
       if (res) {
-        Notify.success('Дитина успішно видалена зі списку!');
+        Notify.success('Дитина видалена зі списку!');
       }
     } catch (err) {
       if (err) {

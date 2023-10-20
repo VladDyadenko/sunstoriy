@@ -16,7 +16,7 @@ import {
 } from './TeacherCard.styled';
 import defaultImg from 'assets/images/Children/childrenPage_2.png';
 import { deleteTeacherById } from 'redux/teacher/teacherOperetion';
-// import { useDispatch } from 'react-redux';
+
 const TeacherCard = ({ teacher }) => {
   const { teacherImage, name, specialization, _id, surname } = teacher;
   const dispatch = useDispatch();

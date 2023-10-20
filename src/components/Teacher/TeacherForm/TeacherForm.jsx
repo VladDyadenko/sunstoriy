@@ -1,6 +1,7 @@
-import { Formik } from 'formik';
+import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Formik } from 'formik';
 import { Select } from 'antd';
 import {
   initialValuesTeacherForm,
@@ -26,9 +27,7 @@ import {
   TextAreaTitle,
 } from './TeacherForm.styled';
 import UpdateAvatar from 'ui/UpdateAvatar/UpdateAvatar';
-import { useDispatch } from 'react-redux';
 import { addTeacher, updateTeacher } from 'redux/teacher/teacherOperetion';
-import { useNavigate } from 'react-router-dom';
 
 const TeacherForm = ({ teacher }) => {
   const [valuesTeacherForm, setValuesChildForm] = useState(

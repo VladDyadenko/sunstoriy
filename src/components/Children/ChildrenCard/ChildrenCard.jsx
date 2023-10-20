@@ -3,8 +3,10 @@ import { QuestionCircleOutlined } from '@ant-design/icons';
 import {
   ButtonCard,
   ButtonChildDelete,
+  ButtonChildEdit,
   ChildrenCardWrapper,
   IconChildDelete,
+  IconChildEdit,
   ImedgeChild,
   ImedgeContainer,
   TitleCard,
@@ -25,8 +27,8 @@ function ChildrenCard({ child }) {
           <ImedgeChild
             src={childImage ? childImage : defaultImg}
             alt="children"
-            width={130}
-            height={130}
+            width={120}
+            height={120}
           />
         </ImedgeContainer>
         <TitleContainer>
@@ -49,7 +51,12 @@ function ChildrenCard({ child }) {
             <IconChildDelete />
           </ButtonChildDelete>
         </Popconfirm>
-        <ButtonCard to={`/child/${_id}`}>Переглянути</ButtonCard>
+        <ButtonChildEdit to={`/child/${_id}`}>
+          <IconChildEdit />
+        </ButtonChildEdit>
+        <ButtonCard to={`/child/${_id}?source=buttonViewing`}>
+          Переглянути
+        </ButtonCard>
       </ChildrenCardWrapper>
     </>
   );
