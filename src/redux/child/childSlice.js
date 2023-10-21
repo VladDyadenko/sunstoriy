@@ -9,6 +9,11 @@ const { createSlice } = require('@reduxjs/toolkit');
 
 const initialState = {
   child: [],
+  pagination: {
+    page: null,
+    count: null,
+    pageCount: null,
+  },
   isloading: false,
   error: null,
 };
@@ -25,7 +30,8 @@ const childrenSlice = createSlice({
       .addCase(fetchChildren.fulfilled, (state, action) => {
         state.isloading = false;
         state.error = null;
-        state.child = action.payload;
+        state.child = action.payload.children;
+        state.pagination = action.payload.pagination;
       })
       .addCase(fetchChildren.rejected, (state, action) => {
         state.isloading = false;
@@ -67,9 +73,12 @@ const childrenSlice = createSlice({
         state.error = null;
         const id = action.meta.arg;
         const index = state.child.findIndex(vel => vel._id === id);
+        console.log(index);
         if (index !== -1) {
           state.child.splice(index, 1);
         }
+        state.pagination.count = action.payload.pagination.count;
+        state.pagination.pageCount = action.payload.pagination.pageCount;
       })
       .addCase(deleteChildById.rejected, (state, action) => {
         state.isloading = false;

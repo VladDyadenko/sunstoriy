@@ -4,9 +4,9 @@ import { Notify } from 'notiflix';
 
 export const fetchChildren = createAsyncThunk(
   'children',
-  async (_, thunkAPI) => {
+  async (page, thunkAPI) => {
     try {
-      const { data } = await axios.get('/child');
+      const { data } = await axios.get(`/child?page=${page}`);
       return data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.message);
@@ -96,6 +96,7 @@ export const deleteChildById = createAsyncThunk(
       if (res) {
         Notify.success('Дитина видалена зі списку!');
       }
+      return res.data;
     } catch (err) {
       if (err) {
         Notify.failure(err.message);
