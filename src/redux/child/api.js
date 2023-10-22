@@ -10,7 +10,7 @@ export const getAllChild = async () => {
 };
 export const getChildById = async id => {
   try {
-    const { data } = await axios.get(`/child/${id}`);
+    const { data } = await axios.get(`/child/children/${id}`);
     return data;
   } catch (err) {
     console.log(err.message);

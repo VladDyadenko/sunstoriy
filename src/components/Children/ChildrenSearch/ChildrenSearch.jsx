@@ -1,44 +1,46 @@
 import React, { useEffect, useState } from 'react';
-import { FormButton, FormInput, Wrapper } from './ChildrenSearch.styled';
+import {
+  BtnIcon,
+  FormButton,
+  FormInput,
+  Wrapper,
+} from './ChildrenSearch.styled';
+import { CirclesWithBar } from 'react-loader-spinner';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchChildren, fetchChildrenByName } from 'redux/child/childOperetion';
+import { selectChildrenOperetion } from 'redux/child/childSelector';
 
-const ChildrenSearch = ({ allChildren, setVisibleListChildren }) => {
-  const [userSearch, setUserSearch] = useState('');
+const ChildrenSearch = ({ page }) => {
+  const [userSearch, setUserSearch] = useState(() =>
+    localStorage.getItem('currentChildSearch')
+  );
+
+  const dispatch = useDispatch();
+  const operetion = useSelector(selectChildrenOperetion);
 
   const handleInputChange = e => {
     const userQuery = e.target.value.trim();
     setUserSearch(userQuery);
+    localStorage.setItem('currentChildSearch', userQuery.toString());
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    const userQuery = userSearch.trim();
-    setVisibleListChildren(userQuery);
+  const resetSearch = () => {
+    setUserSearch('');
+    localStorage.setItem('currentChildSearch', '');
   };
-
   useEffect(() => {
-    const visibleChildrenList = allChildren?.filter(child => {
-      if (userSearch === '') {
-        return true;
-      }
-      const searchLowerCase = userSearch.toLowerCase();
-      const nameLowerCase = child.name.toLowerCase();
-      if (searchLowerCase.length > nameLowerCase.length) {
-        return false;
-      }
-      for (let i = 0; i < searchLowerCase.length; i++) {
-        if (searchLowerCase[i] !== nameLowerCase[i]) {
-          return false;
-        }
-      }
-
-      return true;
-    });
-    setVisibleListChildren(visibleChildrenList);
-  }, [allChildren, setVisibleListChildren, userSearch]);
+    if (userSearch.length === 0) {
+      dispatch(fetchChildren(page)).then(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    } else if (userSearch.length >= 1) {
+      dispatch(fetchChildrenByName(userSearch));
+    }
+  }, [dispatch, page, userSearch]);
 
   return (
     <Wrapper>
-      <form onSubmit={handleSubmit}>
+      <form>
         <FormInput
           type="text"
           value={userSearch}
@@ -46,7 +48,24 @@ const ChildrenSearch = ({ allChildren, setVisibleListChildren }) => {
           placeholder="Почніть вводити ім'я дитини"
         />
       </form>
-      <FormButton type="submit">Пошук</FormButton>
+      <FormButton type="button" onClick={resetSearch}>
+        {operetion === 'fatchChildByName' ? (
+          <CirclesWithBar
+            height="25"
+            width="50"
+            color="#ffffff"
+            wrapperStyle={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+            visible={true}
+            ariaLabel="circles-with-bar-loading"
+          />
+        ) : (
+          <BtnIcon />
+        )}
+      </FormButton>
     </Wrapper>
   );
 };

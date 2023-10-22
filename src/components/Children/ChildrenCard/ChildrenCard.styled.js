@@ -7,7 +7,7 @@ import { AiFillEdit } from 'react-icons/ai';
 export const ChildrenCardWrapper = styled.div`
   position: relative;
   width: 250px;
-  height: 300px;
+  min-height: 300px;
   padding: 15px 10px;
   border-radius: 8px;
   display: flex;
@@ -118,4 +118,13 @@ export const IconChildEdit = styled(AiFillEdit)`
   width: 20px;
   height: 20px;
   fill: var(--header-main-color);
+`;
+export const ChildParence = styled.h4`
+  text-align: center;
+  color: var(--main-green);
+  font-family: 'RobotoSlab';
+  font-weight: 400;
+  font-size: 18px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 `;

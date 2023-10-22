@@ -2,6 +2,7 @@ import {
   addChild,
   deleteChildById,
   fetchChildren,
+  fetchChildrenByName,
   updateChild,
 } from './childOperetion';
 
@@ -40,6 +41,27 @@ const childrenSlice = createSlice({
         state.pagination = action.payload.pagination;
       })
       .addCase(fetchChildren.rejected, (state, action) => {
+        state.marker = null;
+        state.operetion = null;
+        state.isloading = false;
+        state.error = action.payload;
+      })
+      .addCase(fetchChildrenByName.pending, state => {
+        state.marker = null;
+        state.operetion = 'fatchChildByName';
+        state.isloading = true;
+      })
+      .addCase(fetchChildrenByName.fulfilled, (state, action) => {
+        state.marker = 'fetchChildByNameComplit';
+        state.operetion = null;
+        state.isloading = false;
+        state.error = null;
+        state.child = action.payload.children;
+        state.pagination.page = 1;
+        state.pagination.count = action.payload.pagination.count;
+        state.pagination.pageCount = action.payload.pagination.pageCount;
+      })
+      .addCase(fetchChildrenByName.rejected, (state, action) => {
         state.marker = null;
         state.operetion = null;
         state.isloading = false;

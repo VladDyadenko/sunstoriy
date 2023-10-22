@@ -7,6 +7,18 @@ export const fetchChildren = createAsyncThunk(
   async (page, thunkAPI) => {
     try {
       const { data } = await axios.get(`/child?page=${page}`);
+
+      return data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.message);
+    }
+  }
+);
+export const fetchChildrenByName = createAsyncThunk(
+  'child/getChildByName',
+  async (searchData, thunkAPI) => {
+    try {
+      const { data } = await axios.get(`/child/search?query=${searchData}`);
       return data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.message);

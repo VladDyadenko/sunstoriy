@@ -5,6 +5,7 @@ import {
   ButtonCard,
   ButtonChildDelete,
   ButtonChildEdit,
+  ChildParence,
   ChildrenCardWrapper,
   IconChildDelete,
   IconChildEdit,
@@ -20,7 +21,7 @@ import { deleteChildById } from 'redux/child/childOperetion';
 import { selectChildrenOperetion } from 'redux/child/childSelector';
 
 function ChildrenCard({ child }) {
-  const { childImage, name, surname, _id } = child;
+  const { childImage, name, surname, _id, mather, age } = child;
   const dispatch = useDispatch();
   const operetion = useSelector(selectChildrenOperetion);
   return (
@@ -37,6 +38,8 @@ function ChildrenCard({ child }) {
         <TitleContainer>
           <TitleCard>{name}</TitleCard>
           <TitleCard>{surname}</TitleCard>
+          {age && <ChildParence>Років: {age}</ChildParence>}
+          {mather && <ChildParence>Мама: {mather}</ChildParence>}
         </TitleContainer>
         <Popconfirm
           title="Видалити картку"
