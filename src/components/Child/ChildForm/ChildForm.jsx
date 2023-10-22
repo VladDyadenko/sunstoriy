@@ -1,6 +1,7 @@
 import { Formik } from 'formik';
 import { parse, format } from 'date-fns';
 import { useEffect, useState } from 'react';
+import { CirclesWithBar } from 'react-loader-spinner';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {
   AdgTitle,
@@ -19,9 +20,10 @@ import {
 import ParentsContainer from '../ParentsContainer/ParentsContainer';
 // import UploadFiles from '../UploadFiles/UploadFiles';
 import { initialValuesChildForm, schemaChildUpdate } from '../Schemas/schema';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addChild, updateChild } from 'redux/child/childOperetion';
 import UpdateAvatar from 'ui/UpdateAvatar/UpdateAvatar';
+import { selectChildrenOperetion } from 'redux/child/childSelector';
 
 function ChildForm({ child }) {
   const [age, setAge] = useState(null);
@@ -32,6 +34,7 @@ function ChildForm({ child }) {
   const [buttonView, setButtonView] = useState(true);
 
   const location = useLocation();
+  const operetion = useSelector(selectChildrenOperetion);
   const searchParams = new URLSearchParams(location.search);
   const source = searchParams.get('source');
   useEffect(() => {
@@ -171,7 +174,24 @@ function ChildForm({ child }) {
           <TextAreaTitle>Реабілітолог:</TextAreaTitle>
           <FieldTextarea name="reabilitation" component="textarea" rows={6} />
           <FormButton type="submit">
-            {buttonView ? 'Зберегти зміни' : 'Назад'}
+            {operetion === 'updateChild' || operetion === 'addChild' ? (
+              <CirclesWithBar
+                height="21"
+                width="50"
+                color="#ffffff"
+                wrapperStyle={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                visible={true}
+                ariaLabel="circles-with-bar-loading"
+              />
+            ) : buttonView ? (
+              'Зберегти зміни'
+            ) : (
+              'Назад'
+            )}
           </FormButton>
         </FormChild>
       )}

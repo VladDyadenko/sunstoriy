@@ -7,16 +7,19 @@ import ChildrenCard from '../ChildrenCard/ChildrenCard';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   selectChildren,
+  selectChildrenMarker,
   selectChildrenPagination,
 } from 'redux/child/childSelector';
 import { fetchChildren } from 'redux/child/childOperetion';
 
 function ChildrenList() {
   const [pageCount, setPageCount] = useState(1);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(() =>
+    parseInt(localStorage.getItem('currentChildrenPage'))
+  );
   const pagination = useSelector(selectChildrenPagination);
   const children = useSelector(selectChildren);
-  console.log(children);
+  const marker = useSelector(selectChildrenMarker);
 
   const dispatch = useDispatch();
 
@@ -31,13 +34,18 @@ function ChildrenList() {
   }, [dispatch, page]);
 
   useEffect(() => {
-    if (children?.length === 0 && page > 1) {
-      setPage(page - 1);
+    if (marker === 'fetchChildComplit') {
+      if (children.length === 0 && page > 1) {
+        setPage(page - 1);
+        localStorage.setItem('currentChildrenPage', (page - 1).toString());
+      }
     }
-  }, [children, page]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [children.length, marker]);
 
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
+    localStorage.setItem('currentChildrenPage', newPage.toString());
   };
   return (
     <>
@@ -50,6 +58,7 @@ function ChildrenList() {
         count={pageCount ? pageCount : 1}
         page={page}
         onChange={handlePageChange}
+        siblingCount={5}
       />
     </>
   );
