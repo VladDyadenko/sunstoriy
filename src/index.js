@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import GlobalStyles from 'styles/GlobalStyles';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, store } from 'redux/stor';
+import Loader from 'components/Loader/Loader';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -13,7 +14,7 @@ root.render(
     <Provider store={store}>
       <BrowserRouter basename="/sunstoriy">
         <GlobalStyles />
-        <PersistGate persistor={persistor} loading={<p>Загружається</p>}>
+        <PersistGate persistor={persistor} loading={<Loader />}>
           <App />
         </PersistGate>
       </BrowserRouter>

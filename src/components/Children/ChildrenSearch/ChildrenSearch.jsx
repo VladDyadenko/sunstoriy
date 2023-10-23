@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import {
+  BtnAddChild,
+  BtnAddIcon,
   BtnIcon,
   FormButton,
   FormInput,
+  SearchContainer,
   Wrapper,
 } from './ChildrenSearch.styled';
 import { CirclesWithBar } from 'react-loader-spinner';
@@ -39,34 +42,39 @@ const ChildrenSearch = ({ page }) => {
   }, [dispatch, page, userSearch]);
 
   return (
-    <Wrapper>
-      <form>
-        <FormInput
-          type="text"
-          value={userSearch}
-          onChange={handleInputChange}
-          placeholder="Почніть вводити ім'я дитини"
-        />
-      </form>
-      <FormButton type="button" onClick={resetSearch}>
-        {operetion === 'fatchChildByName' ? (
-          <CirclesWithBar
-            height="25"
-            width="50"
-            color="#ffffff"
-            wrapperStyle={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-            visible={true}
-            ariaLabel="circles-with-bar-loading"
+    <SearchContainer>
+      <Wrapper>
+        <form>
+          <FormInput
+            type="text"
+            value={userSearch}
+            onChange={handleInputChange}
+            placeholder="Пошук: почніть вводити ім'я"
           />
-        ) : (
-          <BtnIcon />
-        )}
-      </FormButton>
-    </Wrapper>
+        </form>
+        <FormButton type="button" onClick={resetSearch}>
+          {operetion === 'fatchChildByName' ? (
+            <CirclesWithBar
+              height="25"
+              width="50"
+              color="#ffffff"
+              wrapperStyle={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              visible={true}
+              ariaLabel="circles-with-bar-loading"
+            />
+          ) : (
+            <BtnIcon />
+          )}
+        </FormButton>
+      </Wrapper>
+      <BtnAddChild to={'/child'}>
+        Додати дитину <BtnAddIcon />
+      </BtnAddChild>
+    </SearchContainer>
   );
 };
 

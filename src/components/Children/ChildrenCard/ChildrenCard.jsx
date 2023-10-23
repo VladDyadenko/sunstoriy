@@ -15,7 +15,7 @@ import {
   TitleContainer,
 } from './ChildrenCard.styled';
 
-import defaultImg from 'assets/images/Children/childrenPage_2.png';
+import defaultImg from 'assets/images/Children/children_5.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteChildById } from 'redux/child/childOperetion';
 import { selectChildrenOperetion } from 'redux/child/childSelector';

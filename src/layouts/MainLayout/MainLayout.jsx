@@ -1,3 +1,4 @@
+import Loader from 'components/Loader/Loader';
 import Footer from '../../components/Footer/Footer';
 import Header from '../../components/Header/Header';
 import { Suspense } from 'react';
@@ -10,7 +11,7 @@ const MainLayout = () => {
       <Header />
       <main>
         <MainSection>
-          <Suspense fallback={<p>Loading...</p>}>
+          <Suspense fallback={<Loader />}>
             <Outlet />
           </Suspense>
         </MainSection>

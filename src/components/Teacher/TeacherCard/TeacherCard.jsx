@@ -14,7 +14,7 @@ import {
   TeacherDescr,
   TeacherSpecializationInfo,
 } from './TeacherCard.styled';
-import defaultImg from 'assets/images/Children/childrenPage_2.png';
+import defaultImg from 'assets/images/Teacher/teacher_1.png';
 import { deleteTeacherById } from 'redux/teacher/teacherOperetion';
 
 const TeacherCard = ({ teacher }) => {
