@@ -10,6 +10,9 @@ export const fetchChildren = createAsyncThunk(
 
       return data;
     } catch (err) {
+      if (err) {
+        Notify.failure(err.response.data.message);
+      }
       return thunkAPI.rejectWithValue(err.message);
     }
   }
@@ -21,6 +24,9 @@ export const fetchChildrenByName = createAsyncThunk(
       const { data } = await axios.get(`/child/search?query=${searchData}`);
       return data;
     } catch (err) {
+      if (err) {
+        Notify.failure(err.response.data.message);
+      }
       return thunkAPI.rejectWithValue(err.message);
     }
   }
@@ -50,7 +56,7 @@ export const addChild = createAsyncThunk(
         },
       });
       if (data) {
-        Notify.success('Дитина успішно збережена!');
+        Notify.success('Дитина успішно додана в список!');
       }
 
       return data;
@@ -111,7 +117,7 @@ export const deleteChildById = createAsyncThunk(
       return res.data;
     } catch (err) {
       if (err) {
-        Notify.failure(err.message);
+        Notify.failure(err.response.data.message);
       }
       return thunkAPI.rejectWithValue(err.message);
     }
