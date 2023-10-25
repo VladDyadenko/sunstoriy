@@ -32,11 +32,11 @@ const ChildrenSearch = ({ page }) => {
     localStorage.setItem('currentChildSearch', '');
   };
   useEffect(() => {
-    if (userSearch.length === 0) {
+    if (userSearch?.length === 0) {
       dispatch(fetchChildren(page)).then(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
-    } else if (userSearch.length >= 1) {
+    } else if (userSearch?.length >= 1) {
       dispatch(fetchChildrenByName(userSearch));
     }
   }, [dispatch, page, userSearch]);
