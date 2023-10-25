@@ -15,9 +15,12 @@ export const ChildrenListPagination = styled(Pagination)`
   align-items: center;
   justify-content: center;
   margin: 10px 0 20px 0;
-  .css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected {
+
+  .MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeMedium.MuiPaginationItem-text.MuiPaginationItem-circular.MuiPaginationItem-page.css-1xr9krm {
     background-color: var(--bg-main-color);
     color: var(--header-main-color);
+    font-family: 'RobotoSlab';
+    font-size: 1rem;
 
     &:hover {
       background-color: var(--main-green);
@@ -25,15 +28,12 @@ export const ChildrenListPagination = styled(Pagination)`
     }
   }
 
-  .css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root {
+  .MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.MuiPaginationItem-icon.css-lrb33l {
     color: var(--main-green);
     font-weight: 700;
     &:hover {
       background-color: var(--main-dark-blue);
       color: var(--header-main-color);
-    }
-    .css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root {
-      font-size: 1rem;
     }
   }
 `;
