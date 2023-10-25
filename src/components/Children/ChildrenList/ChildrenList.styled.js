@@ -16,18 +16,19 @@ export const ChildrenListPagination = styled(Pagination)`
   justify-content: center;
   margin: 10px 0 20px 0;
 
-  .MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeMedium.MuiPaginationItem-text.MuiPaginationItem-circular.MuiPaginationItem-page.css-1xr9krm {
+  .MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeMedium.MuiPaginationItem-text.MuiPaginationItem-circular.MuiPaginationItem-page.css-1xr9krm.Mui-selected {
     background-color: var(--bg-main-color);
     color: var(--header-main-color);
     font-family: 'RobotoSlab';
     font-size: 1rem;
-
+  }
+  .MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeMedium.MuiPaginationItem-text.MuiPaginationItem-circular.MuiPaginationItem-page.css-1xr9krm {
+    color: var(--bg-main-color);
     &:hover {
       background-color: var(--main-green);
       color: var(--header-main-color);
     }
   }
-
   .MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.MuiPaginationItem-icon.css-lrb33l {
     color: var(--main-green);
     font-weight: 700;
