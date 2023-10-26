@@ -7,10 +7,11 @@ export const WrapperPlans = styled(Space)`
   justify-content: start;
   flex-direction: column;
 
-  /* @media (min-width: 768px) {
+  @media (min-width: 1280px) {
     align-items: center;
     flex-direction: row;
-  } */
+    gap: 30px !important;
+  }
 `;
 export const DescrPlans = styled.h3`
   width: 100%;
