@@ -21,9 +21,13 @@ export const ChildrenListPagination = styled(Pagination)`
     color: var(--header-main-color);
     font-family: 'RobotoSlab';
     font-size: 1rem;
+    font-weight: 500;
   }
   .MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeMedium.MuiPaginationItem-text.MuiPaginationItem-circular.MuiPaginationItem-page.css-1xr9krm {
     color: var(--bg-main-color);
+    font-size: 1rem;
+    font-family: 'RobotoSlab';
+    font-weight: 500;
     &:hover {
       background-color: var(--main-green);
       color: var(--header-main-color);

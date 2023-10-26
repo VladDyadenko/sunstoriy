@@ -1,5 +1,4 @@
 import { Formik } from 'formik';
-import { parse, format } from 'date-fns';
 import { useEffect, useState } from 'react';
 import { CirclesWithBar } from 'react-loader-spinner';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -9,7 +8,6 @@ import {
   AgeDiscr,
   ErrorInfo,
   FieldChild,
-  FieldChildBirth,
   FieldTextarea,
   FormButton,
   FormChild,
@@ -24,9 +22,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addChild, updateChild } from 'redux/child/childOperetion';
 import UpdateAvatar from 'ui/UpdateAvatar/UpdateAvatar';
 import { selectChildrenOperetion } from 'redux/child/childSelector';
+import DatePickerForm from 'ui/DataPiker/DataPiker';
 
 function ChildForm({ child }) {
-  const [age, setAge] = useState(null);
   const [valuesChildForm, setValuesChildForm] = useState(
     initialValuesChildForm
   );
@@ -47,14 +45,6 @@ function ChildForm({ child }) {
   const history = useNavigate();
   const dispatch = useDispatch();
 
-  const calculateAge = birthDate => {
-    if (birthDate) {
-      const today = new Date();
-      const parsedBirthDate = parse(birthDate, 'yyyy-MM-dd', new Date());
-      const yearsDiff = today.getFullYear() - parsedBirthDate.getFullYear();
-      setAge(yearsDiff);
-    }
-  };
   useEffect(() => {
     if (child) {
       const childData = {
@@ -120,25 +110,12 @@ function ChildForm({ child }) {
               <FieldChild name="surname" type="text" placeholder="Фамілія" />
               {errors.surname && <ErrorInfo>{errors.surname}</ErrorInfo>}
               <AgeConteiner>
-                <FieldChildBirth
-                  name="birthDate"
-                  type="date"
-                  value={
-                    values.birthDate
-                      ? format(new Date(values.birthDate), 'yyyy-MM-dd')
-                      : ''
-                  }
-                  onChange={event => {
-                    const selectedDate = event.target.value;
-                    setFieldValue('birthDate', selectedDate);
-                    calculateAge(selectedDate);
-                    setFieldValue('age', age);
-                  }}
+                <DatePickerForm
+                  valueBirthDate={values.birthDate}
+                  setFieldValue={setFieldValue}
                 />
                 <AdgTitle>Років:</AdgTitle>
-                <AgeDiscr>
-                  {values.age ? values.age : calculateAge(values.birthDate)}
-                </AgeDiscr>
+                <AgeDiscr>{values.age}</AgeDiscr>
               </AgeConteiner>
             </NameFormChild>
           </FormImgContainer>

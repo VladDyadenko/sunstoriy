@@ -213,8 +213,38 @@ body,
     }
   }
 
-  
+   // DatePickerLesson
 
+.ant-picker-dropdown.css-dev-only-do-not-override-17a39f8.ant-picker-dropdown-placement-bottomRight{
+
+   inset: 290px auto auto 10px !important;
+    @media (min-width: 768px) {
+    inset: 220px auto auto 100px !important;
+  }
+
+}
+.ant-select-selector{
+  border: 2px solid var(--main-green) !important;
+  min-width: 130px !important;
+}
+.ant-picker-panels{
+ 
+    @media (max-width: 768px) {
+   flex-wrap: wrap !important;
+  }
+}
+
+.ant-picker.ant-picker-range.ant-picker-middle.css-dev-only-do-not-override-17a39f8.custom-datepicker{
+   border: 2px solid var(--main-green) !important;
+}
+
+.ant-picker-input > input::placeholder{
+  color: var(--main-green) !important;
+}
+
+.ant-picker.css-dev-only-do-not-override-17a39f8{
+ border: 2px solid var(--main-green) !important;
+}
 `;
 
 export default GlobalStyles;

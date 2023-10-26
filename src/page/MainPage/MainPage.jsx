@@ -6,10 +6,8 @@ function MainPage() {
   return (
     <>
       <Container>
-        <Watermark content="Sunstoriy">
-          <div style={{ height: '100vh' }}>
-            <MainContainer />
-          </div>
+        <Watermark style={{ height: '100vh' }} content="Sunstoriy">
+          <MainContainer />
         </Watermark>
       </Container>
     </>

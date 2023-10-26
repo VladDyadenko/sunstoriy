@@ -1,12 +1,13 @@
+import { Watermark } from 'antd';
+import AddLesson from 'components/Lesson/AddLesson/AddLesson';
 import Container from 'components/Container/Container';
-import { LessonWrapper } from './LessonPage.style';
 
 function LessonPage() {
   return (
     <Container>
-      <LessonWrapper>
-        <h2>LessonId</h2>
-      </LessonWrapper>
+      <Watermark style={{ height: '100vh' }} content="Sunstoriy">
+        <AddLesson />
+      </Watermark>
     </Container>
   );
 }

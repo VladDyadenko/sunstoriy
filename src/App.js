@@ -53,6 +53,7 @@ function App() {
         <Route path="/" element={<PrivateRoute component={<MainLayout />} />}>
           <Route path="/main" element={<MainPage />} />
           <Route path="/lesson/:lessonId" element={<LessonPage />} />
+          <Route path="/lesson" element={<LessonPage />} />
           <Route path="/sensornaya" element={<SensornayaPage />} />
           <Route path="/logoped" element={<LogopedPage />} />
           <Route path="/correction" element={<CorrectionPage />} />

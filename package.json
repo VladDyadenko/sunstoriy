@@ -18,7 +18,7 @@
     "antd-img-crop": "^4.12.2",
     "axios": "^1.4.0",
     "date-fns": "^2.30.0",
-    "dayjs": "^1.11.9",
+    "dayjs": "^1.11.10",
     "focus-trap-react": "^10.2.1",
     "formik": "^2.4.3",
     "nanoid": "^4.0.2",
