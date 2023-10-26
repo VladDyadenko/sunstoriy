@@ -234,7 +234,8 @@ body,
   }
 }
 
-.ant-picker.ant-picker-range.ant-picker-middle.css-dev-only-do-not-override-17a39f8.custom-datepicker{
+.ant-picker.ant-picker-range.ant-picker-middle.css-17a39f8.custom-datepicker,
+.ant-picker.ant-picker-range.ant-picker-middle.css-17a39f8.custom-datepicker.ant-picker-focused{
    border: 2px solid var(--main-green) !important;
 }
 
@@ -242,7 +243,7 @@ body,
   color: var(--main-green) !important;
 }
 
-.ant-picker.css-dev-only-do-not-override-17a39f8{
+.ant-picker.css-17a39f8.ant-picker-focused, .ant-picker.css-17a39f8{
  border: 2px solid var(--main-green) !important;
 }
 `;
