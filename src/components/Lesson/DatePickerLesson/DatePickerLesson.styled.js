@@ -15,7 +15,7 @@ export const WrapperPlans = styled(Space)`
 `;
 export const DescrPlans = styled.h3`
   width: 100%;
-  min-width: 130px;
+  min-width: 100px;
   text-align: center;
   font-family: 'RobotoSlab';
   font-weight: 500;

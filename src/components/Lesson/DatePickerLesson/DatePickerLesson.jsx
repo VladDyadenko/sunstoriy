@@ -50,7 +50,7 @@ const DatePickerLesson = () => {
     <>
       <WrapperPlans>
         <DescrContainer>
-          <DescrPlans>Строки:</DescrPlans>
+          <DescrPlans>Дата:</DescrPlans>
           <Select value={type} onChange={setType}>
             <Option value="Одне заняття">Одне заняття</Option>
             <Option value="План занять">План занять</Option>

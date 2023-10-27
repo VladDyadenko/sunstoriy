@@ -4,20 +4,21 @@ import {
   TitleTypeLesson,
   WrapperTypeLesson,
 } from './AddTypeLesson.styled';
+import { offices } from 'assets/constants/AddLessonsConstans';
 const { Option } = Select;
 
 const AddTypeLesson = ({ typeLesson, setTypeLesson }) => {
   return (
     <>
-      <TitleTypeLesson>План заняття</TitleTypeLesson>
+      <TitleTypeLesson>Картка заняття</TitleTypeLesson>
       <WrapperTypeLesson>
         <TeacherLessonChose>Кабінет:</TeacherLessonChose>
         <Select value={typeLesson} onChange={setTypeLesson}>
-          <Option style={{ minWidth: '90px' }} value="Сенсорна">
-            Сенсорна
-          </Option>
-          <Option value="Логопед">Логопед</Option>
-          <Option value="Корекційний">Корекційний</Option>
+          {offices.map(({ name }) => (
+            <Option key={name} style={{ minWidth: '90px' }} value={name}>
+              {name}
+            </Option>
+          ))}
         </Select>
       </WrapperTypeLesson>
     </>
