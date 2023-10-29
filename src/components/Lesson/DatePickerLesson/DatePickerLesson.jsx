@@ -4,6 +4,7 @@ import locale from 'antd/es/date-picker/locale/uk_UA';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import {
+  DateInfoContainer,
   DescrContainer,
   DescrPlans,
   WrapperPlans,
@@ -49,27 +50,29 @@ const DatePickerLesson = () => {
   return (
     <>
       <WrapperPlans>
-        <DescrContainer>
-          <DescrPlans>Дата:</DescrPlans>
-          <Select value={type} onChange={setType}>
-            <Option value="Одне заняття">Одне заняття</Option>
-            <Option value="План занять">План занять</Option>
-          </Select>
-        </DescrContainer>
-
-        {type === 'План занять' ? (
+        <DateInfoContainer>
           <DescrContainer>
-            <DescrPlans>День тижня:</DescrPlans>
-            <Select value={day} onChange={setDay}>
-              <Option value="Понеділок">Понеділок</Option>
-              <Option value="Вівторок">Вівторок</Option>
-              <Option value="Середа">Середа</Option>
-              <Option value="Четвер">Четвер</Option>
-              <Option value="П'ятниця">П'ятниця</Option>
-              <Option value="Субота">Субота</Option>
+            <DescrPlans>Дата:</DescrPlans>
+            <Select value={type} onChange={setType}>
+              <Option value="Одне заняття">Одне заняття</Option>
+              <Option value="План занять">План занять</Option>
             </Select>
           </DescrContainer>
-        ) : null}
+          {type === 'План занять' ? (
+            <DescrContainer>
+              <DescrPlans>День тижня:</DescrPlans>
+              <Select value={day} onChange={setDay}>
+                <Option value="Понеділок">Понеділок</Option>
+                <Option value="Вівторок">Вівторок</Option>
+                <Option value="Середа">Середа</Option>
+                <Option value="Четвер">Четвер</Option>
+                <Option value="П'ятниця">П'ятниця</Option>
+                <Option value="Субота">Субота</Option>
+              </Select>
+            </DescrContainer>
+          ) : null}
+        </DateInfoContainer>
+
         <PickerWithTypeLesson type={type} onChange={handleDateChange} />
         <TimePicker onChange={handleTimeChange} />
       </WrapperPlans>

@@ -13,6 +13,22 @@ export const fetchTeachers = createAsyncThunk(
     }
   }
 );
+
+export const fetchTeacherByName = createAsyncThunk(
+  'teacher/getTeacherByName',
+  async (searchData, thunkAPI) => {
+    try {
+      const { data } = await axios.get(`/teacher/search?query=${searchData}`);
+
+      return data;
+    } catch (err) {
+      if (err) {
+        Notify.failure(err.response.data.message);
+      }
+      return thunkAPI.rejectWithValue(err.message);
+    }
+  }
+);
 export const addTeacher = createAsyncThunk(
   'teacher/addTeacher',
   async (teacherData, thunkAPI) => {

@@ -1,6 +1,7 @@
 import {
   addTeacher,
   deleteTeacherById,
+  fetchTeacherByName,
   fetchTeachers,
 } from './teacherOperetion';
 
@@ -9,6 +10,8 @@ const { createSlice } = require('@reduxjs/toolkit');
 const initialState = {
   teacher: [],
   isloading: false,
+  marker: null,
+  operetion: null,
   error: null,
 };
 
@@ -27,6 +30,24 @@ const teacherSlice = createSlice({
         state.teacher = action.payload;
       })
       .addCase(fetchTeachers.rejected, (state, action) => {
+        state.isloading = false;
+        state.error = action.payload;
+      })
+      .addCase(fetchTeacherByName.pending, state => {
+        state.marker = null;
+        state.operetion = 'fatchTeacherByName';
+        state.isloading = true;
+      })
+      .addCase(fetchTeacherByName.fulfilled, (state, action) => {
+        state.marker = 'fetchTeacherByNameComplit';
+        state.operetion = null;
+        state.isloading = false;
+        state.error = null;
+        state.teacher = action.payload.teacher;
+      })
+      .addCase(fetchTeacherByName.rejected, (state, action) => {
+        state.marker = null;
+        state.operetion = null;
         state.isloading = false;
         state.error = action.payload;
       })

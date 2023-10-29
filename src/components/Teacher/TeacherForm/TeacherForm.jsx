@@ -48,7 +48,7 @@ const TeacherForm = ({ teacher }) => {
   }, [source]);
 
   const dispatch = useDispatch();
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (teacher) {
@@ -86,15 +86,15 @@ const TeacherForm = ({ teacher }) => {
               const id = teacher._id;
               const combinedData = { id, values };
               dispatch(updateTeacher(combinedData)).then(() => {
-                history('/teachers');
+                navigate('/teachers');
               });
             } else {
               dispatch(addTeacher(values)).then(() => {
-                history('/teachers');
+                navigate('/teachers');
               });
             }
           } else {
-            history('/teachers');
+            navigate(-1);
           }
         }}
       >

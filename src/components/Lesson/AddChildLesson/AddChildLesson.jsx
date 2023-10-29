@@ -2,8 +2,10 @@ import { useDispatch, useSelector } from 'react-redux';
 // import { Select } from 'antd';
 import {
   BtnAddChildLesson,
+  ChildDescr,
   ChildItem,
   ChildrenChosedList,
+  ModalContainer,
   TitleChildLesson,
   WrapperChildLesson,
 } from './AddChildLesson.styled';
@@ -62,7 +64,14 @@ const AddChildLesson = () => {
   return (
     <>
       <WrapperChildLesson>
-        <TitleChildLesson>Дитина:</TitleChildLesson>
+        <ChildDescr>
+          <TitleChildLesson>Дитина:</TitleChildLesson>
+          {child ? (
+            <BtnAddChildLesson to={`/child/${child._id}?source=buttonViewing`}>
+              {child.name} {child.surname}
+            </BtnAddChildLesson>
+          ) : null}
+        </ChildDescr>
         <div>
           <SearchModule
             operetion={operetion}
@@ -71,23 +80,20 @@ const AddChildLesson = () => {
             userSearch={userSearch}
           />
           {choseChildren?.length > 0 ? (
-            <ChildrenChosedList>
-              {choseChildren?.map(child => (
-                <ChildItem
-                  key={child._id}
-                  onClick={() => handleChoseChild(child)}
-                >
-                  {child.name} {child.surname}
-                </ChildItem>
-              ))}
-            </ChildrenChosedList>
+            <ModalContainer>
+              <ChildrenChosedList>
+                {choseChildren?.map(child => (
+                  <ChildItem
+                    key={child._id}
+                    onClick={() => handleChoseChild(child)}
+                  >
+                    {child.name} {child.surname}
+                  </ChildItem>
+                ))}
+              </ChildrenChosedList>
+            </ModalContainer>
           ) : null}
         </div>
-        {child ? (
-          <BtnAddChildLesson to={`/child/${child._id}?source=buttonViewing`}>
-            {child.name} {child.surname}
-          </BtnAddChildLesson>
-        ) : null}
       </WrapperChildLesson>
     </>
   );

@@ -1,16 +1,11 @@
 import { Select } from 'antd';
-import {
-  TeacherLessonChose,
-  TitleTypeLesson,
-  WrapperTypeLesson,
-} from './AddTypeLesson.styled';
+import { TeacherLessonChose, WrapperTypeLesson } from './AddTypeLesson.styled';
 import { offices } from 'assets/constants/AddLessonsConstans';
 const { Option } = Select;
 
 const AddTypeLesson = ({ typeLesson, setTypeLesson }) => {
   return (
     <>
-      <TitleTypeLesson>Картка заняття</TitleTypeLesson>
       <WrapperTypeLesson>
         <TeacherLessonChose>Кабінет:</TeacherLessonChose>
         <Select value={typeLesson} onChange={setTypeLesson}>

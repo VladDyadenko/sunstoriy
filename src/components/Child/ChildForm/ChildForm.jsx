@@ -32,6 +32,7 @@ function ChildForm({ child }) {
   const [buttonView, setButtonView] = useState(true);
 
   const location = useLocation();
+
   const operetion = useSelector(selectChildrenOperetion);
   const searchParams = new URLSearchParams(location.search);
   const source = searchParams.get('source');
@@ -42,7 +43,7 @@ function ChildForm({ child }) {
   }, [source]);
 
   // const [childFiles, setChildFiles] = useState([]);
-  const history = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -82,15 +83,15 @@ function ChildForm({ child }) {
             const id = child._id;
             const combinedData = { id, values };
             dispatch(updateChild(combinedData)).then(() => {
-              history('/children');
+              navigate('/children');
             });
           } else {
             dispatch(addChild(values)).then(() => {
-              history('/children');
+              navigate('/children');
             });
           }
         } else {
-          history('/children');
+          navigate(-1);
         }
       }}
     >

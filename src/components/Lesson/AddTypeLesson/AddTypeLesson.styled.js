@@ -8,16 +8,11 @@ export const WrapperTypeLesson = styled.div`
   width: 100%;
   margin-top: 20px;
 `;
-export const TitleTypeLesson = styled.h2`
-  width: 100%;
-  text-align: center;
-  font-family: 'RobotoSlab';
-  font-weight: 500;
-  color: var(--main-green);
-`;
+
 export const TeacherLessonChose = styled.h3`
   min-width: 100px;
   font-family: 'RobotoSlab';
+  font-size: 16px;
   font-weight: 500;
   color: var(--main-green);
 `;
