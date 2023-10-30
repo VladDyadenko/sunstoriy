@@ -37,15 +37,16 @@ const PickerWithTypeLesson = ({ type, onChange }) => {
 };
 
 const { Option } = Select;
-const DatePickerLesson = () => {
+
+const DatePickerLesson = ({ setFieldValue }) => {
   const [type, setType] = useState('Одне заняття');
   const [day, setDay] = useState('Понеділок');
 
   const handleDateChange = (date, dateString) => {
-    console.log(dateString);
+    setFieldValue('dateLesson', date?.valueOf());
   };
   const handleTimeChange = (time, dateString) => {
-    console.log(dateString);
+    setFieldValue('timeLesson', dateString);
   };
   return (
     <>
@@ -74,7 +75,7 @@ const DatePickerLesson = () => {
         </DateInfoContainer>
 
         <PickerWithTypeLesson type={type} onChange={handleDateChange} />
-        <TimePicker onChange={handleTimeChange} />
+        <TimePicker onChange={handleTimeChange} secondStep={60} />
       </WrapperPlans>
     </>
   );

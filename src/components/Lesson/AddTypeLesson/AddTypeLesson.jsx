@@ -1,9 +1,16 @@
 import { Select } from 'antd';
 import { TeacherLessonChose, WrapperTypeLesson } from './AddTypeLesson.styled';
 import { offices } from 'assets/constants/AddLessonsConstans';
+import { useEffect, useState } from 'react';
 const { Option } = Select;
 
-const AddTypeLesson = ({ typeLesson, setTypeLesson }) => {
+const AddTypeLesson = ({ setFieldValue }) => {
+  const [typeLesson, setTypeLesson] = useState('Сенсорна');
+
+  useEffect(() => {
+    setFieldValue('office', typeLesson);
+  }, [setFieldValue, typeLesson]);
+
   return (
     <>
       <WrapperTypeLesson>

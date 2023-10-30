@@ -16,7 +16,7 @@ import {
 import { useEffect, useState } from 'react';
 import { fetchTeacherByName } from 'redux/teacher/teacherOperetion';
 
-const AddTeacherToLesson = () => {
+const AddTeacherToLesson = ({ setFieldValue }) => {
   const [userSearch, setUserSearch] = useState('');
   const [choseTeachers, setChoseTeachers] = useState('');
   const [teacher, setChoseTeacher] = useState(() => {
@@ -50,11 +50,12 @@ const AddTeacherToLesson = () => {
     setUserSearch('');
   };
 
-  const handleChoseTeacher = selectedChild => {
-    setChoseTeacher(selectedChild);
+  const handleChoseTeacher = selectedTeacher => {
+    setChoseTeacher(selectedTeacher);
+    setFieldValue('teacher', selectedTeacher._id);
     localStorage.setItem(
       'сurrentChoseAddLesson',
-      JSON.stringify(selectedChild)
+      JSON.stringify(selectedTeacher)
     );
     setUserSearch('');
   };

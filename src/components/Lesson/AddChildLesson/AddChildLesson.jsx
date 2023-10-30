@@ -18,7 +18,7 @@ import SearchModule from 'ui/SearchModule/SearchModule';
 import { fetchChildrenByName } from 'redux/child/childOperetion';
 // const { Option } = Select;
 
-const AddChildLesson = () => {
+const AddChildLesson = ({ setFieldValue }) => {
   const [userSearch, setUserSearch] = useState('');
 
   const handleInputChange = e => {
@@ -54,6 +54,7 @@ const AddChildLesson = () => {
 
   const handleChoseChild = selectedChild => {
     setChoseChild(selectedChild);
+    setFieldValue('child', selectedChild._id);
     localStorage.setItem(
       'сurrentChildAddLesson',
       JSON.stringify(selectedChild)

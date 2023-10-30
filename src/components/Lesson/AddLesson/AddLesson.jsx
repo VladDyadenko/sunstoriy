@@ -14,26 +14,31 @@ import AddTypeLesson from '../AddTypeLesson/AddTypeLesson';
 import AddChildLesson from '../AddChildLesson/AddChildLesson';
 import AddTeacherToLesson from '../AddTeacherToLesson/AddTeacherToLesson';
 import PriceLesson from '../PriceLesson/PriceLesson';
+import { initialValuesLessonForm } from '../Schema/schema';
 
 const AddLesson = () => {
-  const [typeLesson, setTypeLesson] = useState('Сенсорна');
+  const [valuesLesson, setValuesLesson] = useState(initialValuesLessonForm);
+  console.log(setValuesLesson);
   return (
     <>
-      <Formik enableReinitialize={true}>
+      <Formik
+        enableReinitialize={true}
+        initialValues={valuesLesson}
+        onSubmit={values => {
+          console.log(values);
+        }}
+      >
         {({ errors, touched, values, setFieldValue }) => (
           <FormLesson>
             <TitleForm>Картка заняття</TitleForm>
             <ChoseInfoContainer>
               <FormMainInfo>
-                <AddTypeLesson
-                  typeLesson={typeLesson}
-                  setTypeLesson={setTypeLesson}
-                />
-                <AddChildLesson />
-                <AddTeacherToLesson />
-                <PriceLesson />
+                <AddTypeLesson setFieldValue={setFieldValue} />
+                <AddChildLesson setFieldValue={setFieldValue} />
+                <AddTeacherToLesson setFieldValue={setFieldValue} />
+                <PriceLesson setFieldValue={setFieldValue} />
               </FormMainInfo>
-              <DatePickerLesson />
+              <DatePickerLesson setFieldValue={setFieldValue} />
             </ChoseInfoContainer>
             <TextAreaTitle>План заняття:</TextAreaTitle>
             <FieldTextarea name="plan" component="textarea" rows={6} />
