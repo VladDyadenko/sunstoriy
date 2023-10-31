@@ -1,6 +1,7 @@
 import { Formik } from 'formik';
 import { useEffect, useState } from 'react';
 import { CirclesWithBar } from 'react-loader-spinner';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {
   AdgTitle,
@@ -18,7 +19,6 @@ import {
 import ParentsContainer from '../ParentsContainer/ParentsContainer';
 // import UploadFiles from '../UploadFiles/UploadFiles';
 import { initialValuesChildForm, schemaChildUpdate } from '../Schemas/schema';
-import { useDispatch, useSelector } from 'react-redux';
 import { addChild, updateChild } from 'redux/child/childOperetion';
 import UpdateAvatar from 'ui/UpdateAvatar/UpdateAvatar';
 import { selectChildrenOperetion } from 'redux/child/childSelector';

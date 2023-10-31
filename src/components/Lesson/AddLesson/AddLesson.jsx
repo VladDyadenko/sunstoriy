@@ -1,4 +1,6 @@
+import { useDispatch } from 'react-redux';
 import { Formik } from 'formik';
+import { useState } from 'react';
 import {
   ChoseInfoContainer,
   FieldTextarea,
@@ -9,16 +11,18 @@ import {
   TitleForm,
 } from './AddLesson.styled';
 import DatePickerLesson from '../DatePickerLesson/DatePickerLesson';
-import { useState } from 'react';
 import AddTypeLesson from '../AddTypeLesson/AddTypeLesson';
 import AddChildLesson from '../AddChildLesson/AddChildLesson';
 import AddTeacherToLesson from '../AddTeacherToLesson/AddTeacherToLesson';
 import PriceLesson from '../PriceLesson/PriceLesson';
 import { initialValuesLessonForm } from '../Schema/schema';
+import { addLesson } from 'redux/Lesson/lessonOperetion';
 
 const AddLesson = () => {
   const [valuesLesson, setValuesLesson] = useState(initialValuesLessonForm);
   console.log(setValuesLesson);
+
+  const dispatch = useDispatch();
   return (
     <>
       <Formik
@@ -26,9 +30,10 @@ const AddLesson = () => {
         initialValues={valuesLesson}
         onSubmit={values => {
           console.log(values);
+          dispatch(addLesson(values));
         }}
       >
-        {({ errors, touched, values, setFieldValue }) => (
+        {({ setFieldValue }) => (
           <FormLesson>
             <TitleForm>Картка заняття</TitleForm>
             <ChoseInfoContainer>

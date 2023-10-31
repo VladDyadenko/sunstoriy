@@ -68,6 +68,7 @@ export const addTeacher = createAsyncThunk(
     }
   }
 );
+
 export const updateTeacher = createAsyncThunk(
   'teacher/updateTeacher',
   async (teacherData, thunkAPI) => {

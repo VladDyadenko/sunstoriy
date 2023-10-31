@@ -13,6 +13,7 @@ import storage from 'redux-persist/lib/storage';
 import { authReducer } from './auth/authSlice';
 import { childrenReducer } from './child/childSlice';
 import { teachersReducer } from './teacher/teacherSlice';
+import { lessonReducer } from './Lesson/lessonSlice';
 
 const persistConfig = {
   key: 'auth',
@@ -25,6 +26,7 @@ export const store = configureStore({
     auth: persistReducer(persistConfig, authReducer),
     children: childrenReducer,
     teachers: teachersReducer,
+    lesson: lessonReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
