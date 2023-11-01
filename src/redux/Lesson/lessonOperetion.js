@@ -19,7 +19,6 @@ export const addLesson = createAsyncThunk(
       if (data) {
         Notify.success('Заняття успішно додане');
       }
-      console.log(data);
       return data;
     } catch (err) {
       if (err) {

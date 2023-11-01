@@ -34,7 +34,6 @@ const lessonSlice = createSlice({
       .addCase(addLesson.fulfilled, (state, action) => {
         state.isloading = false;
         state.error = null;
-        console.log('action', action);
         state.lesson.push(action.payload);
       })
       .addCase(addLesson.rejected, (state, action) => {
