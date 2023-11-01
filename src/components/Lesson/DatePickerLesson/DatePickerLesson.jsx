@@ -42,8 +42,6 @@ const { Option } = Select;
 const DatePickerLesson = ({ setFieldValue }) => {
   const [type, setType] = useState('Одне заняття');
   const [day, setDay] = useState('1');
-  const [selectedDates, setSelectedDates] = useState(null);
-  console.log(selectedDates);
 
   const handleDateChange = (date, dateString) => {
     if (date) {
@@ -52,7 +50,8 @@ const DatePickerLesson = ({ setFieldValue }) => {
         const endDate = new Date(dateString[1]);
         const dayOfWeek = parseInt(day);
         const dates = getDatesByDayOfWeek(startDate, endDate, dayOfWeek);
-        setSelectedDates(dates);
+        const date = dates.map(date => date.valueOf());
+        setFieldValue('dateLesson', date);
       } else if (typeof dateString === 'string') {
         const selectedDate = new Date(dateString);
         setFieldValue('dateLesson', selectedDate.valueOf());
