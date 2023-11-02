@@ -20,6 +20,8 @@ import { addLesson } from 'redux/Lesson/lessonOperetion';
 
 const AddLesson = () => {
   const [valuesLesson, setValuesLesson] = useState(initialValuesLessonForm);
+  const [typeLesson, setTypeLesson] = useState('Сенсорна');
+
   console.log(setValuesLesson);
 
   const dispatch = useDispatch();
@@ -38,12 +40,19 @@ const AddLesson = () => {
             <TitleForm>Картка заняття</TitleForm>
             <ChoseInfoContainer>
               <FormMainInfo>
-                <AddTypeLesson setFieldValue={setFieldValue} />
+                <AddTypeLesson
+                  office={typeLesson}
+                  setTypeLesson={setTypeLesson}
+                  setFieldValue={setFieldValue}
+                />
                 <AddChildLesson setFieldValue={setFieldValue} />
                 <AddTeacherToLesson setFieldValue={setFieldValue} />
                 <PriceLesson setFieldValue={setFieldValue} />
               </FormMainInfo>
-              <DatePickerLesson setFieldValue={setFieldValue} />
+              <DatePickerLesson
+                office={typeLesson}
+                setFieldValue={setFieldValue}
+              />
             </ChoseInfoContainer>
             <TextAreaTitle>План заняття:</TextAreaTitle>
             <FieldTextarea name="plan" component="textarea" rows={6} />

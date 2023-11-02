@@ -1,15 +1,19 @@
 import { DatePicker, Select, TimePicker } from 'antd';
-
 import locale from 'antd/es/date-picker/locale/uk_UA';
 import dayjs from 'dayjs';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import {
+  BtnContainer,
+  ButtonSelectPeriod,
   DateInfoContainer,
   DescrContainer,
   DescrPlans,
+  IconBtn,
   WrapperPlans,
 } from './DatePickerLesson.styled';
 import { getDatesByDayOfWeek } from './dateUtils';
+import { choseLessonGraph } from 'redux/Lesson/lessonOperetion';
 
 const { RangePicker } = DatePicker;
 const PickerWithTypeLesson = ({ type, onChange }) => {
@@ -39,9 +43,12 @@ const PickerWithTypeLesson = ({ type, onChange }) => {
 
 const { Option } = Select;
 
-const DatePickerLesson = ({ setFieldValue }) => {
+const DatePickerLesson = ({ setFieldValue, office }) => {
   const [type, setType] = useState('Одне заняття');
   const [day, setDay] = useState('1');
+  const [dateLesson, setDateLesson] = useState(null);
+
+  const dispatch = useDispatch();
 
   const handleDateChange = (date, dateString) => {
     if (date) {
@@ -51,14 +58,19 @@ const DatePickerLesson = ({ setFieldValue }) => {
         const dayOfWeek = parseInt(day);
         const dates = getDatesByDayOfWeek(startDate, endDate, dayOfWeek);
         const date = dates.map(date => date.valueOf());
+        setDateLesson(date);
         setFieldValue('dateLesson', date);
       } else if (typeof dateString === 'string') {
         const selectedDate = new Date(dateString);
+        setDateLesson(selectedDate.valueOf());
         setFieldValue('dateLesson', selectedDate.valueOf());
       }
     }
   };
-
+  const handleChosePeriod = e => {
+    const data = { office, dateLesson };
+    dispatch(choseLessonGraph(data));
+  };
   const handleTimeChange = (time, dateString) => {
     setFieldValue('timeLesson', dateString);
   };
@@ -87,9 +99,14 @@ const DatePickerLesson = ({ setFieldValue }) => {
             </DescrContainer>
           ) : null}
         </DateInfoContainer>
-
         <PickerWithTypeLesson type={type} onChange={handleDateChange} />
         <TimePicker onChange={handleTimeChange} secondStep={60} />
+        <BtnContainer>
+          <ButtonSelectPeriod type="button" onClick={handleChosePeriod}>
+            Вибрати час заняття
+            <IconBtn />
+          </ButtonSelectPeriod>
+        </BtnContainer>
       </WrapperPlans>
     </>
   );

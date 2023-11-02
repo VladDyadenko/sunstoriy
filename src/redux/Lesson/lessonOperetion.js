@@ -15,10 +15,35 @@ export const addLesson = createAsyncThunk(
   'lesson/addLesson',
   async (lessonData, thunkAPI) => {
     try {
-      const { data } = await axios.post('/lesson', lessonData);
+      const { data } = await axios.post('/lesson', lessonData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
       if (data) {
         Notify.success('Заняття успішно додане');
       }
+      return data;
+    } catch (err) {
+      if (err) {
+        Notify.failure(err.response.data.message);
+      }
+      return thunkAPI.rejectWithValue(err.message);
+    }
+  }
+);
+
+export const choseLessonGraph = createAsyncThunk(
+  'lesson/choesLesson',
+  async (choesData, thunkAPI) => {
+    try {
+      const { data } = await axios.get('/lesson/office/office_date', {
+        params: choesData,
+      });
+
+      if (data.lenght > 0) {
+        Notify.success('Заняття вибраного періоду');
+      } else Notify.info('Заняття не заплановані');
       return data;
     } catch (err) {
       if (err) {
