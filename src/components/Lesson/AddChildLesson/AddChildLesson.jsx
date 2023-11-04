@@ -18,23 +18,28 @@ import SearchModule from 'ui/SearchModule/SearchModule';
 import { fetchChildrenByName } from 'redux/child/childOperetion';
 // const { Option } = Select;
 
-const AddChildLesson = ({ setFieldValue }) => {
+const AddChildLesson = ({ setFieldValue, addSuccessLesson }) => {
   const [userSearch, setUserSearch] = useState('');
-
-  const handleInputChange = e => {
-    const userQuery = e.target.value.trim();
-    setUserSearch(userQuery);
-  };
-
-  const resetSearch = () => {
-    setUserSearch('');
-  };
-
   const [choseChildren, setChoseChildren] = useState('');
   const [child, setChoseChild] = useState(() => {
     const storedChild = localStorage.getItem('сurrentChildAddLesson');
     return storedChild ? JSON.parse(storedChild) : null;
   });
+
+  const handleInputChange = e => {
+    const userQuery = e.target.value.trim();
+    setUserSearch(userQuery);
+  };
+  useEffect(() => {
+    if (!addSuccessLesson || addSuccessLesson) {
+      setChoseChild(null);
+      localStorage.setItem('сurrentChildAddLesson', null);
+    }
+  }, [addSuccessLesson]);
+
+  const resetSearch = () => {
+    setUserSearch('');
+  };
 
   const operetion = useSelector(selectChildrenOperetion);
   const dispatch = useDispatch();

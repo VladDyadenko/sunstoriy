@@ -7,7 +7,7 @@ export const TitlePriceLesson = styled.h3`
   font-size: 16px;
   font-weight: 500;
   text-align: start;
-  color: var(--main-green);
+  color: var(--main-dark-blue);
 `;
 
 export const PriceContainer = styled.div`

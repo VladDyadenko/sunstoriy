@@ -17,6 +17,7 @@ export const WrapperTeacherLesson = styled.div`
 `;
 export const TeacherDescr = styled.div`
   width: 100%;
+  min-height: 33px;
   display: flex;
   align-items: center;
   justify-content: start;
@@ -28,7 +29,7 @@ export const TitleTeacherLesson = styled.h3`
   font-size: 16px;
   font-weight: 500;
   text-align: start;
-  color: var(--main-green);
+  color: var(--main-dark-blue);
 `;
 export const ModalContainer = styled.div`
   position: absolute;

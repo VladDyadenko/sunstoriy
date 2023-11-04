@@ -14,5 +14,5 @@ export const TeacherLessonChose = styled.h3`
   font-family: 'RobotoSlab';
   font-size: 16px;
   font-weight: 500;
-  color: var(--main-green);
+  color: var(--main-dark-blue);
 `;

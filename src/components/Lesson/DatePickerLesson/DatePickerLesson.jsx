@@ -1,7 +1,7 @@
 import { DatePicker, Select, TimePicker } from 'antd';
 import locale from 'antd/es/date-picker/locale/uk_UA';
 import dayjs from 'dayjs';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   BtnContainer,
@@ -10,10 +10,13 @@ import {
   DescrContainer,
   DescrPlans,
   IconBtn,
+  TimeContainer,
+  TimeContainers,
   WrapperPlans,
 } from './DatePickerLesson.styled';
 import { getDatesByDayOfWeek } from './dateUtils';
 import { choseLessonGraph } from 'redux/Lesson/lessonOperetion';
+import { ErrorInfo } from '../AddLesson/AddLesson.styled';
 
 const { RangePicker } = DatePicker;
 const PickerWithTypeLesson = ({ type, onChange }) => {
@@ -43,12 +46,28 @@ const PickerWithTypeLesson = ({ type, onChange }) => {
 
 const { Option } = Select;
 
-const DatePickerLesson = ({ setFieldValue, office }) => {
+const DatePickerLesson = ({
+  addSuccessLesson,
+  setFieldValue,
+  office,
+  errors,
+  touched,
+}) => {
   const [type, setType] = useState('Одне заняття');
   const [day, setDay] = useState('1');
   const [dateLesson, setDateLesson] = useState(null);
 
+  const [startTime, setStartTime] = useState(null);
+  const [endTime, setEndTime] = useState(null);
+
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!addSuccessLesson || addSuccessLesson) {
+      setStartTime(null);
+      setEndTime(null);
+    }
+  }, [addSuccessLesson]);
 
   const handleDateChange = (date, dateString) => {
     if (date) {
@@ -71,15 +90,32 @@ const DatePickerLesson = ({ setFieldValue, office }) => {
     const data = { office, dateLesson };
     dispatch(choseLessonGraph(data));
   };
-  const handleTimeChange = (time, dateString) => {
-    setFieldValue('timeLesson', dateString);
+  const handleTimeStartLesson = (time, dateString) => {
+    setStartTime(dateString);
   };
+  const handleTimeEndLesson = (time, dateString) => {
+    setEndTime(dateString);
+  };
+  useEffect(() => {
+    if (startTime && endTime) {
+      const startTimeFormatted = formatTime(startTime);
+      const endTimeFormatted = formatTime(endTime);
+      const timeString = `${startTimeFormatted} - ${endTimeFormatted}`;
+      setFieldValue('timeLesson', timeString);
+    }
+  }, [endTime, setFieldValue, startTime]);
+
+  const formatTime = time => {
+    const [hours, minutes] = time.split(':');
+    return `${hours}:${minutes}`;
+  };
+
   return (
     <>
       <WrapperPlans>
         <DateInfoContainer>
           <DescrContainer>
-            <DescrPlans>Дата:</DescrPlans>
+            <DescrPlans>Період:</DescrPlans>
             <Select value={type} onChange={setType}>
               <Option value="Одне заняття">Одне заняття</Option>
               <Option value="План занять">План занять</Option>
@@ -100,10 +136,29 @@ const DatePickerLesson = ({ setFieldValue, office }) => {
           ) : null}
         </DateInfoContainer>
         <PickerWithTypeLesson type={type} onChange={handleDateChange} />
-        <TimePicker onChange={handleTimeChange} secondStep={60} />
+        {touched.dateLesson && errors.dateLesson && (
+          <ErrorInfo>{errors.dateLesson}</ErrorInfo>
+        )}
+        <TimeContainer>
+          <TimeContainers>
+            <DescrPlans>Початок:</DescrPlans>
+            <TimePicker onChange={handleTimeStartLesson} secondStep={60} />
+            {touched.timeLesson && errors.timeLesson && (
+              <ErrorInfo>{errors.timeLesson}</ErrorInfo>
+            )}
+          </TimeContainers>
+          <TimeContainers>
+            <DescrPlans>Кінець:</DescrPlans>
+            <TimePicker onChange={handleTimeEndLesson} secondStep={60} />
+            {touched.timeLesson && errors.timeLesson && (
+              <ErrorInfo>{errors.timeLesson}</ErrorInfo>
+            )}
+          </TimeContainers>
+        </TimeContainer>
+
         <BtnContainer>
           <ButtonSelectPeriod type="button" onClick={handleChosePeriod}>
-            Вибрати час заняття
+            Підібрати час заняття
             <IconBtn />
           </ButtonSelectPeriod>
         </BtnContainer>

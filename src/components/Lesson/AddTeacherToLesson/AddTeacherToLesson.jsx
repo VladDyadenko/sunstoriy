@@ -16,13 +16,20 @@ import {
 import { useEffect, useState } from 'react';
 import { fetchTeacherByName } from 'redux/teacher/teacherOperetion';
 
-const AddTeacherToLesson = ({ setFieldValue }) => {
+const AddTeacherToLesson = ({ setFieldValue, addSuccessLesson }) => {
   const [userSearch, setUserSearch] = useState('');
   const [choseTeachers, setChoseTeachers] = useState('');
   const [teacher, setChoseTeacher] = useState(() => {
-    const storedTeacher = localStorage.getItem('сurrentChoseAddLesson');
+    const storedTeacher = localStorage.getItem('сurrentTeacherAddLesson');
     return storedTeacher ? JSON.parse(storedTeacher) : null;
   });
+
+  useEffect(() => {
+    if (!addSuccessLesson || addSuccessLesson) {
+      setChoseTeacher(null);
+      localStorage.setItem('сurrentTeacherAddLesson', null);
+    }
+  }, [addSuccessLesson]);
 
   const operetion = useSelector(selectTeacherOperetion);
   const dispatch = useDispatch();
@@ -54,7 +61,7 @@ const AddTeacherToLesson = ({ setFieldValue }) => {
     setChoseTeacher(selectedTeacher);
     setFieldValue('teacher', selectedTeacher._id);
     localStorage.setItem(
-      'сurrentChoseAddLesson',
+      'сurrentTeacherAddLesson',
       JSON.stringify(selectedTeacher)
     );
     setUserSearch('');

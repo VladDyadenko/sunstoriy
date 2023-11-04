@@ -12,6 +12,9 @@ export const WrapperPlans = styled(Space)`
   border-radius: 8px;
   padding: 10px;
 
+  @media (max-width: 1279px) {
+    min-height: 320px;
+  }
   @media (min-width: 768px) {
     width: 45%;
   }
@@ -26,10 +29,10 @@ export const DescrPlans = styled.h3`
   font-family: 'RobotoSlab';
   font-size: 16px;
   font-weight: 500;
-  text-align: start;
-  color: var(--main-green);
+  color: var(--main-dark-blue);
 `;
 export const DescrContainer = styled.div`
+  min-width: 240px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -90,4 +93,18 @@ export const IconBtn = styled(BsDownload)`
   &:hover {
     stroke: var(--main-dark-blue);
   }
+`;
+export const TimeContainer = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+`;
+export const TimeContainers = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
 `;

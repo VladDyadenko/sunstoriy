@@ -41,7 +41,7 @@ export const choseLessonGraph = createAsyncThunk(
         params: choesData,
       });
 
-      if (data.lenght > 0) {
+      if (data) {
         Notify.success('Заняття вибраного періоду');
       } else Notify.info('Заняття не заплановані');
       return data;

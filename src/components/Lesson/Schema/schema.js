@@ -1,3 +1,5 @@
+import * as yup from 'yup';
+
 export const initialValuesLessonForm = {
   office: '',
   child: '',
@@ -8,3 +10,22 @@ export const initialValuesLessonForm = {
   dateLesson: '',
   timeLesson: '',
 };
+
+export const schemaAddLessonUpdate = yup.object().shape({
+  office: yup.string().required("Кабінет обов'язковий!"),
+  child: yup.string().required("Дитина обов'язкова!"),
+  teacher: yup.string().required("Фахівець обов'язковий!"),
+  dateLesson: yup
+    .mixed()
+    .test('is-string-or-array', "Дата обов'язкова!", value => {
+      if (Array.isArray(value)) {
+        return value.every(
+          item => typeof item === 'string' || typeof item === 'number'
+        );
+      } else {
+        return typeof value === 'string' || typeof value === 'number';
+      }
+    })
+    .required(),
+  timeLesson: yup.string().required("Час обов'язковий!"),
+});

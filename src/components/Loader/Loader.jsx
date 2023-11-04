@@ -16,7 +16,6 @@ const Loader = () => {
           ariaLabel="circles-with-bar-loading"
         />
       </LoaderContainer>
-      ;
     </>
   );
 };

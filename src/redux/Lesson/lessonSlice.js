@@ -1,9 +1,10 @@
-import { addLesson, fetchLessons } from './lessonOperetion';
+import { addLesson, choseLessonGraph, fetchLessons } from './lessonOperetion';
 
 const { createSlice } = require('@reduxjs/toolkit');
 
 const initialState = {
   lesson: [],
+  choseLesson: [],
   isloading: false,
   marker: null,
   operetion: null,
@@ -37,6 +38,18 @@ const lessonSlice = createSlice({
         state.lesson.push(action.payload);
       })
       .addCase(addLesson.rejected, (state, action) => {
+        state.isloading = false;
+        state.error = action.payload;
+      })
+      .addCase(choseLessonGraph.pending, state => {
+        state.isloading = true;
+      })
+      .addCase(choseLessonGraph.fulfilled, (state, { payload }) => {
+        state.isloading = false;
+        state.error = null;
+        state.choseLesson = payload[0];
+      })
+      .addCase(choseLessonGraph.rejected, (state, action) => {
         state.isloading = false;
         state.error = action.payload;
       });

@@ -18,6 +18,9 @@ export const FormLesson = styled(Form)`
     width: 1410px;
   }
 `;
+export const ErrorInfo = styled.p`
+  color: red;
+`;
 export const TitleForm = styled.h2`
   width: 100%;
   text-align: center;
