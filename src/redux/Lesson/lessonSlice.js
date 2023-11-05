@@ -47,7 +47,7 @@ const lessonSlice = createSlice({
       .addCase(choseLessonGraph.fulfilled, (state, { payload }) => {
         state.isloading = false;
         state.error = null;
-        state.choseLesson = payload[0];
+        state.choseLesson = payload;
       })
       .addCase(choseLessonGraph.rejected, (state, action) => {
         state.isloading = false;

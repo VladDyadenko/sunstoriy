@@ -81,6 +81,7 @@ const AddLesson = () => {
                 addSuccessLesson={addSuccessLesson}
               />
             </ChoseInfoContainer>
+
             <ChoseLessonContainer />
             <TextAreaTitle>План заняття:</TextAreaTitle>
             <FieldTextarea name="plan" component="textarea" rows={6} />

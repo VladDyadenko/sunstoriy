@@ -44,21 +44,25 @@ export const FormMainInfo = styled.div`
     width: 45%;
     max-width: 100%;
   }
+  @media (min-width: 768px) {
+    width: 50%;
+    max-width: 100%;
+  }
 `;
 export const ChoseInfoContainer = styled.div`
   max-width: 100%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   flex-direction: column;
   gap: 20px;
 
   @media (min-width: 768px) {
     flex-direction: row;
+    flex-wrap: wrap;
   }
 `;
 export const TextAreaTitle = styled.label`
-  width: 95%;
-  margin: 0 auto;
+  width: 100%;
   font-family: 'RobotoSlab';
   font-weight: 500;
   font-size: 18px;
@@ -72,8 +76,7 @@ export const TextAreaTitle = styled.label`
   }
 `;
 export const FieldTextarea = styled(Field)`
-  width: 95%;
-  margin: 0 auto;
+  width: 100%;
   padding: 12px 20px;
   color: #2a2a2a;
   font-family: 'RobotoSlab';

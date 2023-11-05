@@ -10,9 +10,9 @@ function TimeLessons({ timeLessonOnList }) {
     <>
       <TimeContainer>
         <TableItemDefault></TableItemDefault>
-        {timeLessonOnList?.map(val => {
+        {timeLessonOnList?.map((val, index) => {
           return (
-            <TableItem key={val}>
+            <TableItem key={val + index}>
               <TimeItem>{val}</TimeItem>
             </TableItem>
           );

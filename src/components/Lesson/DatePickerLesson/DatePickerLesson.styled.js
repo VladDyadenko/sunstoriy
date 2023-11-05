@@ -52,15 +52,9 @@ export const DateInfoContainer = styled.div`
     flex-direction: row;
   }
 `;
-export const BtnContainer = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-  margin-top: 20px;
-`;
+
 export const ButtonSelectPeriod = styled.button`
+  width: 100%;
   padding: 8px 15px;
   display: flex;
   align-items: center;
@@ -82,6 +76,13 @@ export const ButtonSelectPeriod = styled.button`
     color: var(--header-main-color);
     border: 1px solid transparent;
   }
+
+  @media (min-width: 768px) {
+    width: 35%;
+  }
+  @media (min-width: 1280px) {
+    width: 20%;
+  }
 `;
 export const IconBtn = styled(BsDownload)`
   width: 20px;
@@ -98,8 +99,8 @@ export const TimeContainer = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 8px;
+  justify-content: start;
+  gap: 20px;
 `;
 export const TimeContainers = styled.div`
   display: flex;
@@ -107,4 +108,19 @@ export const TimeContainers = styled.div`
   justify-content: center;
   flex-direction: column;
   gap: 5px;
+`;
+export const BtnContainer = styled.div`
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: 2px solid var(--main-yellow);
+  border-radius: 8px;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 `;

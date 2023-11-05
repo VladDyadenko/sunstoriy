@@ -21,6 +21,9 @@ export const TeacherDescr = styled.div`
   display: flex;
   align-items: center;
   justify-content: start;
+  @media screen and (min-width: 1280px) {
+    width: 45%;
+  }
 `;
 export const TitleTeacherLesson = styled.h3`
   min-width: 106px;
@@ -45,13 +48,12 @@ export const ModalContainer = styled.div`
   background: #fff;
   padding: 15px;
   @media screen and (min-width: 1280px) {
-    left: 240px;
-  }
-  @media screen and (min-width: 1280px) {
-    left: 240px;
+    left: 230px;
+    top: 25px;
   }
   @media screen and (min-width: 1440px) {
-    left: 315px;
+    left: 300px;
+    top: 20px;
   }
 `;
 export const TeacherChosedList = styled.ul`
@@ -85,7 +87,7 @@ export const TeacherItem = styled.li`
   }
 `;
 export const BtnAddTeacherLesson = styled(NavLink)`
-  min-width: 130px;
+  min-width: 160px;
   padding: 5px;
   display: flex;
   align-items: center;

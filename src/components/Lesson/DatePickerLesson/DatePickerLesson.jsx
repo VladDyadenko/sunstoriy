@@ -17,6 +17,7 @@ import {
 import { getDatesByDayOfWeek } from './dateUtils';
 import { choseLessonGraph } from 'redux/Lesson/lessonOperetion';
 import { ErrorInfo } from '../AddLesson/AddLesson.styled';
+import ChooseDataLessons from '../ChooseDataLessons/ChooseDataLessons';
 
 const { RangePicker } = DatePicker;
 const PickerWithTypeLesson = ({ type, onChange }) => {
@@ -155,14 +156,15 @@ const DatePickerLesson = ({
             )}
           </TimeContainers>
         </TimeContainer>
-
-        <BtnContainer>
-          <ButtonSelectPeriod type="button" onClick={handleChosePeriod}>
-            Підібрати час заняття
-            <IconBtn />
-          </ButtonSelectPeriod>
-        </BtnContainer>
       </WrapperPlans>
+
+      <BtnContainer>
+        <ChooseDataLessons />
+        <ButtonSelectPeriod type="button" onClick={handleChosePeriod}>
+          Підібрати час заняття
+          <IconBtn />
+        </ButtonSelectPeriod>
+      </BtnContainer>
     </>
   );
 };

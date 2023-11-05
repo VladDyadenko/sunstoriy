@@ -40,7 +40,7 @@ export const choseLessonGraph = createAsyncThunk(
       const { data } = await axios.get('/lesson/office/office_date', {
         params: choesData,
       });
-
+      console.log(data);
       if (data) {
         Notify.success('Заняття вибраного періоду');
       } else Notify.info('Заняття не заплановані');

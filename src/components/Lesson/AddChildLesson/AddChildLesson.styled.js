@@ -56,12 +56,11 @@ export const ChildItem = styled.li`
   &:hover {
     color: #ffff00;
     text-decoration: underline;
-    /* color: var(--main-dark-blue); */
   }
 `;
 
 export const BtnAddChildLesson = styled(NavLink)`
-  min-width: 130px;
+  min-width: 160px;
   padding: 5px;
   display: flex;
   align-items: center;
@@ -121,10 +120,12 @@ export const ModalContainer = styled.div`
   padding: 15px;
 
   @media screen and (min-width: 1280px) {
-    left: 240px;
+    left: 230px;
+    top: 25px;
   }
   @media screen and (min-width: 1440px) {
-    left: 315px;
+    left: 300px;
+    top: 20px;
   }
 `;
 export const ChildDescr = styled.div`
@@ -133,4 +134,8 @@ export const ChildDescr = styled.div`
   display: flex;
   align-items: center;
   justify-content: start;
+
+  @media screen and (min-width: 1280px) {
+    width: 45%;
+  }
 `;
