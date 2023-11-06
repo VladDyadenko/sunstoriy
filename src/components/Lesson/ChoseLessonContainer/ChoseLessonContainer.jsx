@@ -17,9 +17,9 @@ const ChoseLessonContainer = () => {
 
   const items = lessons.map(({ lesson, child, teacher }) => {
     return {
-      key: lesson._id,
-      label: lesson.dateLesson,
-      children: <p>занятие на время {lesson.timeLesson}</p>,
+      key: lesson?._id,
+      label: lesson?.dateLesson,
+      children: <p>занятие на время {lesson?.timeLesson}</p>,
     };
   });
   const onChange = key => {};

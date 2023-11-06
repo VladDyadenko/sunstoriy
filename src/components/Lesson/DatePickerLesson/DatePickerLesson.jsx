@@ -60,6 +60,7 @@ const DatePickerLesson = ({
 
   const [startTime, setStartTime] = useState(null);
   const [endTime, setEndTime] = useState(null);
+  const [offices, setOffices] = useState(['Сенсорна']);
 
   const dispatch = useDispatch();
 
@@ -87,10 +88,7 @@ const DatePickerLesson = ({
       }
     }
   };
-  const handleChosePeriod = e => {
-    const data = { office, dateLesson };
-    dispatch(choseLessonGraph(data));
-  };
+
   const handleTimeStartLesson = (time, dateString) => {
     setStartTime(dateString);
   };
@@ -109,6 +107,11 @@ const DatePickerLesson = ({
   const formatTime = time => {
     const [hours, minutes] = time.split(':');
     return `${hours}:${minutes}`;
+  };
+
+  const handleChosePeriod = e => {
+    const data = { offices, dateLesson };
+    dispatch(choseLessonGraph(data));
   };
 
   return (
@@ -136,7 +139,11 @@ const DatePickerLesson = ({
             </DescrContainer>
           ) : null}
         </DateInfoContainer>
-        <PickerWithTypeLesson type={type} onChange={handleDateChange} />
+        <PickerWithTypeLesson
+          type={type}
+          onChange={handleDateChange}
+          key={day}
+        />
         {touched.dateLesson && errors.dateLesson && (
           <ErrorInfo>{errors.dateLesson}</ErrorInfo>
         )}
@@ -159,7 +166,7 @@ const DatePickerLesson = ({
       </WrapperPlans>
 
       <BtnContainer>
-        <ChooseDataLessons />
+        <ChooseDataLessons offices={offices} setOffices={setOffices} />
         <ButtonSelectPeriod type="button" onClick={handleChosePeriod}>
           Підібрати час заняття
           <IconBtn />
