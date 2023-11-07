@@ -60,6 +60,8 @@ const AddChildLesson = ({ setFieldValue, addSuccessLesson }) => {
   const handleChoseChild = selectedChild => {
     setChoseChild(selectedChild);
     setFieldValue('child', selectedChild._id);
+    setFieldValue('childName', selectedChild.name);
+    setFieldValue('childSurname', selectedChild.surname);
     localStorage.setItem(
       'сurrentChildAddLesson',
       JSON.stringify(selectedChild)

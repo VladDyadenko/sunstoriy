@@ -21,13 +21,12 @@ import {
   schemaAddLessonUpdate,
 } from '../Schema/schema';
 import { addLesson } from 'redux/Lesson/lessonOperetion';
-import ChoseLessonContainer from '../ChoseLessonContainer/ChoseLessonContainer';
+import ChoseLessonContainer from 'components/ChoseLessonData/ChoseLessonContainer/ChoseLessonContainer';
 
 const AddLesson = () => {
   const [valuesLesson, setValuesLesson] = useState(initialValuesLessonForm);
   const [typeLesson, setTypeLesson] = useState('Сенсорна');
   const [addSuccessLesson, setAddSuccessLesson] = useState(false);
-
   console.log(setValuesLesson);
 
   const dispatch = useDispatch();
@@ -81,7 +80,6 @@ const AddLesson = () => {
                 addSuccessLesson={addSuccessLesson}
               />
             </ChoseInfoContainer>
-
             <ChoseLessonContainer />
             <TextAreaTitle>План заняття:</TextAreaTitle>
             <FieldTextarea name="plan" component="textarea" rows={6} />

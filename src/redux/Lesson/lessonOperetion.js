@@ -14,6 +14,7 @@ export const fetchLessons = createAsyncThunk('lessons', async (_, thunkAPI) => {
 export const addLesson = createAsyncThunk(
   'lesson/addLesson',
   async (lessonData, thunkAPI) => {
+    console.log(lessonData);
     try {
       const { data } = await axios.post('/lesson', lessonData, {
         headers: {

@@ -60,6 +60,9 @@ const AddTeacherToLesson = ({ setFieldValue, addSuccessLesson }) => {
   const handleChoseTeacher = selectedTeacher => {
     setChoseTeacher(selectedTeacher);
     setFieldValue('teacher', selectedTeacher._id);
+    setFieldValue('teacherName', selectedTeacher.name);
+    setFieldValue('teacherSurname', selectedTeacher.surname);
+    setFieldValue('teacherColor', selectedTeacher.color);
     localStorage.setItem(
       'сurrentTeacherAddLesson',
       JSON.stringify(selectedTeacher)

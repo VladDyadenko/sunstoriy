@@ -3,7 +3,12 @@ import * as yup from 'yup';
 export const initialValuesLessonForm = {
   office: '',
   child: '',
+  childName: '',
+  childSurname: '',
   teacher: '',
+  teacherName: '',
+  teacherSurname: '',
+  teacherColor: '',
   price: 350,
   plan: '',
   review: '',

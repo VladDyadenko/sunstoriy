@@ -17,7 +17,7 @@ import {
 import { getDatesByDayOfWeek } from './dateUtils';
 import { choseLessonGraph } from 'redux/Lesson/lessonOperetion';
 import { ErrorInfo } from '../AddLesson/AddLesson.styled';
-import ChooseDataLessons from '../ChooseDataLessons/ChooseDataLessons';
+import ChooseDataLessons from '../../ChoseLessonData/ChooseDataLessons/ChooseDataLessons';
 
 const { RangePicker } = DatePicker;
 const PickerWithTypeLesson = ({ type, onChange }) => {
