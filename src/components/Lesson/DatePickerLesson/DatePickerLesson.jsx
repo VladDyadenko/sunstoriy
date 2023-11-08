@@ -65,6 +65,10 @@ const DatePickerLesson = ({
   const dispatch = useDispatch();
 
   useEffect(() => {
+    setDateLesson(null);
+  }, [type]);
+
+  useEffect(() => {
     if (!addSuccessLesson || addSuccessLesson) {
       setStartTime(null);
       setEndTime(null);
