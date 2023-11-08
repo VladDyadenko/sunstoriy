@@ -43,13 +43,13 @@ export const choseLessonGraph = createAsyncThunk(
       });
       if (data) {
         Notify.success('Заняття вибраного періоду');
-      } else Notify.info('Заняття не заплановані');
+      }
       return data;
     } catch (err) {
       if (err) {
         Notify.failure(err.response.data.message);
       }
-      return thunkAPI.rejectWithValue(err.message);
+      return [];
     }
   }
 );

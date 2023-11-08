@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
   DescrLessonWrapper,
   DescrOneLesson,
@@ -8,28 +9,62 @@ import {
   TimeOneLesson,
 } from './OfficeScheduleOnDay.styled';
 
-const OfficeScheduleOnDay = ({ lesson, child, teacher }) => {
+const OfficeScheduleOnDay = ({ lessons, date }) => {
+  const [uniquTime, setUniquTime] = useState([]);
+  const [uniquOffice, setUniquOffice] = useState([]);
+  const [lessonOneDay, setLessonOneDay] = useState([]);
+
+  useEffect(() => {
+    if (lessons) {
+      const lessonThisDate = lessons.filter(
+        lesson => lesson.dateLesson === date
+      );
+      setLessonOneDay(lessonThisDate);
+
+      if (lessonThisDate.length > 0) {
+        const uniquTimeDate = [
+          ...new Set(lessonThisDate.map(lesson => lesson.timeLesson)),
+        ];
+        const uniquOffice = [
+          ...new Set(lessonThisDate.map(lesson => lesson.office)),
+        ];
+        setUniquTime(uniquTimeDate);
+        setUniquOffice(uniquOffice);
+      }
+    }
+  }, [date, lessons]);
+
   return (
-    <>
+    <div>
       <TimeContainer>
         <TimeLessonWrapper>
           <TimeOneLesson></TimeOneLesson>
-          <TimeOneLesson>Час заянть</TimeOneLesson>
-          <TimeOneLesson>Час заянть</TimeOneLesson>
+          {uniquTime.map(time => (
+            <TimeOneLesson key={time}>{time}</TimeOneLesson>
+          ))}
         </TimeLessonWrapper>
       </TimeContainer>
 
-      <OfficeContainer>
-        <OfficeName>Office</OfficeName>
-
-        <DescrLessonWrapper>
-          <DescrOneLesson>Заняття</DescrOneLesson>
-          <DescrOneLesson>Заняття</DescrOneLesson>
-          <DescrOneLesson>Заняття</DescrOneLesson>
-          <DescrOneLesson>Заняття</DescrOneLesson>
-        </DescrLessonWrapper>
-      </OfficeContainer>
-    </>
+      {uniquOffice.map(office => (
+        <OfficeContainer key={office}>
+          <OfficeName>{office}</OfficeName>
+          <DescrLessonWrapper>
+            {uniquTime.map(time => (
+              <DescrOneLesson key={time}>
+                {lessonOneDay
+                  .filter(
+                    lesson =>
+                      lesson.office === office && lesson.timeLesson === time
+                  )
+                  .map(lesson => (
+                    <div key={lesson._id}>{lesson.teacherName}</div>
+                  ))}
+              </DescrOneLesson>
+            ))}
+          </DescrLessonWrapper>
+        </OfficeContainer>
+      ))}
+    </div>
   );
 };
 

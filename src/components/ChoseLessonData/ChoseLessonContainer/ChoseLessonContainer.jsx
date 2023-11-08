@@ -10,7 +10,6 @@ const ChoseLessonContainer = () => {
   const [lessons, setLessons] = useState([]);
   const [lessonDates, setLessonDates] = useState([]);
   const choseLessons = useSelector(selectChoseLessons);
-  console.log(lessons);
 
   useEffect(() => {
     if (choseLessons?.length > 0) {
@@ -20,14 +19,14 @@ const ChoseLessonContainer = () => {
         ...new Set(flattenedLessons.map(lesson => lesson.dateLesson)),
       ];
       setLessonDates(uniqueDates);
-    }
+    } else setLessonDates(null);
   }, [choseLessons]);
 
   const items = lessonDates?.map(date => {
     return {
       key: date,
       label: <span>{dayjs(date).format('DD-MM-YYYY')}</span>,
-      children: <OfficeScheduleOnDay />,
+      children: <OfficeScheduleOnDay lessons={lessons} date={date} />,
     };
   });
   const onChange = key => {};
