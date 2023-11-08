@@ -28,7 +28,18 @@ const OfficeScheduleOnDay = ({ lessons, date }) => {
         const uniquOffice = [
           ...new Set(lessonThisDate.map(lesson => lesson.office)),
         ];
-        setUniquTime(uniquTimeDate);
+        const sortedTime = uniquTimeDate.sort((a, b) => {
+          const getTimeValue = time => {
+            const [hours, minutes] = time
+              .split(' - ')[0]
+              .split(':')
+              .map(Number);
+            return hours * 60 + minutes;
+          };
+
+          return getTimeValue(a) - getTimeValue(b);
+        });
+        setUniquTime(sortedTime);
         setUniquOffice(uniquOffice);
       }
     }
