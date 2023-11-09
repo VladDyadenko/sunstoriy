@@ -34,7 +34,7 @@ const TeacherCard = ({ teacher }) => {
         <TeacherDescr>
           <InfoTeacher>{name}</InfoTeacher>
           <InfoTeacher>{surname}</InfoTeacher>
-          {specialization.map(val => (
+          {specialization?.map(val => (
             <TeacherSpecializationInfo key={val}>
               {val}
             </TeacherSpecializationInfo>

@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
 import {
+  CardWrapper,
   DescrLessonWrapper,
   DescrOneLesson,
   OfficeContainer,
   OfficeName,
   TimeContainer,
+  TimeEmpty,
   TimeLessonWrapper,
   TimeOneLesson,
 } from './OfficeScheduleOnDay.styled';
+import ScheduleCard from '../ScheduleCard/ScheduleCard';
 
 const OfficeScheduleOnDay = ({ lessons, date }) => {
   const [uniquTime, setUniquTime] = useState([]);
@@ -49,7 +52,7 @@ const OfficeScheduleOnDay = ({ lessons, date }) => {
     <div>
       <TimeContainer>
         <TimeLessonWrapper>
-          <TimeOneLesson></TimeOneLesson>
+          <TimeEmpty></TimeEmpty>
           {uniquTime.map(time => (
             <TimeOneLesson key={time}>{time}</TimeOneLesson>
           ))}
@@ -63,12 +66,14 @@ const OfficeScheduleOnDay = ({ lessons, date }) => {
             {uniquTime.map(time => (
               <DescrOneLesson key={time}>
                 {lessonOneDay
-                  .filter(
+                  ?.filter(
                     lesson =>
                       lesson.office === office && lesson.timeLesson === time
                   )
                   .map(lesson => (
-                    <div key={lesson._id}>{lesson.teacherName}</div>
+                    <CardWrapper key={lesson._id}>
+                      <ScheduleCard lessonData={lesson} />
+                    </CardWrapper>
                   ))}
               </DescrOneLesson>
             ))}

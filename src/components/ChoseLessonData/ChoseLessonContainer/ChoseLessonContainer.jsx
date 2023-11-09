@@ -33,7 +33,11 @@ const ChoseLessonContainer = () => {
 
   return (
     <ChoseLessonsContainer>
-      <Collapse items={items} onChange={onChange} />
+      <Collapse
+        style={{ overflow: 'auto' }}
+        items={items}
+        onChange={onChange}
+      />
     </ChoseLessonsContainer>
   );
 };

@@ -246,6 +246,17 @@ body,
 .ant-picker.css-17a39f8.ant-picker-focused, .ant-picker.css-17a39f8{
  border: 2px solid var(--main-green) !important;
 }
+ /* ChoseLessonData component*/
+.ant-collapse-header-text{
+  font-family: 'RobotoSlab';
+  font-weight: 400;
+  font-size: 16px;
+  color: #006400;
+}
+
+.anticon.anticon-right.ant-collapse-arrow{
+  color: #006400;
+}
 `;
 
 export default GlobalStyles;
