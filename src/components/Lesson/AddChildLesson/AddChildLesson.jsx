@@ -18,14 +18,19 @@ import SearchModule from 'ui/SearchModule/SearchModule';
 import { fetchChildrenByName } from 'redux/child/childOperetion';
 // const { Option } = Select;
 
-const AddChildLesson = ({ setFieldValue, addSuccessLesson }) => {
+const AddChildLesson = ({
+  setFieldValue,
+  addSuccessLesson,
+  child,
+  childName,
+  childSurname,
+}) => {
   const [userSearch, setUserSearch] = useState('');
   const [choseChildren, setChoseChildren] = useState('');
-  const [child, setChoseChild] = useState(() => {
+  const [choseChild, setChoseChild] = useState(() => {
     const storedChild = localStorage.getItem('сurrentChildAddLesson');
     return storedChild ? JSON.parse(storedChild) : null;
   });
-
   const handleInputChange = e => {
     const userQuery = e.target.value.trim();
     setUserSearch(userQuery);
@@ -51,6 +56,18 @@ const AddChildLesson = ({ setFieldValue, addSuccessLesson }) => {
   }, [children]);
 
   useEffect(() => {
+    if (child) {
+      const childForm = {
+        name: childName,
+        surname: childSurname,
+        _id: child,
+      };
+      setChoseChild(childForm);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [child]);
+
+  useEffect(() => {
     if (userSearch?.length >= 1) {
       dispatch(fetchChildrenByName(userSearch));
     }
@@ -74,9 +91,11 @@ const AddChildLesson = ({ setFieldValue, addSuccessLesson }) => {
       <WrapperChildLesson>
         <ChildDescr>
           <TitleChildLesson>Дитина:</TitleChildLesson>
-          {child ? (
-            <BtnAddChildLesson to={`/child/${child._id}?source=buttonViewing`}>
-              {child.name} {child.surname}
+          {choseChild ? (
+            <BtnAddChildLesson
+              to={`/child/${choseChild._id}?source=buttonViewing`}
+            >
+              {choseChild.name} {choseChild.surname}
             </BtnAddChildLesson>
           ) : null}
         </ChildDescr>

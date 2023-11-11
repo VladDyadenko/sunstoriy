@@ -16,10 +16,16 @@ import {
 import { useEffect, useState } from 'react';
 import { fetchTeacherByName } from 'redux/teacher/teacherOperetion';
 
-const AddTeacherToLesson = ({ setFieldValue, addSuccessLesson }) => {
+const AddTeacherToLesson = ({
+  setFieldValue,
+  addSuccessLesson,
+  teacher,
+  teacherName,
+  teacherSurname,
+}) => {
   const [userSearch, setUserSearch] = useState('');
   const [choseTeachers, setChoseTeachers] = useState('');
-  const [teacher, setChoseTeacher] = useState(() => {
+  const [choseTeacher, setChoseTeacher] = useState(() => {
     const storedTeacher = localStorage.getItem('сurrentTeacherAddLesson');
     return storedTeacher ? JSON.parse(storedTeacher) : null;
   });
@@ -35,6 +41,18 @@ const AddTeacherToLesson = ({ setFieldValue, addSuccessLesson }) => {
   const dispatch = useDispatch();
 
   const teachers = useSelector(selectTeachers);
+
+  useEffect(() => {
+    if (teacher) {
+      const teacherForm = {
+        _id: teacher,
+        name: teacherName,
+        surname: teacherSurname,
+      };
+      setChoseTeacher(teacherForm);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [teacher]);
 
   useEffect(() => {
     if (teachers.length > 0) {
@@ -74,11 +92,11 @@ const AddTeacherToLesson = ({ setFieldValue, addSuccessLesson }) => {
       <WrapperTeacherLesson>
         <TeacherDescr>
           <TitleTeacherLesson>Фахівець:</TitleTeacherLesson>
-          {teacher ? (
+          {choseTeacher ? (
             <BtnAddTeacherLesson
-              to={`/teacher/${teacher._id}?source=buttonViewing`}
+              to={`/teacher/${choseTeacher._id}?source=buttonViewing`}
             >
-              {teacher.name} {teacher.surname}
+              {choseTeacher.name} {choseTeacher.surname}
             </BtnAddTeacherLesson>
           ) : null}
         </TeacherDescr>

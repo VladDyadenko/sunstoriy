@@ -13,6 +13,23 @@ export function getDatesByDayOfWeek(startDate, endDate, dayOfWeek) {
 
   return selectedDates;
 }
+
+export const extractTimeFromRange = timeRange => {
+  const timePattern = /(\d{2}:\d{2}) - (\d{2}:\d{2})/;
+  const match = timePattern.exec(timeRange);
+
+  if (match) {
+    return {
+      startTime: match[1],
+      endTime: match[2],
+    };
+  }
+
+  return {
+    startTime: null,
+    endTime: null,
+  };
+};
 // const startDate = new Date('2023-11-01');
 // const endDate = new Date('2023-11-30');
 // const dayOfWeekToSelect = 1;

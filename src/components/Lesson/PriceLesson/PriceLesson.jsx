@@ -1,12 +1,18 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   InputPrice,
   PriceContainer,
   TitlePriceLesson,
 } from './PriceLesson.styled';
 
-const PriceLesson = ({ setFieldValue }) => {
+const PriceLesson = ({ setFieldValue, currentPrice }) => {
   const [price, setPrice] = useState(350);
+
+  useEffect(() => {
+    if (currentPrice) {
+      setPrice(currentPrice);
+    }
+  }, [currentPrice]);
 
   const handleInputChange = e => {
     const currentPrice = e.target.value;

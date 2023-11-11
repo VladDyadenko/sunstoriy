@@ -8,7 +8,6 @@ import {
 const ScheduleCard = ({ lessonData }) => {
   const { childName, childSurname, teacherName, teacherColor, _id } =
     lessonData;
-  console.log(teacherColor);
 
   return (
     <>

@@ -215,6 +215,7 @@ body,
 
    // DatePickerLesson
 
+
 .ant-picker-dropdown.css-dev-only-do-not-override-17a39f8.ant-picker-dropdown-placement-bottomRight{
 
    inset: 290px auto auto 10px !important;

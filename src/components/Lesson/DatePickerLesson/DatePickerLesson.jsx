@@ -10,7 +10,6 @@ import {
   DescrContainer,
   DescrPlans,
   IconBtn,
-  TimeContainer,
   TimeContainers,
   WrapperPlans,
 } from './DatePickerLesson.styled';
@@ -53,13 +52,13 @@ const DatePickerLesson = ({
   office,
   errors,
   touched,
+  timeLessonCurrent,
 }) => {
   const [type, setType] = useState('Одне заняття');
   const [day, setDay] = useState('1');
   const [dateLesson, setDateLesson] = useState(null);
+  const [timeLesson, setValues] = useState(null);
 
-  const [startTime, setStartTime] = useState(null);
-  const [endTime, setEndTime] = useState(null);
   const [offices, setOffices] = useState(['Сенсорна']);
 
   const dispatch = useDispatch();
@@ -69,11 +68,19 @@ const DatePickerLesson = ({
   }, [type]);
 
   useEffect(() => {
-    if (!addSuccessLesson || addSuccessLesson) {
-      setStartTime(null);
-      setEndTime(null);
+    if (timeLessonCurrent) {
+      const dateObjects = timeLessonCurrent.map(timeLessonCurrent =>
+        dayjs(timeLessonCurrent)
+      );
+      setValues(dateObjects);
     }
-  }, [addSuccessLesson]);
+  }, [timeLessonCurrent]);
+
+  // useEffect(() => {
+  //   if (!addSuccessLesson || addSuccessLesson) {
+  //     setValues(null);
+  //   }
+  // }, [addSuccessLesson]);
 
   const handleDateChange = (date, dateString) => {
     if (date) {
@@ -93,25 +100,15 @@ const DatePickerLesson = ({
     }
   };
 
-  const handleTimeStartLesson = (time, dateString) => {
-    setStartTime(dateString);
+  const handleTimeLesson = vals => {
+    setValues(vals);
   };
-  const handleTimeEndLesson = (time, dateString) => {
-    setEndTime(dateString);
-  };
-  useEffect(() => {
-    if (startTime && endTime) {
-      const startTimeFormatted = formatTime(startTime);
-      const endTimeFormatted = formatTime(endTime);
-      const timeString = `${startTimeFormatted} - ${endTimeFormatted}`;
-      setFieldValue('timeLesson', timeString);
-    }
-  }, [endTime, setFieldValue, startTime]);
 
-  const formatTime = time => {
-    const [hours, minutes] = time.split(':');
-    return `${hours}:${minutes}`;
-  };
+  useEffect(() => {
+    if (timeLesson) {
+      setFieldValue('timeLesson', timeLesson);
+    }
+  }, [setFieldValue, timeLesson]);
 
   const handleChosePeriod = e => {
     const data = { offices, dateLesson };
@@ -143,30 +140,31 @@ const DatePickerLesson = ({
             </DescrContainer>
           ) : null}
         </DateInfoContainer>
-        <PickerWithTypeLesson
-          type={type}
-          onChange={handleDateChange}
-          key={day}
-        />
-        {touched.dateLesson && errors.dateLesson && (
-          <ErrorInfo>{errors.dateLesson}</ErrorInfo>
-        )}
-        <TimeContainer>
-          <TimeContainers>
-            <DescrPlans>Початок:</DescrPlans>
-            <TimePicker onChange={handleTimeStartLesson} secondStep={60} />
-            {touched.timeLesson && errors.timeLesson && (
-              <ErrorInfo>{errors.timeLesson}</ErrorInfo>
-            )}
-          </TimeContainers>
-          <TimeContainers>
-            <DescrPlans>Кінець:</DescrPlans>
-            <TimePicker onChange={handleTimeEndLesson} secondStep={60} />
-            {touched.timeLesson && errors.timeLesson && (
-              <ErrorInfo>{errors.timeLesson}</ErrorInfo>
-            )}
-          </TimeContainers>
-        </TimeContainer>
+
+        <TimeContainers>
+          <DescrPlans>Виберіть дату чи період:</DescrPlans>
+          <PickerWithTypeLesson
+            type={type}
+            onChange={handleDateChange}
+            key={day}
+          />
+          {touched.dateLesson && errors.dateLesson && (
+            <ErrorInfo>{errors.dateLesson}</ErrorInfo>
+          )}
+        </TimeContainers>
+
+        <TimeContainers>
+          <DescrPlans>Виберіть час заняття:</DescrPlans>
+          <TimePicker.RangePicker
+            onChange={handleTimeLesson}
+            value={timeLesson ? [timeLesson[0], timeLesson[1]] : null}
+            minuteStep={5}
+            format="HH:mm"
+          />
+          {touched.timeLesson && errors.timeLesson && (
+            <ErrorInfo>{errors.timeLesson}</ErrorInfo>
+          )}
+        </TimeContainers>
       </WrapperPlans>
 
       <BtnContainer>

@@ -31,6 +31,10 @@ export const schemaAddLessonUpdate = yup.object().shape({
         return typeof value === 'string' || typeof value === 'number';
       }
     })
-    .required(),
-  timeLesson: yup.string().required("Час обов'язковий!"),
+    .required("Дата обов'язкова!"),
+  timeLesson: yup
+    .array()
+    .of(yup.string())
+    .required("Час обов'язковий!")
+    .min(2, 'Необходимо выбрать начальное и конечное время'),
 });

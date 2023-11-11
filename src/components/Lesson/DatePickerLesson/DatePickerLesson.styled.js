@@ -36,10 +36,11 @@ export const DescrContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 15px;
   margin: 10px 0;
 `;
 export const DateInfoContainer = styled.div`
+  width: 100%;
   display: flex;
   align-items: start;
   justify-content: center;
@@ -95,19 +96,13 @@ export const IconBtn = styled(BsDownload)`
     stroke: var(--main-dark-blue);
   }
 `;
-export const TimeContainer = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  gap: 20px;
-`;
 export const TimeContainers = styled.div`
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 5px;
+  gap: 10px;
 `;
 export const BtnContainer = styled.div`
   width: 100%;
@@ -118,6 +113,7 @@ export const BtnContainer = styled.div`
   flex-direction: column;
   border: 2px solid var(--main-yellow);
   border-radius: 8px;
+  gap: 20px;
 
   @media (min-width: 768px) {
     flex-direction: row;

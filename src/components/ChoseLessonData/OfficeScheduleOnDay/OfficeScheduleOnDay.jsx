@@ -11,6 +11,7 @@ import {
   TimeOneLesson,
 } from './OfficeScheduleOnDay.styled';
 import ScheduleCard from '../ScheduleCard/ScheduleCard';
+import dayjs from 'dayjs';
 
 const OfficeScheduleOnDay = ({ lessons, date }) => {
   const [uniquTime, setUniquTime] = useState([]);
@@ -31,22 +32,17 @@ const OfficeScheduleOnDay = ({ lessons, date }) => {
         const uniquOffice = [
           ...new Set(lessonThisDate.map(lesson => lesson.office)),
         ];
-        const sortedTime = uniquTimeDate.sort((a, b) => {
-          const getTimeValue = time => {
-            const [hours, minutes] = time
-              .split(' - ')[0]
-              .split(':')
-              .map(Number);
-            return hours * 60 + minutes;
-          };
-
-          return getTimeValue(a) - getTimeValue(b);
-        });
-        setUniquTime(sortedTime);
+        setUniquTime(uniquTimeDate);
         setUniquOffice(uniquOffice);
       }
     }
   }, [date, lessons]);
+
+  const formatTimeRange = time => {
+    const start = dayjs(time[0]).format('HH:mm');
+    const end = dayjs(time[1]).format('HH:mm');
+    return `${start} - ${end}`;
+  };
 
   return (
     <div>
@@ -54,7 +50,7 @@ const OfficeScheduleOnDay = ({ lessons, date }) => {
         <TimeLessonWrapper>
           <TimeEmpty></TimeEmpty>
           {uniquTime.map(time => (
-            <TimeOneLesson key={time}>{time}</TimeOneLesson>
+            <TimeOneLesson key={time}>{formatTimeRange(time)}</TimeOneLesson>
           ))}
         </TimeLessonWrapper>
       </TimeContainer>
