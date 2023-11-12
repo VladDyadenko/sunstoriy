@@ -18,6 +18,12 @@ const OfficeScheduleOnDay = ({ lessons, date }) => {
   const [uniquOffice, setUniquOffice] = useState([]);
   const [lessonOneDay, setLessonOneDay] = useState([]);
 
+  const roundToSeconds = timeString => {
+    const date = new Date(timeString);
+    date.setMilliseconds(0);
+    return date.toISOString();
+  };
+
   useEffect(() => {
     if (lessons) {
       const lessonThisDate = lessons.filter(
@@ -26,8 +32,14 @@ const OfficeScheduleOnDay = ({ lessons, date }) => {
       setLessonOneDay(lessonThisDate);
 
       if (lessonThisDate.length > 0) {
-        const areTimeIntervalsEqual = (intervalA, intervalB) =>
-          intervalA[0] === intervalB[0] && intervalA[1] === intervalB[1];
+        const areTimeIntervalsEqual = (intervalA, intervalB) => {
+          const roundedIntervalA = intervalA.map(roundToSeconds);
+          const roundedIntervalB = intervalB.map(roundToSeconds);
+          return (
+            roundedIntervalA[0] === roundedIntervalB[0] &&
+            roundedIntervalA[1] === roundedIntervalB[1]
+          );
+        };
 
         const uniquTimeDate = lessonThisDate
           .map(lesson => lesson.timeLesson)
@@ -50,7 +62,6 @@ const OfficeScheduleOnDay = ({ lessons, date }) => {
     const end = dayjs(time[1]).format('HH:mm');
     return `${start} - ${end}`;
   };
-
   return (
     <div>
       <TimeContainer>
@@ -72,8 +83,10 @@ const OfficeScheduleOnDay = ({ lessons, date }) => {
                   ?.filter(
                     lesson =>
                       lesson.office === office &&
-                      lesson.timeLesson[0] === time[0] &&
-                      lesson.timeLesson[1] === time[1]
+                      roundToSeconds(lesson.timeLesson[0]) ===
+                        roundToSeconds(time[0]) &&
+                      roundToSeconds(lesson.timeLesson[1]) ===
+                        roundToSeconds(time[1])
                   )
                   .map(lesson => (
                     <CardWrapper key={lesson._id}>

@@ -24,7 +24,7 @@ const ScheduleCard = ({ lessonData }) => {
         <CardLink to={`/lesson/${_id}?source=buttonViewing`}>
           <IconLessonSee />
         </CardLink>
-        <ButtonLessonEdit to={`/teacher/${_id}`}>
+        <ButtonLessonEdit to={`/lesson/${_id}`}>
           <IconLessonEdit />
         </ButtonLessonEdit>
         <ButtonLessonDelete>

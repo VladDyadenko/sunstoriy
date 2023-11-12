@@ -45,7 +45,6 @@ export const updateLesson = createAsyncThunk(
       if (data) {
         Notify.success('Заняття успішно змінене');
       }
-      console.log(data);
       return data;
     } catch (err) {
       if (err) {

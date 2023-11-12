@@ -89,13 +89,12 @@ const AddLesson = ({ lesson }) => {
         initialValues={valuesLesson}
         validationSchema={schemaAddLessonUpdate}
         onSubmit={async values => {
-          console.log(values);
           if (buttonView) {
             if (lesson) {
               const id = lesson._id;
               const combinedData = { id, values };
               await dispatch(updateLesson(combinedData)).then(() => {
-                navigate('/main');
+                navigate('/lesson');
               });
             } else {
               await dispatch(addLesson(values)).then(() => {
