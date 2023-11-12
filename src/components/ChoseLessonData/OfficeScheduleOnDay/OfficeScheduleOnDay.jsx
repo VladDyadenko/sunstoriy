@@ -26,9 +26,16 @@ const OfficeScheduleOnDay = ({ lessons, date }) => {
       setLessonOneDay(lessonThisDate);
 
       if (lessonThisDate.length > 0) {
-        const uniquTimeDate = [
-          ...new Set(lessonThisDate.map(lesson => lesson.timeLesson)),
-        ];
+        const areTimeIntervalsEqual = (intervalA, intervalB) =>
+          intervalA[0] === intervalB[0] && intervalA[1] === intervalB[1];
+
+        const uniquTimeDate = lessonThisDate
+          .map(lesson => lesson.timeLesson)
+          .filter(
+            (time, index, self) =>
+              self.findIndex(t => areTimeIntervalsEqual(t, time)) === index
+          );
+
         const uniquOffice = [
           ...new Set(lessonThisDate.map(lesson => lesson.office)),
         ];
@@ -64,7 +71,9 @@ const OfficeScheduleOnDay = ({ lessons, date }) => {
                 {lessonOneDay
                   ?.filter(
                     lesson =>
-                      lesson.office === office && lesson.timeLesson === time
+                      lesson.office === office &&
+                      lesson.timeLesson[0] === time[0] &&
+                      lesson.timeLesson[1] === time[1]
                   )
                   .map(lesson => (
                     <CardWrapper key={lesson._id}>

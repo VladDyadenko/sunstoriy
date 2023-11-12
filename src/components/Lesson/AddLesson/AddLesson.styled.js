@@ -54,11 +54,10 @@ export const ChoseInfoContainer = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
 
   @media (min-width: 768px) {
     flex-direction: row;
-    flex-wrap: wrap;
   }
 `;
 export const TextAreaTitle = styled.label`

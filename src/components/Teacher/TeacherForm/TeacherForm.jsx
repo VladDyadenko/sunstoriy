@@ -95,6 +95,7 @@ const TeacherForm = ({ teacher }) => {
             }
           } else {
             navigate(-1);
+            setButtonView(true);
           }
         }}
       >

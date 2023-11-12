@@ -2,21 +2,15 @@ import { DatePicker, Select, TimePicker } from 'antd';
 import locale from 'antd/es/date-picker/locale/uk_UA';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import {
-  BtnContainer,
-  ButtonSelectPeriod,
   DateInfoContainer,
   DescrContainer,
   DescrPlans,
-  IconBtn,
   TimeContainers,
   WrapperPlans,
 } from './DatePickerLesson.styled';
 import { getDatesByDayOfWeek } from './dateUtils';
-import { choseLessonGraph } from 'redux/Lesson/lessonOperetion';
 import { ErrorInfo } from '../AddLesson/AddLesson.styled';
-import ChooseDataLessons from '../../ChoseLessonData/ChooseDataLessons/ChooseDataLessons';
 
 const { RangePicker } = DatePicker;
 const PickerWithTypeLesson = ({ type, onChange }) => {
@@ -47,25 +41,21 @@ const PickerWithTypeLesson = ({ type, onChange }) => {
 const { Option } = Select;
 
 const DatePickerLesson = ({
-  addSuccessLesson,
   setFieldValue,
   office,
   errors,
   touched,
   timeLessonCurrent,
+  setDateCurrentLesson,
 }) => {
   const [type, setType] = useState('Одне заняття');
   const [day, setDay] = useState('1');
-  const [dateLesson, setDateLesson] = useState(null);
+
   const [timeLesson, setValues] = useState(null);
 
-  const [offices, setOffices] = useState(['Сенсорна']);
-
-  const dispatch = useDispatch();
-
   useEffect(() => {
-    setDateLesson(null);
-  }, [type]);
+    setDateCurrentLesson(null);
+  }, [setDateCurrentLesson, type]);
 
   useEffect(() => {
     if (timeLessonCurrent) {
@@ -90,11 +80,11 @@ const DatePickerLesson = ({
         const dayOfWeek = parseInt(day);
         const dates = getDatesByDayOfWeek(startDate, endDate, dayOfWeek);
         const date = dates.map(date => date.valueOf());
-        setDateLesson(date);
+        setDateCurrentLesson(date);
         setFieldValue('dateLesson', date);
       } else if (typeof dateString === 'string') {
         const selectedDate = new Date(dateString);
-        setDateLesson(selectedDate.valueOf());
+        setDateCurrentLesson(selectedDate.valueOf());
         setFieldValue('dateLesson', selectedDate.valueOf());
       }
     }
@@ -109,11 +99,6 @@ const DatePickerLesson = ({
       setFieldValue('timeLesson', timeLesson);
     }
   }, [setFieldValue, timeLesson]);
-
-  const handleChosePeriod = e => {
-    const data = { offices, dateLesson };
-    dispatch(choseLessonGraph(data));
-  };
 
   return (
     <>
@@ -166,14 +151,6 @@ const DatePickerLesson = ({
           )}
         </TimeContainers>
       </WrapperPlans>
-
-      <BtnContainer>
-        <ChooseDataLessons offices={offices} setOffices={setOffices} />
-        <ButtonSelectPeriod type="button" onClick={handleChosePeriod}>
-          Підібрати час заняття
-          <IconBtn />
-        </ButtonSelectPeriod>
-      </BtnContainer>
     </>
   );
 };

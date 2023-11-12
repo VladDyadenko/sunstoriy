@@ -20,10 +20,10 @@ export const OfficeContainer = styled.div`
 export const TimeLessonWrapper = styled.ul`
   display: flex;
   justify-content: start;
-  gap: 5px;
+  gap: 8px;
 `;
 export const TimeEmpty = styled.li`
-  min-width: 90px;
+  min-width: 110px;
   border-radius: 8px;
   border: 2px solid var(--main-dark-blue);
 `;
@@ -34,7 +34,7 @@ export const TimeOneLesson = styled.li`
   font-family: 'RobotoSlab';
   font-weight: 400;
   font-size: 14px;
-  min-width: 110px;
+  min-width: 120px;
   padding: 5px;
   background-color: var(--main-blue);
   color: #191970;
@@ -45,12 +45,12 @@ export const OfficeName = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 90px;
+  min-width: 110px;
   min-height: 100%;
   padding: 5px;
   font-family: 'RobotoSlab';
   font-weight: 400;
-  font-size: 16px;
+  font-size: 14px;
   background-color: var(--main-blue);
   color: #191970;
   border-radius: 8px;
@@ -59,16 +59,14 @@ export const OfficeName = styled.div`
 export const DescrLessonWrapper = styled.ul`
   display: flex;
   justify-content: start;
-  gap: 5px;
+  gap: 8px;
 `;
 export const DescrOneLesson = styled.li`
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 110px;
-  min-height: 100px;
+  min-width: 120px;
+  min-height: 110px;
   padding: 5px;
-  /* border-radius: 8px;
-  border: 1px solid var(--main-dark-blue); */
 `;

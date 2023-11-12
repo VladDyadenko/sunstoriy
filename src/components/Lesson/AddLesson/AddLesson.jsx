@@ -38,6 +38,7 @@ const AddLesson = ({ lesson }) => {
   const [dateLesson, setDateLesson] = useState(null);
   const [timeLesson, setTimeLesson] = useState('');
   const [buttonView, setButtonView] = useState(true);
+  const [dateCurrentLesson, setDateCurrentLesson] = useState(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -99,10 +100,12 @@ const AddLesson = ({ lesson }) => {
             } else {
               await dispatch(addLesson(values)).then(() => {
                 setAddSuccessLesson(true);
+                navigate('/lesson');
               });
             }
           } else {
             navigate(-1);
+            setButtonView(true);
           }
         }}
       >
@@ -151,9 +154,10 @@ const AddLesson = ({ lesson }) => {
                 touched={touched}
                 addSuccessLesson={addSuccessLesson}
                 timeLessonCurrent={timeLesson}
+                setDateCurrentLesson={setDateCurrentLesson}
               />
             </ChoseInfoContainer>
-            <ChoseLessonContainer />
+            <ChoseLessonContainer dateCurrentLesson={dateCurrentLesson} />
             <TextAreaTitle>План заняття:</TextAreaTitle>
             <FieldTextarea name="plan" component="textarea" rows={6} />
             <TextAreaTitle>Зауваження по заняттю:</TextAreaTitle>

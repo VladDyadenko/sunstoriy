@@ -218,9 +218,12 @@ body,
 
 .ant-picker-dropdown.css-dev-only-do-not-override-17a39f8.ant-picker-dropdown-placement-bottomRight{
 
-   inset: 290px auto auto 10px !important;
+       inset: 600px auto auto 40px!important;
     @media (min-width: 768px) {
-    inset: 220px auto auto 100px !important;
+    inset: 310px auto auto 430px!important;
+  }
+    @media (min-width: 1280px) {
+        inset: 253px auto auto 740px!important;
   }
 
 }
