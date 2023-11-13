@@ -1,7 +1,8 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
 import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { CirclesWithBar } from 'react-loader-spinner';
 import {
   ChoseInfoContainer,
   ErrorInfo,
@@ -21,8 +22,13 @@ import {
   initialValuesLessonForm,
   schemaAddLessonUpdate,
 } from '../Schema/schema';
-import { addLesson, updateLesson } from 'redux/Lesson/lessonOperetion';
+import {
+  addLesson,
+  choseLessonGraph,
+  updateLesson,
+} from 'redux/Lesson/lessonOperetion';
 import ChoseLessonContainer from 'components/ChoseLessonData/ChoseLessonContainer/ChoseLessonContainer';
+import { selectLessonOperetion } from 'redux/Lesson/lessonSelector';
 
 const AddLesson = ({ lesson }) => {
   const [valuesLesson, setValuesLesson] = useState(initialValuesLessonForm);
@@ -40,9 +46,11 @@ const AddLesson = ({ lesson }) => {
   const [buttonView, setButtonView] = useState(true);
   const [dateCurrentLesson, setDateCurrentLesson] = useState(null);
 
+  const [offices, setOffices] = useState(['Логопед']);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const operetion = useSelector(selectLessonOperetion);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const source = searchParams.get('source');
@@ -94,6 +102,11 @@ const AddLesson = ({ lesson }) => {
               const id = lesson._id;
               const combinedData = { id, values };
               await dispatch(updateLesson(combinedData)).then(() => {
+                const data = {
+                  offices,
+                  dateCurrentLesson,
+                };
+                dispatch(choseLessonGraph(data));
                 navigate('/lesson');
               });
             } else {
@@ -156,13 +169,34 @@ const AddLesson = ({ lesson }) => {
                 setDateCurrentLesson={setDateCurrentLesson}
               />
             </ChoseInfoContainer>
-            <ChoseLessonContainer dateCurrentLesson={dateCurrentLesson} />
+            <ChoseLessonContainer
+              dateCurrentLesson={dateCurrentLesson}
+              offices={offices}
+              setOffices={setOffices}
+            />
             <TextAreaTitle>План заняття:</TextAreaTitle>
             <FieldTextarea name="plan" component="textarea" rows={6} />
             <TextAreaTitle>Зауваження по заняттю:</TextAreaTitle>
             <FieldTextarea name="review" component="textarea" rows={6} />
             <FormButtonLesson type="submit">
-              {buttonView ? 'Зберегти зміни' : 'Назад'}
+              {operetion === 'addLesson' ? (
+                <CirclesWithBar
+                  height="21"
+                  width="50"
+                  color="#ffffff"
+                  wrapperStyle={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                  visible={true}
+                  ariaLabel="circles-with-bar-loading"
+                />
+              ) : buttonView ? (
+                'Зберегти зміни'
+              ) : (
+                'Назад'
+              )}
             </FormButtonLesson>
           </FormLesson>
         )}

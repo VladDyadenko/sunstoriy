@@ -91,7 +91,8 @@ const DatePickerLesson = ({
   };
 
   const handleTimeLesson = vals => {
-    setValues(vals);
+    const sanitizedTime = vals.map(time => time.startOf('minute'));
+    setValues(sanitizedTime);
   };
 
   useEffect(() => {

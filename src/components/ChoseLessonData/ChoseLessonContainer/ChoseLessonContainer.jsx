@@ -2,7 +2,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { Collapse } from 'antd';
-import { selectChoseLessons } from 'redux/Lesson/lessonSelector';
+import { CirclesWithBar } from 'react-loader-spinner';
+import {
+  selectChoseLessons,
+  selectLessonOperetion,
+} from 'redux/Lesson/lessonSelector';
 import { choseLessonGraph } from 'redux/Lesson/lessonOperetion';
 import {
   BtnContainer,
@@ -13,11 +17,11 @@ import {
 import OfficeScheduleOnDay from '../OfficeScheduleOnDay/OfficeScheduleOnDay';
 import ChooseDataLessons from '../ChooseDataLessons/ChooseDataLessons';
 
-const ChoseLessonContainer = ({ dateCurrentLesson }) => {
+const ChoseLessonContainer = ({ dateCurrentLesson, offices, setOffices }) => {
   const [lessons, setLessons] = useState([]);
   const [lessonDates, setLessonDates] = useState([]);
-  const [offices, setOffices] = useState(['Логопед']);
   const choseLessons = useSelector(selectChoseLessons);
+  const operetion = useSelector(selectLessonOperetion);
 
   const dispatch = useDispatch();
 
@@ -28,6 +32,7 @@ const ChoseLessonContainer = ({ dateCurrentLesson }) => {
       const uniqueDates = [
         ...new Set(flattenedLessons.map(lesson => lesson.dateLesson)),
       ];
+
       setLessonDates(uniqueDates);
     } else setLessonDates(null);
   }, [choseLessons]);
@@ -39,6 +44,7 @@ const ChoseLessonContainer = ({ dateCurrentLesson }) => {
       children: <OfficeScheduleOnDay lessons={lessons} date={date} />,
     };
   });
+
   const handleChosePeriod = e => {
     const data = { offices, dateCurrentLesson };
     dispatch(choseLessonGraph(data));
@@ -49,8 +55,26 @@ const ChoseLessonContainer = ({ dateCurrentLesson }) => {
       <BtnContainer>
         <ChooseDataLessons setOffices={setOffices} />
         <ButtonSelectPeriod type="button" onClick={handleChosePeriod}>
-          Підібрати час заняття
-          <IconBtn />
+          {operetion === 'choseLesson' ? (
+            <CirclesWithBar
+              height="16"
+              width="50"
+              color="#ffffff"
+              wrapperStyle={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              visible={true}
+              ariaLabel="circles-with-bar-loading"
+            />
+          ) : (
+            <>
+              <IconBtn />
+              Переглянути розклад
+              <IconBtn />
+            </>
+          )}
         </ButtonSelectPeriod>
       </BtnContainer>
       <Collapse style={{ overflow: 'auto' }} items={items} />

@@ -3,6 +3,7 @@ import {
   deleteTeacherById,
   fetchTeacherByName,
   fetchTeachers,
+  updateTeacher,
 } from './teacherOperetion';
 
 const { createSlice } = require('@reduxjs/toolkit');
@@ -53,14 +54,36 @@ const teacherSlice = createSlice({
       })
       .addCase(addTeacher.pending, state => {
         state.isloading = true;
+        state.operetion = 'addTeacher';
       })
       .addCase(addTeacher.fulfilled, (state, action) => {
         state.isloading = false;
+        state.operetion = null;
         state.error = null;
         state.teacher.push(action.payload);
       })
       .addCase(addTeacher.rejected, (state, action) => {
         state.isloading = false;
+        state.operetion = null;
+        state.error = action.payload;
+      })
+      .addCase(updateTeacher.pending, state => {
+        state.isloading = true;
+        state.operetion = 'addTeacher';
+      })
+      .addCase(updateTeacher.fulfilled, (state, action) => {
+        state.isloading = false;
+        state.operetion = null;
+        state.error = null;
+        const id = action.payload._id;
+        const index = state.teacher.findIndex(vel => vel._id === id);
+        if (index !== -1) {
+          state.teacher[index] = action.payload;
+        }
+      })
+      .addCase(updateTeacher.rejected, (state, action) => {
+        state.isloading = false;
+        state.operetion = null;
         state.error = action.payload;
       })
       .addCase(deleteTeacherById.pending, state => {
@@ -71,7 +94,6 @@ const teacherSlice = createSlice({
         state.error = null;
         const id = action.meta.arg;
         const index = state.teacher.findIndex(vel => vel._id === id);
-        console.log(index);
         if (index !== -1) {
           state.teacher.splice(index, 1);
         }

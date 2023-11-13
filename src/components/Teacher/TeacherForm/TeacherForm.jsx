@@ -1,8 +1,9 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Formik } from 'formik';
 import { Select } from 'antd';
+import { CirclesWithBar } from 'react-loader-spinner';
 import {
   initialValuesTeacherForm,
   options,
@@ -28,6 +29,7 @@ import {
 } from './TeacherForm.styled';
 import UpdateAvatar from 'ui/UpdateAvatar/UpdateAvatar';
 import { addTeacher, updateTeacher } from 'redux/teacher/teacherOperetion';
+import { selectTeacherOperetion } from 'redux/teacher/teacherSelector';
 
 const TeacherForm = ({ teacher }) => {
   const [valuesTeacherForm, setValuesChildForm] = useState(
@@ -38,6 +40,8 @@ const TeacherForm = ({ teacher }) => {
   const [color, setColor] = useState('#0456BA');
   const [buttonView, setButtonView] = useState(true);
 
+  const operetion = useSelector(selectTeacherOperetion);
+  console.log(operetion);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const source = searchParams.get('source');
@@ -180,7 +184,24 @@ const TeacherForm = ({ teacher }) => {
             <FieldTextarea name="about" component="textarea" rows={6} />
 
             <FormButton type="submit">
-              {buttonView ? 'Зберегти зміни' : 'Назад'}
+              {operetion === 'addTeacher' ? (
+                <CirclesWithBar
+                  height="21"
+                  width="50"
+                  color="#ffffff"
+                  wrapperStyle={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                  visible={true}
+                  ariaLabel="circles-with-bar-loading"
+                />
+              ) : buttonView ? (
+                'Зберегти зміни'
+              ) : (
+                'Назад'
+              )}
             </FormButton>
           </FormTeacher>
         )}

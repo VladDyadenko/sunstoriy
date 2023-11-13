@@ -1,2 +1,2 @@
 export const selectChoseLessons = state => state.lesson.choseLesson;
-export const selectLessonsLoading = state => state.lesson.isloading;
+export const selectLessonOperetion = state => state.lesson.operetion;

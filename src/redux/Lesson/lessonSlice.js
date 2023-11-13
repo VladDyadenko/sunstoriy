@@ -11,7 +11,6 @@ const { createSlice } = require('@reduxjs/toolkit');
 const initialState = {
   lesson: [],
   choseLesson: [],
-  updateLesson: [],
   isloading: false,
   marker: null,
   operetion: null,
@@ -38,38 +37,55 @@ const lessonSlice = createSlice({
       })
       .addCase(addLesson.pending, state => {
         state.isloading = true;
+        state.operetion = 'addLesson';
       })
       .addCase(addLesson.fulfilled, (state, action) => {
         state.isloading = false;
+        state.operetion = null;
         state.error = null;
         state.lesson.push(action.payload);
       })
       .addCase(addLesson.rejected, (state, action) => {
         state.isloading = false;
+        state.operetion = null;
         state.error = action.payload;
       })
       .addCase(updateLesson.pending, state => {
         state.isloading = true;
+        state.operetion = 'addLesson';
       })
       .addCase(updateLesson.fulfilled, (state, action) => {
         state.isloading = false;
+        state.operetion = null;
         state.error = null;
-        state.updateLesson.push(action.payload);
+        const id = action.payload._id;
+        const indexLesson = state.lesson.findIndex(vel => vel._id === id);
+        if (indexLesson !== -1) {
+          state.lesson[indexLesson] = action.payload;
+        }
+        // const index = state.choseLesson.findIndex(vel => vel._id === id);
+        // if (index !== -1) {
+        //   state.choseLesson[index] = action.payload;
+        // }
       })
       .addCase(updateLesson.rejected, (state, action) => {
         state.isloading = false;
+        state.operetion = null;
         state.error = action.payload;
       })
       .addCase(choseLessonGraph.pending, state => {
         state.isloading = true;
+        state.operetion = 'choseLesson';
       })
       .addCase(choseLessonGraph.fulfilled, (state, { payload }) => {
         state.isloading = false;
+        state.operetion = null;
         state.error = null;
         state.choseLesson = payload;
       })
       .addCase(choseLessonGraph.rejected, (state, action) => {
         state.isloading = false;
+        state.operetion = null;
         state.error = action.payload;
       })
       .addCase(deleteLessonById.pending, (state, { meta }) => {
@@ -81,9 +97,13 @@ const lessonSlice = createSlice({
         state.isloading = false;
         state.error = null;
         const id = action.meta.arg;
-        const index = state.lesson.findIndex(vel => vel._id === id);
+        const indexLesson = state.lesson.findIndex(vel => vel._id === id);
+        if (indexLesson !== -1) {
+          state.lesson.splice(indexLesson, 1);
+        }
+        const index = state.choseLesson.findIndex(vel => vel._id === id);
         if (index !== -1) {
-          state.lesson.splice(index, 1);
+          state.choseLesson.splice(index, 1);
         }
       })
       .addCase(deleteLessonById.rejected, (state, action) => {

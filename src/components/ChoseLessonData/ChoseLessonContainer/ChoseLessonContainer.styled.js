@@ -21,8 +21,8 @@ export const BtnContainer = styled.div`
   }
 `;
 export const IconBtn = styled(BsDownload)`
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   stroke: var(--main-dark-blue);
   margin-left: 8px;
   transition: stroke 100ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
@@ -33,11 +33,12 @@ export const IconBtn = styled(BsDownload)`
 `;
 export const ButtonSelectPeriod = styled.button`
   width: 100%;
-  padding: 8px 15px;
+  padding: 8px 5px;
   display: flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
+  gap: 8px;
   font-family: 'RobotoSlab';
   font-weight: 500;
   font-size: 14px;

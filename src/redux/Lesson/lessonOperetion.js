@@ -82,7 +82,7 @@ export const deleteLessonById = createAsyncThunk(
       console.log(id);
       const res = await axios.patch(`lesson/delete/${id}`);
       if (res) {
-        Notify.success('Дитина видалена зі списку!');
+        Notify.success('Заняття видалене зі списку!');
       }
       return res.data;
     } catch (err) {
