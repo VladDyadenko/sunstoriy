@@ -74,3 +74,22 @@ export const choseLessonGraph = createAsyncThunk(
     }
   }
 );
+
+export const deleteLessonById = createAsyncThunk(
+  'lesson/deleteLesson',
+  async (id, thunkAPI) => {
+    try {
+      console.log(id);
+      const res = await axios.patch(`lesson/delete/${id}`);
+      if (res) {
+        Notify.success('Дитина видалена зі списку!');
+      }
+      return res.data;
+    } catch (err) {
+      if (err) {
+        Notify.failure(err.response.data.message);
+      }
+      return thunkAPI.rejectWithValue(err.message);
+    }
+  }
+);

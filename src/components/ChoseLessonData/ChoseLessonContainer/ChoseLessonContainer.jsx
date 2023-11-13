@@ -39,7 +39,6 @@ const ChoseLessonContainer = ({ dateCurrentLesson }) => {
       children: <OfficeScheduleOnDay lessons={lessons} date={date} />,
     };
   });
-
   const handleChosePeriod = e => {
     const data = { offices, dateCurrentLesson };
     dispatch(choseLessonGraph(data));

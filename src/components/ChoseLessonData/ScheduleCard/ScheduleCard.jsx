@@ -1,3 +1,4 @@
+import { useDispatch } from 'react-redux';
 import {
   ButtonLessonDelete,
   ButtonLessonEdit,
@@ -9,11 +10,16 @@ import {
   IconLessonEdit,
   IconLessonSee,
 } from './ScheduleCard.styled';
+import { deleteLessonById } from 'redux/Lesson/lessonOperetion';
 
 const ScheduleCard = ({ lessonData }) => {
   const { childName, childSurname, teacherName, teacherColor, _id } =
     lessonData;
+  const dispatch = useDispatch();
 
+  const handleDeleteLesson = () => {
+    dispatch(deleteLessonById(_id));
+  };
   return (
     <>
       <CardWrapper aria-current={teacherColor}>
@@ -27,7 +33,7 @@ const ScheduleCard = ({ lessonData }) => {
         <ButtonLessonEdit to={`/lesson/${_id}`}>
           <IconLessonEdit />
         </ButtonLessonEdit>
-        <ButtonLessonDelete>
+        <ButtonLessonDelete onClick={handleDeleteLesson}>
           <IconLessonDelete />
         </ButtonLessonDelete>
       </CardWrapper>
