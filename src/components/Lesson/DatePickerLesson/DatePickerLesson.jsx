@@ -1,5 +1,4 @@
-import { DatePicker, Select, TimePicker } from 'antd';
-import locale from 'antd/es/date-picker/locale/uk_UA';
+import { Select, TimePicker } from 'antd';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import {
@@ -11,32 +10,7 @@ import {
 } from './DatePickerLesson.styled';
 import { getDatesByDayOfWeek } from './dateUtils';
 import { ErrorInfo } from '../AddLesson/AddLesson.styled';
-
-const { RangePicker } = DatePicker;
-const PickerWithTypeLesson = ({ type, onChange }) => {
-  if (type === 'Одне заняття')
-    return (
-      <DatePicker
-        format="YYYY-MM-DD"
-        size="middle"
-        locale={locale}
-        defaultValue={dayjs()}
-        onChange={onChange}
-      />
-    );
-  if (type === 'План занять')
-    return (
-      <RangePicker
-        format="YYYY-MM-DD"
-        size="middle"
-        locale={locale}
-        className="custom-datepicker"
-        onChange={onChange}
-        defaultValue={dayjs()}
-      />
-    );
-  return <DatePicker picker={type} onChange={onChange} />;
-};
+import PickerWithTypeLesson from 'ui/PickerWithTypeLesson/PickerWithTypeLesson';
 
 const { Option } = Select;
 
@@ -80,6 +54,7 @@ const DatePickerLesson = ({
         const dayOfWeek = parseInt(day);
         const dates = getDatesByDayOfWeek(startDate, endDate, dayOfWeek);
         const date = dates.map(date => date.valueOf());
+        console.log(date);
         setDateCurrentLesson(date);
         setFieldValue('dateLesson', date);
       } else if (typeof dateString === 'string') {

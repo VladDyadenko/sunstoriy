@@ -14,10 +14,10 @@ import { endOfCurrentWeek, startOfCurrentWeek } from './constantDayPicker';
 
 export default function MainDayPicker({ onClose, setCurrentDate }) {
   const [range, setRange] = useState({
-    from: startOfCurrentWeek,
-    to: endOfCurrentWeek,
+    from: startOfCurrentWeek.valueOf(),
+    to: endOfCurrentWeek.valueOf(),
   });
-
+  console.log(range);
   const defaultFooter = (
     <PickerFooter>
       {format(startOfCurrentWeek, 'dd.MM.yyyy')} –
@@ -37,6 +37,15 @@ export default function MainDayPicker({ onClose, setCurrentDate }) {
       );
     }
   }
+  const handleSelect = selectedRange => {
+    if (selectedRange && selectedRange.from && selectedRange.to) {
+      const newRange = {
+        from: selectedRange.from.valueOf(),
+        to: selectedRange.to.valueOf(),
+      };
+      setRange(newRange);
+    }
+  };
   const handleSelectDate = () => {
     setCurrentDate(footer);
     onClose();
@@ -52,7 +61,7 @@ export default function MainDayPicker({ onClose, setCurrentDate }) {
           mode="range"
           selected={range}
           footer={footer}
-          onSelect={setRange}
+          onSelect={handleSelect}
           locale={uk}
           modifiersClassNames={{
             selected: 'my-selected',

@@ -112,6 +112,11 @@ const AddLesson = ({ lesson }) => {
             } else {
               await dispatch(addLesson(values)).then(() => {
                 setAddSuccessLesson(true);
+                const data = {
+                  offices,
+                  dateCurrentLesson,
+                };
+                dispatch(choseLessonGraph(data));
                 navigate('/lesson');
               });
             }
