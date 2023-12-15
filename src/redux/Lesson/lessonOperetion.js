@@ -74,6 +74,26 @@ export const choseLessonGraph = createAsyncThunk(
     }
   }
 );
+export const sensornayaLessons = createAsyncThunk(
+  'lesson/lessonSensornaya',
+  async (date, thunkAPI) => {
+    try {
+      const choesData = { offices: ['Сенсорна'], dateCurrentLesson: date };
+      const { data } = await axios.get('/lesson/office/office_date', {
+        params: choesData,
+      });
+      if (data) {
+        Notify.success('Заняття вибраного періоду');
+      }
+      return data;
+    } catch (err) {
+      if (err) {
+        Notify.failure(err.response.data.message);
+      }
+      return [];
+    }
+  }
+);
 
 export const deleteLessonById = createAsyncThunk(
   'lesson/deleteLesson',

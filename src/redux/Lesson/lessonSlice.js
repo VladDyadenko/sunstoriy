@@ -3,6 +3,7 @@ import {
   choseLessonGraph,
   deleteLessonById,
   fetchLessons,
+  sensornayaLessons,
   updateLesson,
 } from './lessonOperetion';
 
@@ -11,6 +12,7 @@ const { createSlice } = require('@reduxjs/toolkit');
 const initialState = {
   lesson: [],
   choseLesson: [],
+  lessonsSensornaya: [],
   isloading: false,
   marker: null,
   operetion: null,
@@ -84,6 +86,21 @@ const lessonSlice = createSlice({
         state.choseLesson = payload;
       })
       .addCase(choseLessonGraph.rejected, (state, action) => {
+        state.isloading = false;
+        state.operetion = null;
+        state.error = action.payload;
+      })
+      .addCase(sensornayaLessons.pending, state => {
+        state.isloading = true;
+        state.operetion = 'sensornayaLessons';
+      })
+      .addCase(sensornayaLessons.fulfilled, (state, { payload }) => {
+        state.isloading = false;
+        state.operetion = null;
+        state.error = null;
+        state.lessonsSensornaya = payload;
+      })
+      .addCase(sensornayaLessons.rejected, (state, action) => {
         state.isloading = false;
         state.operetion = null;
         state.error = action.payload;

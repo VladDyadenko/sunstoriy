@@ -3,10 +3,14 @@ import React, { useEffect, useState } from 'react';
 import { startOfWeek, endOfWeek } from 'date-fns';
 import SelectDate from './SelectDate/SelectDate';
 import { getDates } from './SelectDate/GetDateFunction';
+import { useDispatch } from 'react-redux';
+import { sensornayaLessons } from 'redux/Lesson/lessonOperetion';
 
 function FilterLesson() {
-  const [lessonDates, setLessonDates] = useState(null);
+  const [dateCurrentLesson, setLessonDates] = useState(null);
   const [type, setType] = useState('Період');
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const startDate = startOfWeek(new Date(), { weekStartsOn: 1 });
@@ -15,10 +19,9 @@ function FilterLesson() {
     const initialDates = getDates(startDate, endDate, type);
     const initialDateValues = initialDates.map(date => date.valueOf());
     setLessonDates(initialDateValues);
+    dispatch(sensornayaLessons(initialDateValues));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  console.log(lessonDates);
 
   const items = [
     {
@@ -29,6 +32,7 @@ function FilterLesson() {
           type={type}
           setType={setType}
           setLessonDates={setLessonDates}
+          dateCurrentLesson={dateCurrentLesson}
         />
       ),
     },

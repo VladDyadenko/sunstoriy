@@ -1,12 +1,23 @@
 import { Select } from 'antd';
 import PickerWithTypeLesson from 'ui/PickerWithTypeLesson/PickerWithTypeLesson';
-import { DescrContainer, Wrapper } from './SelectDate.styled';
+import {
+  ButtonChoseDate,
+  DescrContainer,
+  IconBtn,
+  Wrapper,
+} from './SelectDate.styled';
 import { getDates } from './GetDateFunction';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { sensornayaLessons } from 'redux/Lesson/lessonOperetion';
+import { selectLessonOperetion } from 'redux/Lesson/lessonSelector';
+import { CirclesWithBar } from 'react-loader-spinner';
 const { Option } = Select;
 
-const SelectDate = ({ setLessonDates, type, setType }) => {
+const SelectDate = ({ setLessonDates, type, setType, dateCurrentLesson }) => {
   const [day, setDay] = useState('1');
+  const dispatch = useDispatch();
+  const operetion = useSelector(selectLessonOperetion);
 
   const handleDateChange = (date, dateString) => {
     if (date) {
@@ -22,6 +33,10 @@ const SelectDate = ({ setLessonDates, type, setType }) => {
         setLessonDates(selectedDate.valueOf());
       }
     }
+  };
+  const handleChosePeriod = () => {
+    // const data = { offices: ['Сенсорна'], dateCurrentLesson };
+    dispatch(sensornayaLessons(dateCurrentLesson));
   };
   return (
     <Wrapper>
@@ -43,6 +58,27 @@ const SelectDate = ({ setLessonDates, type, setType }) => {
         </DescrContainer>
       ) : null}
       <PickerWithTypeLesson type={type} onChange={handleDateChange} />
+      <ButtonChoseDate type="button" onClick={handleChosePeriod}>
+        {operetion === 'sensornayaLessons' ? (
+          <CirclesWithBar
+            height="22"
+            width="50"
+            color="#ffffff"
+            wrapperStyle={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+            visible={true}
+            ariaLabel="circles-with-bar-loading"
+          />
+        ) : (
+          <>
+            <IconBtn />
+            Застосувати зміни
+          </>
+        )}
+      </ButtonChoseDate>
     </Wrapper>
   );
 };
