@@ -82,9 +82,11 @@ export const sensornayaLessons = createAsyncThunk(
       const { data } = await axios.get('/lesson/office/office_date', {
         params: choesData,
       });
+
       if (data) {
         Notify.success('Заняття вибраного періоду');
       }
+
       return data;
     } catch (err) {
       if (err) {

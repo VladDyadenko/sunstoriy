@@ -21,10 +21,10 @@ const DatePickerLesson = ({
   touched,
   timeLessonCurrent,
   setDateCurrentLesson,
+  dateCurrentLesson,
 }) => {
   const [type, setType] = useState('Одне заняття');
   const [day, setDay] = useState('1');
-
   const [timeLesson, setValues] = useState(null);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const DatePickerLesson = ({
         const dayOfWeek = parseInt(day);
         const dates = getDatesByDayOfWeek(startDate, endDate, dayOfWeek);
         const date = dates.map(date => date.valueOf());
-        console.log(date);
+
         setDateCurrentLesson(date);
         setFieldValue('dateLesson', date);
       } else if (typeof dateString === 'string') {
@@ -108,6 +108,7 @@ const DatePickerLesson = ({
             type={type}
             onChange={handleDateChange}
             key={day}
+            value={dateCurrentLesson ? dateCurrentLesson : null}
           />
           {touched.dateLesson && errors.dateLesson && (
             <ErrorInfo>{errors.dateLesson}</ErrorInfo>

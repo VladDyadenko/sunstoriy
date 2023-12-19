@@ -1,7 +1,6 @@
-import { nanoid } from 'nanoid';
-import { daysOfWeekUkr } from 'assets/constants/mainConstans';
+import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import TimeLessons from 'ui/TimeLessons/TimeLessons';
-
 import {
   LessonsWrapper,
   LessonsContainer,
@@ -14,72 +13,123 @@ import {
 } from './MainTable.styled';
 import FreeTableItem from 'ui/FreeTableItem/FreeTableItem';
 import LessonTableCard from 'ui/LessonTableCard/LessonTableCard';
-import { Link } from 'react-router-dom';
+import { formatDateRange, formatDay } from 'assets/constants/transformation';
 
-function MainTable({ lessonsData }) {
-  const timeLessonOnList = [
-    ...new Set(lessonsData.map(lesson => lesson.time)),
-  ].sort((a, b) => {
-    const [startA, endA] = a.split('-').map(time => parseInt(time));
-    const [startB, endB] = b.split('-').map(time => parseInt(time));
+function MainTable({ lessons }) {
+  const [uniquTime, setUniquTime] = useState(null);
+  const [uniquDate, setUniquDate] = useState(null);
+  const [groupedLessons, setGroupedLessons] = useState(null);
 
-    if (startA === startB) {
-      return endA - endB;
+  const extractTimeFromISOString = dateTimeString => {
+    const timeString = new Date(dateTimeString).toLocaleTimeString('en-US', {
+      timeZone: 'UTC',
+    });
+    return timeString;
+  };
+
+  useEffect(() => {
+    if (lessons) {
+      const areTimeIntervalsEqual = (intervalA, intervalB) => {
+        const roundedIntervalA = intervalA.map(extractTimeFromISOString);
+        const roundedIntervalB = intervalB.map(extractTimeFromISOString);
+        return (
+          roundedIntervalA[0] === roundedIntervalB[0] &&
+          roundedIntervalA[1] === roundedIntervalB[1]
+        );
+      };
+
+      const uniquTimeDate = lessons
+        .map(lesson => lesson.timeLesson)
+        .filter(
+          (time, index, self) =>
+            self.findIndex(t => areTimeIntervalsEqual(t, time)) === index
+        )
+        .sort((timeA, timeB) => {
+          const timePartA = timeA[0].split('T')[1];
+          const timePartB = timeB[0].split('T')[1];
+          return timePartA.localeCompare(timePartB);
+        });
+
+      console.log('uniquTimeDate', uniquTimeDate);
+      setUniquTime(uniquTimeDate);
+
+      const uniqueDates = [...new Set(lessons.map(val => val.dateLesson))]
+        .map(dateString => new Date(dateString))
+        .sort((a, b) => a - b)
+        .map(date => date.toISOString());
+
+      console.log('uniqueDates', uniqueDates);
+      setUniquDate(uniqueDates);
+
+      const groupedLessons = uniqueDates.map(date =>
+        lessons.filter(lesson => lesson.dateLesson === date)
+      );
+      setGroupedLessons(groupedLessons);
     }
-
-    return startA - startB;
-  });
-
-  const uniqueDates = [...new Set(lessonsData.map(val => val.date))].sort(
-    (a, b) => {
-      const [dayA, monthA, yearA] = a.split('.').map(part => parseInt(part));
-      const [dayB, monthB, yearB] = b.split('.').map(part => parseInt(part));
-
-      if (yearA !== yearB) {
-        return yearA - yearB;
-      }
-      if (monthA !== monthB) {
-        return monthA - monthB;
-      }
-      return dayA - dayB;
-    }
-  );
-  const groupedLessons = uniqueDates.map(date =>
-    lessonsData.filter(lesson => lesson.date === date)
-  );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lessons]);
 
   return (
     <MainTableContainer>
-      <TimeLessons timeLessonOnList={timeLessonOnList} />
+      <TimeLessons timeLessonOnList={uniquTime} />
       <LessonsWrapper>
         <DayWrapper>
-          {uniqueDates.map((val, index) => {
-            const parts = uniqueDates[index].split('.');
-            const currentDate = new Date(parts[2], parts[1] - 1, parts[0]);
-            const dayOfWeekUkr = daysOfWeekUkr[currentDate.getDay()];
+          {uniquDate?.map((date, index) => {
             return (
               <DayContainer key={index}>
                 <DayDeafult>
-                  <DayDeafultInfo>{uniqueDates[index]}</DayDeafultInfo>
-                  <DayDeafultInfo>{dayOfWeekUkr}</DayDeafultInfo>
+                  <DayDeafultInfo>{formatDateRange(date)}</DayDeafultInfo>
+                  <DayDeafultInfo>{formatDay(date)}</DayDeafultInfo>
                 </DayDeafult>
                 <LessonsContainer>
-                  {timeLessonOnList.map((time, timeIndex) => {
-                    const lesson = groupedLessons[index].find(
-                      day => day.time === time
+                  {uniquTime?.map((time, timeIndex) => {
+                    const lessonsWithSameTime = groupedLessons[index].filter(
+                      day => {
+                        const lessonTimes = day.timeLesson.map(timeString => {
+                          const lessonDate = new Date(timeString);
+                          return {
+                            hours: lessonDate.getHours(),
+                            minutes: lessonDate.getMinutes(),
+                            seconds: lessonDate.getSeconds(),
+                          };
+                        });
+
+                        const targetTime = time.map(timeString => {
+                          const targetDate = new Date(timeString);
+                          return {
+                            hours: targetDate.getHours(),
+                            minutes: targetDate.getMinutes(),
+                            seconds: targetDate.getSeconds(),
+                          };
+                        });
+
+                        return lessonTimes.some(lessonTime =>
+                          targetTime.some(
+                            target =>
+                              lessonTime.hours === target.hours &&
+                              lessonTime.minutes === target.minutes &&
+                              lessonTime.seconds === target.seconds
+                          )
+                        );
+                      }
                     );
+
+                    const lesson =
+                      lessonsWithSameTime.length > 0
+                        ? lessonsWithSameTime[0]
+                        : null;
 
                     return (
                       <LessonsItem
-                        aria-current={lesson ? lesson.teacherId : ''}
+                        aria-current={lesson ? lesson.teacherColor : ''}
                         key={timeIndex}
                       >
                         {lesson ? (
-                          <Link to={`/lesson/${lesson.id}`}>
+                          <Link to={`/lesson/${lesson._id}`}>
                             <LessonTableCard lesson={lesson} />
                           </Link>
                         ) : (
-                          <Link to={`/lesson/${nanoid()}`}>
+                          <Link to={`/lesson`}>
                             <FreeTableItem />
                           </Link>
                         )}

@@ -21,6 +21,7 @@ const SelectDate = ({ setLessonDates, type, setType, dateCurrentLesson }) => {
 
   const handleDateChange = (date, dateString) => {
     if (date) {
+      console.log('dateString', dateString);
       if (Array.isArray(dateString) && dateString.length === 2) {
         const startDate = new Date(dateString[0]);
         const endDate = new Date(dateString[1]);

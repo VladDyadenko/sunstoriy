@@ -11,7 +11,7 @@ import {
   TimeOneLesson,
 } from './OfficeScheduleOnDay.styled';
 import ScheduleCard from '../ScheduleCard/ScheduleCard';
-import dayjs from 'dayjs';
+import { formatTimeRange } from 'assets/constants/transformation';
 
 const OfficeScheduleOnDay = ({ lessons, date }) => {
   const [uniquTime, setUniquTime] = useState([]);
@@ -57,11 +57,6 @@ const OfficeScheduleOnDay = ({ lessons, date }) => {
     }
   }, [date, lessons]);
 
-  const formatTimeRange = time => {
-    const start = dayjs(time[0]).format('HH:mm');
-    const end = dayjs(time[1]).format('HH:mm');
-    return `${start} - ${end}`;
-  };
   return (
     <div>
       <TimeContainer>

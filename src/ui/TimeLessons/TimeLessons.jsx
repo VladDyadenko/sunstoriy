@@ -1,3 +1,4 @@
+import { formatTimeRange } from 'assets/constants/transformation';
 import {
   TableItem,
   TableItemDefault,
@@ -10,10 +11,10 @@ function TimeLessons({ timeLessonOnList }) {
     <>
       <TimeContainer>
         <TableItemDefault></TableItemDefault>
-        {timeLessonOnList?.map((val, index) => {
+        {timeLessonOnList?.map((time, index) => {
           return (
-            <TableItem key={val + index}>
-              <TimeItem>{val}</TimeItem>
+            <TableItem key={time + index}>
+              <TimeItem>{formatTimeRange(time)}</TimeItem>
             </TableItem>
           );
         })}

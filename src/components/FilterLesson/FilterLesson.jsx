@@ -1,25 +1,30 @@
 import { Collapse } from 'antd';
-import React, { useEffect, useState } from 'react';
-import { startOfWeek, endOfWeek } from 'date-fns';
+import { useEffect, useState } from 'react';
 import SelectDate from './SelectDate/SelectDate';
 import { getDates } from './SelectDate/GetDateFunction';
 import { useDispatch } from 'react-redux';
 import { sensornayaLessons } from 'redux/Lesson/lessonOperetion';
+import dayjs from 'dayjs';
 
 function FilterLesson() {
   const [dateCurrentLesson, setLessonDates] = useState(null);
   const [type, setType] = useState('Період');
-
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const startDate = startOfWeek(new Date(), { weekStartsOn: 1 });
-    const endDate = endOfWeek(new Date(), { weekStartsOn: 1 });
+    const startDateFormat = dayjs().startOf('week').format('YYYY-MM-DD');
+    const endDateFormat = dayjs().endOf('week').format('YYYY-MM-DD');
+    const dateString = [startDateFormat, endDateFormat];
 
-    const initialDates = getDates(startDate, endDate, type);
+    const startDate = new Date(dateString[0]);
+    const endDate = new Date(dateString[1]);
+    const dates = getDates(startDate, endDate);
+    const initialDates = dates.map(date => date.valueOf());
     const initialDateValues = initialDates.map(date => date.valueOf());
     setLessonDates(initialDateValues);
-    dispatch(sensornayaLessons(initialDateValues));
+    if (initialDateValues.length > 0) {
+      dispatch(sensornayaLessons(initialDateValues));
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

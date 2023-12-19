@@ -4,10 +4,10 @@ function LessonTableCard({ lesson }) {
   return (
     <Wrapper>
       <InfoContainer>
-        <p>{lesson.child}</p>
-        <p>{lesson.time}</p>
+        <p>{lesson.childName}</p>
+        <p>{lesson.teacherName}</p>
       </InfoContainer>
-      <InfoColor aria-current={lesson ? lesson.teacherId : ''}></InfoColor>
+      <InfoColor aria-current={lesson ? lesson.teacherColor : ''}></InfoColor>
     </Wrapper>
   );
 }

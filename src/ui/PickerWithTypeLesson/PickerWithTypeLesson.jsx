@@ -3,6 +3,11 @@ import dayjs from 'dayjs';
 import { DatePicker } from 'antd';
 const { RangePicker } = DatePicker;
 const PickerWithTypeLesson = ({ type, onChange }) => {
+  const startDate = dayjs().startOf('week');
+  const endDate = dayjs().endOf('week');
+
+  const initialDateValues = [startDate, endDate];
+
   if (type === 'Одне заняття')
     return (
       <DatePicker
@@ -25,7 +30,7 @@ const PickerWithTypeLesson = ({ type, onChange }) => {
         locale={locale}
         className="custom-datepicker"
         onChange={onChange}
-        defaultValue={dayjs()}
+        defaultValue={initialDateValues}
       />
     );
   return <DatePicker picker={type} onChange={onChange} />;

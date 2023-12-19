@@ -29,10 +29,10 @@ export const MainTableContainer = styled.div`
 export const DayDeafult = styled.div`
   font-family: 'RobotoSlab';
   font-weight: 400;
-  cursor: pointer;
   border-radius: 8px;
   height: 70px;
   width: 100%;
+  max-width: 250px;
   padding: 5px;
   margin-bottom: 10px;
   background-color: var(--main-blue);
@@ -48,6 +48,7 @@ export const DayDeafultInfo = styled.p`
 `;
 export const DayContainer = styled.div`
   width: 100%;
+  max-width: 250px;
   text-align: center;
   border-radius: 8px;
   margin-bottom: 10px;
@@ -65,54 +66,18 @@ export const LessonsItem = styled.li`
   cursor: pointer;
   height: 80px;
   width: 100%;
+  max-width: 250px;
   flex-direction: column;
   border-radius: 8px;
-  border: 2px solid transparent;
+  /* border: 2px solid transparent; */
   margin-bottom: 10px;
   transition: cubic-bezier(0.4, 0, 0.2, 1) 250ms;
 
   &:hover {
     transform: scale(1.05);
   }
-
-  ${props => {
-    const { 'aria-current': ariaCurrent } = props;
-
-    switch (ariaCurrent) {
-      case '1':
-        return `
-        border: 2px solid var(--teacher-color-1);
-        color:var(--teacher-color-1);
-   
-  `;
-
-      case '2':
-        return `
-        border: 2px solid var(--teacher-color-2);
-        color:var(--teacher-color-2);
-    
-  `;
-
-      case '3':
-        return `
-        border: 2px solid var(--teacher-color-3);
-        color:var(--teacher-color-3);
-    
-    `;
-
-      case '4':
-        return `
-        border: 2px solid var(--teacher-color-4);
-         color:var(--teacher-color-4);
-  `;
-
-      default:
-        return `
-    border: 2px solid inherit;
-    color:inherit;
-  `;
-    }
-  }}
+  border: 2px solid ${props => props['aria-current'] || '#fff'};
+  color: ${props => props['aria-current'] || '#fff'};
 `;
 
 export const CardInfo = styled.p`
