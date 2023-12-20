@@ -261,6 +261,11 @@ body,
 .anticon.anticon-right.ant-collapse-arrow{
   color: #006400;
 }
+
+.ant-popover .ant-popover-content{
+ border: 3px solid var(--main-yellow);
+ border-radius: 8px;
+}
 `;
 
 export default GlobalStyles;

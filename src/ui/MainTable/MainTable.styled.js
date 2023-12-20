@@ -73,9 +73,6 @@ export const LessonsItem = styled.li`
   margin-bottom: 10px;
   transition: cubic-bezier(0.4, 0, 0.2, 1) 250ms;
 
-  &:hover {
-    transform: scale(1.05);
-  }
   border: 2px solid ${props => props['aria-current'] || '#fff'};
   color: ${props => props['aria-current'] || '#fff'};
 `;

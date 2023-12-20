@@ -125,9 +125,7 @@ function MainTable({ lessons }) {
                         key={timeIndex}
                       >
                         {lesson ? (
-                          <Link to={`/lesson/${lesson._id}`}>
-                            <LessonTableCard lesson={lesson} />
-                          </Link>
+                          <LessonTableCard lesson={lesson} />
                         ) : (
                           <Link to={`/lesson`}>
                             <FreeTableItem />
