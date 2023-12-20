@@ -5,7 +5,7 @@ import { MainWrapper } from 'components/ContainerMain/ContainerMain.styled';
 // import { Lessons_List } from 'assets/constants/mainConstans';
 import FilterLesson from 'components/FilterLesson/FilterLesson';
 import { useSelector } from 'react-redux';
-import { selectLessonsSensornaya } from 'redux/Lesson/lessonSelector';
+import { selectLessonsSensornaya } from 'redux/sensornaya/sensornayaSelector';
 
 function SensornayaPage() {
   const lessonsChosePeriod = useSelector(selectLessonsSensornaya);

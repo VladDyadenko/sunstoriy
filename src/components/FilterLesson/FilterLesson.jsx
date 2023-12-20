@@ -3,12 +3,12 @@ import { useEffect, useState } from 'react';
 import SelectDate from './SelectDate/SelectDate';
 import { getDates } from './SelectDate/GetDateFunction';
 import { useDispatch } from 'react-redux';
-import { sensornayaLessons } from 'redux/Lesson/lessonOperetion';
 import dayjs from 'dayjs';
+import { sensornayaLessons } from 'redux/sensornaya/sensornayaOperetion';
 
 function FilterLesson() {
-  const [dateCurrentLesson, setLessonDates] = useState(null);
   const [type, setType] = useState('Період');
+  const [dateCurrentLesson, setLessonDates] = useState(null);
   const dispatch = useDispatch();
 
   useEffect(() => {

@@ -49,8 +49,6 @@ function MainTable({ lessons }) {
           const timePartB = timeB[0].split('T')[1];
           return timePartA.localeCompare(timePartB);
         });
-
-      console.log('uniquTimeDate', uniquTimeDate);
       setUniquTime(uniquTimeDate);
 
       const uniqueDates = [...new Set(lessons.map(val => val.dateLesson))]
@@ -58,7 +56,6 @@ function MainTable({ lessons }) {
         .sort((a, b) => a - b)
         .map(date => date.toISOString());
 
-      console.log('uniqueDates', uniqueDates);
       setUniquDate(uniqueDates);
 
       const groupedLessons = uniqueDates.map(date =>

@@ -1,4 +1,5 @@
 import { Select } from 'antd';
+import dayjs from 'dayjs';
 import PickerWithTypeLesson from 'ui/PickerWithTypeLesson/PickerWithTypeLesson';
 import {
   ButtonChoseDate,
@@ -7,11 +8,11 @@ import {
   Wrapper,
 } from './SelectDate.styled';
 import { getDates } from './GetDateFunction';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { sensornayaLessons } from 'redux/Lesson/lessonOperetion';
 import { selectLessonOperetion } from 'redux/Lesson/lessonSelector';
 import { CirclesWithBar } from 'react-loader-spinner';
+import { sensornayaLessons } from 'redux/sensornaya/sensornayaOperetion';
 const { Option } = Select;
 
 const SelectDate = ({ setLessonDates, type, setType, dateCurrentLesson }) => {
@@ -21,13 +22,13 @@ const SelectDate = ({ setLessonDates, type, setType, dateCurrentLesson }) => {
 
   const handleDateChange = (date, dateString) => {
     if (date) {
-      console.log('dateString', dateString);
       if (Array.isArray(dateString) && dateString.length === 2) {
         const startDate = new Date(dateString[0]);
         const endDate = new Date(dateString[1]);
         const dayOfWeek = parseInt(day);
         const dates = getDates(startDate, endDate, dayOfWeek, type);
         const date = dates.map(date => date.valueOf());
+        console.log('дата', date);
         setLessonDates(date);
       } else if (typeof dateString === 'string') {
         const selectedDate = new Date(dateString);
@@ -35,8 +36,21 @@ const SelectDate = ({ setLessonDates, type, setType, dateCurrentLesson }) => {
       }
     }
   };
+  useEffect(() => {
+    if (type === 'Період' || type === 'Період та день тижня') {
+      const startDate = dayjs(dateCurrentLesson[0]).toDate();
+      const endDate = dayjs(
+        dateCurrentLesson[dateCurrentLesson.length - 1]
+      ).toDate();
+      const dayOfWeek = parseInt(day);
+      const dates = getDates(startDate, endDate, dayOfWeek, type);
+      const date = dates.map(date => date.valueOf());
+      dispatch(sensornayaLessons(date));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [day, type]);
+
   const handleChosePeriod = () => {
-    // const data = { offices: ['Сенсорна'], dateCurrentLesson };
     dispatch(sensornayaLessons(dateCurrentLesson));
   };
   return (

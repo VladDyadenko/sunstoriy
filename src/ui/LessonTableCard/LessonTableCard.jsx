@@ -22,12 +22,12 @@ import {
   Wrapper,
 } from './LessonTableCard.styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteLessonById } from 'redux/Lesson/lessonOperetion';
-import { selectLessonOperetion } from 'redux/Lesson/lessonSelector';
+import { selectSensornayaOperetion } from 'redux/sensornaya/sensornayaSelector';
+import { deleteSensornayaLessonById } from 'redux/sensornaya/sensornayaOperetion';
 
 function LessonTableCard({ lesson }) {
   const dispatch = useDispatch();
-  const operetion = useSelector(selectLessonOperetion);
+  const operetion = useSelector(selectSensornayaOperetion);
 
   const content = (
     <ButtonContainer>
@@ -49,7 +49,9 @@ function LessonTableCard({ lesson }) {
             }}
           />
         }
-        onConfirm={() => dispatch(deleteLessonById(lesson._id))}
+        onConfirm={() => {
+          dispatch(deleteSensornayaLessonById(lesson._id));
+        }}
       >
         <LessonDelete>
           {operetion === lesson._id ? (
