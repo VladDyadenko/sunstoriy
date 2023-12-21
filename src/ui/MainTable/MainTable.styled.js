@@ -5,7 +5,7 @@ export const DayWrapper = styled.div`
   display: flex;
   align-items: start;
   justify-content: start;
-  flex-direction: column;
+  flex-direction: row;
   gap: 10px;
 
   @media screen and (min-width: 768px) {
