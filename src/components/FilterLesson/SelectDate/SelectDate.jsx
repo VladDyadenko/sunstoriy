@@ -79,6 +79,7 @@ const SelectDate = ({
           </Select>
         </DescrContainer>
       ) : null}
+      <PickerWithTypeLesson type={type} onChange={handleDateChange} />
       {teachers?.length > 1 ? (
         <DescrContainer>
           <Select
@@ -95,7 +96,6 @@ const SelectDate = ({
           </Select>
         </DescrContainer>
       ) : null}
-      <PickerWithTypeLesson type={type} onChange={handleDateChange} />
       <ButtonChoseDate type="button" onClick={handleChosePeriod}>
         {operetion === 'sensornayaLessons' ? (
           <CirclesWithBar
