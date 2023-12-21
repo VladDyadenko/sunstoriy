@@ -15,7 +15,15 @@ import { CirclesWithBar } from 'react-loader-spinner';
 import { sensornayaLessons } from 'redux/sensornaya/sensornayaOperetion';
 const { Option } = Select;
 
-const SelectDate = ({ setLessonDates, type, setType, dateCurrentLesson }) => {
+const SelectDate = ({
+  setLessonDates,
+  type,
+  setType,
+  dateCurrentLesson,
+  teachers,
+  teacher,
+  setTeacher,
+}) => {
   const [day, setDay] = useState('1');
   const dispatch = useDispatch();
   const operetion = useSelector(selectLessonOperetion);
@@ -28,7 +36,6 @@ const SelectDate = ({ setLessonDates, type, setType, dateCurrentLesson }) => {
         const dayOfWeek = parseInt(day);
         const dates = getDates(startDate, endDate, dayOfWeek, type);
         const date = dates.map(date => date.valueOf());
-        console.log('дата', date);
         setLessonDates(date);
       } else if (typeof dateString === 'string') {
         const selectedDate = new Date(dateString);
@@ -48,7 +55,7 @@ const SelectDate = ({ setLessonDates, type, setType, dateCurrentLesson }) => {
       dispatch(sensornayaLessons(date));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [day, type]);
+  }, [day, type, dateCurrentLesson]);
 
   const handleChosePeriod = () => {
     dispatch(sensornayaLessons(dateCurrentLesson));
@@ -56,7 +63,7 @@ const SelectDate = ({ setLessonDates, type, setType, dateCurrentLesson }) => {
   return (
     <Wrapper>
       <Select value={type} onChange={setType}>
-        <Option value="Один ден">Один день</Option>
+        <Option value="Один день">Один день</Option>
         <Option value="Період">Період</Option>
         <Option value="Період та день тижня">Період та день тижня</Option>
       </Select>
@@ -69,6 +76,22 @@ const SelectDate = ({ setLessonDates, type, setType, dateCurrentLesson }) => {
             <Option value="4">Четвер</Option>
             <Option value="5">П'ятниця</Option>
             <Option value="6">Субота</Option>
+          </Select>
+        </DescrContainer>
+      ) : null}
+      {teachers?.length > 1 ? (
+        <DescrContainer>
+          <Select
+            value={teacher}
+            onChange={setTeacher}
+            placeholder="Фахівці"
+            allowClear
+          >
+            {teachers?.map(teacher => (
+              <Option key={teacher} value={teacher}>
+                {teacher}
+              </Option>
+            ))}
           </Select>
         </DescrContainer>
       ) : null}

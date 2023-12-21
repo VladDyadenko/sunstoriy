@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
 import { sensornayaLessons } from 'redux/sensornaya/sensornayaOperetion';
 
-function FilterLesson() {
+function FilterLesson({ teachers, teacher, setTeacher }) {
   const [type, setType] = useState('Період');
   const [dateCurrentLesson, setLessonDates] = useState(null);
   const dispatch = useDispatch();
@@ -38,6 +38,9 @@ function FilterLesson() {
           setType={setType}
           setLessonDates={setLessonDates}
           dateCurrentLesson={dateCurrentLesson}
+          teachers={teachers}
+          teacher={teacher}
+          setTeacher={setTeacher}
         />
       ),
     },

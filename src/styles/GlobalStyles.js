@@ -266,6 +266,12 @@ body,
  border: 3px solid var(--main-yellow);
  border-radius: 8px;
 }
+.ant-select-selection-placeholder, .ant-select-selection-item {
+  font-family: 'RobotoSlab';
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--main-text-black) !important;
+}
 `;
 
 export default GlobalStyles;
