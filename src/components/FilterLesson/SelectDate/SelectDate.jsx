@@ -9,10 +9,9 @@ import {
 } from './SelectDate.styled';
 import { getDates } from './GetDateFunction';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { selectLessonOperetion } from 'redux/Lesson/lessonSelector';
 import { CirclesWithBar } from 'react-loader-spinner';
-import { sensornayaLessons } from 'redux/sensornaya/sensornayaOperetion';
 const { Option } = Select;
 
 const SelectDate = ({
@@ -23,9 +22,9 @@ const SelectDate = ({
   teachers,
   teacher,
   setTeacher,
+  onLessonsChange,
 }) => {
   const [day, setDay] = useState('1');
-  const dispatch = useDispatch();
   const operetion = useSelector(selectLessonOperetion);
 
   const handleDateChange = (date, dateString) => {
@@ -52,13 +51,13 @@ const SelectDate = ({
       const dayOfWeek = parseInt(day);
       const dates = getDates(startDate, endDate, dayOfWeek, type);
       const date = dates.map(date => date.valueOf());
-      dispatch(sensornayaLessons(date));
+      onLessonsChange(date);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [day, type, dateCurrentLesson]);
 
   const handleChosePeriod = () => {
-    dispatch(sensornayaLessons(dateCurrentLesson));
+    onLessonsChange(dateCurrentLesson);
   };
   return (
     <Wrapper>

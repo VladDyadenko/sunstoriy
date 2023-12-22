@@ -2,14 +2,11 @@ import { Collapse } from 'antd';
 import { useEffect, useState } from 'react';
 import SelectDate from './SelectDate/SelectDate';
 import { getDates } from './SelectDate/GetDateFunction';
-import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
-import { sensornayaLessons } from 'redux/sensornaya/sensornayaOperetion';
 
-function FilterLesson({ teachers, teacher, setTeacher }) {
+function FilterLesson({ teachers, teacher, setTeacher, onLessonsChange }) {
   const [type, setType] = useState('Період');
   const [dateCurrentLesson, setLessonDates] = useState(null);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const startDateFormat = dayjs().startOf('week').format('YYYY-MM-DD');
@@ -23,7 +20,7 @@ function FilterLesson({ teachers, teacher, setTeacher }) {
     const initialDateValues = initialDates.map(date => date.valueOf());
     setLessonDates(initialDateValues);
     if (initialDateValues.length > 0) {
-      dispatch(sensornayaLessons(initialDateValues));
+      onLessonsChange(initialDateValues);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -41,6 +38,7 @@ function FilterLesson({ teachers, teacher, setTeacher }) {
           teachers={teachers}
           teacher={teacher}
           setTeacher={setTeacher}
+          onLessonsChange={onLessonsChange}
         />
       ),
     },
