@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-const nameRegexp = /(([A-Za-z]+[,.]?[ ]?|[a-z]+['-]?)+)$/;
+const nameRegexp = /(([A-Za-zА-Яа-яЁёІіЇїҐґ]+[,.]?[ ]?|[a-zа-яёіїґ]+['-]?)+)$/;
 const emailPatern =
   /^[\w!#$%^&*\-=/{}[\]_|`~?\\+][\w!#$%^&*\+\-?=/{}[\]_|`~\\.]{1,62}[\w!#$%^&*\-=/{}+[\]_|`~?\\]@([\w]+\.){1,20}[\w]{1,4}$/; //eslint-disable-line
 

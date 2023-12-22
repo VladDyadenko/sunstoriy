@@ -1,4 +1,5 @@
 import { Formik } from 'formik';
+import { CirclesWithBar } from 'react-loader-spinner';
 import {
   initialValuesRegister,
   initialValuesSignIn,
@@ -14,11 +15,14 @@ import {
   Title,
 } from './AuthForm.styled';
 import InputAuth from '../InputAuth/InputAuth';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { registerThunk, signinThunk } from 'redux/auth/authOperetion';
+import { selectOperetion } from 'redux/auth/authSelector';
 
 function AuthForm({ isRegistration }) {
   const dispatch = useDispatch();
+  const operetion = useSelector(selectOperetion);
+
   const handleSubmit = async (values, { resetForm }) => {
     const { email, password } = values;
     try {
@@ -74,7 +78,24 @@ function AuthForm({ isRegistration }) {
             />
             <Btnwrapper>
               <BtnRegister type="submit">
-                {isRegistration ? 'Зареєструватися' : 'Увійти'}
+                {operetion === 'registration' ? (
+                  <CirclesWithBar
+                    height="18"
+                    width="50"
+                    color="#ffffff"
+                    wrapperStyle={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                    visible={true}
+                    ariaLabel="circles-with-bar-loading"
+                  />
+                ) : isRegistration ? (
+                  'Зареєструватися'
+                ) : (
+                  'Увійти'
+                )}
               </BtnRegister>
             </Btnwrapper>
           </FormAuth>

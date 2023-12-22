@@ -26,6 +26,7 @@ const initialState = {
   isRefreshing: false,
   isLoading: false,
   error: null,
+  operetion: null,
 };
 const arrThunks = [
   registerThunk,
@@ -59,16 +60,19 @@ const handleUpdateName = (state, { payload }) => {
 
 const handlePending = state => {
   state.isLoading = true;
+  state.operetion = 'registration';
 };
 
 const handleRejected = (state, { payload }) => {
   state.isLoading = false;
   state.error = payload;
+  state.operetion = null;
 };
 
 const handleFulfilled = state => {
   state.isLoading = false;
   state.error = '';
+  state.operetion = null;
 };
 
 export const authSlice = createSlice({

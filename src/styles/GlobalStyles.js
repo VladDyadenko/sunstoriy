@@ -272,6 +272,11 @@ body,
   font-size: 14px;
   color: var(--main-text-black) !important;
 }
+.css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper{
+ border: 2px solid var(--main-dark-blue);
+ border-radius: 8px !important;
+ min-width: 340px !important;
+}
 `;
 
 export default GlobalStyles;

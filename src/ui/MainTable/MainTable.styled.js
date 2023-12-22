@@ -32,6 +32,7 @@ export const DayDeafult = styled.div`
   border-radius: 8px;
   height: 70px;
   width: 100%;
+  min-width: 240px;
   max-width: 250px;
   padding: 5px;
   margin-bottom: 10px;
@@ -54,7 +55,7 @@ export const DayContainer = styled.div`
   margin-bottom: 10px;
 
   @media screen and (min-width: 376px) {
-    min-width: 190px;
+    min-width: 240px;
     margin-right: 10px;
   }
 `;

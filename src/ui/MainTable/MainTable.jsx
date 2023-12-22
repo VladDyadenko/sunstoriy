@@ -15,7 +15,7 @@ import FreeTableItem from 'ui/FreeTableItem/FreeTableItem';
 import LessonTableCard from 'ui/LessonTableCard/LessonTableCard';
 import { formatDateRange, formatDay } from 'assets/constants/transformation';
 
-function MainTable({ lessons, teacher }) {
+function MainTable({ lessons }) {
   const [uniquTime, setUniquTime] = useState(null);
   const [uniquDate, setUniquDate] = useState(null);
   const [groupedLessons, setGroupedLessons] = useState(null);

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
@@ -9,18 +8,9 @@ import Avatar from '@mui/material/Avatar';
 import MenuItem from '@mui/material/MenuItem';
 import { useLocation } from 'react-router-dom';
 import logo from '../../../assets/images/Header/logoRightHeight.png';
-import {
-  HeaderLink,
-  HeaderLinkDesctop,
-  HeaderList,
-  LogoLink,
-  LogoLinkMobil,
-  MainNavSite,
-  NavItem,
-  UserContainer,
-} from './HeaderMain.styled';
+import { HeaderLink, LogoLink, UserContainer } from './HeaderMain.styled';
 import { navSitePage } from 'assets/constants/mainConstans';
-import { AppBar } from '@mui/material';
+import { AppBar, Typography } from '@mui/material';
 import DrawerSite from '../Drawer/Drawer';
 import { useSelector } from 'react-redux';
 import { selectAuthUser } from 'redux/auth/authSelector';
@@ -32,6 +22,7 @@ function HeaderMain() {
 
   const location = useLocation();
   const currentPath = location.pathname;
+  console.log(currentPath);
 
   const handleOpenNavMenu = event => {
     setAnchorElNav(event.currentTarget);
@@ -54,79 +45,65 @@ function HeaderMain() {
           <LogoLink to="/">
             <img src={logo} alt="Logo" width={100} height={42} />
           </LogoLink>
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
+          <IconButton
+            size="large"
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            onClick={handleOpenNavMenu}
+            color="inherit"
+            sx={{
+              marginLeft: 'auto',
+              marginRight: 'auto',
+            }}
+          >
+            <MenuIcon
               sx={{
-                display: {
-                  xs: 'block',
-                  md: 'none',
-                },
+                width: '2.5rem',
+                height: '2.5rem',
+                marginRight: '8px',
               }}
-            >
-              {navSitePage.map(({ page, path }) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <HeaderLink
-                    active={currentPath === path ? 'active' : ''}
-                    to={path}
-                  >
-                    {page}
-                  </HeaderLink>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <LogoLinkMobil to="/">
-            <img src={logo} alt="Logo" width={100} height={42} />
-          </LogoLinkMobil>
-          <MainNavSite>
-            <HeaderList>
-              {navSitePage.map(({ page, path }) => (
-                <NavItem key={path}>
-                  <HeaderLinkDesctop
-                    onClick={handleCloseNavMenu}
-                    to={path}
-                    active={currentPath === path ? 'active' : ''}
-                  >
-                    {page}
-                  </HeaderLinkDesctop>
-                </NavItem>
-              ))}
-            </HeaderList>
-          </MainNavSite>
+            />
+            <Typography>
+              {navSitePage.find(item => item.path === currentPath)?.page}
+            </Typography>
+          </IconButton>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <UserContainer>
-              <Avatar alt="User foto" src={avatarUrl} />
-              <DrawerSite userName={name} />
-            </UserContainer>
-          </Box>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorElNav}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+            open={Boolean(anchorElNav)}
+            onClose={handleCloseNavMenu}
+          >
+            {navSitePage.map(({ page, path }) => (
+              <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <HeaderLink
+                  active={currentPath === path ? 'active' : ''}
+                  to={path}
+                >
+                  {page}
+                </HeaderLink>
+              </MenuItem>
+            ))}
+          </Menu>
+
+          <UserContainer>
+            <Avatar alt="User foto" src={avatarUrl} />
+            <DrawerSite userName={name} />
+          </UserContainer>
         </Toolbar>
       </Container>
     </AppBar>
   );
 }
+
 export default HeaderMain;
