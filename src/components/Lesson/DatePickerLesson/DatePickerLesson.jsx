@@ -16,7 +16,6 @@ const { Option } = Select;
 
 const DatePickerLesson = ({
   setFieldValue,
-  office,
   errors,
   touched,
   timeLessonCurrent,
@@ -30,6 +29,27 @@ const DatePickerLesson = ({
   useEffect(() => {
     setDateCurrentLesson(null);
   }, [setDateCurrentLesson, type]);
+
+  useEffect(() => {
+    const today = dayjs().format('YYYY-MM-DD');
+    const selectedDate = new Date(today);
+    setDateCurrentLesson(selectedDate.valueOf());
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (type === 'План занять') {
+      const initialStartDate = dayjs().startOf('month').format('YYYY-MM-DD');
+      const initialEndDate = dayjs().endOf('month').format('YYYY-MM-DD');
+      const startDate = new Date(initialStartDate);
+      const endDate = new Date(initialEndDate);
+      const dayOfWeek = parseInt(day);
+      const dates = getDatesByDayOfWeek(startDate, endDate, dayOfWeek);
+      const date = dates.map(date => date.valueOf());
+      setDateCurrentLesson(date);
+    }
+  }, [day, setDateCurrentLesson, type]);
 
   useEffect(() => {
     if (timeLessonCurrent) {
@@ -59,6 +79,7 @@ const DatePickerLesson = ({
         setFieldValue('dateLesson', date);
       } else if (typeof dateString === 'string') {
         const selectedDate = new Date(dateString);
+        console.log('dateString', dateString);
         setDateCurrentLesson(selectedDate.valueOf());
         setFieldValue('dateLesson', selectedDate.valueOf());
       }
@@ -66,7 +87,7 @@ const DatePickerLesson = ({
   };
 
   const handleTimeLesson = vals => {
-    const sanitizedTime = vals.map(time => time.startOf('minute'));
+    const sanitizedTime = vals?.map(time => time?.startOf('minute'));
     setValues(sanitizedTime);
   };
 

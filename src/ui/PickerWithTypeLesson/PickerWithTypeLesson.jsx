@@ -3,8 +3,8 @@ import dayjs from 'dayjs';
 import { DatePicker } from 'antd';
 const { RangePicker } = DatePicker;
 const PickerWithTypeLesson = ({ type, onChange, value }) => {
-  const startDate = dayjs().startOf('week');
-  const endDate = dayjs().endOf('week');
+  const startDate = dayjs().startOf('month');
+  const endDate = dayjs().endOf('month');
 
   const initialDateValues = [startDate, endDate];
 
@@ -14,9 +14,9 @@ const PickerWithTypeLesson = ({ type, onChange, value }) => {
         format="YYYY-MM-DD"
         size="middle"
         locale={locale}
-        defaultValue={dayjs()}
         onChange={onChange}
-        value={value ? dayjs(value) : dayjs()}
+        defaultValue={value === null ? dayjs() : undefined}
+        value={value ? dayjs(value) : undefined}
       />
     );
   if (
@@ -31,7 +31,8 @@ const PickerWithTypeLesson = ({ type, onChange, value }) => {
         locale={locale}
         className="custom-datepicker"
         onChange={onChange}
-        defaultValue={initialDateValues}
+        defaultValue={value === null ? initialDateValues : undefined}
+        // defaultValue={initialDateValues}
       />
     );
   return <DatePicker picker={type} onChange={onChange} />;

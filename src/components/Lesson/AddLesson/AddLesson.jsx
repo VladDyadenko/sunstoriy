@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
+import dayjs from 'dayjs';
 import { Formik } from 'formik';
 import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -22,11 +23,7 @@ import {
   initialValuesLessonForm,
   schemaAddLessonUpdate,
 } from '../Schema/schema';
-import {
-  addLesson,
-  choseLessonGraph,
-  updateLesson,
-} from 'redux/Lesson/lessonOperetion';
+import { addLesson, updateLesson } from 'redux/Lesson/lessonOperetion';
 import ChoseLessonContainer from 'components/ChoseLessonData/ChoseLessonContainer/ChoseLessonContainer';
 import { selectLessonOperetion } from 'redux/Lesson/lessonSelector';
 
@@ -59,6 +56,8 @@ const AddLesson = ({ lesson }) => {
   const timeFreeLesson = JSON.parse(timeFreeLessonString);
   const officeFreeLesson = searchParams.get('officeFreeLesson');
 
+  console.log('dateCurrentLesson', dateCurrentLesson);
+
   useEffect(() => {
     if (source === 'buttonViewing') {
       setButtonView(false);
@@ -71,6 +70,9 @@ const AddLesson = ({ lesson }) => {
       setDateLesson(dateFreeLesson);
       setTypeLesson(officeFreeLesson);
     }
+    const today = dayjs().format('YYYY-MM-DD');
+    const selectedDate = new Date(today);
+    setDateCurrentLesson(selectedDate.valueOf());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -116,22 +118,22 @@ const AddLesson = ({ lesson }) => {
               const id = lesson._id;
               const combinedData = { id, values };
               await dispatch(updateLesson(combinedData)).then(() => {
-                const data = {
-                  offices,
-                  dateCurrentLesson,
-                };
-                dispatch(choseLessonGraph(data));
-                navigate('/lesson');
+                // const data = {
+                //   offices,
+                //   dateCurrentLesson,
+                // };
+                // dispatch(choseLessonGraph(data));
+                navigate(-1);
               });
             } else {
               await dispatch(addLesson(values)).then(() => {
                 setAddSuccessLesson(true);
-                const data = {
-                  offices,
-                  dateCurrentLesson,
-                };
-                dispatch(choseLessonGraph(data));
-                navigate('/lesson');
+                // const data = {
+                //   offices,
+                //   dateCurrentLesson,
+                // };
+                // dispatch(choseLessonGraph(data));
+                navigate(-1);
               });
             }
           } else {
