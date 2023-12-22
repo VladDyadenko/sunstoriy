@@ -2,7 +2,7 @@ import locale from 'antd/es/date-picker/locale/uk_UA';
 import dayjs from 'dayjs';
 import { DatePicker } from 'antd';
 const { RangePicker } = DatePicker;
-const PickerWithTypeLesson = ({ type, onChange }) => {
+const PickerWithTypeLesson = ({ type, onChange, value }) => {
   const startDate = dayjs().startOf('week');
   const endDate = dayjs().endOf('week');
 
@@ -16,6 +16,7 @@ const PickerWithTypeLesson = ({ type, onChange }) => {
         locale={locale}
         defaultValue={dayjs()}
         onChange={onChange}
+        value={value ? dayjs(value) : dayjs()}
       />
     );
   if (

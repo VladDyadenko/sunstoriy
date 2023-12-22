@@ -1,11 +1,15 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 import MainTable from 'ui/MainTable/MainTable';
+
 import Container from 'components/Container/Container';
 import { MainWrapper } from 'components/ContainerMain/ContainerMain.styled';
 import FilterLesson from 'components/FilterLesson/FilterLesson';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectLessonsSensornaya } from 'redux/sensornaya/sensornayaSelector';
-import { useEffect, useState } from 'react';
-import { sensornayaLessons } from 'redux/sensornaya/sensornayaOperetion';
+import { selectLessonsSensornaya } from 'redux/offices/officesSelector';
+import {
+  deleteSensornayaLessonById,
+  sensornayaLessons,
+} from 'redux/offices/officesOperetion';
 
 function SensornayaPage() {
   const lessonsChosePeriod = useSelector(selectLessonsSensornaya);
@@ -50,7 +54,15 @@ function SensornayaPage() {
           onLessonsChange={lessons => dispatch(sensornayaLessons(lessons))}
         />
         <MainWrapper>
-          {lessons?.length > 0 && <MainTable lessons={lessons} />}
+          {lessons?.length > 0 && (
+            <MainTable
+              lessons={lessons}
+              onLessonsDelete={lesson => {
+                return dispatch(deleteSensornayaLessonById(lesson._id));
+              }}
+              office="Сенсорна"
+            />
+          )}
         </MainWrapper>
       </Container>
     </>

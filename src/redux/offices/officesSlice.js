@@ -1,8 +1,7 @@
 import {
   deleteSensornayaLessonById,
   sensornayaLessons,
-  updateSensornayaLesson,
-} from './sensornayaOperetion';
+} from './officesOperetion';
 
 const { createSlice } = require('@reduxjs/toolkit');
 
@@ -14,8 +13,8 @@ const initialState = {
   error: null,
 };
 
-const sensornayaSlice = createSlice({
-  name: 'sensornaya',
+const officesSlice = createSlice({
+  name: 'offices',
   initialState,
   reducers: {},
   extraReducers: builder => {
@@ -31,31 +30,6 @@ const sensornayaSlice = createSlice({
         state.lessonsSensornaya = payload;
       })
       .addCase(sensornayaLessons.rejected, (state, action) => {
-        state.isloading = false;
-        state.operetion = null;
-        state.error = action.payload;
-      })
-      .addCase(updateSensornayaLesson.pending, state => {
-        state.isloading = true;
-        state.operetion = 'addLesson';
-      })
-      .addCase(updateSensornayaLesson.fulfilled, (state, action) => {
-        state.isloading = false;
-        state.operetion = null;
-        state.error = null;
-        const id = action.payload._id;
-        const indexLesson = state.lessonsSensornaya.findIndex(
-          vel => vel._id === id
-        );
-        if (indexLesson !== -1) {
-          state.lessonsSensornaya[indexLesson] = action.payload;
-        }
-        // const index = state.choseLesson.findIndex(vel => vel._id === id);
-        // if (index !== -1) {
-        //   state.choseLesson[index] = action.payload;
-        // }
-      })
-      .addCase(updateSensornayaLesson.rejected, (state, action) => {
         state.isloading = false;
         state.operetion = null;
         state.error = action.payload;
@@ -84,4 +58,4 @@ const sensornayaSlice = createSlice({
   },
 });
 
-export const sensornayaReducer = sensornayaSlice.reducer;
+export const officesReducer = officesSlice.reducer;

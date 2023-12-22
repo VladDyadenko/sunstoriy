@@ -21,7 +21,7 @@ const DatePickerLesson = ({
   touched,
   timeLessonCurrent,
   setDateCurrentLesson,
-  dateCurrentLesson,
+  dateLessonCurrent,
 }) => {
   const [type, setType] = useState('Одне заняття');
   const [day, setDay] = useState('1');
@@ -76,6 +76,13 @@ const DatePickerLesson = ({
     }
   }, [setFieldValue, timeLesson]);
 
+  useEffect(() => {
+    if (dateLessonCurrent) {
+      const timestamp = new Date(dateLessonCurrent).getTime();
+      setFieldValue('dateLesson', timestamp);
+    }
+  }, [setFieldValue, dateLessonCurrent]);
+
   return (
     <>
       <WrapperPlans>
@@ -108,7 +115,7 @@ const DatePickerLesson = ({
             type={type}
             onChange={handleDateChange}
             key={day}
-            value={dateCurrentLesson ? dateCurrentLesson : null}
+            value={dateLessonCurrent}
           />
           {touched.dateLesson && errors.dateLesson && (
             <ErrorInfo>{errors.dateLesson}</ErrorInfo>

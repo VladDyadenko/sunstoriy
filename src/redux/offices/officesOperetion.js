@@ -25,29 +25,6 @@ export const sensornayaLessons = createAsyncThunk(
   }
 );
 
-export const updateSensornayaLesson = createAsyncThunk(
-  'lesson/updateSensornayaLesson',
-  async (lessonData, thunkAPI) => {
-    try {
-      const { id, values } = lessonData;
-      const { data } = await axios.put(`/lesson/${id}`, values, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      if (data) {
-        Notify.success('Заняття успішно змінене');
-      }
-      return data;
-    } catch (err) {
-      if (err) {
-        Notify.failure(err.response.data.message);
-      }
-      return thunkAPI.rejectWithValue(err.message);
-    }
-  }
-);
-
 export const deleteSensornayaLessonById = createAsyncThunk(
   'lesson/deleteSensornayLesson',
   async (id, thunkAPI) => {

@@ -1,5 +1,8 @@
-import { Select } from 'antd';
 import dayjs from 'dayjs';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { CirclesWithBar } from 'react-loader-spinner';
+import { Select } from 'antd';
 import PickerWithTypeLesson from 'ui/PickerWithTypeLesson/PickerWithTypeLesson';
 import {
   ButtonChoseDate,
@@ -8,10 +11,7 @@ import {
   Wrapper,
 } from './SelectDate.styled';
 import { getDates } from './GetDateFunction';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { selectLessonOperetion } from 'redux/Lesson/lessonSelector';
-import { CirclesWithBar } from 'react-loader-spinner';
 const { Option } = Select;
 
 const SelectDate = ({

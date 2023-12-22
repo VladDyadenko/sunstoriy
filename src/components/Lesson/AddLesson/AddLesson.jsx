@@ -54,11 +54,25 @@ const AddLesson = ({ lesson }) => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const source = searchParams.get('source');
+  const dateFreeLesson = searchParams.get('dateFreeLesson');
+  const timeFreeLessonString = searchParams.get('timeFreeLesson');
+  const timeFreeLesson = JSON.parse(timeFreeLessonString);
+  const officeFreeLesson = searchParams.get('officeFreeLesson');
+
   useEffect(() => {
     if (source === 'buttonViewing') {
       setButtonView(false);
     }
   }, [source]);
+
+  useEffect(() => {
+    if (timeFreeLesson && dateFreeLesson) {
+      setTimeLesson(timeFreeLesson);
+      setDateLesson(dateFreeLesson);
+      setTypeLesson(officeFreeLesson);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (lesson) {

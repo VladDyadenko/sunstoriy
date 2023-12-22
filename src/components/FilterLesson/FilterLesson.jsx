@@ -1,8 +1,8 @@
-import { Collapse } from 'antd';
 import { useEffect, useState } from 'react';
+import { Collapse } from 'antd';
+import dayjs from 'dayjs';
 import SelectDate from './SelectDate/SelectDate';
 import { getDates } from './SelectDate/GetDateFunction';
-import dayjs from 'dayjs';
 
 function FilterLesson({ teachers, teacher, setTeacher, onLessonsChange }) {
   const [type, setType] = useState('Період');

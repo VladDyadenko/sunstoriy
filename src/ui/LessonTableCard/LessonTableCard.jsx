@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import { Popconfirm } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { CirclesWithBar } from 'react-loader-spinner';
@@ -21,13 +22,10 @@ import {
   LessonEdit,
   Wrapper,
 } from './LessonTableCard.styled';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectSensornayaOperetion } from 'redux/sensornaya/sensornayaSelector';
-import { deleteSensornayaLessonById } from 'redux/sensornaya/sensornayaOperetion';
+import { selectOfficesOperetion } from 'redux/offices/officesSelector';
 
-function LessonTableCard({ lesson }) {
-  const dispatch = useDispatch();
-  const operetion = useSelector(selectSensornayaOperetion);
+function LessonTableCard({ lesson, onLessonsDelete }) {
+  const operetion = useSelector(selectOfficesOperetion);
 
   const content = (
     <ButtonContainer>
@@ -50,7 +48,7 @@ function LessonTableCard({ lesson }) {
           />
         }
         onConfirm={() => {
-          dispatch(deleteSensornayaLessonById(lesson._id));
+          onLessonsDelete(lesson);
         }}
       >
         <LessonDelete>

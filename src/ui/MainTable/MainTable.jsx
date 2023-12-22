@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import FreeTableItem from 'ui/FreeTableItem/FreeTableItem';
+import LessonTableCard from 'ui/LessonTableCard/LessonTableCard';
 import TimeLessons from 'ui/TimeLessons/TimeLessons';
 import {
   LessonsWrapper,
@@ -11,13 +13,12 @@ import {
   DayContainer,
   MainTableContainer,
 } from './MainTable.styled';
-import FreeTableItem from 'ui/FreeTableItem/FreeTableItem';
-import LessonTableCard from 'ui/LessonTableCard/LessonTableCard';
 import { formatDateRange, formatDay } from 'assets/constants/transformation';
 
-function MainTable({ lessons }) {
+function MainTable({ lessons, onLessonsDelete, office }) {
   const [uniquTime, setUniquTime] = useState(null);
   const [uniquDate, setUniquDate] = useState(null);
+
   const [groupedLessons, setGroupedLessons] = useState(null);
 
   const extractTimeFromISOString = dateTimeString => {
@@ -122,9 +123,16 @@ function MainTable({ lessons }) {
                         key={timeIndex}
                       >
                         {lesson ? (
-                          <LessonTableCard lesson={lesson} />
+                          <LessonTableCard
+                            lesson={lesson}
+                            onLessonsDelete={onLessonsDelete}
+                          />
                         ) : (
-                          <Link to={`/lesson`}>
+                          <Link
+                            to={`/lesson?dateFreeLesson=${date}&officeFreeLesson=${office}&timeFreeLesson=${JSON.stringify(
+                              time
+                            )}`}
+                          >
                             <FreeTableItem />
                           </Link>
                         )}
