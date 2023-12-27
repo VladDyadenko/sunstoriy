@@ -38,9 +38,9 @@ function UserProfile({ onClose }) {
   });
 
   const avatarURL =
-    typeof state.avatar === 'object' && 'blob' in state.avatar
-      ? URL.createObjectURL(state.avatar)
-      : state.avatar;
+    typeof state?.avatar === 'object' && 'blob' in state.avatar
+      ? URL.createObjectURL(state?.avatar)
+      : state?.avatar;
 
   const handleInputChange = (name, value) => {
     setState(prevData => ({

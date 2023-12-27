@@ -18,7 +18,7 @@ const ChooseDataLessons = ({ setOffices }) => {
     <ChooseDataWrapper>
       <ChooseOffices
         mode="multiple"
-        defaultValue={['Логопед']}
+        defaultValue={['Сенсорна']}
         onChange={handleChange}
       >
         {options}

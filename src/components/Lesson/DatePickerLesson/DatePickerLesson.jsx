@@ -79,7 +79,6 @@ const DatePickerLesson = ({
         setFieldValue('dateLesson', date);
       } else if (typeof dateString === 'string') {
         const selectedDate = new Date(dateString);
-        console.log('dateString', dateString);
         setDateCurrentLesson(selectedDate.valueOf());
         setFieldValue('dateLesson', selectedDate.valueOf());
       }

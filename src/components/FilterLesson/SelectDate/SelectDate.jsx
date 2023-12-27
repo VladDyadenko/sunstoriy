@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, memo } from 'react';
 import { useSelector } from 'react-redux';
 import { CirclesWithBar } from 'react-loader-spinner';
 import { Select } from 'antd';
@@ -34,7 +34,7 @@ const SelectDate = ({
         const endDate = new Date(dateString[1]);
         const dayOfWeek = parseInt(day);
         const dates = getDates(startDate, endDate, dayOfWeek, type);
-        const date = dates.map(date => date.valueOf());
+        const date = dates?.map(date => date.valueOf());
         setLessonDates(date);
       } else if (typeof dateString === 'string') {
         const selectedDate = new Date(dateString);
@@ -50,8 +50,11 @@ const SelectDate = ({
       ).toDate();
       const dayOfWeek = parseInt(day);
       const dates = getDates(startDate, endDate, dayOfWeek, type);
-      const date = dates.map(date => date.valueOf());
-      onLessonsChange(date);
+      const date = dates?.map(date => date.valueOf());
+
+      if (date?.length > 0) {
+        onLessonsChange(date);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [day, type, dateCurrentLesson]);
@@ -120,4 +123,4 @@ const SelectDate = ({
   );
 };
 
-export default SelectDate;
+export default memo(SelectDate);

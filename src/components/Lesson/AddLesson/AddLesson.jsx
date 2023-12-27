@@ -43,7 +43,7 @@ const AddLesson = ({ lesson }) => {
   const [buttonView, setButtonView] = useState(true);
   const [dateCurrentLesson, setDateCurrentLesson] = useState(null);
 
-  const [offices, setOffices] = useState(['Логопед']);
+  const [offices, setOffices] = useState(['Сенсорна']);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -55,8 +55,6 @@ const AddLesson = ({ lesson }) => {
   const timeFreeLessonString = searchParams.get('timeFreeLesson');
   const timeFreeLesson = JSON.parse(timeFreeLessonString);
   const officeFreeLesson = searchParams.get('officeFreeLesson');
-
-  console.log('dateCurrentLesson', dateCurrentLesson);
 
   useEffect(() => {
     if (source === 'buttonViewing') {

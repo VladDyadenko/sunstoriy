@@ -21,6 +21,10 @@ const LessonPage = lazy(() => import('page/LessonPage/LessonPage'));
 const NotFoundPage = lazy(() => import('page/NotFoundPage/NotFoundPage'));
 const TeacherPage = lazy(() => import('page/TeacherPage/TeacherPage'));
 const TeachersPage = lazy(() => import('page/TeachersPage/TeachersPage'));
+const PreschoolPage = lazy(() => import('page/PreschoolPage/PreschoolPage'));
+const PreschoolInclusionPage = lazy(() =>
+  import('page/PreschoolInclusionPage/PreschoolInclusionPage')
+);
 
 function App() {
   const navigate = useNavigate();
@@ -55,6 +59,11 @@ function App() {
           <Route path="/lesson/:lessonId" element={<LessonPage />} />
           <Route path="/lesson" element={<LessonPage />} />
           <Route path="/sensornaya" element={<SensornayaPage />} />
+          <Route path="/preschool" element={<PreschoolPage />} />
+          <Route
+            path="/preschoolInclusion"
+            element={<PreschoolInclusionPage />}
+          />
           <Route path="/logoped" element={<LogopedPage />} />
           <Route path="/correction" element={<CorrectionPage />} />
           <Route path="/children" element={<ChildrenPage />} />
