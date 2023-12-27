@@ -1,7 +1,9 @@
+import { Link } from 'react-router-dom';
 import { formatTimeRange } from 'assets/constants/transformation';
 import {
+  AddLessonLink,
+  IconAddLessonLink,
   TableItem,
-  TableItemDefault,
   TimeContainer,
   TimeItem,
 } from './TimeLessons.stayled';
@@ -10,7 +12,11 @@ function TimeLessons({ timeLessonOnList }) {
   return (
     <>
       <TimeContainer>
-        <TableItemDefault></TableItemDefault>
+        <AddLessonLink>
+          <Link to={`/lesson`}>
+            <IconAddLessonLink />
+          </Link>
+        </AddLessonLink>
         {timeLessonOnList?.map((time, index) => {
           return (
             <TableItem key={time + index}>

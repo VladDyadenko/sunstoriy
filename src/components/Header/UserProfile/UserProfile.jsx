@@ -38,7 +38,9 @@ function UserProfile({ onClose }) {
   });
 
   const avatarURL =
-    typeof state?.avatar === 'object' && 'blob' in state.avatar
+    typeof state?.avatar === 'object' &&
+    state.avatar !== null &&
+    'blob' in state.avatar
       ? URL.createObjectURL(state?.avatar)
       : state?.avatar;
 

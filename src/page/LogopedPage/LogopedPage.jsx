@@ -80,7 +80,7 @@ const LogopedPage = () => {
               onLessonsDelete={lesson => {
                 return dispatch(deleteLogopedLessonById(lesson._id));
               }}
-              office="Сенсорна"
+              office="Логопед"
             />
           )}
         </MainWrapper>
