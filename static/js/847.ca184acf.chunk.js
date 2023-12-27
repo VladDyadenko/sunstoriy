@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunksunstoriy=self.webpackChunksunstoriy||[]).push([[847],{9847:function(n,s,e){e.r(s);var u=e(2791),r=e(184),c=function(){return(0,r.jsx)("div",{children:"PreschoolInclusionPage"})};s.default=(0,u.memo)(c)}}]);
+//# sourceMappingURL=847.ca184acf.chunk.js.map

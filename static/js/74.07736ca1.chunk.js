@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunksunstoriy=self.webpackChunksunstoriy||[]).push([[74],{74:function(e,s,n){n.r(s);var u=n(2791),r=n(184),t=function(){return(0,r.jsx)("div",{children:"PreschoolPage"})};s.default=(0,u.memo)(t)}}]);
+//# sourceMappingURL=74.07736ca1.chunk.js.map
