@@ -99,11 +99,11 @@ const SelectDate = ({
         </DescrContainer>
       ) : null}
       <ButtonChoseDate type="button" onClick={handleChosePeriod}>
-        {operetion === 'sensornayaLessons' ? (
+        {operetion === 'choseLesson' ? (
           <CirclesWithBar
             height="22"
             width="50"
-            color="#ffffff"
+            color="#0456ba"
             wrapperStyle={{
               display: 'flex',
               alignItems: 'center',

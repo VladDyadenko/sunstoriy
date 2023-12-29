@@ -17,7 +17,12 @@ import {
 import OfficeScheduleOnDay from '../OfficeScheduleOnDay/OfficeScheduleOnDay';
 import ChooseDataLessons from '../ChooseDataLessons/ChooseDataLessons';
 
-const ChoseLessonContainer = ({ dateCurrentLesson, offices, setOffices }) => {
+const ChoseLessonContainer = ({
+  dateCurrentLesson,
+  offices,
+  setOffices,
+  defaultOffices,
+}) => {
   const [lessons, setLessons] = useState([]);
   const [lessonDates, setLessonDates] = useState([]);
   const choseLessons = useSelector(selectChoseLessons);
@@ -53,7 +58,10 @@ const ChoseLessonContainer = ({ dateCurrentLesson, offices, setOffices }) => {
   return (
     <ChoseLessonsContainer>
       <BtnContainer>
-        <ChooseDataLessons setOffices={setOffices} />
+        <ChooseDataLessons
+          setOffices={setOffices}
+          currentDefaultOffice={defaultOffices}
+        />
         <ButtonSelectPeriod type="button" onClick={handleChosePeriod}>
           {operetion === 'choseLesson' ? (
             <CirclesWithBar

@@ -192,6 +192,7 @@ const AddLesson = ({ lesson }) => {
               dateCurrentLesson={dateCurrentLesson}
               offices={offices}
               setOffices={setOffices}
+              defaultOffices={['Сенсорна']}
             />
             <TextAreaTitle>План заняття:</TextAreaTitle>
             <FieldTextarea name="plan" component="textarea" rows={6} />

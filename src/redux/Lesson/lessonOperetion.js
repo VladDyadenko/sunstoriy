@@ -62,6 +62,7 @@ export const choseLessonGraph = createAsyncThunk(
       const { data } = await axios.get('/lesson/office/office_date', {
         params: choesData,
       });
+      console.log('choesData', choesData);
       if (data) {
         Notify.success('Заняття вибраного періоду');
       }

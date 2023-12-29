@@ -9,6 +9,7 @@ import MainLayout from './layouts/MainLayout/MainLayout';
 import WelcomePage from 'page/WelcomePage/WelcomePage';
 import AuthPage from 'page/AuthPage/AuthPage';
 import RestrictedRoute from 'route/RestrictedRoute';
+import AllLessonsPage from 'page/AllLessonsPage/AllLessonsPage';
 
 const SensornayaPage = lazy(() => import('page/SensornayaPage/SensornayaPage'));
 const LogopedPage = lazy(() => import('page/LogopedPage/LogopedPage'));
@@ -66,6 +67,7 @@ function App() {
           />
           <Route path="/logoped" element={<LogopedPage />} />
           <Route path="/correction" element={<CorrectionPage />} />
+          <Route path="/allLessons" element={<AllLessonsPage />} />
           <Route path="/children" element={<ChildrenPage />} />
           <Route path="/child/:childId" element={<ChildPage />} />
           <Route path="/child" element={<ChildPage />} />

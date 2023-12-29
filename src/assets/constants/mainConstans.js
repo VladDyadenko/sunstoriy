@@ -10,6 +10,7 @@ export const daysOfWeekUkr = [
 
 export const navSitePage = [
   { page: 'Головна', path: '/main' },
+  { page: 'Графік', path: '/allLessons' },
   { page: 'Діти', path: '/children' },
   { page: 'Фахівці', path: '/teachers' },
   { page: 'Сенсорна кімната', path: '/sensornaya' },

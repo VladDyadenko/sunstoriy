@@ -12,6 +12,7 @@ import {
   sensornayaLessons,
 } from 'redux/offices/officesOperetion';
 import { getDates } from 'components/FilterLesson/SelectDate/GetDateFunction';
+import SelectDate from 'components/FilterLesson/SelectDate/SelectDate';
 
 function SensornayaPage() {
   const lessonsChosePeriod = useSelector(selectLessonsSensornaya);
@@ -62,18 +63,31 @@ function SensornayaPage() {
       setLessons(lessonsChosePeriod);
     }
   }, [lessonsChosePeriod, teacher]);
+  const [type, setType] = useState('Період');
+
+  const items = [
+    {
+      key: 1,
+      label: 'Параметри відбору',
+      children: (
+        <SelectDate
+          type={type}
+          setType={setType}
+          setLessonDates={setLessonDates}
+          dateCurrentLesson={dateCurrentLesson}
+          teachers={teachers}
+          teacher={teacher}
+          setTeacher={setTeacher}
+          onLessonsChange={lessons => dispatch(sensornayaLessons(lessons))}
+        />
+      ),
+    },
+  ];
 
   return (
     <>
       <Container>
-        <FilterLesson
-          teachers={teachers}
-          teacher={teacher}
-          setTeacher={setTeacher}
-          dateCurrentLesson={dateCurrentLesson}
-          setLessonDates={setLessonDates}
-          onLessonsChange={lessons => dispatch(sensornayaLessons(lessons))}
-        />
+        <FilterLesson currentItems={items} />
         <MainWrapper>
           {lessons?.length > 0 && (
             <MainTable
