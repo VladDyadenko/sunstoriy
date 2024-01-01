@@ -11,6 +11,7 @@ import Container from 'components/Container/Container';
 import FilterLesson from 'components/FilterLesson/FilterLesson';
 import { MainWrapper } from 'components/ContainerMain/ContainerMain.styled';
 import MainTable from 'ui/MainTable/MainTable';
+import SelectDate from 'components/FilterLesson/SelectDate/SelectDate';
 
 const PreschoolInclusionPage = () => {
   const lessonsChosePeriod = useSelector(selectLessonsPreschoolInclusion);
@@ -19,6 +20,7 @@ const PreschoolInclusionPage = () => {
   const [teacher, setTeacher] = useState([]);
   const [lessons, setLessons] = useState(null);
   const [dateCurrentLesson, setLessonDates] = useState(null);
+  const [type, setType] = useState('Період');
 
   const dispatch = useDispatch();
 
@@ -62,19 +64,31 @@ const PreschoolInclusionPage = () => {
     }
   }, [lessonsChosePeriod, teacher]);
 
-  return (
-    <>
-      <Container>
-        <FilterLesson
+  const items = [
+    {
+      key: 1,
+      label: 'Параметри відбору',
+      children: (
+        <SelectDate
+          type={type}
+          setType={setType}
+          setLessonDates={setLessonDates}
+          dateCurrentLesson={dateCurrentLesson}
           teachers={teachers}
           teacher={teacher}
           setTeacher={setTeacher}
-          dateCurrentLesson={dateCurrentLesson}
-          setLessonDates={setLessonDates}
           onLessonsChange={lessons =>
             dispatch(preschoolInclusionLessons(lessons))
           }
         />
+      ),
+    },
+  ];
+
+  return (
+    <>
+      <Container>
+        <FilterLesson currentItems={items} />
         <MainWrapper>
           {lessons?.length > 0 && (
             <MainTable

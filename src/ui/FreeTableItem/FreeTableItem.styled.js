@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
   font-family: 'RobotoSlab';
   font-weight: 400;
   cursor: pointer;
-  height: 80px;
+  height: 100%;
   width: 100%;
 
   display: flex;

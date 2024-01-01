@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
-  CardWrapper,
   DescrLessonWrapper,
-  DescrOneLesson,
+  LessonContainer,
+  LessonFreeContainer,
   OfficeContainer,
   OfficeName,
   TimeContainer,
@@ -10,19 +11,32 @@ import {
   TimeLessonWrapper,
   TimeOneLesson,
 } from './OfficeScheduleOnDay.styled';
-import ScheduleCard from '../ScheduleCard/ScheduleCard';
 import { formatTimeRange } from 'assets/constants/transformation';
+import LessonTableCard from 'ui/LessonTableCard/LessonTableCard';
+import FreeTableItem from 'ui/FreeTableItem/FreeTableItem';
+import { useDispatch } from 'react-redux';
+import { deleteLessonById } from 'redux/Lesson/lessonOperetion';
 
 const OfficeScheduleOnDay = ({ lessons, date }) => {
   const [uniquTime, setUniquTime] = useState([]);
   const [uniquOffice, setUniquOffice] = useState([]);
   const [lessonOneDay, setLessonOneDay] = useState([]);
 
+  const dispatch = useDispatch();
+
   const roundToSeconds = timeString => {
     const date = new Date(timeString);
     date.setMilliseconds(0);
     return date.toISOString();
   };
+
+  const filterLessonsByTimeAndOffice = (office, time) =>
+    lessonOneDay?.filter(
+      lesson =>
+        lesson.office === office &&
+        roundToSeconds(lesson.timeLesson[0]) === roundToSeconds(time[0]) &&
+        roundToSeconds(lesson.timeLesson[1]) === roundToSeconds(time[1])
+    );
 
   useEffect(() => {
     if (lessons) {
@@ -72,24 +86,43 @@ const OfficeScheduleOnDay = ({ lessons, date }) => {
         <OfficeContainer key={office}>
           <OfficeName>{office}</OfficeName>
           <DescrLessonWrapper>
-            {uniquTime.map(time => (
-              <DescrOneLesson key={time}>
-                {lessonOneDay
-                  ?.filter(
-                    lesson =>
-                      lesson.office === office &&
-                      roundToSeconds(lesson.timeLesson[0]) ===
-                        roundToSeconds(time[0]) &&
-                      roundToSeconds(lesson.timeLesson[1]) ===
-                        roundToSeconds(time[1])
-                  )
-                  .map(lesson => (
-                    <CardWrapper key={lesson._id}>
-                      <ScheduleCard lessonData={lesson} />
-                    </CardWrapper>
-                  ))}
-              </DescrOneLesson>
-            ))}
+            {uniquTime.map(time => {
+              const filteredLessons = filterLessonsByTimeAndOffice(
+                office,
+                time
+              );
+              console.log('filteredLessons', filteredLessons);
+
+              return (
+                <>
+                  {filteredLessons && filteredLessons.length > 0 ? (
+                    filteredLessons.map(lesson => (
+                      <LessonContainer
+                        aria-current={lesson ? lesson.teacherColor : ''}
+                        key={lesson.id}
+                      >
+                        <LessonTableCard
+                          lesson={lesson}
+                          onLessonsDelete={lesson => {
+                            return dispatch(deleteLessonById(lesson._id));
+                          }}
+                        />
+                      </LessonContainer>
+                    ))
+                  ) : (
+                    <LessonFreeContainer>
+                      <Link
+                        to={`/lesson?dateFreeLesson=${date}&officeFreeLesson=${office}&timeFreeLesson=${JSON.stringify(
+                          time
+                        )}`}
+                      >
+                        <FreeTableItem />
+                      </Link>
+                    </LessonFreeContainer>
+                  )}
+                </>
+              );
+            })}
           </DescrLessonWrapper>
         </OfficeContainer>
       ))}

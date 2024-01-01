@@ -11,6 +11,7 @@ import {
   logopedLessons,
 } from 'redux/offices/officesOperetion';
 import FilterLesson from 'components/FilterLesson/FilterLesson';
+import SelectDate from 'components/FilterLesson/SelectDate/SelectDate';
 
 const LogopedPage = () => {
   const lessonsChosePeriod = useSelector(selectLessonsLogoped);
@@ -19,6 +20,7 @@ const LogopedPage = () => {
   const [teacher, setTeacher] = useState([]);
   const [lessons, setLessons] = useState(null);
   const [dateCurrentLesson, setLessonDates] = useState(null);
+  const [type, setType] = useState('Період');
 
   const dispatch = useDispatch();
 
@@ -62,17 +64,29 @@ const LogopedPage = () => {
     }
   }, [lessonsChosePeriod, teacher]);
 
-  return (
-    <>
-      <Container>
-        <FilterLesson
+  const items = [
+    {
+      key: 1,
+      label: 'Параметри відбору',
+      children: (
+        <SelectDate
+          type={type}
+          setType={setType}
+          setLessonDates={setLessonDates}
+          dateCurrentLesson={dateCurrentLesson}
           teachers={teachers}
           teacher={teacher}
           setTeacher={setTeacher}
-          dateCurrentLesson={dateCurrentLesson}
-          setLessonDates={setLessonDates}
           onLessonsChange={lessons => dispatch(logopedLessons(lessons))}
         />
+      ),
+    },
+  ];
+
+  return (
+    <>
+      <Container>
+        <FilterLesson currentItems={items} />
         <MainWrapper>
           {lessons?.length > 0 && (
             <MainTable

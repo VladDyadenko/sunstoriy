@@ -11,6 +11,7 @@ import {
   correctionLessons,
   deleteСorrectionLessonById,
 } from 'redux/offices/officesOperetion';
+import SelectDate from 'components/FilterLesson/SelectDate/SelectDate';
 
 function CorrectionPage() {
   const lessonsChosePeriod = useSelector(selectLessonsСorrection);
@@ -19,6 +20,7 @@ function CorrectionPage() {
   const [teacher, setTeacher] = useState([]);
   const [lessons, setLessons] = useState(null);
   const [dateCurrentLesson, setLessonDates] = useState(null);
+  const [type, setType] = useState('Період');
 
   const dispatch = useDispatch();
 
@@ -62,17 +64,29 @@ function CorrectionPage() {
     }
   }, [lessonsChosePeriod, teacher]);
 
-  return (
-    <>
-      <Container>
-        <FilterLesson
+  const items = [
+    {
+      key: 1,
+      label: 'Параметри відбору',
+      children: (
+        <SelectDate
+          type={type}
+          setType={setType}
+          setLessonDates={setLessonDates}
+          dateCurrentLesson={dateCurrentLesson}
           teachers={teachers}
           teacher={teacher}
           setTeacher={setTeacher}
-          dateCurrentLesson={dateCurrentLesson}
-          setLessonDates={setLessonDates}
           onLessonsChange={lessons => dispatch(correctionLessons(lessons))}
         />
+      ),
+    },
+  ];
+
+  return (
+    <>
+      <Container>
+        <FilterLesson currentItems={items} />
         <MainWrapper>
           {lessons?.length > 0 && (
             <MainTable

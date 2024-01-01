@@ -1,22 +1,19 @@
 import { memo, useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import Container from 'components/Container/Container';
-import FilterLesson from 'components/FilterLesson/FilterLesson';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDates } from 'components/FilterLesson/SelectDate/GetDateFunction';
-import SelectDate from 'components/FilterLesson/SelectDate/SelectDate';
-import ChooseDataLessons from 'components/ChoseLessonData/ChooseDataLessons/ChooseDataLessons';
-import { ContainerDataOffices } from './AllLessonsPage.styled';
 import { choseLessonGraph } from 'redux/Lesson/lessonOperetion';
 import { selectChoseLessons } from 'redux/Lesson/lessonSelector';
+import AllPageFilter from 'components/AllPageFilter/AllPageFilter';
+import { Collapse } from 'antd';
+import OfficeScheduleOnDay from 'components/ChoseLessonData/OfficeScheduleOnDay/OfficeScheduleOnDay';
 
 const AllLessonsPage = () => {
-  //   const [teachers, setTeachers] = useState(null);
-  const [teacher, setTeacher] = useState([]);
-  const [teachers, setTeachers] = useState(null);
-  const [lessons, setLessons] = useState(null);
-  const [type, setType] = useState('Одне заняття');
   const [dateCurrentLesson, setLessonDates] = useState(null);
+  const [uniquDates, setUniquDates] = useState(null);
+  const [lessons, setLessons] = useState(null);
+
   const [offices, setOffices] = useState([
     'Сенсорна',
     'Логопед',
@@ -46,75 +43,36 @@ const AllLessonsPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  //   console.log('currentLesson', dateCurrentLesson);
-  //   console.log('offices', offices);
-  //   console.log('choseLessons', choseLessons);
-  //   console.log('teacher', teacher);
-  //   console.log('teachers', teachers);
-  console.log('lessons', lessons);
-
   useEffect(() => {
-    const uniqueTeachers = Array.from(
-      new Set(
-        choseLessons?.map(
-          lesson => `${lesson.teacherName} ${lesson.teacherSurname}`
-        )
-      )
-    );
-    setTeachers(uniqueTeachers);
-  }, [choseLessons]);
+    if (lessons?.length > 0) {
+      const uniqueDates = [
+        ...new Set(lessons.map(lesson => lesson.dateLesson)),
+      ];
 
-  useEffect(() => {
-    if (choseLessons && teacher && teacher.length > 0) {
-      const filteredLessons = choseLessons?.filter(lesson => {
-        const teacherFullName = `${lesson.teacherName} ${lesson.teacherSurname}`;
-        return teacher.includes(teacherFullName);
-      });
+      setUniquDates(uniqueDates);
+    } else setUniquDates(null);
+  }, [lessons]);
 
-      setLessons(filteredLessons);
-    } else {
-      setLessons(choseLessons);
-    }
-  }, [choseLessons, teacher]);
+  const items = uniquDates?.map(date => {
+    return {
+      key: date,
+      label: <span>{dayjs(date).format('DD-MM-YYYY')}</span>,
+      children: <OfficeScheduleOnDay lessons={lessons} date={date} />,
+    };
+  });
 
-  const items = [
-    {
-      key: 1,
-      label: 'Параметри відбору',
-      children: (
-        <>
-          <ContainerDataOffices>
-            <ChooseDataLessons
-              setOffices={setOffices}
-              currentDefaultOffice={[
-                'Сенсорна',
-                'Логопед',
-                'Корекційний',
-                'Preschool',
-                'Preschool-інклюзія',
-              ]}
-            />
-          </ContainerDataOffices>
-
-          <SelectDate
-            type={type}
-            setType={setType}
-            setLessonDates={setLessonDates}
-            dateCurrentLesson={dateCurrentLesson}
-            teachers={teachers}
-            teacher={teacher}
-            setTeacher={setTeacher}
-            onLessonsChange={dateCurrentLesson =>
-              dispatch(choseLessonGraph({ offices, dateCurrentLesson }))
-            }
-          />
-        </>
-      ),
-    },
-  ];
   return (
     <Container>
-      <FilterLesson currentItems={items} />
+      <AllPageFilter
+        offices={offices}
+        setOffices={setOffices}
+        setLessonDates={setLessonDates}
+        dateCurrentLesson={dateCurrentLesson}
+        choseLessons={choseLessons}
+        setLessons={setLessons}
+        lessons={lessons}
+      />
+      <Collapse style={{ overflow: 'auto' }} items={items} />
     </Container>
   );
 };
