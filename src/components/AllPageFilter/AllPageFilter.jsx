@@ -26,7 +26,7 @@ const AllPageFilter = ({
   //   console.log('choseLessons', choseLessons);
   //   console.log('teacher', teacher);
   //   console.log('teachers', teachers);
-  console.log('lessons', lessons);
+  // console.log('lessons', lessons);
 
   useEffect(() => {
     const uniqueTeachers = Array.from(
