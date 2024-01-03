@@ -38,11 +38,12 @@ const AddLesson = ({ lesson, pathname }) => {
   const [teacher, setTeacher] = useState('');
   const [teacherName, setTeacherName] = useState('');
   const [teacherSurname, setTeacherSurname] = useState('');
+  const [teacherColor, setTeacherColor] = useState('');
   const [price, setPrice] = useState(350);
-  const [dateLesson, setDateLesson] = useState(today);
+  const [dateLesson, setDateLesson] = useState(null);
   const [timeLesson, setTimeLesson] = useState('');
   const [buttonView, setButtonView] = useState(true);
-  const [dateCurrentLesson, setDateCurrentLesson] = useState(null);
+  const [dateCurrentLesson, setDateCurrentLesson] = useState(today);
 
   const [offices, setOffices] = useState(['Сенсорна']);
 
@@ -51,11 +52,15 @@ const AddLesson = ({ lesson, pathname }) => {
   const operetion = useSelector(selectLessonOperetion);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
+
   const source = searchParams.get('source');
   const dateFreeLesson = searchParams.get('dateFreeLesson');
   const timeFreeLessonString = searchParams.get('timeFreeLesson');
   const timeFreeLesson = JSON.parse(timeFreeLessonString);
   const officeFreeLesson = searchParams.get('officeFreeLesson');
+
+  const lessonCopyString = searchParams.get('lessonCopy');
+  const lessonCopy = JSON.parse(lessonCopyString);
 
   useEffect(() => {
     if (source === 'buttonViewing') {
@@ -72,6 +77,21 @@ const AddLesson = ({ lesson, pathname }) => {
     const today = dayjs().format('YYYY-MM-DD');
     const selectedDate = new Date(today);
     setDateCurrentLesson(selectedDate.valueOf());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (lessonCopy) {
+      setChildName(lessonCopy.childName);
+      setChildSurname(lessonCopy.childSurname);
+      setTypeLesson(lessonCopy.office);
+      setTeacherName(lessonCopy.teacherName);
+      setTeacherSurname(lessonCopy.teacherSurname);
+      setChild(lessonCopy.child);
+      setTeacher(lessonCopy.teacher);
+      setTeacherColor(lessonCopy.teacherColor);
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -100,6 +120,7 @@ const AddLesson = ({ lesson, pathname }) => {
       setTeacher(lessonData.teacher);
       setTeacherName(lessonData.teacherName);
       setTeacherSurname(lessonData.teacherSurname);
+      setTeacherColor(lessonData.teacherColor);
       setPrice(lessonData.price);
       setDateLesson(lessonData.dateLesson);
       setTimeLesson(lessonData.timeLesson);
@@ -171,6 +192,7 @@ const AddLesson = ({ lesson, pathname }) => {
                   teacher={teacher}
                   teacherName={teacherName}
                   teacherSurname={teacherSurname}
+                  teacherColor={teacherColor}
                   pathname={pathname}
                 />
                 {touched.teacher && errors.teacher && (

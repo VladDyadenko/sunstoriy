@@ -68,6 +68,9 @@ const AddChildLesson = ({
         _id: child,
       };
       setChoseChild(childForm);
+      setFieldValue('child', child);
+      setFieldValue('childName', childName);
+      setFieldValue('childSurname', childSurname);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [child]);

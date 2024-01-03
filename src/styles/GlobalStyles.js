@@ -175,6 +175,8 @@ body,
     --header-main-color:#f0f0f0;
     --bg-main-color:#68bf48;
     --main-text-black:#2a2a2a;
+    --lightSeaGreen:#20B2AA;
+    --teal:#008080;
 
     --teacher-color-1:#006400;
     --teacher-color-2:#4B0082;

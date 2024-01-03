@@ -26,6 +26,7 @@ const AddTeacherToLesson = ({
   teacher,
   teacherName,
   teacherSurname,
+  teacherColor,
   pathname,
 }) => {
   const [userSearch, setUserSearch] = useState('');
@@ -55,6 +56,10 @@ const AddTeacherToLesson = ({
         surname: teacherSurname,
       };
       setChoseTeacher(teacherForm);
+      setFieldValue('teacher', teacher);
+      setFieldValue('teacherName', teacherName);
+      setFieldValue('teacherSurname', teacherSurname);
+      setFieldValue('teacherColor', teacherColor);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [teacher]);

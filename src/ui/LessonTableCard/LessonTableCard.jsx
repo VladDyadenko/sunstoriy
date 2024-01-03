@@ -10,9 +10,11 @@ import {
 } from 'components/ChoseLessonData/ScheduleCard/ScheduleCard.styled';
 import {
   ButtonContainer,
+  CardLessonCopy,
   CardLessonLink,
   DescrDeleteBtn,
   IconButtonChose,
+  IconButtonCopy,
   InfoChild,
   InfoColor,
   InfoContainer,
@@ -27,12 +29,31 @@ import { selectOfficesOperetion } from 'redux/offices/officesSelector';
 function LessonTableCard({ lesson, onLessonsDelete }) {
   const operetion = useSelector(selectOfficesOperetion);
 
+  const lessonCopy = {
+    childName: lesson.childName,
+    childSurname: lesson.childSurname,
+    child: lesson.child,
+    teacherColor: lesson.teacherColor,
+    teacher: lesson.teacher,
+    teacherName: lesson.teacherName,
+    teacherSurname: lesson.teacherSurname,
+    office: lesson.office,
+  };
+
   const content = (
     <ButtonContainer>
       <CardLessonLink to={`/lesson/${lesson._id}?source=buttonViewing`}>
         Переглянути
         <IconLessonSee />
       </CardLessonLink>
+      <CardLessonCopy
+        to={`/lesson?lessonCopy=${encodeURIComponent(
+          JSON.stringify(lessonCopy)
+        )}`}
+      >
+        Копіювати
+        <IconButtonCopy />
+      </CardLessonCopy>
       <LessonEdit to={`/lesson/${lesson._id}`}>
         Редагувати
         <IconLessonEdit />
