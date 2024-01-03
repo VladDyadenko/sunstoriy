@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 export const WrapperTeacherLesson = styled.div`
   position: relative;
   display: flex;
-  align-items: start;
+  align-items: center;
   justify-content: start;
   flex-direction: column;
   gap: 8px;

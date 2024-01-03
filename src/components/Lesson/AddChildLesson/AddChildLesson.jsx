@@ -16,6 +16,10 @@ import {
 import { useEffect, useState } from 'react';
 import SearchModule from 'ui/SearchModule/SearchModule';
 import { fetchChildrenByName } from 'redux/child/childOperetion';
+import {
+  BtnAddChild,
+  BtnAddIcon,
+} from 'components/Children/ChildrenSearch/ChildrenSearch.styled';
 // const { Option } = Select;
 
 const AddChildLesson = ({
@@ -24,6 +28,7 @@ const AddChildLesson = ({
   child,
   childName,
   childSurname,
+  pathname,
 }) => {
   const [userSearch, setUserSearch] = useState('');
   const [choseChildren, setChoseChildren] = useState('');
@@ -122,6 +127,9 @@ const AddChildLesson = ({
           ) : null}
         </div>
       </WrapperChildLesson>
+      <BtnAddChild to={`/child?source=${pathname}`}>
+        Додати <BtnAddIcon />
+      </BtnAddChild>
     </>
   );
 };

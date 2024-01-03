@@ -15,6 +15,10 @@ import {
 } from 'redux/teacher/teacherSelector';
 import { useEffect, useState } from 'react';
 import { fetchTeacherByName } from 'redux/teacher/teacherOperetion';
+import {
+  BtnAddChild,
+  BtnAddIcon,
+} from 'components/Children/ChildrenSearch/ChildrenSearch.styled';
 
 const AddTeacherToLesson = ({
   setFieldValue,
@@ -22,6 +26,7 @@ const AddTeacherToLesson = ({
   teacher,
   teacherName,
   teacherSurname,
+  pathname,
 }) => {
   const [userSearch, setUserSearch] = useState('');
   const [choseTeachers, setChoseTeachers] = useState('');
@@ -124,6 +129,9 @@ const AddTeacherToLesson = ({
           ) : null}
         </div>
       </WrapperTeacherLesson>
+      <BtnAddChild to={`/teacher?source=${pathname}`}>
+        Додати <BtnAddIcon />
+      </BtnAddChild>
     </>
   );
 };

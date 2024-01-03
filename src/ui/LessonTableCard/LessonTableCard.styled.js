@@ -47,11 +47,13 @@ export const InfoTeacher = styled.p`
   font-family: 'RobotoSlab';
   font-weight: 500;
   font-size: 12px;
+  line-height: 1.2;
   color: var(--main-dark-blue);
 `;
 export const InfoChild = styled.p`
   font-family: 'RobotoSlab';
   font-weight: 500;
+  line-height: 1.2;
   font-size: 12px;
   color: var(--main-green);
 `;

@@ -41,7 +41,7 @@ const TeacherForm = ({ teacher }) => {
   const [buttonView, setButtonView] = useState(true);
 
   const operetion = useSelector(selectTeacherOperetion);
-  console.log(operetion);
+
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const source = searchParams.get('source');
@@ -94,7 +94,9 @@ const TeacherForm = ({ teacher }) => {
               });
             } else {
               dispatch(addTeacher(values)).then(() => {
-                navigate('/teachers');
+                if (source === '/lesson') {
+                  navigate(-1);
+                } else navigate('/teachers');
               });
             }
           } else {

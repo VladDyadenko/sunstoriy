@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Watermark } from 'antd';
 import { Notify } from 'notiflix';
@@ -9,6 +9,7 @@ import { getLessonById } from 'redux/Lesson/api';
 function LessonPage() {
   const [lesson, setLesson] = useState('');
   const { lessonId } = useParams();
+  const { pathname } = useLocation();
 
   useEffect(() => {
     if (!lessonId) {
@@ -31,7 +32,7 @@ function LessonPage() {
   return (
     <Container>
       <Watermark style={{ height: '100vh' }} content="Sunstoriy">
-        <AddLesson lesson={lesson} />
+        <AddLesson lesson={lesson} pathname={pathname} />
       </Watermark>
     </Container>
   );

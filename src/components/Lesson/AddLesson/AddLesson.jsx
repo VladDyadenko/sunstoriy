@@ -26,8 +26,9 @@ import {
 import { addLesson, updateLesson } from 'redux/Lesson/lessonOperetion';
 import ChoseLessonContainer from 'components/ChoseLessonData/ChoseLessonContainer/ChoseLessonContainer';
 import { selectLessonOperetion } from 'redux/Lesson/lessonSelector';
+const today = new Date(dayjs().format('YYYY-MM-DD')).valueOf();
 
-const AddLesson = ({ lesson }) => {
+const AddLesson = ({ lesson, pathname }) => {
   const [valuesLesson, setValuesLesson] = useState(initialValuesLessonForm);
   const [typeLesson, setTypeLesson] = useState('Сенсорна');
   const [addSuccessLesson, setAddSuccessLesson] = useState(false);
@@ -38,7 +39,7 @@ const AddLesson = ({ lesson }) => {
   const [teacherName, setTeacherName] = useState('');
   const [teacherSurname, setTeacherSurname] = useState('');
   const [price, setPrice] = useState(350);
-  const [dateLesson, setDateLesson] = useState(null);
+  const [dateLesson, setDateLesson] = useState(today);
   const [timeLesson, setTimeLesson] = useState('');
   const [buttonView, setButtonView] = useState(true);
   const [dateCurrentLesson, setDateCurrentLesson] = useState(null);
@@ -159,6 +160,7 @@ const AddLesson = ({ lesson }) => {
                   child={child}
                   childName={childName}
                   childSurname={childSurname}
+                  pathname={pathname}
                 />
                 {touched.child && errors.child && (
                   <ErrorInfo>{errors.child}</ErrorInfo>
@@ -169,6 +171,7 @@ const AddLesson = ({ lesson }) => {
                   teacher={teacher}
                   teacherName={teacherName}
                   teacherSurname={teacherSurname}
+                  pathname={pathname}
                 />
                 {touched.teacher && errors.teacher && (
                   <ErrorInfo>{errors.teacher}</ErrorInfo>

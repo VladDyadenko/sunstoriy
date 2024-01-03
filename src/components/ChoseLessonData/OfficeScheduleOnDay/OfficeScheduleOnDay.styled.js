@@ -10,17 +10,17 @@ export const CardWrapper = styled.div`
   width: 100%;
   height: 100%;
 `;
-export const OfficeContainer = styled.div`
+export const OfficeContainer = styled.ul`
   display: flex;
   justify-content: start;
-  gap: 8px;
+  gap: 10px;
   margin-top: 2px;
   padding: 5px;
 `;
 export const TimeLessonWrapper = styled.ul`
   display: flex;
   justify-content: start;
-  gap: 8px;
+  gap: 10px;
 `;
 export const TimeEmpty = styled.li`
   min-width: 110px;
@@ -41,7 +41,7 @@ export const TimeOneLesson = styled.li`
   border-radius: 8px;
   border: 1px solid var(--main-dark-blue);
 `;
-export const OfficeName = styled.div`
+export const OfficeName = styled.li`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -73,8 +73,8 @@ export const DescrOneLesson = styled.li`
 export const LessonContainer = styled.li`
   font-family: 'RobotoSlab';
   font-weight: 400;
-  cursor: pointer;
   width: 100%;
+  height: 100%;
   min-width: 200px;
   max-width: 250px;
   flex-direction: column;

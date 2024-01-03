@@ -21,8 +21,9 @@ export const BtnAddIcon = styled(BsFillPersonPlusFill)`
   margin-left: 10px;
 `;
 export const BtnAddChild = styled(NavLink)`
-  /* min-width: 120px; */
-  padding: 8px 25px;
+  width: 200px;
+  margin: 0 auto;
+  padding: 8px 10px;
   display: flex;
   align-items: center;
   justify-content: center;

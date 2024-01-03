@@ -42,7 +42,8 @@ function ChildForm({ child }) {
     }
   }, [source]);
 
-  // const [childFiles, setChildFiles] = useState([]);
+  console.log('source', source);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -87,7 +88,9 @@ function ChildForm({ child }) {
             });
           } else {
             dispatch(addChild(values)).then(() => {
-              navigate('/children');
+              if (source === '/lesson') {
+                navigate(-1);
+              } else navigate('/children');
             });
           }
         } else {

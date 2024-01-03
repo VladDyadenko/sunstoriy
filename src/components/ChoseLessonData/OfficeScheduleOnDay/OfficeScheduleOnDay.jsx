@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   DescrLessonWrapper,
@@ -72,7 +72,7 @@ const OfficeScheduleOnDay = ({ lessons, date }) => {
   }, [date, lessons]);
 
   return (
-    <div>
+    <>
       <TimeContainer>
         <TimeLessonWrapper>
           <TimeEmpty></TimeEmpty>
@@ -82,35 +82,38 @@ const OfficeScheduleOnDay = ({ lessons, date }) => {
         </TimeLessonWrapper>
       </TimeContainer>
 
-      {uniquOffice.map(office => (
-        <OfficeContainer key={office}>
-          <OfficeName>{office}</OfficeName>
+      {uniquOffice.map((office, index) => (
+        <OfficeContainer key={index}>
+          <OfficeName key={office}>{office}</OfficeName>
           <DescrLessonWrapper>
-            {uniquTime.map(time => {
+            {uniquTime.map((time, index) => {
               const filteredLessons = filterLessonsByTimeAndOffice(
                 office,
                 time
               );
-              console.log('filteredLessons', filteredLessons);
 
               return (
-                <>
+                <div key={index}>
                   {filteredLessons && filteredLessons.length > 0 ? (
-                    filteredLessons.map(lesson => (
-                      <LessonContainer
-                        aria-current={lesson ? lesson.teacherColor : ''}
-                        key={lesson.id}
-                      >
-                        <LessonTableCard
-                          lesson={lesson}
-                          onLessonsDelete={lesson => {
-                            return dispatch(deleteLessonById(lesson._id));
-                          }}
-                        />
-                      </LessonContainer>
-                    ))
+                    filteredLessons.map(lesson => {
+                      return (
+                        <LessonContainer
+                          aria-current={lesson ? lesson.teacherColor : ''}
+                          key={lesson._id}
+                        >
+                          <LessonTableCard
+                            lesson={lesson}
+                            onLessonsDelete={lesson => {
+                              return dispatch(deleteLessonById(lesson._id));
+                            }}
+                          />
+                        </LessonContainer>
+                      );
+                    })
                   ) : (
-                    <LessonFreeContainer>
+                    <LessonFreeContainer
+                      key={`free_${office}_${JSON.stringify(time)}`}
+                    >
                       <Link
                         to={`/lesson?dateFreeLesson=${date}&officeFreeLesson=${office}&timeFreeLesson=${JSON.stringify(
                           time
@@ -120,13 +123,13 @@ const OfficeScheduleOnDay = ({ lessons, date }) => {
                       </Link>
                     </LessonFreeContainer>
                   )}
-                </>
+                </div>
               );
             })}
           </DescrLessonWrapper>
         </OfficeContainer>
       ))}
-    </div>
+    </>
   );
 };
 

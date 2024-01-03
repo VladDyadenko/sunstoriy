@@ -10,6 +10,8 @@ import { Collapse } from 'antd';
 import OfficeScheduleOnDay from 'components/ChoseLessonData/OfficeScheduleOnDay/OfficeScheduleOnDay';
 
 const AllLessonsPage = () => {
+  const choseLessons = useSelector(selectChoseLessons);
+
   const [dateCurrentLesson, setLessonDates] = useState(null);
   const [uniquDates, setUniquDates] = useState(null);
   const [lessons, setLessons] = useState(null);
@@ -24,8 +26,6 @@ const AllLessonsPage = () => {
 
   const dispatch = useDispatch();
 
-  const choseLessons = useSelector(selectChoseLessons);
-
   useEffect(() => {
     const startDateFormat = dayjs().startOf('week').format('YYYY-MM-DD');
     const endDateFormat = dayjs().endOf('week').format('YYYY-MM-DD');
@@ -37,11 +37,13 @@ const AllLessonsPage = () => {
     const initialDates = dates?.map(date => date.valueOf());
     const initialDateValues = initialDates?.map(date => date.valueOf());
     setLessonDates(initialDateValues);
+  }, []);
+
+  useEffect(() => {
     if (dateCurrentLesson?.length > 0) {
       dispatch(choseLessonGraph({ offices, dateCurrentLesson }));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dateCurrentLesson, dispatch, offices]);
 
   useEffect(() => {
     if (lessons?.length > 0) {
