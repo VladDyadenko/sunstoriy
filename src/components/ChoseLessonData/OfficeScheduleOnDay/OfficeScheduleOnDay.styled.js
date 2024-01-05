@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { BsPlusCircleDotted } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 
 export const ScheduleWrapper = styled.div``;
 export const MainWrapper = styled.div`
@@ -38,10 +40,28 @@ export const TimeLessonWrapper = styled.ul`
   gap: 10px;
 `;
 export const TimeEmpty = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   min-width: 110px;
   height: 34px;
   border-radius: 8px;
   border: 2px solid var(--main-dark-blue);
+`;
+export const AddLessonLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+export const IconAddLesson = styled(BsPlusCircleDotted)`
+  width: 25px;
+  height: 25px;
+  fill: #a9a9a9;
+  transition: cubic-bezier(0.4, 0, 0.2, 1) 100ms;
+
+  &:hover {
+    fill: var(--main-dark-blue);
+  }
 `;
 export const TimeOneLesson = styled.li`
   display: flex;

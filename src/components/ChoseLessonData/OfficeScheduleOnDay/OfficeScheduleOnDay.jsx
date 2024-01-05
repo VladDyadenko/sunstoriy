@@ -1,7 +1,10 @@
 import { React, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
+  AddLessonLink,
   DescrLessonWrapper,
+  IconAddLesson,
   LessonContainer,
   LessonFreeContainer,
   LessonMainWrapper,
@@ -17,7 +20,6 @@ import {
 import { formatTimeRange } from 'assets/constants/transformation';
 import LessonTableCard from 'ui/LessonTableCard/LessonTableCard';
 import FreeTableItem from 'ui/FreeTableItem/FreeTableItem';
-import { useDispatch } from 'react-redux';
 import { deleteLessonById } from 'redux/Lesson/lessonOperetion';
 
 const extractTimeFromISOString = dateTimeString => {
@@ -93,7 +95,11 @@ const OfficeScheduleOnDay = ({ lessons, date }) => {
   return (
     <MainWrapper>
       <OfficeWrapper>
-        <TimeEmpty></TimeEmpty>
+        <TimeEmpty>
+          <AddLessonLink to={`/lesson`}>
+            <IconAddLesson />
+          </AddLessonLink>
+        </TimeEmpty>
         {uniquOffice.map((office, index) => (
           <OfficeName key={office}>{office}</OfficeName>
         ))}
