@@ -4,8 +4,11 @@ import {
   DescrLessonWrapper,
   LessonContainer,
   LessonFreeContainer,
+  LessonMainWrapper,
+  MainWrapper,
   OfficeContainer,
   OfficeName,
+  OfficeWrapper,
   TimeContainer,
   TimeEmpty,
   TimeLessonWrapper,
@@ -88,63 +91,68 @@ const OfficeScheduleOnDay = ({ lessons, date }) => {
   }, [date, lessons]);
 
   return (
-    <>
-      <TimeContainer>
-        <TimeLessonWrapper>
-          <TimeEmpty></TimeEmpty>
-          {uniquTime.map(time => (
-            <TimeOneLesson key={time}>{formatTimeRange(time)}</TimeOneLesson>
-          ))}
-        </TimeLessonWrapper>
-      </TimeContainer>
-
-      {uniquOffice.map((office, index) => (
-        <OfficeContainer key={index}>
+    <MainWrapper>
+      <OfficeWrapper>
+        <TimeEmpty></TimeEmpty>
+        {uniquOffice.map((office, index) => (
           <OfficeName key={office}>{office}</OfficeName>
-          <DescrLessonWrapper>
-            {uniquTime.map((time, index) => {
-              const filteredLessons = filterLessonsByTimeAndOffice(
-                office,
-                time
-              );
-              return (
-                <div key={index}>
-                  {filteredLessons && filteredLessons.length > 0 ? (
-                    filteredLessons.map(lesson => {
-                      return (
-                        <LessonContainer
-                          aria-current={lesson ? lesson.teacherColor : ''}
-                          key={lesson._id}
-                        >
-                          <LessonTableCard
-                            lesson={lesson}
-                            onLessonsDelete={lesson => {
-                              return dispatch(deleteLessonById(lesson._id));
-                            }}
-                          />
-                        </LessonContainer>
-                      );
-                    })
-                  ) : (
-                    <LessonFreeContainer
-                      key={`free_${office}_${JSON.stringify(time)}`}
-                    >
-                      <Link
-                        to={`/lesson?dateFreeLesson=${date}&officeFreeLesson=${office}&timeFreeLesson=${JSON.stringify(
-                          time
-                        )}`}
+        ))}
+      </OfficeWrapper>
+      <LessonMainWrapper>
+        <TimeContainer>
+          <TimeLessonWrapper>
+            {uniquTime.map(time => (
+              <TimeOneLesson key={time}>{formatTimeRange(time)}</TimeOneLesson>
+            ))}
+          </TimeLessonWrapper>
+        </TimeContainer>
+        {uniquOffice.map((office, index) => (
+          <OfficeContainer key={index}>
+            <DescrLessonWrapper>
+              {uniquTime.map((time, index) => {
+                const filteredLessons = filterLessonsByTimeAndOffice(
+                  office,
+                  time
+                );
+                return (
+                  <div key={index}>
+                    {filteredLessons && filteredLessons.length > 0 ? (
+                      filteredLessons.map(lesson => {
+                        return (
+                          <LessonContainer
+                            aria-current={lesson ? lesson.teacherColor : ''}
+                            key={lesson._id}
+                          >
+                            <LessonTableCard
+                              lesson={lesson}
+                              onLessonsDelete={lesson => {
+                                return dispatch(deleteLessonById(lesson._id));
+                              }}
+                            />
+                          </LessonContainer>
+                        );
+                      })
+                    ) : (
+                      <LessonFreeContainer
+                        key={`free_${office}_${JSON.stringify(time)}`}
                       >
-                        <FreeTableItem />
-                      </Link>
-                    </LessonFreeContainer>
-                  )}
-                </div>
-              );
-            })}
-          </DescrLessonWrapper>
-        </OfficeContainer>
-      ))}
-    </>
+                        <Link
+                          to={`/lesson?dateFreeLesson=${date}&officeFreeLesson=${office}&timeFreeLesson=${JSON.stringify(
+                            time
+                          )}`}
+                        >
+                          <FreeTableItem />
+                        </Link>
+                      </LessonFreeContainer>
+                    )}
+                  </div>
+                );
+              })}
+            </DescrLessonWrapper>
+          </OfficeContainer>
+        ))}
+      </LessonMainWrapper>
+    </MainWrapper>
   );
 };
 

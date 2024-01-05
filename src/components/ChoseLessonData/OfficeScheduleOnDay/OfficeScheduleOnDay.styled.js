@@ -1,6 +1,21 @@
 import styled from 'styled-components';
 
 export const ScheduleWrapper = styled.div``;
+export const MainWrapper = styled.div`
+  display: flex;
+  align-items: start;
+`;
+export const OfficeWrapper = styled.ul`
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  padding: 5px;
+  margin-right: 8px;
+  gap: 10px;
+`;
+export const LessonMainWrapper = styled.div`
+  overflow: auto;
+`;
 
 export const TimeContainer = styled.div`
   width: 100%;
@@ -10,7 +25,7 @@ export const CardWrapper = styled.div`
   width: 100%;
   height: 100%;
 `;
-export const OfficeContainer = styled.ul`
+export const OfficeContainer = styled.div`
   display: flex;
   justify-content: start;
   gap: 10px;
@@ -22,8 +37,9 @@ export const TimeLessonWrapper = styled.ul`
   justify-content: start;
   gap: 10px;
 `;
-export const TimeEmpty = styled.li`
+export const TimeEmpty = styled.div`
   min-width: 110px;
+  height: 34px;
   border-radius: 8px;
   border: 2px solid var(--main-dark-blue);
 `;
@@ -39,22 +55,23 @@ export const TimeOneLesson = styled.li`
   background-color: var(--main-blue);
   color: #191970;
   border-radius: 8px;
-  border: 1px solid var(--main-dark-blue);
+  border: 2px solid var(--main-dark-blue);
 `;
 export const OfficeName = styled.li`
   display: flex;
   align-items: center;
   justify-content: center;
   min-width: 110px;
-  min-height: 100%;
+  height: 84px;
   padding: 5px;
+  margin-top: 2px;
   font-family: 'RobotoSlab';
   font-weight: 400;
   font-size: 14px;
   background-color: var(--main-blue);
   color: #191970;
   border-radius: 8px;
-  border: 1px solid var(--main-dark-blue);
+  border: 2px solid var(--main-dark-blue);
 `;
 export const DescrLessonWrapper = styled.ul`
   display: flex;
@@ -83,7 +100,7 @@ export const LessonContainer = styled.li`
   border: 2px solid ${props => props['aria-current'] || '#fff'};
   color: ${props => props['aria-current'] || '#fff'};
 `;
-export const LessonFreeContainer = styled.div`
+export const LessonFreeContainer = styled.li`
   cursor: pointer;
   width: 250px;
   height: 100%;
