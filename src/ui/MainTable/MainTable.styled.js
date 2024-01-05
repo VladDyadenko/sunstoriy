@@ -48,14 +48,12 @@ export const DayDeafultInfo = styled.p`
   margin-bottom: 10px;
 `;
 export const DayContainer = styled.div`
-  width: 100%;
-  max-width: 250px;
+  width: 250px;
   text-align: center;
   border-radius: 8px;
   margin-bottom: 10px;
 
   @media screen and (min-width: 376px) {
-    min-width: 200px;
     margin-right: 10px;
   }
 `;
@@ -66,8 +64,7 @@ export const LessonsItem = styled.li`
   font-weight: 400;
   cursor: pointer;
   height: 80px;
-  width: 100%;
-  max-width: 250px;
+  width: 250px;
   flex-direction: column;
   border-radius: 8px;
   /* border: 2px solid transparent; */

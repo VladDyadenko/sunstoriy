@@ -50,9 +50,12 @@ const AllLessonsPage = () => {
       const uniqueDates = [
         ...new Set(lessons.map(lesson => lesson.dateLesson)),
       ];
+      uniqueDates.sort((a, b) => new Date(a) - new Date(b));
 
       setUniquDates(uniqueDates);
-    } else setUniquDates(null);
+    } else {
+      setUniquDates(null);
+    }
   }, [lessons]);
 
   const items = uniquDates?.map(date => {

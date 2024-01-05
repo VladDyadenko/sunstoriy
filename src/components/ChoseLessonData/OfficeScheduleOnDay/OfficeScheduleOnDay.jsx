@@ -17,6 +17,13 @@ import FreeTableItem from 'ui/FreeTableItem/FreeTableItem';
 import { useDispatch } from 'react-redux';
 import { deleteLessonById } from 'redux/Lesson/lessonOperetion';
 
+const extractTimeFromISOString = dateTimeString => {
+  const timeString = new Date(dateTimeString).toLocaleTimeString('en-US', {
+    timeZone: 'UTC',
+  });
+  return timeString;
+};
+
 const OfficeScheduleOnDay = ({ lessons, date }) => {
   const [uniquTime, setUniquTime] = useState([]);
   const [uniquOffice, setUniquOffice] = useState([]);
@@ -24,18 +31,22 @@ const OfficeScheduleOnDay = ({ lessons, date }) => {
 
   const dispatch = useDispatch();
 
-  const roundToSeconds = timeString => {
+  const roundToTime = timeString => {
     const date = new Date(timeString);
-    date.setMilliseconds(0);
-    return date.toISOString();
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+
+    return `${hours.toString().padStart(2, '0')}:${minutes
+      .toString()
+      .padStart(2, '0')}`;
   };
 
   const filterLessonsByTimeAndOffice = (office, time) =>
     lessonOneDay?.filter(
       lesson =>
         lesson.office === office &&
-        roundToSeconds(lesson.timeLesson[0]) === roundToSeconds(time[0]) &&
-        roundToSeconds(lesson.timeLesson[1]) === roundToSeconds(time[1])
+        roundToTime(lesson.timeLesson[0]) === roundToTime(time[0]) &&
+        roundToTime(lesson.timeLesson[1]) === roundToTime(time[1])
     );
 
   useEffect(() => {
@@ -47,8 +58,8 @@ const OfficeScheduleOnDay = ({ lessons, date }) => {
 
       if (lessonThisDate.length > 0) {
         const areTimeIntervalsEqual = (intervalA, intervalB) => {
-          const roundedIntervalA = intervalA.map(roundToSeconds);
-          const roundedIntervalB = intervalB.map(roundToSeconds);
+          const roundedIntervalA = intervalA.map(extractTimeFromISOString);
+          const roundedIntervalB = intervalB.map(extractTimeFromISOString);
           return (
             roundedIntervalA[0] === roundedIntervalB[0] &&
             roundedIntervalA[1] === roundedIntervalB[1]
@@ -60,7 +71,12 @@ const OfficeScheduleOnDay = ({ lessons, date }) => {
           .filter(
             (time, index, self) =>
               self.findIndex(t => areTimeIntervalsEqual(t, time)) === index
-          );
+          )
+          .sort((timeA, timeB) => {
+            const timePartA = timeA[0].split('T')[1];
+            const timePartB = timeB[0].split('T')[1];
+            return timePartA.localeCompare(timePartB);
+          });
 
         const uniquOffice = [
           ...new Set(lessonThisDate.map(lesson => lesson.office)),
@@ -91,7 +107,6 @@ const OfficeScheduleOnDay = ({ lessons, date }) => {
                 office,
                 time
               );
-
               return (
                 <div key={index}>
                   {filteredLessons && filteredLessons.length > 0 ? (

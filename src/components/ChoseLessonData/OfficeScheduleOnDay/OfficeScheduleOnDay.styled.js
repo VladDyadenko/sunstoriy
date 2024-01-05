@@ -34,7 +34,7 @@ export const TimeOneLesson = styled.li`
   font-family: 'RobotoSlab';
   font-weight: 400;
   font-size: 14px;
-  min-width: 200px;
+  min-width: 250px;
   padding: 5px;
   background-color: var(--main-blue);
   color: #191970;
@@ -66,17 +66,15 @@ export const DescrOneLesson = styled.li`
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 200px;
+  min-width: 250px;
   min-height: 110px;
   padding: 5px;
 `;
 export const LessonContainer = styled.li`
   font-family: 'RobotoSlab';
   font-weight: 400;
-  width: 100%;
+  width: 250px;
   height: 100%;
-  min-width: 200px;
-  max-width: 250px;
   flex-direction: column;
   border-radius: 8px;
   /* border: 2px solid transparent; */
@@ -87,10 +85,8 @@ export const LessonContainer = styled.li`
 `;
 export const LessonFreeContainer = styled.div`
   cursor: pointer;
-  width: 100%;
+  width: 250px;
   height: 100%;
-  min-width: 200px;
-  max-width: 250px;
   flex-direction: column;
   border-radius: 8px;
 `;
