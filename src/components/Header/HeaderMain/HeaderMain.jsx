@@ -18,7 +18,10 @@ import { selectAuthUser } from 'redux/auth/authSelector';
 function HeaderMain() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
-  const { name, avatarUrl } = useSelector(selectAuthUser);
+  const user = useSelector(selectAuthUser);
+
+  const { name, avatarUrl } = user;
+  const isAdmin = user && user.role === 'admin';
 
   const location = useLocation();
   const currentPath = location.pathname;
@@ -83,16 +86,19 @@ function HeaderMain() {
             open={Boolean(anchorElNav)}
             onClose={handleCloseNavMenu}
           >
-            {navSitePage.map(({ page, path }) => (
-              <MenuItem key={page} onClick={handleCloseNavMenu}>
-                <HeaderLink
-                  active={currentPath === path ? 'active' : ''}
-                  to={path}
-                >
-                  {page}
-                </HeaderLink>
-              </MenuItem>
-            ))}
+            {navSitePage.map(
+              ({ page, path }) =>
+                (page !== 'Кабінет' || isAdmin) && (
+                  <MenuItem key={page} onClick={handleCloseNavMenu}>
+                    <HeaderLink
+                      active={currentPath === path ? 'active' : ''}
+                      to={path}
+                    >
+                      {page}
+                    </HeaderLink>
+                  </MenuItem>
+                )
+            )}
           </Menu>
 
           <UserContainer>

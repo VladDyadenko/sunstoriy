@@ -18,4 +18,5 @@ export const navSitePage = [
   { page: 'Корекційний педагог', path: '/correction' },
   { page: 'Preschool-інклюзія', path: '/preschoolInclusion' },
   { page: 'Preschool', path: '/preschool' },
+  { page: 'Кабінет', path: '/adminpage' },
 ];

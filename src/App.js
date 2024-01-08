@@ -1,14 +1,14 @@
-import { Route, Routes } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 import { useEffect, lazy } from 'react';
-import { PrivateRoute } from 'route/PrivateRoute';
 import { useDispatch } from 'react-redux';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import { PrivateRoute } from 'route/PrivateRoute';
+import { AdminRoute } from 'route/AdminRoute';
+import RestrictedRoute from 'route/RestrictedRoute';
 import { currentThunk } from 'redux/auth/authOperetion';
 
 import MainLayout from './layouts/MainLayout/MainLayout';
 import WelcomePage from 'page/WelcomePage/WelcomePage';
 import AuthPage from 'page/AuthPage/AuthPage';
-import RestrictedRoute from 'route/RestrictedRoute';
 import AllLessonsPage from 'page/AllLessonsPage/AllLessonsPage';
 
 const SensornayaPage = lazy(() => import('page/SensornayaPage/SensornayaPage'));
@@ -23,6 +23,7 @@ const NotFoundPage = lazy(() => import('page/NotFoundPage/NotFoundPage'));
 const TeacherPage = lazy(() => import('page/TeacherPage/TeacherPage'));
 const TeachersPage = lazy(() => import('page/TeachersPage/TeachersPage'));
 const PreschoolPage = lazy(() => import('page/PreschoolPage/PreschoolPage'));
+const AdminPage = lazy(() => import('page/AdminPage/AdminPage'));
 const PreschoolInclusionPage = lazy(() =>
   import('page/PreschoolInclusionPage/PreschoolInclusionPage')
 );
@@ -76,6 +77,9 @@ function App() {
           <Route path="/teachers" element={<TeachersPage />} />
           <Route path="/financial" element={<FinancialPage />} />
           <Route path="*" element={<NotFoundPage />} />
+        </Route>
+        <Route path="/" element={<AdminRoute component={<MainLayout />} />}>
+          <Route path="/adminpage" element={<AdminPage />} />
         </Route>
       </Routes>
     </>

@@ -25,7 +25,7 @@ const MainSection = styled.section`
   display: flex;
   margin: 0 auto;
   gap: 10px;
-  padding-top: 10px;
+  padding: 10px 0 100px 0;
   background-color: transparent;
 
   max-width: var(--small-screen);

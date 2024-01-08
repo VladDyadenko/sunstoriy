@@ -79,7 +79,7 @@ export const TimeOneLesson = styled.li`
   font-family: 'RobotoSlab';
   font-weight: 400;
   font-size: 10px;
-  min-width: 220px;
+  min-width: 230px;
   height: 34px;
   padding: 5px;
   background-color: var(--main-blue);
@@ -131,7 +131,7 @@ export const LessonContainer = styled.li`
   font-size: 10px;
   font-family: 'RobotoSlab';
   font-weight: 400;
-  width: 220px;
+  width: 230px;
   height: 100%;
   flex-direction: column;
   border-radius: 8px;
@@ -148,7 +148,7 @@ export const LessonContainer = styled.li`
 `;
 export const LessonFreeContainer = styled.li`
   cursor: pointer;
-  width: 220px;
+  width: 230px;
   height: 100%;
   flex-direction: column;
   border-radius: 8px;
