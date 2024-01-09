@@ -13,9 +13,5 @@ export const AdminRoute = ({
   const shouldRedirect =
     !token || isRefreshing || (user && user.role !== 'admin');
 
-  return shouldRedirect ? (
-    <Navigate to={redirectTo} />
-  ) : (
-    <Component {...routerProps} />
-  );
+  return shouldRedirect ? <Navigate to={redirectTo} /> : Component;
 };
