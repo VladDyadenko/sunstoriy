@@ -1,8 +1,14 @@
 import locale from 'antd/es/date-picker/locale/uk_UA';
 import dayjs from 'dayjs';
 import { DatePicker } from 'antd';
+import { useState } from 'react';
 const { RangePicker } = DatePicker;
 const PickerWithTypeLesson = ({ type, onChange, value }) => {
+  const [pickerOpen, setPickerOpen] = useState(false);
+  const handleOpenChange = open => {
+    setPickerOpen(open);
+  };
+
   const startDate = dayjs().startOf('month');
   const endDate = dayjs().endOf('month');
 
@@ -11,6 +17,8 @@ const PickerWithTypeLesson = ({ type, onChange, value }) => {
   if (type === 'Одне заняття')
     return (
       <DatePicker
+        open={pickerOpen}
+        onOpenChange={handleOpenChange}
         format="YYYY-MM-DD"
         size="middle"
         locale={locale}
@@ -26,6 +34,8 @@ const PickerWithTypeLesson = ({ type, onChange, value }) => {
   )
     return (
       <RangePicker
+        open={pickerOpen}
+        onOpenChange={handleOpenChange}
         format="YYYY-MM-DD"
         size="middle"
         locale={locale}

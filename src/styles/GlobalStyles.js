@@ -221,18 +221,25 @@ body,
 .ant-picker-dropdown.css-dev-only-do-not-override-17a39f8.ant-picker-dropdown-placement-bottomRight,
 .ant-picker-dropdown.css-17a39f8.ant-picker-dropdown-range.ant-picker-dropdown-placement-bottomRight{
 
-    inset: 220px auto auto 60px!important;
-    width: 300px!important;
 
-    @media (min-width: 600px ) {
-     inset: 220px auto auto 150px!important;
+  top: 220px !important;
+  left: 40px!important;
+
+    @media (min-width: 768px) {
+    top: 200px !important;
+    left: 100px!important;
   }
-    @media (min-width: 767px) {
+
+}
+
+.ant-picker-dropdown.css-dev-only-do-not-override-17a39f8.ant-picker-dropdown-range.ant-picker-dropdown-placement-bottomLeft{
+
+    top: 200px !important;
+    left: 40px!important;
   
-    inset: 310px auto auto 430px!important;
-  }
-    @media (min-width: 1280px) {
-        inset: 253px auto auto 740px!important;
+  @media (min-width: 768px){
+    top: 200px !important;
+    left: 100px!important;
   }
 
 }
