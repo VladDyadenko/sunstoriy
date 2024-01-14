@@ -218,7 +218,8 @@ body,
    // DatePickerLesson
 
 
-.ant-picker-dropdown.css-dev-only-do-not-override-17a39f8.ant-picker-dropdown-placement-bottomRight{
+.ant-picker-dropdown.css-dev-only-do-not-override-17a39f8.ant-picker-dropdown-placement-bottomRight,
+.ant-picker-dropdown.css-17a39f8.ant-picker-dropdown-range.ant-picker-dropdown-placement-bottomRight{
 
        inset: 600px auto auto 40px!important;
     @media (min-width: 768px) {
@@ -229,6 +230,7 @@ body,
   }
 
 }
+
 .ant-select-selector{
   border: 2px solid var(--main-green) !important;
   min-width: 130px !important;
