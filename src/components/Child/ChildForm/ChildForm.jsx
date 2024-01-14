@@ -42,8 +42,6 @@ function ChildForm({ child }) {
     }
   }, [source]);
 
-  console.log('source', source);
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

@@ -8,11 +8,14 @@ import { selectChoseLessons } from 'redux/Lesson/lessonSelector';
 import AllPageFilter from 'components/AllPageFilter/AllPageFilter';
 import { Collapse } from 'antd';
 import OfficeScheduleOnDay from 'components/ChoseLessonData/OfficeScheduleOnDay/OfficeScheduleOnDay';
+import { localStorageHelper } from 'helpers/helperLocalStorage';
 
 const AllLessonsPage = () => {
   const choseLessons = useSelector(selectChoseLessons);
 
-  const [dateCurrentLesson, setLessonDates] = useState(null);
+  const [dateCurrentLesson, setLessonDates] = useState(
+    localStorageHelper.getData('AllLessons')
+  );
   const [uniquDates, setUniquDates] = useState(null);
   const [lessons, setLessons] = useState(null);
 
@@ -27,16 +30,23 @@ const AllLessonsPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const startDateFormat = dayjs().startOf('week').format('YYYY-MM-DD');
-    const endDateFormat = dayjs().endOf('week').format('YYYY-MM-DD');
-    const dateString = [startDateFormat, endDateFormat];
+    const storedDate = localStorageHelper.getData('AllLessons');
 
-    const startDate = new Date(dateString[0]);
-    const endDate = new Date(dateString[1]);
-    const dates = getDates(startDate, endDate);
-    const initialDates = dates?.map(date => date.valueOf());
-    const initialDateValues = initialDates?.map(date => date.valueOf());
-    setLessonDates(initialDateValues);
+    if (storedDate) {
+      setLessonDates(storedDate);
+    } else {
+      const startDateFormat = dayjs().startOf('week').format('YYYY-MM-DD');
+      const endDateFormat = dayjs().endOf('week').format('YYYY-MM-DD');
+      const dateString = [startDateFormat, endDateFormat];
+
+      const startDate = new Date(dateString[0]);
+      const endDate = new Date(dateString[1]);
+      const dates = getDates(startDate, endDate);
+      const initialDates = dates?.map(date => date.valueOf());
+      const initialDateValues = initialDates?.map(date => date.valueOf());
+      setLessonDates(initialDateValues);
+      localStorageHelper.setData('AllLessons', initialDateValues);
+    }
   }, []);
 
   useEffect(() => {

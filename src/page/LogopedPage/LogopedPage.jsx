@@ -12,6 +12,7 @@ import {
 } from 'redux/offices/officesOperetion';
 import FilterLesson from 'components/FilterLesson/FilterLesson';
 import SelectDate from 'components/FilterLesson/SelectDate/SelectDate';
+import { localStorageHelper } from 'helpers/helperLocalStorage';
 
 const LogopedPage = () => {
   const lessonsChosePeriod = useSelector(selectLessonsLogoped);
@@ -19,24 +20,34 @@ const LogopedPage = () => {
   const [teachers, setTeachers] = useState(null);
   const [teacher, setTeacher] = useState([]);
   const [lessons, setLessons] = useState(null);
-  const [dateCurrentLesson, setLessonDates] = useState(null);
+  const [dateCurrentLesson, setLessonDates] = useState(
+    localStorageHelper.getData('Logoped')
+  );
   const [type, setType] = useState('Період');
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const startDateFormat = dayjs().startOf('week').format('YYYY-MM-DD');
-    const endDateFormat = dayjs().endOf('week').format('YYYY-MM-DD');
-    const dateString = [startDateFormat, endDateFormat];
+    const storedDate = localStorageHelper.getData('Logoped');
 
-    const startDate = new Date(dateString[0]);
-    const endDate = new Date(dateString[1]);
-    const dates = getDates(startDate, endDate);
-    const initialDates = dates?.map(date => date.valueOf());
-    const initialDateValues = initialDates?.map(date => date.valueOf());
-    setLessonDates(initialDateValues);
-    if (initialDateValues.length > 0) {
-      dispatch(logopedLessons(initialDateValues));
+    if (storedDate) {
+      setLessonDates(storedDate);
+      dispatch(logopedLessons(storedDate));
+    } else {
+      const startDateFormat = dayjs().startOf('week').format('YYYY-MM-DD');
+      const endDateFormat = dayjs().endOf('week').format('YYYY-MM-DD');
+      const dateString = [startDateFormat, endDateFormat];
+
+      const startDate = new Date(dateString[0]);
+      const endDate = new Date(dateString[1]);
+      const dates = getDates(startDate, endDate);
+      const initialDates = dates?.map(date => date.valueOf());
+      const initialDateValues = initialDates?.map(date => date.valueOf());
+      setLessonDates(initialDateValues);
+      localStorageHelper.setData('Logoped', initialDateValues);
+      if (initialDateValues.length > 0) {
+        dispatch(logopedLessons(initialDateValues));
+      }
     }
   }, [dispatch]);
 
@@ -70,6 +81,7 @@ const LogopedPage = () => {
       label: 'Параметри відбору',
       children: (
         <SelectDate
+          pageName="Logoped"
           type={type}
           setType={setType}
           setLessonDates={setLessonDates}

@@ -13,6 +13,7 @@ import {
 } from 'redux/offices/officesOperetion';
 import { getDates } from 'components/FilterLesson/SelectDate/GetDateFunction';
 import SelectDate from 'components/FilterLesson/SelectDate/SelectDate';
+import { localStorageHelper } from 'helpers/helperLocalStorage';
 
 function SensornayaPage() {
   const lessonsChosePeriod = useSelector(selectLessonsSensornaya);
@@ -20,23 +21,33 @@ function SensornayaPage() {
   const [teachers, setTeachers] = useState(null);
   const [teacher, setTeacher] = useState([]);
   const [lessons, setLessons] = useState(null);
-  const [dateCurrentLesson, setLessonDates] = useState(null);
+  const [dateCurrentLesson, setLessonDates] = useState(
+    localStorageHelper.getData('Sensornaya')
+  );
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const startDateFormat = dayjs().startOf('week').format('YYYY-MM-DD');
-    const endDateFormat = dayjs().endOf('week').format('YYYY-MM-DD');
-    const dateString = [startDateFormat, endDateFormat];
+    const storedDate = localStorageHelper.getData('Sensornaya');
 
-    const startDate = new Date(dateString[0]);
-    const endDate = new Date(dateString[1]);
-    const dates = getDates(startDate, endDate);
-    const initialDates = dates?.map(date => date.valueOf());
-    const initialDateValues = initialDates?.map(date => date.valueOf());
-    setLessonDates(initialDateValues);
-    if (initialDateValues.length > 0) {
-      dispatch(sensornayaLessons(initialDateValues));
+    if (storedDate) {
+      setLessonDates(storedDate);
+      dispatch(sensornayaLessons(storedDate));
+    } else {
+      const startDateFormat = dayjs().startOf('week').format('YYYY-MM-DD');
+      const endDateFormat = dayjs().endOf('week').format('YYYY-MM-DD');
+      const dateString = [startDateFormat, endDateFormat];
+
+      const startDate = new Date(dateString[0]);
+      const endDate = new Date(dateString[1]);
+      const dates = getDates(startDate, endDate);
+      const initialDates = dates?.map(date => date.valueOf());
+      const initialDateValues = initialDates?.map(date => date.valueOf());
+      setLessonDates(initialDateValues);
+      localStorageHelper.setData('Sensornaya', initialDateValues);
+      if (initialDateValues.length > 0) {
+        dispatch(sensornayaLessons(initialDateValues));
+      }
     }
   }, [dispatch]);
 
@@ -71,6 +82,7 @@ function SensornayaPage() {
       label: 'Параметри відбору',
       children: (
         <SelectDate
+          pageName="Sensornaya"
           type={type}
           setType={setType}
           setLessonDates={setLessonDates}

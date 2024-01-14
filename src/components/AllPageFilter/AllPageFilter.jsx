@@ -21,13 +21,6 @@ const AllPageFilter = ({
 
   const dispatch = useDispatch();
 
-  //   console.log('currentLesson', dateCurrentLesson);
-  //   console.log('offices', offices);
-  //   console.log('choseLessons', choseLessons);
-  //   console.log('teacher', teacher);
-  //   console.log('teachers', teachers);
-  // console.log('lessons', lessons);
-
   useEffect(() => {
     const uniqueTeachers = Array.from(
       new Set(
@@ -72,6 +65,7 @@ const AllPageFilter = ({
           </ContainerDataOffices>
 
           <SelectDate
+            pageName="AllLessons"
             type={type}
             setType={setType}
             setLessonDates={setLessonDates}

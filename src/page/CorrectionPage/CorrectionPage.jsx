@@ -12,6 +12,7 @@ import {
   deleteСorrectionLessonById,
 } from 'redux/offices/officesOperetion';
 import SelectDate from 'components/FilterLesson/SelectDate/SelectDate';
+import { localStorageHelper } from 'helpers/helperLocalStorage';
 
 function CorrectionPage() {
   const lessonsChosePeriod = useSelector(selectLessonsСorrection);
@@ -19,24 +20,34 @@ function CorrectionPage() {
   const [teachers, setTeachers] = useState(null);
   const [teacher, setTeacher] = useState([]);
   const [lessons, setLessons] = useState(null);
-  const [dateCurrentLesson, setLessonDates] = useState(null);
+  const [dateCurrentLesson, setLessonDates] = useState(
+    localStorageHelper.getData('Correction')
+  );
   const [type, setType] = useState('Період');
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const startDateFormat = dayjs().startOf('week').format('YYYY-MM-DD');
-    const endDateFormat = dayjs().endOf('week').format('YYYY-MM-DD');
-    const dateString = [startDateFormat, endDateFormat];
+    const storedDate = localStorageHelper.getData('Correction');
 
-    const startDate = new Date(dateString[0]);
-    const endDate = new Date(dateString[1]);
-    const dates = getDates(startDate, endDate);
-    const initialDates = dates?.map(date => date.valueOf());
-    const initialDateValues = initialDates?.map(date => date.valueOf());
-    setLessonDates(initialDateValues);
-    if (initialDateValues.length > 0) {
-      dispatch(correctionLessons(initialDateValues));
+    if (storedDate) {
+      setLessonDates(storedDate);
+      dispatch(correctionLessons(storedDate));
+    } else {
+      const startDateFormat = dayjs().startOf('week').format('YYYY-MM-DD');
+      const endDateFormat = dayjs().endOf('week').format('YYYY-MM-DD');
+      const dateString = [startDateFormat, endDateFormat];
+
+      const startDate = new Date(dateString[0]);
+      const endDate = new Date(dateString[1]);
+      const dates = getDates(startDate, endDate);
+      const initialDates = dates?.map(date => date.valueOf());
+      const initialDateValues = initialDates?.map(date => date.valueOf());
+      setLessonDates(initialDateValues);
+      localStorageHelper.setData('Correction', initialDateValues);
+      if (initialDateValues.length > 0) {
+        dispatch(correctionLessons(initialDateValues));
+      }
     }
   }, [dispatch]);
 
@@ -70,6 +81,7 @@ function CorrectionPage() {
       label: 'Параметри відбору',
       children: (
         <SelectDate
+          pageName="Correction"
           type={type}
           setType={setType}
           setLessonDates={setLessonDates}

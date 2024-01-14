@@ -12,9 +12,11 @@ import {
 } from './SelectDate.styled';
 import { getDates } from './GetDateFunction';
 import { selectLessonOperetion } from 'redux/Lesson/lessonSelector';
+import { localStorageHelper } from 'helpers/helperLocalStorage';
 const { Option } = Select;
 
 const SelectDate = ({
+  pageName,
   setLessonDates,
   type,
   setType,
@@ -36,9 +38,11 @@ const SelectDate = ({
         const dates = getDates(startDate, endDate, dayOfWeek, type);
         const date = dates?.map(date => date.valueOf());
         setLessonDates(date);
+        localStorageHelper.setData(pageName, date);
       } else if (typeof dateString === 'string') {
         const selectedDate = new Date(dateString);
         setLessonDates(selectedDate.valueOf());
+        localStorageHelper.setData(pageName, selectedDate.valueOf());
       }
     }
   };
@@ -54,6 +58,7 @@ const SelectDate = ({
 
       if (date?.length > 0) {
         onLessonsChange(date);
+        localStorageHelper.setData(pageName, date);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

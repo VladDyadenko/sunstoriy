@@ -12,6 +12,7 @@ import FilterLesson from 'components/FilterLesson/FilterLesson';
 import { MainWrapper } from 'components/ContainerMain/ContainerMain.styled';
 import MainTable from 'ui/MainTable/MainTable';
 import SelectDate from 'components/FilterLesson/SelectDate/SelectDate';
+import { localStorageHelper } from 'helpers/helperLocalStorage';
 
 const PreschoolPage = () => {
   const lessonsChosePeriod = useSelector(selectLessonsPreschool);
@@ -19,24 +20,34 @@ const PreschoolPage = () => {
   const [teachers, setTeachers] = useState(null);
   const [teacher, setTeacher] = useState([]);
   const [lessons, setLessons] = useState(null);
-  const [dateCurrentLesson, setLessonDates] = useState(null);
+  const [dateCurrentLesson, setLessonDates] = useState(
+    localStorageHelper.getData('Preschool')
+  );
   const [type, setType] = useState('Період');
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const startDateFormat = dayjs().startOf('week').format('YYYY-MM-DD');
-    const endDateFormat = dayjs().endOf('week').format('YYYY-MM-DD');
-    const dateString = [startDateFormat, endDateFormat];
+    const storedDate = localStorageHelper.getData('Preschool');
 
-    const startDate = new Date(dateString[0]);
-    const endDate = new Date(dateString[1]);
-    const dates = getDates(startDate, endDate);
-    const initialDates = dates?.map(date => date.valueOf());
-    const initialDateValues = initialDates?.map(date => date.valueOf());
-    setLessonDates(initialDateValues);
-    if (initialDateValues.length > 0) {
-      dispatch(preschoolLessons(initialDateValues));
+    if (storedDate) {
+      setLessonDates(storedDate);
+      dispatch(preschoolLessons(storedDate));
+    } else {
+      const startDateFormat = dayjs().startOf('week').format('YYYY-MM-DD');
+      const endDateFormat = dayjs().endOf('week').format('YYYY-MM-DD');
+      const dateString = [startDateFormat, endDateFormat];
+
+      const startDate = new Date(dateString[0]);
+      const endDate = new Date(dateString[1]);
+      const dates = getDates(startDate, endDate);
+      const initialDates = dates?.map(date => date.valueOf());
+      const initialDateValues = initialDates?.map(date => date.valueOf());
+      setLessonDates(initialDateValues);
+      localStorageHelper.setData('Preschool', initialDateValues);
+      if (initialDateValues.length > 0) {
+        dispatch(preschoolLessons(initialDateValues));
+      }
     }
   }, [dispatch]);
 
@@ -70,6 +81,7 @@ const PreschoolPage = () => {
       label: 'Параметри відбору',
       children: (
         <SelectDate
+          pageName="Preschool"
           type={type}
           setType={setType}
           setLessonDates={setLessonDates}
