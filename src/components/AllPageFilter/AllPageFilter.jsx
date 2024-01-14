@@ -51,19 +51,6 @@ const AllPageFilter = ({
       label: 'Параметри відбору',
       children: (
         <>
-          <ContainerDataOffices>
-            <ChooseDataLessons
-              setOffices={setOffices}
-              currentDefaultOffice={[
-                'Сенсорна',
-                'Логопед',
-                'Корекційний',
-                'Preschool',
-                'Preschool-інклюзія',
-              ]}
-            />
-          </ContainerDataOffices>
-
           <SelectDate
             pageName="AllLessons"
             type={type}
@@ -77,6 +64,18 @@ const AllPageFilter = ({
               dispatch(choseLessonGraph({ offices, dateCurrentLesson }))
             }
           />
+          <ContainerDataOffices>
+            <ChooseDataLessons
+              setOffices={setOffices}
+              currentDefaultOffice={[
+                'Сенсорна',
+                'Логопед',
+                'Корекційний',
+                'Preschool',
+                'Preschool-інклюзія',
+              ]}
+            />
+          </ContainerDataOffices>
         </>
       ),
     },
