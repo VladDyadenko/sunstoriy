@@ -222,11 +222,15 @@ body,
 .ant-picker-dropdown.css-17a39f8.ant-picker-dropdown-range.ant-picker-dropdown-placement-bottomRight{
 
 
-  top: 220px !important;
+  top: 460px !important;
   left: 40px!important;
 
     @media (min-width: 768px) {
-    top: 200px !important;
+    top: 290px !important;
+    left: 100px!important;
+  }
+    @media (min-width: 1280px) {
+    top: 260px !important;
     left: 100px!important;
   }
 
@@ -234,11 +238,15 @@ body,
 
 .ant-picker-dropdown.css-dev-only-do-not-override-17a39f8.ant-picker-dropdown-range.ant-picker-dropdown-placement-bottomLeft{
 
-    top: 200px !important;
+    top: 460px !important;
     left: 40px!important;
   
   @media (min-width: 768px){
-    top: 200px !important;
+    top: 290px !important;
+    left: 100px!important;
+  }
+     @media (min-width: 1280px) {
+    top: 260px !important;
     left: 100px!important;
   }
 
