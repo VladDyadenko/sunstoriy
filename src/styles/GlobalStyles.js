@@ -218,51 +218,31 @@ body,
    // DatePickerLesson
 
 
-${
-  '' /* .ant-picker-dropdown.css-dev-only-do-not-override-17a39f8.ant-picker-dropdown-placement-bottomRight
-{
+.ant-picker-panels {
 
-
-  top: 460px !important;
-  left: 40px!important;
-
-    @media (min-width: 768px) {
-    top: 290px !important;
-    left: 100px!important;
-  }
-    @media (min-width: 1280px) {
-    top: 260px !important;
-    left: 100px!important;
-  }
-
-} */
+justify-content: center !important;
 }
+
 .ant-picker-dropdown.css-dev-only-do-not-override-17a39f8.ant-picker-dropdown-range.ant-picker-dropdown-placement-bottomRight,
 .ant-picker-dropdown.css-17a39f8.ant-picker-dropdown-range.ant-picker-dropdown-placement-bottomRight{
-  
-    top: 330px !important;
-    left: 40px!important;
-
-  
+ ${
+   '' /* @media (max-width: 767px) {
+    width: 350px !important;
+  } */
+ }
+     
 }
 
 .ant-picker-dropdown.css-dev-only-do-not-override-17a39f8.ant-picker-dropdown-range.ant-picker-dropdown-placement-bottomLeft,
-.ant-picker-dropdown.css-17a39f8.ant-picker-dropdown-range.ant-picker-dropdown-placement-bottomLeft{
+.ant-picker-dropdown.css-17a39f8.ant-picker-dropdown-range .ant-picker-dropdown-placement-bottomLeft{
 
-  
-  @media (min-width: 768px){
-    top: 200px !important;
-    left: 100px!important;
-  }
-  
-
-}
 ${
-  '' /* .ant-picker-dropdown.css-17a39f8.ant-picker-dropdown-range.ant-picker-dropdown-placement-bottomRight{
-    top: 460px !important;
-    left: 40px!important;
-
-} */
+  '' /*   
+ @media (max-width: 767px) {
+    width: 350px !important;
+  }
+   */
+}
 }
 
 .ant-select-selector{
