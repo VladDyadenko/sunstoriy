@@ -85,11 +85,7 @@ const GlobalStyles = createGlobalStyle`
 
   #root{
     height: 100vh;
-    ${
-      '' /* display: flex;
-    flex-direction: column;  */
-    }
-    
+     
   }
 
   main{
@@ -161,6 +157,7 @@ body,
   select {
     font: inherit;
   }
+
    /* Global Breakpoints */
   :root {
     --small-screen: 375px;
@@ -223,27 +220,6 @@ body,
 justify-content: center !important;
 }
 
-.ant-picker-dropdown.css-dev-only-do-not-override-17a39f8.ant-picker-dropdown-range.ant-picker-dropdown-placement-bottomRight,
-.ant-picker-dropdown.css-17a39f8.ant-picker-dropdown-range.ant-picker-dropdown-placement-bottomRight{
- ${
-   '' /* @media (max-width: 767px) {
-    width: 350px !important;
-  } */
- }
-     
-}
-
-.ant-picker-dropdown.css-dev-only-do-not-override-17a39f8.ant-picker-dropdown-range.ant-picker-dropdown-placement-bottomLeft,
-.ant-picker-dropdown.css-17a39f8.ant-picker-dropdown-range .ant-picker-dropdown-placement-bottomLeft{
-
-${
-  '' /*   
- @media (max-width: 767px) {
-    width: 350px !important;
-  }
-   */
-}
-}
 
 .ant-select-selector{
   border: 2px solid var(--main-green) !important;
@@ -268,7 +244,9 @@ ${
 .ant-picker.css-17a39f8.ant-picker-focused, .ant-picker.css-17a39f8{
  border: 2px solid var(--main-green) !important;
 }
+
  /* ChoseLessonData component*/
+ 
 .ant-collapse-header-text{
   font-family: 'RobotoSlab';
   font-weight: 400;

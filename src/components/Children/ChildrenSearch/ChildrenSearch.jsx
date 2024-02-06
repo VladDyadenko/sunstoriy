@@ -13,6 +13,7 @@ const ChildrenSearch = ({ page }) => {
   const [userSearch, setUserSearch] = useState(() =>
     localStorage.getItem('currentChildSearch')
   );
+
   const handleInputChange = e => {
     const userQuery = e.target.value.trim();
     setUserSearch(userQuery);

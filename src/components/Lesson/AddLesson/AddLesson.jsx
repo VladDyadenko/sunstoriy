@@ -35,6 +35,8 @@ const AddLesson = ({ lesson, pathname }) => {
   const [child, setChild] = useState('');
   const [childName, setChildName] = useState('');
   const [childSurname, setChildSurname] = useState('');
+  const [mather, setMather] = useState('');
+  const [matherPhone, setMatherPhone] = useState('');
   const [teacher, setTeacher] = useState('');
   const [teacherName, setTeacherName] = useState('');
   const [teacherSurname, setTeacherSurname] = useState('');
@@ -84,6 +86,8 @@ const AddLesson = ({ lesson, pathname }) => {
     if (lessonCopy) {
       setChildName(lessonCopy.childName);
       setChildSurname(lessonCopy.childSurname);
+      setMather(lessonCopy.mather);
+      setMatherPhone(lessonCopy.matherPhone);
       setTypeLesson(lessonCopy.office);
       setTeacherName(lessonCopy.teacherName);
       setTeacherSurname(lessonCopy.teacherSurname);
@@ -102,6 +106,8 @@ const AddLesson = ({ lesson, pathname }) => {
         child: lesson.child ? lesson.child : '',
         childName: lesson.childName ? lesson.childName : '',
         childSurname: lesson.childSurname ? lesson.childSurname : '',
+        mather: lesson.mather ? lesson.mather : '',
+        matherPhone: lesson.matherPhone ? lesson.matherPhone : '',
         teacher: lesson.teacher ? lesson.teacher : '',
         teacherName: lesson.teacherName ? lesson.teacherName : '',
         teacherSurname: lesson.teacherSurname ? lesson.teacherSurname : '',
@@ -116,6 +122,8 @@ const AddLesson = ({ lesson, pathname }) => {
       setTypeLesson(lessonData.office);
       setChild(lessonData.child);
       setChildName(lessonData.childName);
+      setMather(lessonData.mather);
+      setMatherPhone(lessonData.matherPhone);
       setChildSurname(lessonData.childSurname);
       setTeacher(lessonData.teacher);
       setTeacherName(lessonData.teacherName);
@@ -181,6 +189,8 @@ const AddLesson = ({ lesson, pathname }) => {
                   child={child}
                   childName={childName}
                   childSurname={childSurname}
+                  mather={mather}
+                  matherPhone={matherPhone}
                   pathname={pathname}
                 />
                 {touched.child && errors.child && (

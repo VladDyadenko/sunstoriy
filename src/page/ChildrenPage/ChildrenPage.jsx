@@ -5,8 +5,8 @@ import { ChildrenTitle } from './ChildrenPage.styled';
 import { useState } from 'react';
 
 function ChildrenPage() {
-  const [page, setPage] = useState(() =>
-    parseInt(localStorage.getItem('currentChildrenPage'))
+  const [page, setPage] = useState(
+    () => parseInt(localStorage.getItem('currentChildrenPage')) || 1
   );
 
   return (

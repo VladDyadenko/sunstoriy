@@ -29,6 +29,8 @@ const AddChildLesson = ({
   childName,
   childSurname,
   pathname,
+  matherPhone,
+  mather,
 }) => {
   const [userSearch, setUserSearch] = useState('');
   const [choseChildren, setChoseChildren] = useState('');
@@ -71,6 +73,8 @@ const AddChildLesson = ({
       setFieldValue('child', child);
       setFieldValue('childName', childName);
       setFieldValue('childSurname', childSurname);
+      setFieldValue('mather', mather);
+      setFieldValue('matherPhone', matherPhone);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [child]);
@@ -87,6 +91,8 @@ const AddChildLesson = ({
     setFieldValue('child', selectedChild._id);
     setFieldValue('childName', selectedChild.name);
     setFieldValue('childSurname', selectedChild.surname);
+    setFieldValue('mather', selectedChild.mather);
+    setFieldValue('matherPhone', selectedChild.matherPhone);
     localStorage.setItem(
       'сurrentChildAddLesson',
       JSON.stringify(selectedChild)

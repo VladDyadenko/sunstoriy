@@ -25,6 +25,7 @@ import {
   Wrapper,
 } from './LessonTableCard.styled';
 import { selectOfficesOperetion } from 'redux/offices/officesSelector';
+import SendSms from 'ui/Sms/SendSms';
 
 function LessonTableCard({ lesson, onLessonsDelete }) {
   const operetion = useSelector(selectOfficesOperetion);
@@ -32,6 +33,8 @@ function LessonTableCard({ lesson, onLessonsDelete }) {
   const lessonCopy = {
     childName: lesson.childName,
     childSurname: lesson.childSurname,
+    mather: lesson.mather,
+    matherPhone: lesson.matherPhone,
     child: lesson.child,
     teacherColor: lesson.teacherColor,
     teacher: lesson.teacher,
@@ -58,6 +61,7 @@ function LessonTableCard({ lesson, onLessonsDelete }) {
         Редагувати
         <IconLessonEdit />
       </LessonEdit>
+      <SendSms lesson={lesson} />
       <Popconfirm
         title="Видалити заняття"
         description="Ви впевнені, що хочете видалити заняття?"

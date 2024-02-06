@@ -20,7 +20,7 @@ function ParentsContainer({ title, touched, errors, inputName, inputPhone }) {
           <FieldParents
             name={inputPhone}
             type="tel"
-            placeholder="+380(__)___ __ __"
+            placeholder="380........"
           />
           {touched[inputPhone] && errors[inputPhone] && (
             <ErrorInfo>{errors[inputPhone]}</ErrorInfo>

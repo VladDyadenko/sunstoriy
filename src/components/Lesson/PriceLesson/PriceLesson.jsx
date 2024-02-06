@@ -6,7 +6,7 @@ import {
 } from './PriceLesson.styled';
 
 const PriceLesson = ({ setFieldValue, currentPrice }) => {
-  const [price, setPrice] = useState(350);
+  const [price, setPrice] = useState(400);
 
   useEffect(() => {
     if (currentPrice) {
