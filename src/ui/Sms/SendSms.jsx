@@ -29,7 +29,7 @@ const SendSms = ({ lesson }) => {
   const [statusSendSms, setStatusSendSms] = useState(false);
 
   useEffect(() => {
-    if (lesson) {
+    if (isSendSms) {
       setStatusSendSms(isSendSms);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
