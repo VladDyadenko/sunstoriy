@@ -9,7 +9,7 @@ export const initialValuesLessonForm = {
   teacherName: '',
   teacherSurname: '',
   teacherColor: '',
-  price: 350,
+  price: 400,
   plan: '',
   review: '',
   dateLesson: '',

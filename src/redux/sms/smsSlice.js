@@ -15,9 +15,9 @@ const smsSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder
-      .addCase(sendSms.pending, state => {
+      .addCase(sendSms.pending, (state, { meta }) => {
         state.isloading = true;
-        state.operetion = 'sendSms';
+        state.operetion = `${meta.arg}`;
       })
       .addCase(sendSms.fulfilled, (state, action) => {
         state.isloading = false;

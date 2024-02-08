@@ -9,8 +9,9 @@ import {
   WrapperPlans,
 } from './DatePickerLesson.styled';
 import { getDatesByDayOfWeek } from './dateUtils';
-import { ErrorInfo } from '../AddLesson/AddLesson.styled';
+import { ErrorInfo, FormButtonLesson } from '../AddLesson/AddLesson.styled';
 import PickerWithTypeLesson from 'ui/PickerWithTypeLesson/PickerWithTypeLesson';
+import { CirclesWithBar } from 'react-loader-spinner';
 
 const { Option } = Select;
 
@@ -21,6 +22,8 @@ const DatePickerLesson = ({
   timeLessonCurrent,
   setDateCurrentLesson,
   dateLessonCurrent,
+  buttonView,
+  operetion,
 }) => {
   const [type, setType] = useState('Одне заняття');
   const [day, setDay] = useState('1');
@@ -154,6 +157,26 @@ const DatePickerLesson = ({
             <ErrorInfo>{errors.timeLesson}</ErrorInfo>
           )}
         </TimeContainers>
+        <FormButtonLesson type="submit">
+          {operetion === 'addLesson' ? (
+            <CirclesWithBar
+              height="21"
+              width="50"
+              color="#ffffff"
+              wrapperStyle={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              visible={true}
+              ariaLabel="circles-with-bar-loading"
+            />
+          ) : buttonView ? (
+            'Зберегти зміни'
+          ) : (
+            'Назад'
+          )}
+        </FormButtonLesson>
       </WrapperPlans>
     </>
   );

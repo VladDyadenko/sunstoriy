@@ -45,7 +45,6 @@ export const logoutApi = async (_, thunkAPI) => {
   try {
     const { data } = await axios.post(`/auth/logout`);
     Notify.info('Logout');
-    console.log(data);
     return data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);

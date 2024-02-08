@@ -41,7 +41,7 @@ const AddLesson = ({ lesson, pathname }) => {
   const [teacherName, setTeacherName] = useState('');
   const [teacherSurname, setTeacherSurname] = useState('');
   const [teacherColor, setTeacherColor] = useState('');
-  const [price, setPrice] = useState(350);
+  const [price, setPrice] = useState(400);
   const [dateLesson, setDateLesson] = useState(null);
   const [timeLesson, setTimeLesson] = useState('');
   const [buttonView, setButtonView] = useState(true);
@@ -112,7 +112,7 @@ const AddLesson = ({ lesson, pathname }) => {
         teacherName: lesson.teacherName ? lesson.teacherName : '',
         teacherSurname: lesson.teacherSurname ? lesson.teacherSurname : '',
         teacherColor: lesson.teacherColor ? lesson.teacherColor : '',
-        price: lesson.price ? lesson.price : 350,
+        price: lesson.price ? lesson.price : 400,
         plan: lesson.plan ? lesson.plan : '',
         review: lesson.review ? lesson.review : '',
         dateLesson: lesson.dateLesson ? lesson.dateLesson : null,
@@ -141,6 +141,7 @@ const AddLesson = ({ lesson, pathname }) => {
         initialValues={valuesLesson}
         validationSchema={schemaAddLessonUpdate}
         onSubmit={async values => {
+          console.log(values);
           if (buttonView) {
             if (lesson) {
               const id = lesson._id;
@@ -221,6 +222,8 @@ const AddLesson = ({ lesson, pathname }) => {
                 addSuccessLesson={addSuccessLesson}
                 timeLessonCurrent={timeLesson}
                 setDateCurrentLesson={setDateCurrentLesson}
+                operetion={operetion}
+                buttonView={buttonView}
               />
             </ChoseInfoContainer>
             <ChoseLessonContainer

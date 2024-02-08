@@ -60,4 +60,5 @@ export const TimeContainers = styled.div`
   justify-content: center;
   flex-direction: column;
   gap: 10px;
+  margin-bottom: 10px;
 `;
