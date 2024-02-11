@@ -58,7 +58,7 @@ const SendSms = ({ lesson }) => {
     }
   }
 
-  const templateSms = `Доброго дня, ${matherSms}! Очікуємо Вас на занятті ${phraseOfficeToSms(
+  const templateSms = `САНСТОРІЯ: Доброго дня, ${matherSms}! Очікуємо Вас на занятті ${phraseOfficeToSms(
     office
   )} ${formatDateSms} на ${formatTimeSms} годину!`;
   const messageInSms = transliterate(templateSms);
