@@ -115,7 +115,7 @@ function LessonTableCard({ lesson, onLessonsDelete }) {
             <IconButtonChose />
           </LessonButton>
         </Popover>
-        <StatusLesson lesson={lesson} />
+        <StatusLesson lessonData={lesson} />
       </InfoColor>
     </Wrapper>
   );
