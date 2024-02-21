@@ -58,7 +58,7 @@ const SendSms = ({ lesson }) => {
     }
   }
 
-  const templateSms = `САНСТОРІЯ: Доброго дня, ${matherSms}! Очікуємо Вас на занятті ${phraseOfficeToSms(
+  const templateSms = `Доброго дня, ${matherSms}! Очікуємо Вас на занятті ${phraseOfficeToSms(
     office
   )} ${formatDateSms} на ${formatTimeSms} годину!`;
   const messageInSms = transliterate(templateSms);
@@ -70,7 +70,7 @@ const SendSms = ({ lesson }) => {
     const smsDataInfo = {
       phone: `${matherPhone}`,
       message: `${messageInSms}`,
-      src_addr: 'Zamovlennia',
+      src_addr: 'SunstoriY',
       _id,
     };
 

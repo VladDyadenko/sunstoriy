@@ -37,6 +37,7 @@ export const updateLesson = createAsyncThunk(
   async (lessonData, thunkAPI) => {
     try {
       const { id, values } = lessonData;
+      console.log('lessonData', lessonData);
       const { data } = await axios.put(`/lesson/${id}`, values, {
         headers: {
           'Content-Type': 'application/json',

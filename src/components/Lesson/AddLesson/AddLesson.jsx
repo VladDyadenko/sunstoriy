@@ -145,6 +145,7 @@ const AddLesson = ({ lesson, pathname }) => {
             if (lesson) {
               const id = lesson._id;
               const combinedData = { id, values };
+              console.log('combinedData', combinedData);
               await dispatch(updateLesson(combinedData)).then(() => {
                 // const data = {
                 //   offices,

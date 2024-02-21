@@ -26,6 +26,7 @@ import {
 } from './LessonTableCard.styled';
 import { selectOfficesOperetion } from 'redux/offices/officesSelector';
 import SendSms from 'ui/Sms/SendSms';
+import StatusLesson from 'components/StatusLesson/StatusLesson';
 
 function LessonTableCard({ lesson, onLessonsDelete }) {
   const operetion = useSelector(selectOfficesOperetion);
@@ -114,6 +115,7 @@ function LessonTableCard({ lesson, onLessonsDelete }) {
             <IconButtonChose />
           </LessonButton>
         </Popover>
+        <StatusLesson lesson={lesson} />
       </InfoColor>
     </Wrapper>
   );

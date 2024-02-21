@@ -18,7 +18,6 @@ const AllLessonsPage = () => {
   );
   const [uniquDates, setUniquDates] = useState(null);
   const [lessons, setLessons] = useState(null);
-
   const [offices, setOffices] = useState([
     'Сенсорна',
     'Логопед',
