@@ -30,9 +30,7 @@ const AllPageFilter = ({
       )
     );
     setTeachers(uniqueTeachers);
-  }, [choseLessons]);
 
-  useEffect(() => {
     if (choseLessons && teacher && teacher.length > 0) {
       const filteredLessons = choseLessons?.filter(lesson => {
         const teacherFullName = `${lesson.teacherName} ${lesson.teacherSurname}`;

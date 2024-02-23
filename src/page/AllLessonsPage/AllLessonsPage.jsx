@@ -56,7 +56,8 @@ const AllLessonsPage = () => {
     }
 
     return () => abortController.abort();
-  }, [dateCurrentLesson, dispatch, offices]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dateCurrentLesson, offices]);
 
   useEffect(() => {
     if (lessons?.length > 0) {

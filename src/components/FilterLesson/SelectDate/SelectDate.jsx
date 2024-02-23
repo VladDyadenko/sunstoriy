@@ -10,7 +10,7 @@ import {
   IconBtn,
   Wrapper,
 } from './SelectDate.styled';
-import { getDates } from './GetDateFunction';
+import { getDates, handleDateChange } from './GetDateFunction';
 import { selectLessonOperetion } from 'redux/Lesson/lessonSelector';
 import { localStorageHelper } from 'helpers/helperLocalStorage';
 const { Option } = Select;
@@ -29,23 +29,10 @@ const SelectDate = ({
   const [day, setDay] = useState('1');
   const operetion = useSelector(selectLessonOperetion);
 
-  const handleDateChange = (date, dateString) => {
-    if (date) {
-      if (Array.isArray(dateString) && dateString.length === 2) {
-        const startDate = new Date(dateString[0]);
-        const endDate = new Date(dateString[1]);
-        const dayOfWeek = parseInt(day);
-        const dates = getDates(startDate, endDate, dayOfWeek, type);
-        const date = dates?.map(date => date.valueOf());
-        setLessonDates(date);
-        localStorageHelper.setData(pageName, date);
-      } else if (typeof dateString === 'string') {
-        const selectedDate = new Date(dateString);
-        setLessonDates(selectedDate.valueOf());
-        localStorageHelper.setData(pageName, selectedDate.valueOf());
-      }
-    }
+  const handleChange = (date, dateString) => {
+    handleDateChange(date, dateString, setLessonDates, day, type, pageName);
   };
+
   useEffect(() => {
     if (type === 'Період' || type === 'Період та день тижня') {
       const startDate = dayjs(dateCurrentLesson[0]).toDate();
@@ -62,7 +49,7 @@ const SelectDate = ({
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [day, type, dateCurrentLesson]);
+  }, [day, dateCurrentLesson]);
 
   const handleChosePeriod = () => {
     onLessonsChange(dateCurrentLesson);
@@ -86,7 +73,7 @@ const SelectDate = ({
           </Select>
         </DescrContainer>
       ) : null}
-      <PickerWithTypeLesson type={type} onChange={handleDateChange} />
+      <PickerWithTypeLesson type={type} onChange={handleChange} />
       {teachers?.length > 1 ? (
         <DescrContainer>
           <Select

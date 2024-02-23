@@ -67,7 +67,6 @@ function ChildForm({ child }) {
       };
       setValuesChildForm(childData);
       setChildImage(childData.childImage);
-      // setChildFiles(childData.childFiles);
     }
   }, [child]);
 
