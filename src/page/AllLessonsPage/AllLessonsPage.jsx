@@ -10,6 +10,8 @@ import { Collapse } from 'antd';
 import OfficeScheduleOnDay from 'components/ChoseLessonData/OfficeScheduleOnDay/OfficeScheduleOnDay';
 import { localStorageHelper } from 'helpers/helperLocalStorage';
 
+const abortController = new AbortController();
+
 const AllLessonsPage = () => {
   const choseLessons = useSelector(selectChoseLessons);
 
@@ -52,6 +54,8 @@ const AllLessonsPage = () => {
     if (dateCurrentLesson?.length > 0) {
       dispatch(choseLessonGraph({ offices, dateCurrentLesson }));
     }
+
+    return () => abortController.abort();
   }, [dateCurrentLesson, dispatch, offices]);
 
   useEffect(() => {

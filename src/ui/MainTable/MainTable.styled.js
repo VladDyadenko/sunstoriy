@@ -59,6 +59,7 @@ export const DayContainer = styled.div`
 `;
 
 export const LessonsContainer = styled.ul``;
+
 export const LessonsItem = styled.li`
   font-family: 'RobotoSlab';
   font-weight: 400;
@@ -67,12 +68,19 @@ export const LessonsItem = styled.li`
   width: 250px;
   flex-direction: column;
   border-radius: 8px;
-  /* border: 2px solid transparent; */
   margin-bottom: 10px;
+  border-width: 2px;
+  border-style: solid;
   transition: cubic-bezier(0.4, 0, 0.2, 1) 250ms;
-
-  border: 2px solid ${props => props['aria-current'] || '#fff'};
-  color: ${props => props['aria-current'] || '#fff'};
+  ${props => {
+    if (props['aria-description'] === 'cancel') {
+      return `border-color: #a9a9a9; color: #a9a9a9`;
+    } else if (props['aria-current']) {
+      return `border-color: ${props['aria-current']}; color:${props['aria-current']}`;
+    } else {
+      return `border-color: #fff; color: #fff`;
+    }
+  }}
 `;
 
 export const CardInfo = styled.p`

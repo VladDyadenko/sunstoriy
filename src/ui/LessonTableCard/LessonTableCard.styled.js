@@ -11,17 +11,25 @@ export const Wrapper = styled.div`
   height: 100%;
 `;
 export const InfoColor = styled.div`
-  width: 30%;
+  width: 33%;
   height: 100%;
   padding: 5px;
   display: flex;
   align-items: center;
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
   justify-content: center;
   flex-direction: column;
   gap: 5px;
-  background-color: var(--main-dark-blue);
-
-  background-color: ${props => props['aria-current'] || '#0456ba'};
+  ${props => {
+    if (props['aria-description'] === 'cancel') {
+      return `background-color: #a9a9a9`;
+    } else if (props['aria-current']) {
+      return `background-color: ${props['aria-current']}`;
+    } else {
+      return `background-color: #0456ba`;
+    }
+  }}
 `;
 export const ButtonContainer = styled.div`
   width: 100%;
@@ -44,21 +52,39 @@ export const InfoContainer = styled.div`
     margin-bottom: 3px;
   }
 `;
+
 export const InfoTeacher = styled.p`
   font-family: 'RobotoSlab';
   font-weight: 500;
   font-size: 12px;
   line-height: 1.2;
-  color: var(--main-dark-blue);
+  ${props => {
+    if (props['aria-description'] === 'cancel') {
+      return `color: #a9a9a9`;
+    } else if (props['aria-current']) {
+      return `color: ${props['aria-current']}`;
+    } else {
+      return `color: var(--main-dark-blue)`;
+    }
+  }}
 `;
 export const InfoChild = styled.p`
   font-family: 'RobotoSlab';
   font-weight: 500;
   line-height: 1.2;
   font-size: 12px;
-  color: var(--main-green);
+  ${props => {
+    if (props['aria-description'] === 'cancel') {
+      return `color: #a9a9a9`;
+    } else if (props['aria-current']) {
+      return `color: ${props['aria-current']}`;
+    } else {
+      return `color: var(--main-green)`;
+    }
+  }}
 `;
-export const CardLessonLink = styled(NavLink)`
+
+const btnStyled = `
   width: 100%;
   display: flex;
   align-items: center;
@@ -71,85 +97,45 @@ export const CardLessonLink = styled(NavLink)`
   font-weight: 500;
   font-size: 14px;
   color: #fff;
-  background-color: var(--main-dark-blue-bg);
   cursor: pointer;
 
-  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+   transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 
   &:hover {
-    background-color: var(--main-dark-blue);
-    color: #fff !important;
-  }
-`;
-export const CardLessonCopy = styled(NavLink)`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 5px;
-  gap: 8px;
-  border: none;
-  border-radius: 8px;
-  font-family: 'RobotoSlab';
-  font-weight: 500;
-  font-size: 14px;
-  color: #fff;
-  background-color: var(--lightSeaGreen);
-  cursor: pointer;
-
-  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-
-  &:hover {
-    background-color: var(--teal);
-    color: #fff !important;
-  }
-`;
-export const LessonEdit = styled(NavLink)`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 5px;
-  gap: 8px;
-  border: none;
-  border-radius: 8px;
-  font-family: 'RobotoSlab';
-  font-weight: 500;
-  font-size: 14px;
-  color: #fff;
-  background-color: var(--main-green);
-  cursor: pointer;
-  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-
-  &:hover {
-    background-color: var(--bg-main-color);
-    border: none;
     color: #fff !important;
   }
 `;
 export const LessonDelete = styled(Button)`
-  width: 100%;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 5px;
-  gap: 8px;
-  border: none;
-  border-radius: 8px;
-  font-family: 'RobotoSlab';
-  font-weight: 500;
-  font-size: 14px;
-  color: #fff;
-  border: none;
+  ${btnStyled}
   background-color: #fa4a3b;
-  cursor: pointer;
-
-  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-
   &:hover {
     background-color: #da292b;
-    color: #fff !important;
+  }
+`;
+
+export const CardLessonLink = styled(NavLink)`
+  ${btnStyled}
+  background-color: var(--main-dark-blue-bg);
+
+  &:hover {
+    background-color: var(--main-dark-blue);
+  }
+`;
+export const CardLessonCopy = styled(NavLink)`
+  ${btnStyled}
+  background-color: var(--lightSeaGreen);
+
+  &:hover {
+    background-color: var(--teal);
+  }
+`;
+export const LessonEdit = styled(NavLink)`
+  ${btnStyled}
+  background-color: var(--main-green);
+
+  &:hover {
+    background-color: var(--bg-main-color);
+    border: none;
   }
 `;
 
@@ -171,9 +157,6 @@ export const LessonButton = styled(Button)`
   background-color: #fff;
 
   transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  /* &:hover {
-    background-color: #fff !important;
-  } */
 `;
 
 export const IconButtonChose = styled(BsFillPatchQuestionFill)`

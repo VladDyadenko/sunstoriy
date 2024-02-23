@@ -60,7 +60,7 @@ export const LessonButtonCancel = styled(Button)`
   justify-content: center;
   color: #0456ba;
   font-family: 'RobotoSlab';
-  font-weight: 500;
+  font-weight: 400;
   font-size: 11px;
   padding: 0 5px;
   margin-top: 5px;
@@ -68,7 +68,14 @@ export const LessonButtonCancel = styled(Button)`
   background-color: #fff;
 
   transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  /* &:hover {
-    background-color: #fff !important;
-  } */
+
+  ${props => {
+    if (props['aria-description'] === 'cancel') {
+      return `color: #B22222`;
+    } else if (props['aria-description'] === 'replace') {
+      return `color: #B22222`;
+    } else {
+      return `color: #0456ba`;
+    }
+  }}
 `;

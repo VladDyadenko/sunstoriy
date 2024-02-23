@@ -4,6 +4,8 @@ import { Notify } from 'notiflix';
 import { useEffect, useState } from 'react';
 import { getChildById } from 'redux/child/api';
 
+const abortController = new AbortController();
+
 function ChildPage() {
   const { childId } = useParams();
   const [child, setChild] = useState('');
@@ -15,6 +17,8 @@ function ChildPage() {
 
     async function fetchChild() {
       try {
+        console.log('Component mounted');
+
         const child = await getChildById(childId);
         if (!child) {
           return;
@@ -25,6 +29,10 @@ function ChildPage() {
       }
     }
     fetchChild();
+
+    return () => {
+      abortController.abort();
+    };
   }, [childId]);
 
   return (

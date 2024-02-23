@@ -43,6 +43,7 @@ function LessonTableCard({ lesson, onLessonsDelete }) {
     teacherSurname: lesson.teacherSurname,
     office: lesson.office,
   };
+  const styleDescr = lesson ? lesson.status : '';
 
   const content = (
     <ButtonContainer>
@@ -100,16 +101,19 @@ function LessonTableCard({ lesson, onLessonsDelete }) {
   return (
     <Wrapper>
       <InfoContainer>
-        <InfoChild>Дитина:</InfoChild>
-        <InfoChild>
+        <InfoChild aria-description={styleDescr}>Дитина:</InfoChild>
+        <InfoChild aria-description={styleDescr}>
           {lesson.childName} {lesson.childSurname}
         </InfoChild>
-        <InfoTeacher>Фахівець:</InfoTeacher>
-        <InfoTeacher>
+        <InfoTeacher aria-description={styleDescr}>Фахівець:</InfoTeacher>
+        <InfoTeacher aria-description={styleDescr}>
           {lesson.teacherName} {lesson.teacherSurname}
         </InfoTeacher>
       </InfoContainer>
-      <InfoColor aria-current={lesson ? lesson.teacherColor : ''}>
+      <InfoColor
+        aria-description={styleDescr}
+        aria-current={lesson ? lesson.teacherColor : ''}
+      >
         <Popover content={content} title="Внесіть зміни:">
           <LessonButton type="primary">
             <IconButtonChose />

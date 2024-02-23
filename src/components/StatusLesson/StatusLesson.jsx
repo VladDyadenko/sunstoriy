@@ -12,14 +12,16 @@ import { updateLesson } from 'redux/Lesson/lessonOperetion';
 
 const StatusLesson = ({ lessonData }) => {
   const { status, _id } = lessonData;
+
   const dispatch = useDispatch();
   const [currentStatus, setCurrentStatus] = useState(
     status ? status : 'to_plan'
   );
+
   const handleChangeStatus = type => {
     setCurrentStatus(type);
     const combinedData = { id: _id, values: { ...lessonData, status: type } };
-    dispatch(updateLesson(combinedData));
+    dispatch(updateLesson(combinedData)).then(() => {});
   };
   const cancelButton = (
     <CancelBtn onClick={() => handleChangeStatus('cancel')}>Відміна</CancelBtn>
@@ -64,10 +66,13 @@ const StatusLesson = ({ lessonData }) => {
   } else if (currentStatus === 'replace') {
     buttonText = 'Заміна';
   }
+  const styleDescr = lessonData ? lessonData.status : '';
 
   return (
-    <Popover content={content} title="Звміна або відміна:">
-      <LessonButtonCancel type="primary">{buttonText}</LessonButtonCancel>
+    <Popover content={content} title="Зміна, відміна занять:">
+      <LessonButtonCancel type="primary" aria-description={styleDescr}>
+        {buttonText}
+      </LessonButtonCancel>
     </Popover>
   );
 };

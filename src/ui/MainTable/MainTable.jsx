@@ -118,6 +118,7 @@ function MainTable({ lessons, onLessonsDelete, office }) {
 
                     return (
                       <LessonsItem
+                        aria-description={lesson ? lesson.status : ''}
                         aria-current={lesson ? lesson.teacherColor : ''}
                         key={timeIndex}
                       >
