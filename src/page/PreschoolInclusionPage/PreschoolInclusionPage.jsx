@@ -13,6 +13,7 @@ import { MainWrapper } from 'components/ContainerMain/ContainerMain.styled';
 import MainTable from 'ui/MainTable/MainTable';
 import SelectDate from 'components/FilterLesson/SelectDate/SelectDate';
 import { localStorageHelper } from 'helpers/helperLocalStorage';
+import ButtonAddLesson from 'ui/ButtonAddLesson/ButtonAddLesson';
 
 const PreschoolInclusionPage = () => {
   const lessonsChosePeriod = useSelector(selectLessonsPreschoolInclusion);
@@ -101,6 +102,9 @@ const PreschoolInclusionPage = () => {
     <>
       <Container>
         <FilterLesson currentItems={items} />
+        {lessonsChosePeriod?.length === 0 && (
+          <ButtonAddLesson pageName="Preschool-інклюзія" />
+        )}
         <MainWrapper>
           {lessons?.length > 0 && (
             <MainTable

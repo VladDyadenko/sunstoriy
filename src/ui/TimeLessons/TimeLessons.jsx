@@ -8,12 +8,13 @@ import {
   TimeItem,
 } from './TimeLessons.stayled';
 
-function TimeLessons({ timeLessonOnList }) {
+function TimeLessons({ timeLessonOnList, officeName }) {
+  const infoOffice = JSON.stringify({ office: officeName });
   return (
     <>
       <TimeContainer>
         <AddLessonLink>
-          <Link to={`/lesson`}>
+          <Link to={`/lesson?lessonCopy=${infoOffice}`}>
             <IconAddLessonLink />
           </Link>
         </AddLessonLink>

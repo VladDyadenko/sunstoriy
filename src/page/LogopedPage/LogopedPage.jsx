@@ -13,6 +13,7 @@ import {
 import FilterLesson from 'components/FilterLesson/FilterLesson';
 import SelectDate from 'components/FilterLesson/SelectDate/SelectDate';
 import { localStorageHelper } from 'helpers/helperLocalStorage';
+import ButtonAddLesson from 'ui/ButtonAddLesson/ButtonAddLesson';
 
 const LogopedPage = () => {
   const lessonsChosePeriod = useSelector(selectLessonsLogoped);
@@ -99,6 +100,9 @@ const LogopedPage = () => {
     <>
       <Container>
         <FilterLesson currentItems={items} />
+        {lessonsChosePeriod?.length === 0 && (
+          <ButtonAddLesson pageName="Логопед" />
+        )}
         <MainWrapper>
           {lessons?.length > 0 && (
             <MainTable

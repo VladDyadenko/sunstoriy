@@ -13,6 +13,7 @@ import { MainWrapper } from 'components/ContainerMain/ContainerMain.styled';
 import MainTable from 'ui/MainTable/MainTable';
 import SelectDate from 'components/FilterLesson/SelectDate/SelectDate';
 import { localStorageHelper } from 'helpers/helperLocalStorage';
+import ButtonAddLesson from 'ui/ButtonAddLesson/ButtonAddLesson';
 
 const PreschoolPage = () => {
   const lessonsChosePeriod = useSelector(selectLessonsPreschool);
@@ -99,6 +100,9 @@ const PreschoolPage = () => {
     <>
       <Container>
         <FilterLesson currentItems={items} />
+        {lessonsChosePeriod?.length === 0 && (
+          <ButtonAddLesson pageName="Preschool" />
+        )}
         <MainWrapper>
           {lessons?.length > 0 && (
             <MainTable

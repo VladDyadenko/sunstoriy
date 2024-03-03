@@ -68,7 +68,7 @@ function MainTable({ lessons, onLessonsDelete, office }) {
 
   return (
     <MainTableContainer>
-      <TimeLessons timeLessonOnList={uniquTime} />
+      <TimeLessons timeLessonOnList={uniquTime} officeName={office} />
       <LessonsWrapper>
         <DayWrapper>
           {uniquDate?.map((date, index) => {

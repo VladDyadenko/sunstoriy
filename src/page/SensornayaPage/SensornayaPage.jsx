@@ -14,6 +14,7 @@ import {
 import { getDates } from 'components/FilterLesson/SelectDate/GetDateFunction';
 import SelectDate from 'components/FilterLesson/SelectDate/SelectDate';
 import { localStorageHelper } from 'helpers/helperLocalStorage';
+import ButtonAddLesson from 'ui/ButtonAddLesson/ButtonAddLesson';
 
 function SensornayaPage() {
   const lessonsChosePeriod = useSelector(selectLessonsSensornaya);
@@ -100,6 +101,9 @@ function SensornayaPage() {
     <>
       <Container>
         <FilterLesson currentItems={items} />
+        {lessonsChosePeriod?.length === 0 && (
+          <ButtonAddLesson pageName="Сенсорна" />
+        )}
         <MainWrapper>
           {lessons?.length > 0 && (
             <MainTable

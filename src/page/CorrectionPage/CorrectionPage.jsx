@@ -13,6 +13,7 @@ import {
 } from 'redux/offices/officesOperetion';
 import SelectDate from 'components/FilterLesson/SelectDate/SelectDate';
 import { localStorageHelper } from 'helpers/helperLocalStorage';
+import ButtonAddLesson from 'ui/ButtonAddLesson/ButtonAddLesson';
 
 function CorrectionPage() {
   const lessonsChosePeriod = useSelector(selectLessonsСorrection);
@@ -99,6 +100,9 @@ function CorrectionPage() {
     <>
       <Container>
         <FilterLesson currentItems={items} />
+        {lessonsChosePeriod?.length === 0 && (
+          <ButtonAddLesson pageName="Корекційний" />
+        )}
         <MainWrapper>
           {lessons?.length > 0 && (
             <MainTable
