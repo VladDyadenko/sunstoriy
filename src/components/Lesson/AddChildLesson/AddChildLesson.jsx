@@ -56,6 +56,7 @@ const AddChildLesson = ({
   const operetion = useSelector(selectChildrenOperetion);
   const dispatch = useDispatch();
   const children = useSelector(selectChildren);
+
   useEffect(() => {
     if (children.length > 0) {
       setChoseChildren(children);

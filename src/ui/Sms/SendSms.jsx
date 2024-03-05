@@ -108,6 +108,8 @@ const SendSms = ({ lesson }) => {
               visible={true}
               ariaLabel="circles-with-bar-loading"
             />
+          ) : statusSendSms ? (
+            'СМС Надіслано'
           ) : (
             'Відправити СМС'
           )}

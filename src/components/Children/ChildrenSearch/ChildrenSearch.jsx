@@ -14,16 +14,6 @@ const ChildrenSearch = ({ page }) => {
     localStorage.getItem('currentChildSearch')
   );
 
-  const handleInputChange = e => {
-    const userQuery = e.target.value.trim();
-    setUserSearch(userQuery);
-    localStorage.setItem('currentChildSearch', userQuery.toString());
-  };
-
-  const resetSearch = () => {
-    setUserSearch('');
-    localStorage.setItem('currentChildSearch', '');
-  };
   const dispatch = useDispatch();
 
   const operetion = useSelector(selectChildrenOperetion);
@@ -42,9 +32,8 @@ const ChildrenSearch = ({ page }) => {
     <SearchContainer>
       <SearchModule
         operetion={operetion}
-        handleInputChange={handleInputChange}
-        resetSearch={resetSearch}
         userSearch={userSearch}
+        setUserSearch={setUserSearch}
       />
       <BtnAddChild to={'/child'}>
         Додати дитину <BtnAddIcon />

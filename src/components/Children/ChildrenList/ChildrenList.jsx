@@ -14,9 +14,7 @@ import { fetchChildren } from 'redux/child/childOperetion';
 
 function ChildrenList({ page, setPage }) {
   const [pageCount, setPageCount] = useState(1);
-  // const [page, setPage] = useState(() =>
-  //   parseInt(localStorage.getItem('currentChildrenPage'))
-  // );
+
   const pagination = useSelector(selectChildrenPagination);
   const children = useSelector(selectChildren);
   const marker = useSelector(selectChildrenMarker);
