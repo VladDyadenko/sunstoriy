@@ -38,20 +38,13 @@ const AddChildLesson = ({
     const storedChild = localStorage.getItem('сurrentChildAddLesson');
     return storedChild ? JSON.parse(storedChild) : null;
   });
-  const handleInputChange = e => {
-    const userQuery = e.target.value.trim();
-    setUserSearch(userQuery);
-  };
+
   useEffect(() => {
     if (!addSuccessLesson || addSuccessLesson) {
       setChoseChild(null);
       localStorage.setItem('сurrentChildAddLesson', null);
     }
   }, [addSuccessLesson]);
-
-  const resetSearch = () => {
-    setUserSearch('');
-  };
 
   const operetion = useSelector(selectChildrenOperetion);
   const dispatch = useDispatch();
@@ -117,9 +110,8 @@ const AddChildLesson = ({
         <div>
           <SearchModule
             operetion={operetion}
-            handleInputChange={handleInputChange}
-            resetSearch={resetSearch}
             userSearch={userSearch}
+            setUserSearch={setUserSearch}
           />
           {choseChildren?.length > 0 ? (
             <ModalContainer>

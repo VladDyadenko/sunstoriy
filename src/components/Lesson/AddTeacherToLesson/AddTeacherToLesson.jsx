@@ -77,14 +77,6 @@ const AddTeacherToLesson = ({
     setChoseTeachers('');
   }, [dispatch, userSearch]);
 
-  const handleInputChange = e => {
-    const userQuery = e.target.value.trim();
-    setUserSearch(userQuery);
-  };
-  const resetSearch = () => {
-    setUserSearch('');
-  };
-
   const handleChoseTeacher = selectedTeacher => {
     setChoseTeacher(selectedTeacher);
     setFieldValue('teacher', selectedTeacher._id);
@@ -114,9 +106,8 @@ const AddTeacherToLesson = ({
         <div>
           <SearchModule
             operetion={operetion}
-            handleInputChange={handleInputChange}
-            resetSearch={resetSearch}
             userSearch={userSearch}
+            setUserSearch={setUserSearch}
           />
           {choseTeachers?.length > 0 ? (
             <ModalContainer>
