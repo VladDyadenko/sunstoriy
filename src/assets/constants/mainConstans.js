@@ -15,7 +15,7 @@ export const navSitePage = [
   { page: 'Фахівці', path: '/teachers' },
   { page: 'Сенсорна кімната', path: '/sensornaya' },
   { page: 'Логопед', path: '/logoped' },
-  { page: 'Корекційний педагог', path: '/correction' },
+  { page: 'Психолог', path: '/correction' },
   { page: 'Preschool-інклюзія', path: '/preschoolInclusion' },
   { page: 'Preschool', path: '/preschool' },
   { page: 'Кабінет', path: '/adminpage' },
