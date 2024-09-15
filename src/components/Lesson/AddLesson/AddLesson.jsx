@@ -41,7 +41,7 @@ const AddLesson = ({ lesson, pathname }) => {
   const [teacherName, setTeacherName] = useState('');
   const [teacherSurname, setTeacherSurname] = useState('');
   const [teacherColor, setTeacherColor] = useState('');
-  const [price, setPrice] = useState(400);
+  const [price, setPrice] = useState(450);
   const [dateLesson, setDateLesson] = useState(null);
   const [timeLesson, setTimeLesson] = useState('');
   const [buttonView, setButtonView] = useState(true);
