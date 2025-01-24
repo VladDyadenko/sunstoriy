@@ -19,6 +19,7 @@ import AddTypeLesson from '../AddTypeLesson/AddTypeLesson';
 import AddChildLesson from '../AddChildLesson/AddChildLesson';
 import AddTeacherToLesson from '../AddTeacherToLesson/AddTeacherToLesson';
 import PriceLesson from '../PriceLesson/PriceLesson';
+
 import {
   initialValuesLessonForm,
   schemaAddLessonUpdate,
@@ -26,6 +27,7 @@ import {
 import { addLesson, updateLesson } from 'redux/Lesson/lessonOperetion';
 import ChoseLessonContainer from 'components/ChoseLessonData/ChoseLessonContainer/ChoseLessonContainer';
 import { selectLessonOperetion } from 'redux/Lesson/lessonSelector';
+import { currentLessonCost } from 'assets/constants/mainConstans';
 const today = new Date(dayjs().format('YYYY-MM-DD')).valueOf();
 
 const AddLesson = ({ lesson, pathname }) => {
@@ -41,7 +43,7 @@ const AddLesson = ({ lesson, pathname }) => {
   const [teacherName, setTeacherName] = useState('');
   const [teacherSurname, setTeacherSurname] = useState('');
   const [teacherColor, setTeacherColor] = useState('');
-  const [price, setPrice] = useState(450);
+  const [price, setPrice] = useState(currentLessonCost);
   const [dateLesson, setDateLesson] = useState(null);
   const [timeLesson, setTimeLesson] = useState('');
   const [buttonView, setButtonView] = useState(true);
@@ -112,7 +114,7 @@ const AddLesson = ({ lesson, pathname }) => {
         teacherName: lesson.teacherName ? lesson.teacherName : '',
         teacherSurname: lesson.teacherSurname ? lesson.teacherSurname : '',
         teacherColor: lesson.teacherColor ? lesson.teacherColor : '',
-        price: lesson.price ? lesson.price : 400,
+        price: lesson.price ? lesson.price : { currentLessonCost },
         plan: lesson.plan ? lesson.plan : '',
         review: lesson.review ? lesson.review : '',
         dateLesson: lesson.dateLesson ? lesson.dateLesson : null,

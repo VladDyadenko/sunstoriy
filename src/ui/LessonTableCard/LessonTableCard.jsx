@@ -27,9 +27,20 @@ import {
 import { selectOfficesOperetion } from 'redux/offices/officesSelector';
 import SendSms from 'ui/Sms/SendSms';
 import StatusLesson from 'components/StatusLesson/StatusLesson';
+import LessonPayment from 'ui/lessonPayment/LessonPayment';
+import { useState } from 'react';
 
 function LessonTableCard({ lesson, onLessonsDelete }) {
   const operetion = useSelector(selectOfficesOperetion);
+
+  const [openPopover, setOpenPopover] = useState(false);
+
+  const handleOpenPopover = isOpen => {
+    setOpenPopover(isOpen);
+  };
+  const closePopover = e => {
+    setOpenPopover(false);
+  };
 
   const lessonCopy = {
     childName: lesson.childName,
@@ -47,6 +58,7 @@ function LessonTableCard({ lesson, onLessonsDelete }) {
 
   const content = (
     <ButtonContainer>
+      <LessonPayment lesson={lesson} closePopover={closePopover} />
       <CardLessonLink to={`/lesson/${lesson._id}?source=buttonViewing`}>
         Переглянути
         <IconLessonSee />
@@ -114,7 +126,13 @@ function LessonTableCard({ lesson, onLessonsDelete }) {
         aria-description={styleDescr}
         aria-current={lesson ? lesson.teacherColor : ''}
       >
-        <Popover content={content} title="Внесіть зміни:">
+        <Popover
+          open={openPopover}
+          onOpenChange={handleOpenPopover}
+          trigger="hover"
+          content={content}
+          title="Внесіть зміни:"
+        >
           <LessonButton type="primary">
             <IconButtonChose />
           </LessonButton>

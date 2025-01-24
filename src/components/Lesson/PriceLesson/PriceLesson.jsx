@@ -4,9 +4,10 @@ import {
   PriceContainer,
   TitlePriceLesson,
 } from './PriceLesson.styled';
+import { currentLessonCost } from 'assets/constants/mainConstans';
 
 const PriceLesson = ({ setFieldValue, currentPrice }) => {
-  const [price, setPrice] = useState(400);
+  const [price, setPrice] = useState(currentLessonCost);
 
   useEffect(() => {
     if (currentPrice) {
