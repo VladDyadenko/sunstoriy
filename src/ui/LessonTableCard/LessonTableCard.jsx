@@ -31,12 +31,21 @@ import { selectOfficesOperetion } from 'redux/offices/officesSelector';
 import SendSms from 'ui/Sms/SendSms';
 import StatusLesson from 'components/StatusLesson/StatusLesson';
 import LessonPayment from 'ui/lessonPayment/LessonPayment';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { selectLessonIsPayment } from 'redux/Lesson/lessonSelector';
 
 function LessonTableCard({ lesson, onLessonsDelete }) {
   const operetion = useSelector(selectOfficesOperetion);
+  const isPayment = useSelector(selectLessonIsPayment);
 
   const [openPopover, setOpenPopover] = useState(false);
+  const [lessonPayment, setLessonPayment] = useState(false);
+
+  useEffect(() => {
+    if (isPayment === lesson._id) {
+      setLessonPayment(true);
+    }
+  }, [isPayment, lesson._id]);
 
   const handleOpenPopover = isOpen => {
     setOpenPopover(isOpen);
@@ -58,6 +67,8 @@ function LessonTableCard({ lesson, onLessonsDelete }) {
     office: lesson.office,
   };
   const styleDescr = lesson ? lesson.status : '';
+
+  const { paymentForm } = lesson;
 
   const content = (
     <ButtonContainer>
@@ -126,8 +137,9 @@ function LessonTableCard({ lesson, onLessonsDelete }) {
             {lesson.teacherName} {lesson.teacherSurname}
           </InfoTeacher>
         </InfoContainer>
-        {((lesson.paymentForm && lesson.paymentForm === 'cash') ||
-          (lesson.paymentForm && lesson.paymentForm === 'cashless')) && (
+        {((paymentForm && paymentForm === 'cash') ||
+          (paymentForm && paymentForm === 'cashless') ||
+          lessonPayment) && (
           <PaymentContainer>
             <IconPaymentLesson />
           </PaymentContainer>

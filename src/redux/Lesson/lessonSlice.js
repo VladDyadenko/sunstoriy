@@ -16,6 +16,7 @@ const initialState = {
   marker: null,
   operetion: null,
   error: null,
+  isPayment: null,
 };
 
 const lessonSlice = createSlice({
@@ -58,20 +59,27 @@ const lessonSlice = createSlice({
       .addCase(updateLesson.fulfilled, (state, action) => {
         state.isloading = false;
         state.operetion = null;
+        state.isPayment = null;
         state.error = null;
         const id = action.payload._id;
         const indexLesson = state.lesson.findIndex(vel => vel._id === id);
         if (indexLesson !== -1) {
           state.lesson[indexLesson] = action.payload;
         }
-        // const index = state.choseLesson.findIndex(vel => vel._id === id);
-        // if (index !== -1) {
-        //   state.choseLesson[index] = action.payload;
-        // }
+
+        if (
+          (action?.payload?.paymentForm &&
+            action.payload.paymentForm === 'cash') ||
+          (action?.payload?.paymentForm &&
+            action.payload.paymentForm === 'cashless')
+        ) {
+          state.isPayment = action.payload._id;
+        }
       })
       .addCase(updateLesson.rejected, (state, action) => {
         state.isloading = false;
         state.operetion = null;
+        state.isPayment = null;
         state.error = action.payload;
       })
       .addCase(choseLessonGraph.pending, state => {

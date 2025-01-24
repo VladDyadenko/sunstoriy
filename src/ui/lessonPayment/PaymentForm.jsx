@@ -14,7 +14,7 @@ function PaymentForm({
   const dispatch = useDispatch();
 
   const onPaymentFormChange = value => {
-    if (value === 'cash') {
+    if (value === 'cash' || value === 'noPayment') {
       // Очистити поле "bank" і зробити його неактивним
       form.setFieldsValue({ bank: undefined });
     }
@@ -32,17 +32,13 @@ function PaymentForm({
           delete values.sum;
         }
 
-        setIsPaymentLesson(true);
         onCloseDrawer();
         const combinedData = { id, values };
 
-        console.log('combinedData', combinedData);
         await dispatch(updateLesson(combinedData)).then(() => {
-          // const data = {
-          //   offices,
-          //   dateCurrentLesson,
-          // };
-          // dispatch(choseLessonGraph(data));
+          values.paymentForm === 'noPayment'
+            ? setIsPaymentLesson(false)
+            : setIsPaymentLesson(true);
         });
       }}
     >
