@@ -15,6 +15,8 @@ import {
   DescrDeleteBtn,
   IconButtonChose,
   IconButtonCopy,
+  IconPaymentLesson,
+  InfoAndPaymentContainer,
   InfoChild,
   InfoColor,
   InfoContainer,
@@ -22,6 +24,7 @@ import {
   LessonButton,
   LessonDelete,
   LessonEdit,
+  PaymentContainer,
   Wrapper,
 } from './LessonTableCard.styled';
 import { selectOfficesOperetion } from 'redux/offices/officesSelector';
@@ -112,16 +115,24 @@ function LessonTableCard({ lesson, onLessonsDelete }) {
   );
   return (
     <Wrapper>
-      <InfoContainer>
-        <InfoChild aria-description={styleDescr}>Дитина:</InfoChild>
-        <InfoChild aria-description={styleDescr}>
-          {lesson.childName} {lesson.childSurname}
-        </InfoChild>
-        <InfoTeacher aria-description={styleDescr}>Фахівець:</InfoTeacher>
-        <InfoTeacher aria-description={styleDescr}>
-          {lesson.teacherName} {lesson.teacherSurname}
-        </InfoTeacher>
-      </InfoContainer>
+      <InfoAndPaymentContainer>
+        <InfoContainer>
+          <InfoChild aria-description={styleDescr}>Дитина:</InfoChild>
+          <InfoChild aria-description={styleDescr}>
+            {lesson.childName} {lesson.childSurname}
+          </InfoChild>
+          <InfoTeacher aria-description={styleDescr}>Фахівець:</InfoTeacher>
+          <InfoTeacher aria-description={styleDescr}>
+            {lesson.teacherName} {lesson.teacherSurname}
+          </InfoTeacher>
+        </InfoContainer>
+        {((lesson.paymentForm && lesson.paymentForm === 'cash') ||
+          (lesson.paymentForm && lesson.paymentForm === 'cashless')) && (
+          <PaymentContainer>
+            <IconPaymentLesson />
+          </PaymentContainer>
+        )}
+      </InfoAndPaymentContainer>
       <InfoColor
         aria-description={styleDescr}
         aria-current={lesson ? lesson.teacherColor : ''}

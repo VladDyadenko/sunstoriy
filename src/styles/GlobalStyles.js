@@ -179,6 +179,8 @@ body,
     --teacher-color-2:#4B0082;
     --teacher-color-3:#FF6347;
     --teacher-color-4:#FF00FF;
+
+    --main-red:#e94734;
   }
 
 

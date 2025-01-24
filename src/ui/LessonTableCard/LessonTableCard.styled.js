@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { Button } from 'antd';
 import { BsFillPatchQuestionFill } from 'react-icons/bs';
 import { FaRegCopy } from 'react-icons/fa';
+import { FcMoneyTransfer } from 'react-icons/fc';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -169,6 +170,23 @@ export const IconButtonChose = styled(BsFillPatchQuestionFill)`
     fill: #fff;
   }
 `;
+export const IconPaymentLesson = styled(FcMoneyTransfer)`
+  width: 23px;
+  height: 23px;
+`;
+
+export const PaymentContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 5px;
+`;
+export const InfoAndPaymentContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+`;
+
 export const IconButtonCopy = styled(FaRegCopy)`
   width: 17px;
   height: 17px;
