@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunksunstoriy=self.webpackChunksunstoriy||[]).push([[668],{5668:function(s,n,i){i.r(n);i(2791);var u=i(184);n.default=function(){return(0,u.jsx)("div",{children:"This is AdminPage"})}}}]);
-//# sourceMappingURL=668.cf415dd5.chunk.js.map
