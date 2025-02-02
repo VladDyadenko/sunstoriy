@@ -32,20 +32,45 @@ import SendSms from 'ui/Sms/SendSms';
 import StatusLesson from 'components/StatusLesson/StatusLesson';
 import LessonPayment from 'ui/lessonPayment/LessonPayment';
 import { useEffect, useState } from 'react';
-import { selectLessonIsPayment } from 'redux/Lesson/lessonSelector';
+import { selectIslessonStatus } from 'redux/Lesson/lessonSelector';
+import { FcOk } from 'react-icons/fc';
+import { getLessonById } from 'redux/Lesson/api';
 
 function LessonTableCard({ lesson, onLessonsDelete }) {
   const operetion = useSelector(selectOfficesOperetion);
-  const isPayment = useSelector(selectLessonIsPayment);
+
+  const isLessonStatus = useSelector(selectIslessonStatus);
+
+  const { paymentForm, isHappend, _id } = lesson;
 
   const [openPopover, setOpenPopover] = useState(false);
-  const [lessonPayment, setLessonPayment] = useState(false);
+  const [isLessonPaymented, setIsLessonPaymented] = useState('');
+  const [lessonHappended, setLessonHappended] = useState('');
 
   useEffect(() => {
-    if (isPayment === lesson._id) {
-      setLessonPayment(true);
-    }
-  }, [isPayment, lesson._id]);
+    paymentForm && setIsLessonPaymented(paymentForm);
+    isHappend && setLessonHappended(isHappend);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    // Оголошуємо асинхронну функцію
+    const fetchLesson = async () => {
+      if (isLessonStatus === _id) {
+        try {
+          const val = await getLessonById(isLessonStatus);
+          setIsLessonPaymented(val.paymentForm);
+          setLessonHappended(val.isHappend);
+        } catch (error) {
+          console.error('Помилка при завантаженні уроку:', error);
+        }
+      }
+    };
+
+    // Викликаємо асинхронну функцію
+    fetchLesson();
+  }, [_id, isLessonStatus]);
 
   const handleOpenPopover = isOpen => {
     setOpenPopover(isOpen);
@@ -68,12 +93,14 @@ function LessonTableCard({ lesson, onLessonsDelete }) {
   };
   const styleDescr = lesson ? lesson.status : '';
 
-  const { paymentForm } = lesson;
-
   const content = (
     <ButtonContainer>
-      <LessonPayment lesson={lesson} closePopover={closePopover} />
-      <CardLessonLink to={`/lesson/${lesson._id}?source=buttonViewing`}>
+      <LessonPayment
+        lesson={lesson}
+        closePopover={closePopover}
+        isLessonPaymented={isLessonPaymented}
+      />
+      <CardLessonLink to={`/lesson/${_id}?source=buttonViewing`}>
         Переглянути
         <IconLessonSee />
       </CardLessonLink>
@@ -85,7 +112,7 @@ function LessonTableCard({ lesson, onLessonsDelete }) {
         Копіювати
         <IconButtonCopy />
       </CardLessonCopy>
-      <LessonEdit to={`/lesson/${lesson._id}`}>
+      <LessonEdit to={`/lesson/${_id}`}>
         Редагувати
         <IconLessonEdit />
       </LessonEdit>
@@ -105,7 +132,7 @@ function LessonTableCard({ lesson, onLessonsDelete }) {
         }}
       >
         <LessonDelete>
-          {operetion === lesson._id ? (
+          {operetion === _id ? (
             <CirclesWithBar
               height="24"
               width="24"
@@ -137,13 +164,13 @@ function LessonTableCard({ lesson, onLessonsDelete }) {
             {lesson.teacherName} {lesson.teacherSurname}
           </InfoTeacher>
         </InfoContainer>
-        {((paymentForm && paymentForm === 'cash') ||
-          (paymentForm && paymentForm === 'cashless') ||
-          lessonPayment) && (
-          <PaymentContainer>
-            <IconPaymentLesson />
-          </PaymentContainer>
-        )}
+        <PaymentContainer>
+          {lessonHappended && lessonHappended === 'Відпрацьоване' && <FcOk />}
+
+          {isLessonPaymented &&
+            (isLessonPaymented === 'cash' ||
+              isLessonPaymented === 'cashless') && <IconPaymentLesson />}
+        </PaymentContainer>
       </InfoAndPaymentContainer>
       <InfoColor
         aria-description={styleDescr}

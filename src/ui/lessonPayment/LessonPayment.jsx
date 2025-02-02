@@ -1,33 +1,24 @@
 import { useSelector } from 'react-redux';
 import { smsOperetion } from 'redux/sms/smsSelector';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { CirclesWithBar } from 'react-loader-spinner';
 import { PaymentLessonBtn } from './LessonPayment.styled';
 import { Drawer } from 'antd';
 import PaymentForm from './PaymentForm';
 
-const LessonPayment = ({ lesson, closePopover }) => {
-  const { _id, bank, paymentForm, price } = lesson;
+const LessonPayment = ({ lesson, closePopover, isLessonPaymented }) => {
+  const { _id, bank, paymentForm, price, isHappend } = lesson;
 
   const initialPaymentValues = {
     sum: price,
-    paymentForm: paymentForm ? paymentForm : 'cashless',
+    paymentForm: paymentForm ? paymentForm : 'noPayment',
     bank: bank ? bank : 'PrivatBank',
+    isHappend: isHappend === 'Відпрацьоване',
   };
   const operetion = useSelector(smsOperetion);
 
-  const [isPaymentLesson, setIsPaymentLesson] = useState(false);
-
-  useEffect(() => {
-    if (
-      (paymentForm && paymentForm === 'cash') ||
-      (paymentForm && paymentForm === 'cashless')
-    ) {
-      setIsPaymentLesson(true);
-    }
-  }, [paymentForm]);
-
   const [open, setOpen] = useState(false);
+  const [amountPaid, setAmountPaid] = useState(price);
 
   const showDrawer = () => {
     setOpen(true);
@@ -40,11 +31,7 @@ const LessonPayment = ({ lesson, closePopover }) => {
 
   return (
     <>
-      <PaymentLessonBtn
-        disabled={isPaymentLesson}
-        type="button"
-        onClick={showDrawer}
-      >
+      <PaymentLessonBtn type="button" onClick={showDrawer}>
         {operetion === _id ? (
           <CirclesWithBar
             height="24"
@@ -54,8 +41,9 @@ const LessonPayment = ({ lesson, closePopover }) => {
             visible={true}
             ariaLabel="circles-with-bar-loading"
           />
-        ) : isPaymentLesson ? (
-          `Оплачено: ${price} грн`
+        ) : isLessonPaymented &&
+          (isLessonPaymented === 'cash' || isLessonPaymented === 'cashless') ? (
+          `Оплачено: ${amountPaid} грн`
         ) : (
           'Очікує оплату'
         )}
@@ -71,9 +59,9 @@ const LessonPayment = ({ lesson, closePopover }) => {
         <PaymentForm
           price={price}
           initialPaymentValues={initialPaymentValues}
-          setIsPaymentLesson={setIsPaymentLesson}
           onCloseDrawer={onCloseDrawer}
           id={_id}
+          setAmountPaid={setAmountPaid}
         />
       </Drawer>
     </>
