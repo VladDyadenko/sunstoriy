@@ -12,7 +12,7 @@ const LessonPayment = ({ lesson, closePopover, isLessonPaymented }) => {
   const initialPaymentValues = {
     sum: price,
     paymentForm: paymentForm ? paymentForm : 'noPayment',
-    bank: bank ? bank : 'PrivatBank',
+    bank: bank ? bank : '',
     isHappend: isHappend === 'Відпрацьоване',
   };
   const operetion = useSelector(smsOperetion);

@@ -14,23 +14,16 @@ function PaymentForm({
 
   const [paymentMethod, setPaymentMethod] = useState(null);
 
-  const onPaymentFormChange = value => {
-    if (value === 'cash' || value === 'noPayment') {
-      // Очистити поле "bank" і зробити його неактивним
-      form.setFieldsValue({ bank: undefined });
-    }
-  };
-
   return (
     <Form
       form={form}
       initialValues={initialPaymentValues}
       onFinish={async values => {
         if (values.paymentForm === 'cash') {
-          delete values.bank;
+          values.bank = '';
         }
         if (values.paymentForm === 'noPayment') {
-          delete values.bank;
+          values.bank = '';
           values.sum = 0;
         }
         values.isHappend = values.isHappend ? 'Відпрацьоване' : 'Заплановане';
@@ -53,7 +46,11 @@ function PaymentForm({
       <Form.Item
         label="Форма оплати"
         name="paymentForm"
-        onChange={e => onPaymentFormChange(e.target.value)}
+        onChange={e => {
+          if (e.target.value === 'cash' || e.target.value === 'noPayment') {
+            form.setFieldsValue({ bank: '' });
+          }
+        }}
       >
         <Radio.Group
           onChange={e => {

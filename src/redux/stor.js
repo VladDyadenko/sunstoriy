@@ -16,6 +16,7 @@ import { teachersReducer } from './teacher/teacherSlice';
 import { lessonReducer } from './Lesson/lessonSlice';
 import { officesReducer } from './offices/officesSlice';
 import { smsReducer } from './sms/smsSlice';
+import { expenseReducer } from './expense/expenseSlice';
 
 const persistConfig = {
   key: 'auth',
@@ -31,6 +32,7 @@ export const store = configureStore({
     lesson: lessonReducer,
     offices: officesReducer,
     sendSms: smsReducer,
+    expense: expenseReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

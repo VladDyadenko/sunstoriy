@@ -21,3 +21,22 @@ export const navSitePage = [
   { page: 'Кабінет', path: '/adminpage' },
 ];
 export const currentLessonCost = 450;
+
+export const categoryExpense = [
+  {
+    category: 'rent',
+    title: 'Оренда',
+  },
+  {
+    category: 'equipment',
+    title: 'Обладнання',
+  },
+  {
+    category: 'salary',
+    title: 'Заробітна плата',
+  },
+  {
+    category: 'other',
+    title: 'Інше',
+  },
+];

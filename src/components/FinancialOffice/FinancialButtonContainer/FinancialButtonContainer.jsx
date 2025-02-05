@@ -16,12 +16,18 @@ import {
 } from './FinancialButtonContainer.styled';
 
 import dayjs from 'dayjs';
+import ExpenseContainer from 'components/Expense/ExpenseContainer';
 const { RangePicker } = DatePicker;
 
 const FinancialButtonContainer = () => {
   const today = dayjs();
 
   const [dayOrePariod, setDayOrePariod] = useState('oneDay');
+
+  const [open, setOpen] = useState(false);
+  const onCloseDrawerExpense = () => {
+    setOpen(false);
+  };
 
   function selectDay(date, dateString) {
     const currentChoice = new Set(dateString);
@@ -131,7 +137,10 @@ const FinancialButtonContainer = () => {
           }}
         >
           <FinancialCommandTitle>Інші платежи:</FinancialCommandTitle>
-          <CommandLineButton disabled={dayOrePariod === 'period'}>
+          <CommandLineButton
+            onClick={() => setOpen(true)}
+            disabled={dayOrePariod === 'period'}
+          >
             {dayOrePariod === 'period' ? (
               <>
                 Виберіть день <FaRegCalendarPlus />
@@ -142,7 +151,10 @@ const FinancialButtonContainer = () => {
               </>
             )}
           </CommandLineButton>
-          <CommandLineButton disabled={dayOrePariod === 'period'}>
+          <CommandLineButton
+            htmlType="button"
+            disabled={dayOrePariod === 'period'}
+          >
             {dayOrePariod === 'period' ? (
               <>
                 Виберіть день <FaRegCalendarPlus />
@@ -153,6 +165,10 @@ const FinancialButtonContainer = () => {
               </>
             )}
           </CommandLineButton>
+          <ExpenseContainer
+            onCloseDrawerExpense={onCloseDrawerExpense}
+            open={open}
+          />
         </div>
       </CommandLineWrapper>
     </>
