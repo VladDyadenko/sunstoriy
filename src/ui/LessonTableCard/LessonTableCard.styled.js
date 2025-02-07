@@ -42,7 +42,7 @@ export const ButtonContainer = styled.div`
   gap: 5px;
 `;
 export const InfoContainer = styled.div`
-  width: 80%;
+  min-width: 80%;
   padding: 5px;
   display: flex;
   align-items: start;

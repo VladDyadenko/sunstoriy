@@ -2,9 +2,22 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { Notify } from 'notiflix';
 
+export const fetchExpenses = createAsyncThunk(
+  'expense',
+  async (_, thunkAPI) => {
+    try {
+      const { expenses } = await axios.get('/expense');
+      console.log(expenses);
+      return expenses;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
+  }
+);
+
 export const addExpense = createAsyncThunk(
-  'lesson/addLesson',
-  async (expenseData, thunkAPI) => {
+  'expense/addExpense',
+  async (expenseData, { rejectWithValue }) => {
     try {
       const { data } = await axios.post('/expense', expenseData, {
         headers: {
@@ -19,7 +32,7 @@ export const addExpense = createAsyncThunk(
       if (err) {
         Notify.failure(err.response.data.message);
       }
-      return thunkAPI.rejectWithValue(err.message);
+      return rejectWithValue(err.message);
     }
   }
 );

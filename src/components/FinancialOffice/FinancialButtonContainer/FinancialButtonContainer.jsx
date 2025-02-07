@@ -17,25 +17,56 @@ import {
 
 import dayjs from 'dayjs';
 import ExpenseContainer from 'components/Expense/ExpenseContainer';
+import { getZvitOneMonthTotal } from 'redux/zvit/api';
 const { RangePicker } = DatePicker;
 
 const FinancialButtonContainer = () => {
   const today = dayjs();
 
   const [dayOrePariod, setDayOrePariod] = useState('oneDay');
+  const [selectedPeriod, setSelectedPeriod] = useState(null);
 
   const [open, setOpen] = useState(false);
   const onCloseDrawerExpense = () => {
     setOpen(false);
   };
 
-  function selectDay(date, dateString) {
-    const currentChoice = new Set(dateString);
+  function selectDay(dates, dateStrings) {
+    if (!dates || dates.length === 0) return;
 
-    currentChoice?.size === 1
-      ? setDayOrePariod('oneDay')
-      : setDayOrePariod('period');
+    // Отримуємо дати у форматі JavaScript Date
+    const startDate = new Date(dates[0].toDate());
+    const endDate = new Date(dates[1].toDate());
+
+    // Обнуляємо години для початку дня
+    startDate.setUTCHours(0, 0, 0, 0);
+    endDate.setUTCHours(23, 59, 59, 999);
+
+    const isOneDay =
+      startDate.getUTCFullYear() === endDate.getUTCFullYear() &&
+      startDate.getUTCMonth() === endDate.getUTCMonth() &&
+      startDate.getUTCDate() === endDate.getUTCDate();
+
+    // Форматуємо для бекенду
+    const formattedDates = {
+      startDate: startDate.toISOString(), // 2025-02-01T00:00:00.000Z
+      endDate: endDate.toISOString(), // 2025-02-08T23:59:59.999Z
+    };
+    setSelectedPeriod(formattedDates);
+
+    setDayOrePariod(isOneDay ? 'oneDay' : 'period');
   }
+
+  const fetchZvitOneMonthTotal = async period => {
+    if (!period) return;
+
+    try {
+      const { totalData } = await getZvitOneMonthTotal(period);
+      console.log('✅ totalProfit:', totalData);
+    } catch (error) {
+      console.error('❌ Error fetching total profit:', error);
+    }
+  };
 
   return (
     <>
@@ -50,7 +81,10 @@ const FinancialButtonContainer = () => {
         >
           <FinancialCommandTitle>Фінансові показники:</FinancialCommandTitle>
           <RangePicker defaultValue={[today, today]} onChange={selectDay} />
-          <CommandLineButton disabled={dayOrePariod === 'period'}>
+          <CommandLineButton
+            onClick={() => fetchZvitOneMonthTotal(selectedPeriod)}
+            disabled={dayOrePariod === 'period'}
+          >
             {dayOrePariod === 'period' ? (
               <>
                 Доходи за день <FaRegCalendarPlus />
@@ -72,7 +106,10 @@ const FinancialButtonContainer = () => {
               </>
             )}
           </CommandLineButton>
-          <CommandLineButton disabled={dayOrePariod === 'oneDay'}>
+          <CommandLineButton
+            onClick={() => fetchZvitOneMonthTotal(selectedPeriod)}
+            disabled={dayOrePariod === 'oneDay'}
+          >
             {dayOrePariod === 'period' ? (
               <>
                 Доходи за період <BsBarChartLine />

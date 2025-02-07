@@ -155,9 +155,9 @@ function LessonTableCard({ lesson, onLessonsDelete }) {
     <Wrapper>
       <InfoAndPaymentContainer>
         <InfoContainer>
-          <InfoChild aria-description={styleDescr}>Дитина:</InfoChild>
+          {/* <InfoChild aria-description={styleDescr}>Дитина:</InfoChild> */}
           <InfoChild aria-description={styleDescr}>
-            {lesson.childName} {lesson.childSurname}
+            {lesson.childName} <br /> {lesson.childSurname}
           </InfoChild>
           <InfoTeacher aria-description={styleDescr}>Фахівець:</InfoTeacher>
           <InfoTeacher aria-description={styleDescr}>

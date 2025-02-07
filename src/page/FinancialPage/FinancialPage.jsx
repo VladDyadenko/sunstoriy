@@ -1,11 +1,9 @@
-import Container from "../../components/Container/Container";
+import FinancialLayout from 'components/FinancialOffice/FinancialOfficeLayout/FinancialLayout';
 
 function FinancialPage() {
   return (
     <>
-      <Container>
-        <h3>FinancialPage</h3>
-      </Container>
+      <FinancialLayout />
     </>
   );
 }

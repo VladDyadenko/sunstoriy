@@ -1,4 +1,4 @@
-import { addExpense } from './expenseOperetion';
+import { addExpense, fetchExpenses } from './expenseOperetion';
 
 const { createSlice } = require('@reduxjs/toolkit');
 
@@ -15,6 +15,18 @@ const expenseSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder
+      .addCase(fetchExpenses.pending, state => {
+        state.isloading = true;
+      })
+      .addCase(fetchExpenses.fulfilled, (state, action) => {
+        state.isloading = false;
+        state.error = null;
+        state.expense = action.payload;
+      })
+      .addCase(fetchExpenses.rejected, (state, action) => {
+        state.isloading = false;
+        state.error = action.payload;
+      })
       .addCase(addExpense.pending, state => {
         state.isloading = true;
         state.operetion = 'addExpense';
