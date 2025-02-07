@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunksunstoriy=self.webpackChunksunstoriy||[]).push([[629],{6629:function(n,e,s){s.r(e);var r=s(7095),i=s(184);e.default=function(){return(0,i.jsx)(i.Fragment,{children:(0,i.jsx)(r.Z,{children:(0,i.jsx)("h3",{children:"FinancialPage"})})})}}}]);
-//# sourceMappingURL=629.83537128.chunk.js.map
