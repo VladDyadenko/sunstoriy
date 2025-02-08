@@ -25,6 +25,9 @@ const FinancialButtonContainer = () => {
 
   const [dayOrePariod, setDayOrePariod] = useState('oneDay');
   const [selectedPeriod, setSelectedPeriod] = useState(null);
+  const [dateFromExpense, setDateFromExpense] = useState(
+    new Date().toISOString().split('T')[0]
+  );
 
   const [open, setOpen] = useState(false);
   const onCloseDrawerExpense = () => {
@@ -33,6 +36,7 @@ const FinancialButtonContainer = () => {
 
   function selectDay(dates, dateStrings) {
     if (!dates || dates.length === 0) return;
+    setDateFromExpense(dateStrings[0]);
 
     // Отримуємо дати у форматі JavaScript Date
     const startDate = new Date(dates[0].toDate());
@@ -205,6 +209,7 @@ const FinancialButtonContainer = () => {
           <ExpenseContainer
             onCloseDrawerExpense={onCloseDrawerExpense}
             open={open}
+            selectedPeriod={dateFromExpense}
           />
         </div>
       </CommandLineWrapper>

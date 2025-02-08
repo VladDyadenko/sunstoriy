@@ -4,18 +4,12 @@ import { categoryExpense } from 'assets/constants/mainConstans';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addExpense } from 'redux/expense/expenseOperetion';
+import { DateDescription, DateTitle } from './ExpenseContainer.styled';
 
-const ExpenseContainer = ({ open, onCloseDrawerExpense }) => {
+const ExpenseContainer = ({ selectedPeriod, open, onCloseDrawerExpense }) => {
   const [form] = useForm();
   const [paymentMethod, setPaymentMethod] = useState(null);
   const dispatch = useDispatch();
-
-  // const onPaymentFormChange = (value, setFieldsValue) => {
-  //   if (value === 'cash') {
-  //     // Очистити поле "bank" і зробити його неактивним
-  //     form.setFieldsValue({ bank: undefined });
-  //   }
-  // };
 
   return (
     <>
@@ -40,14 +34,16 @@ const ExpenseContainer = ({ open, onCloseDrawerExpense }) => {
             if (values.paymentForm === 'cash') {
               values.bank = '';
             }
-
-            values.date = new Date().toISOString().split('T')[0];
+            values.date = selectedPeriod;
             await dispatch(addExpense(values)).then(() => {
               onCloseDrawerExpense();
             });
           }}
         >
-          <Form.Item></Form.Item>
+          <DateTitle>
+            Дата витрат: <DateDescription>{selectedPeriod}</DateDescription>
+          </DateTitle>
+
           <Form.Item
             label="Категорія витрат"
             name="category"
