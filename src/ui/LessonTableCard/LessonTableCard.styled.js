@@ -43,22 +43,24 @@ export const ButtonContainer = styled.div`
 `;
 export const InfoContainer = styled.div`
   min-width: 80%;
-  padding: 5px;
+  padding: 7px 5px;
   display: flex;
   align-items: start;
   justify-content: center;
   flex-direction: column;
-
-  & p {
+  gap: 3px;
+  /* & p {
     margin-bottom: 3px;
-  }
+  } */
 `;
 
 export const InfoTeacher = styled.p`
+  text-align: left;
+  white-space: nowrap;
   font-family: 'RobotoSlab';
   font-weight: 500;
   font-size: 12px;
-  line-height: 1.2;
+  line-height: 1.05;
   ${props => {
     if (props['aria-description'] === 'cancel') {
       return `color: #a9a9a9`;
@@ -70,9 +72,12 @@ export const InfoTeacher = styled.p`
   }}
 `;
 export const InfoChild = styled.p`
+  min-height: 50%;
+  white-space: nowrap;
+  text-align: left;
   font-family: 'RobotoSlab';
   font-weight: 500;
-  line-height: 1.2;
+  line-height: 1.05;
   font-size: 12px;
   ${props => {
     if (props['aria-description'] === 'cancel') {

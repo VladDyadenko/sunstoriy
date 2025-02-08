@@ -19,7 +19,6 @@ export const TableItem = styled.li`
   min-width: 50px;
   height: 80px;
   margin-bottom: 10px;
-
   background-color: var(--main-blue);
   color: var(--main-green);
   border: 2px solid var(--main-green);
@@ -41,6 +40,7 @@ export const TimeItem = styled.p`
   font-size: 14px;
   width: 100%;
   padding: 5px;
+  text-align: center;
 `;
 export const AddLessonLink = styled.li`
   display: flex;

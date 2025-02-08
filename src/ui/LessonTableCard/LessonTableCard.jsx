@@ -44,31 +44,33 @@ function LessonTableCard({ lesson, onLessonsDelete }) {
   const { paymentForm, isHappend, _id } = lesson;
 
   const [openPopover, setOpenPopover] = useState(false);
-  const [isLessonPaymented, setIsLessonPaymented] = useState('');
-  const [lessonHappended, setLessonHappended] = useState('');
+  const [isLessonPaymented, setIsLessonPaymented] = useState(
+    paymentForm ? paymentForm : ''
+  );
+  const [lessonHappended, setLessonHappended] = useState(
+    isHappend ? isHappend : ''
+  );
 
   useEffect(() => {
-    paymentForm && setIsLessonPaymented(paymentForm);
-    isHappend && setLessonHappended(isHappend);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (lesson) {
+      setIsLessonPaymented(paymentForm || '');
+      setLessonHappended(isHappend || '');
+    }
+  }, [isHappend, lesson, paymentForm]);
 
   useEffect(() => {
-    // Оголошуємо асинхронну функцію
     const fetchLesson = async () => {
       if (isLessonStatus === _id) {
         try {
           const val = await getLessonById(isLessonStatus);
-          setIsLessonPaymented(val.paymentForm);
-          setLessonHappended(val.isHappend);
+          setIsLessonPaymented(val.paymentForm || '');
+          setLessonHappended(val.isHappend || '');
         } catch (error) {
           console.error('Помилка при завантаженні уроку:', error);
         }
       }
     };
 
-    // Викликаємо асинхронну функцію
     fetchLesson();
   }, [_id, isLessonStatus]);
 
