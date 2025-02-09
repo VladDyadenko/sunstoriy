@@ -21,9 +21,8 @@ export const StyledTable = styled(Table)`
   }
 
   .ant-table-row[data-row-key='balance'] {
-    font-family: 'RobotoSlab';
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 400;
     background-color: #e6f7ff !important; /* Колір фону */
     color: #1890ff; /* Колір тексту */
   }
@@ -37,4 +36,7 @@ export const ReportTitle = styled.h3`
   color: #1890ff;
   background-color: #e6f7ff;
   border-radius: 10px;
+`;
+export const StyledCell = styled.span`
+  color: ${({ isNegative }) => (isNegative ? 'red' : 'inherit')};
 `;

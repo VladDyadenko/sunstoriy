@@ -1,7 +1,7 @@
 import React from 'react';
-import { ReportTitle, StyledTable } from './PeriodReport.styled';
+import { ReportTitle, StyledCell, StyledTable } from './PeriodReport.styled';
 
-const ReportCurrentMonth = ({ indicatorsCurrentMonth }) => {
+const ReportCurrentMonth = ({ indicatorsCurrentMonth, loading }) => {
   const {
     profit = {},
     expense = {},
@@ -11,10 +11,30 @@ const ReportCurrentMonth = ({ indicatorsCurrentMonth }) => {
   } = indicatorsCurrentMonth;
 
   const columns = [
-    { key: '1', title: 'Категорія', dataIndex: 'category' },
-    { key: '2', title: 'На початок періоду', dataIndex: 'profitPrev' },
-    { key: '3', title: 'Оплачені кошти', dataIndex: 'currentIncome' },
-    { key: '4', title: 'Поточні витрати', dataIndex: 'currentExpense' },
+    {
+      key: '1',
+      title: 'Категорія',
+      dataIndex: 'category',
+      render: value => <StyledCell isNegative={value < 0}>{value}</StyledCell>,
+    },
+    {
+      key: '2',
+      title: 'На початок періоду',
+      dataIndex: 'profitPrev',
+      render: value => <StyledCell isNegative={value < 0}>{value}</StyledCell>,
+    },
+    {
+      key: '3',
+      title: 'Оплачені кошти',
+      dataIndex: 'currentIncome',
+      render: value => <StyledCell isNegative={value < 0}>{value}</StyledCell>,
+    },
+    {
+      key: '4',
+      title: 'Поточні витрати',
+      dataIndex: 'currentExpense',
+      render: value => <StyledCell isNegative={value < 0}>{value}</StyledCell>,
+    },
     {
       key: '5',
       title: 'Відпрацьовано',
@@ -38,7 +58,12 @@ const ReportCurrentMonth = ({ indicatorsCurrentMonth }) => {
       },
     },
 
-    { key: '6', title: 'На кінець періоду ', dataIndex: 'profit' },
+    {
+      key: '6',
+      title: 'На кінець періоду ',
+      dataIndex: 'profit',
+      render: value => <StyledCell isNegative={value < 0}>{value}</StyledCell>,
+    },
   ];
 
   const dataSource = [
@@ -88,6 +113,7 @@ const ReportCurrentMonth = ({ indicatorsCurrentMonth }) => {
         dataSource={dataSource}
         size="small"
         pagination={false}
+        loading={loading}
       />
     </div>
   );

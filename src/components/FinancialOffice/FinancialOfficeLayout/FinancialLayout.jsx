@@ -7,10 +7,15 @@ import FinancialButtonContainer from '../FinancialButtonContainer/FinancialButto
 import Container from 'components/Container/Container';
 import { getZvitOneMonthTotal } from 'redux/zvit/api';
 import ReportCurrentMonth from '../PeriodReport/PeriodReport';
+import { useSelector } from 'react-redux';
+import { selectExpense } from 'redux/expense/expenceSelector';
 
 const FinancialLayout = () => {
   const [indicatorsCurrentMonth, setIndicatorsCurrentMonth] = useState([]);
-  console.log('показники місяця', indicatorsCurrentMonth);
+  // console.log('показники місяця', indicatorsCurrentMonth);
+
+  const expenseMarker = useSelector(selectExpense);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchZvitOneMonthTotal = async () => {
@@ -25,20 +30,26 @@ const FinancialLayout = () => {
       };
 
       try {
+        setLoading(true);
         const { totalData } = await getZvitOneMonthTotal(formattedDates);
         setIndicatorsCurrentMonth(totalData);
       } catch (error) {
         console.error('❌ Error fetching total profit:', error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchZvitOneMonthTotal();
-  }, []);
+  }, [expenseMarker]);
   return (
     <Container>
       <WrapperFinancialOffice>
         <FinancialButtonContainer />
         <ContantLineWrapper>
-          <ReportCurrentMonth indicatorsCurrentMonth={indicatorsCurrentMonth} />
+          <ReportCurrentMonth
+            loading={loading}
+            indicatorsCurrentMonth={indicatorsCurrentMonth}
+          />
         </ContantLineWrapper>
       </WrapperFinancialOffice>
     </Container>

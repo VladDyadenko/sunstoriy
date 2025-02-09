@@ -5,7 +5,7 @@ export const getZvitOneMonthTotal = async choesData => {
     const { data } = await axios.get(`/zvit/one_month_total`, {
       params: choesData, // ✅ Передаємо параметри правильно
     });
-    console.log('choesData:', choesData);
+
     return data;
   } catch (err) {
     console.error('❌ Error:', err.message);
