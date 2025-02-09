@@ -1,0 +1,96 @@
+import React from 'react';
+import { ReportTitle, StyledTable } from './PeriodReport.styled';
+
+const ReportCurrentMonth = ({ indicatorsCurrentMonth }) => {
+  const {
+    profit = {},
+    expense = {},
+    income = {},
+    workedIncom = 0,
+    previousMonthProfit = {},
+  } = indicatorsCurrentMonth;
+
+  const columns = [
+    { key: '1', title: 'Категорія', dataIndex: 'category' },
+    { key: '2', title: 'На початок періоду', dataIndex: 'profitPrev' },
+    { key: '3', title: 'Оплачені кошти', dataIndex: 'currentIncome' },
+    { key: '4', title: 'Поточні витрати', dataIndex: 'currentExpense' },
+    {
+      key: '5',
+      title: 'Відпрацьовано',
+      dataIndex: 'workedLessons',
+      render: (text, record, index) => {
+        // Об'єднуємо всі рядки в стовпці "Відпрацьовано"
+        if (index === 0) {
+          return {
+            children: text,
+            props: {
+              rowSpan: dataSource.length, // Об'єднуємо всі рядки
+            },
+          };
+        }
+        return {
+          children: text,
+          props: {
+            rowSpan: 0, // Приховуємо для інших рядків
+          },
+        };
+      },
+    },
+
+    { key: '6', title: 'На кінець періоду ', dataIndex: 'profit' },
+  ];
+
+  const dataSource = [
+    {
+      key: 'cash',
+      category: 'Готівка',
+      profitPrev: previousMonthProfit?.cash || 0,
+      profit: profit?.kasa || 0,
+      currentExpense: expense?.cash || 0,
+      currentIncome: income?.cash || 0,
+      workedLessons: workedIncom,
+    },
+    {
+      key: 'privat',
+      category: 'ПриватБанк',
+      profitPrev: previousMonthProfit?.privatBank || 0,
+      profit: profit?.privatBank || 0,
+      currentExpense: expense?.privatBank || 0,
+      currentIncome: income?.privatBank || 0,
+      workedLessons: '',
+    },
+    {
+      key: 'mono',
+      category: 'МоноБанк',
+      profitPrev: previousMonthProfit?.monoBank || 0,
+      profit: profit?.monoBank || 0,
+      currentExpense: expense?.monoBank || 0,
+      currentIncome: income?.monoBank || 0,
+      workedLessons: '',
+    },
+    {
+      key: 'balance',
+      category: 'Ітого:',
+      profitPrev: previousMonthProfit?.amount || 0,
+      profit: profit?.amount || 0,
+      currentExpense: expense?.amount || 0,
+      currentIncome: income?.amount || 0,
+      workedLessons: '',
+    },
+  ];
+
+  return (
+    <div>
+      <ReportTitle>Поточні цифри місяця</ReportTitle>
+      <StyledTable
+        columns={columns}
+        dataSource={dataSource}
+        size="small"
+        pagination={false}
+      />
+    </div>
+  );
+};
+
+export default ReportCurrentMonth;
