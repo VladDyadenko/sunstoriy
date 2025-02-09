@@ -37,6 +37,9 @@ export const ReportTitle = styled.h3`
   background-color: #e6f7ff;
   border-radius: 10px;
 `;
+export const StyledCellNegative = styled.span`
+  color: var(--main-red);
+`;
 export const StyledCell = styled.span`
-  color: ${({ isNegative }) => (isNegative ? 'red' : 'inherit')};
+  color: inherit;
 `;
