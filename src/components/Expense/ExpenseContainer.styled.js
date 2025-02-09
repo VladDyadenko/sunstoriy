@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const DateTitle = styled.p`
+export const DateTitle = styled.div`
   margin-bottom: 20px;
   text-align: center;
   font-family: 'RobotoSlab';

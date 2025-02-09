@@ -15,46 +15,43 @@ const ReportCurrentMonth = ({ indicatorsCurrentMonth, loading }) => {
       key: '1',
       title: 'Категорія',
       dataIndex: 'category',
-      render: value => <StyledCell isNegative={value < 0}>{value}</StyledCell>,
+      render: value => (
+        <StyledCell isNegative={value < 0 ? 1 : 0}>{value}</StyledCell>
+      ),
     },
     {
       key: '2',
       title: 'На початок періоду',
       dataIndex: 'profitPrev',
-      render: value => <StyledCell isNegative={value < 0}>{value}</StyledCell>,
+      render: value => (
+        <StyledCell isNegative={value < 0 ? 1 : 0}>{value}</StyledCell>
+      ),
     },
     {
       key: '3',
       title: 'Оплачені кошти',
       dataIndex: 'currentIncome',
-      render: value => <StyledCell isNegative={value < 0}>{value}</StyledCell>,
+      render: value => (
+        <StyledCell isNegative={value < 0 ? 1 : 0}>{value}</StyledCell>
+      ),
     },
     {
       key: '4',
       title: 'Поточні витрати',
       dataIndex: 'currentExpense',
-      render: value => <StyledCell isNegative={value < 0}>{value}</StyledCell>,
+      render: value => (
+        <StyledCell isNegative={value < 0 ? 1 : 0}>{value}</StyledCell>
+      ),
     },
     {
       key: '5',
       title: 'Відпрацьовано',
       dataIndex: 'workedLessons',
-      render: (text, record, index) => {
-        // Об'єднуємо всі рядки в стовпці "Відпрацьовано"
+      onCell: (_, index) => {
         if (index === 0) {
-          return {
-            children: text,
-            props: {
-              rowSpan: dataSource.length, // Об'єднуємо всі рядки
-            },
-          };
+          return { rowSpan: dataSource.length };
         }
-        return {
-          children: text,
-          props: {
-            rowSpan: 0, // Приховуємо для інших рядків
-          },
-        };
+        return { rowSpan: 0 };
       },
     },
 
@@ -62,7 +59,9 @@ const ReportCurrentMonth = ({ indicatorsCurrentMonth, loading }) => {
       key: '6',
       title: 'На кінець періоду ',
       dataIndex: 'profit',
-      render: value => <StyledCell isNegative={value < 0}>{value}</StyledCell>,
+      render: value => (
+        <StyledCell isNegative={value < 0 ? 1 : 0}>{value}</StyledCell>
+      ),
     },
   ];
 
