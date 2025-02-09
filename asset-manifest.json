@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/sunstoriy/static/css/main.58462fbc.css",
-    "main.js": "/sunstoriy/static/js/main.a4de796f.js",
+    "main.js": "/sunstoriy/static/js/main.77f7dd88.js",
     "static/js/447.af3dbd27.chunk.js": "/sunstoriy/static/js/447.af3dbd27.chunk.js",
     "static/js/359.36fa93dc.chunk.js": "/sunstoriy/static/js/359.36fa93dc.chunk.js",
     "static/js/111.7363be87.chunk.js": "/sunstoriy/static/js/111.7363be87.chunk.js",
@@ -17,7 +17,7 @@
     "static/js/668.0b7ab451.chunk.js": "/sunstoriy/static/js/668.0b7ab451.chunk.js",
     "static/js/847.344809d1.chunk.js": "/sunstoriy/static/js/847.344809d1.chunk.js",
     "static/js/453.808ae756.chunk.js": "/sunstoriy/static/js/453.808ae756.chunk.js",
-    "static/js/459.01252ace.chunk.js": "/sunstoriy/static/js/459.01252ace.chunk.js",
+    "static/js/459.05278e51.chunk.js": "/sunstoriy/static/js/459.05278e51.chunk.js",
     "static/media/RAS_tablet.jpg": "/sunstoriy/static/media/RAS_tablet.6ce9f1065ed36196fcbc.jpg",
     "static/media/RobotoSlab-Black.ttf": "/sunstoriy/static/media/RobotoSlab-Black.e42c176e3c87124b6be2.ttf",
     "static/media/RobotoSlab-ExtraBold.ttf": "/sunstoriy/static/media/RobotoSlab-ExtraBold.8ce75f350dc914f40148.ttf",
@@ -37,7 +37,7 @@
     "static/media/symbol-defs.svg": "/sunstoriy/static/media/symbol-defs.3ea2db432ca94c24613bc9cc08df3ce9.svg",
     "index.html": "/sunstoriy/index.html",
     "main.58462fbc.css.map": "/sunstoriy/static/css/main.58462fbc.css.map",
-    "main.a4de796f.js.map": "/sunstoriy/static/js/main.a4de796f.js.map",
+    "main.77f7dd88.js.map": "/sunstoriy/static/js/main.77f7dd88.js.map",
     "447.af3dbd27.chunk.js.map": "/sunstoriy/static/js/447.af3dbd27.chunk.js.map",
     "359.36fa93dc.chunk.js.map": "/sunstoriy/static/js/359.36fa93dc.chunk.js.map",
     "111.7363be87.chunk.js.map": "/sunstoriy/static/js/111.7363be87.chunk.js.map",
@@ -53,10 +53,10 @@
     "668.0b7ab451.chunk.js.map": "/sunstoriy/static/js/668.0b7ab451.chunk.js.map",
     "847.344809d1.chunk.js.map": "/sunstoriy/static/js/847.344809d1.chunk.js.map",
     "453.808ae756.chunk.js.map": "/sunstoriy/static/js/453.808ae756.chunk.js.map",
-    "459.01252ace.chunk.js.map": "/sunstoriy/static/js/459.01252ace.chunk.js.map"
+    "459.05278e51.chunk.js.map": "/sunstoriy/static/js/459.05278e51.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.58462fbc.css",
-    "static/js/main.a4de796f.js"
+    "static/js/main.77f7dd88.js"
   ]
 }
