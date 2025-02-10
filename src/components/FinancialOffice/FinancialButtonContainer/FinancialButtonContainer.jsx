@@ -27,6 +27,7 @@ const FinancialButtonContainer = ({ setDateFromTitle, setTypeZvit }) => {
 
   const [dayOrePariod, setDayOrePariod] = useState('oneDay');
   const [selectedPeriod, setSelectedPeriod] = useState(null);
+  const [selectedDateString, setSelectedDateString] = useState(null);
   const [dateFromExpense, setDateFromExpense] = useState(
     new Date().toISOString().split('T')[0]
   );
@@ -39,6 +40,7 @@ const FinancialButtonContainer = ({ setDateFromTitle, setTypeZvit }) => {
   function selectDay(dates, dateStrings) {
     if (!dates || dates.length === 0) return;
     setDateFromExpense(dateStrings[0]);
+    setSelectedDateString(dateStrings);
 
     // Отримуємо дати у форматі JavaScript Date
     const startDate = new Date(dates[0].toDate());
@@ -61,14 +63,6 @@ const FinancialButtonContainer = ({ setDateFromTitle, setTypeZvit }) => {
     setSelectedPeriod(formattedDates);
 
     setDayOrePariod(isOneDay ? 'oneDay' : 'period');
-    setDateFromTitle(
-      isOneDay
-        ? `Обороти за ${dateStrings[0].split('-').reverse().join('-')}`
-        : `Обороти з ${dateStrings[0]
-            .split('-')
-            .reverse()
-            .join('-')} по ${dateStrings[1].split('-').reverse().join('-')}`
-    );
   }
 
   const createZvitForPeriod = async period => {
@@ -76,7 +70,22 @@ const FinancialButtonContainer = ({ setDateFromTitle, setTypeZvit }) => {
     setTypeZvit('report_for_period');
 
     try {
-      await dispatch(createZvitSelectedPeriod(period));
+      await dispatch(createZvitSelectedPeriod(period)).then(() =>
+        setDateFromTitle(
+          dayOrePariod === 'oneDay'
+            ? `Обороти за ${selectedDateString[0]
+                .split('-')
+                .reverse()
+                .join('-')}`
+            : `Обороти з ${selectedDateString[0]
+                .split('-')
+                .reverse()
+                .join('-')} по ${selectedDateString[1]
+                .split('-')
+                .reverse()
+                .join('-')}`
+        )
+      );
     } catch (error) {
       console.error('❌ Error fetching total profit:', error);
     }
