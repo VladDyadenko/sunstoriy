@@ -48,8 +48,23 @@ const ReportCurrentMonth = ({ indicatorsCurrentMonth, loading }) => {
           <StyledCell>{value}</StyledCell>
         ),
     },
+
     {
       key: '4',
+      title: 'Відпрацьовано',
+      dataIndex: 'workedLessons',
+      onCell: (_, index) => {
+        if (index === 0) {
+          return { rowSpan: dataSource.length - 1 };
+        }
+        if (index === dataSource.length - 1) {
+          return { rowSpan: 1 };
+        }
+        return { rowSpan: 0 };
+      },
+    },
+    {
+      key: '5',
       title: 'Поточні витрати',
       dataIndex: 'currentExpense',
       render: value =>
@@ -58,17 +73,6 @@ const ReportCurrentMonth = ({ indicatorsCurrentMonth, loading }) => {
         ) : (
           <StyledCell>{value}</StyledCell>
         ),
-    },
-    {
-      key: '5',
-      title: 'Відпрацьовано',
-      dataIndex: 'workedLessons',
-      onCell: (_, index) => {
-        if (index === 0) {
-          return { rowSpan: dataSource.length };
-        }
-        return { rowSpan: 0 };
-      },
     },
 
     {
@@ -119,7 +123,7 @@ const ReportCurrentMonth = ({ indicatorsCurrentMonth, loading }) => {
       profit: profit?.amount || 0,
       currentExpense: expense?.amount || 0,
       currentIncome: income?.amount || 0,
-      workedLessons: '',
+      workedLessons: workedIncom,
     },
   ];
 
