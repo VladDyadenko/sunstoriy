@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { DatePicker } from 'antd';
 import { FaRegCalendarPlus } from 'react-icons/fa';
+import 'dayjs/locale/uk'; // Імпортуємо українську локаль
+import locale from 'antd/es/date-picker/locale/uk_UA';
 
 import {
-  BsBarChartLine,
   BsClipboardPulse,
   BsEmojiHeartEyes,
   BsEmojiFrown,
@@ -103,18 +104,12 @@ const FinancialButtonContainer = ({ setDateFromTitle, setTypeZvit }) => {
           }}
         >
           <ZvitReportTitle title="Фінансові показники:" />
-          <RangePicker defaultValue={[today, today]} onChange={selectDay} />
-          <CommandLineButton disabled={dayOrePariod === 'period'}>
-            {dayOrePariod === 'period' ? (
-              <>
-                Доходи за день <FaRegCalendarPlus />
-              </>
-            ) : (
-              <>
-                Доходи за день <BsBarChartLine />
-              </>
-            )}
-          </CommandLineButton>
+          <RangePicker
+            defaultValue={[today, today]}
+            onChange={selectDay}
+            locale={locale}
+          />
+
           <CommandLineButton
             onClick={() => createZvitForPeriod(selectedPeriod)}
             disabled={dayOrePariod === 'period'}
@@ -129,17 +124,7 @@ const FinancialButtonContainer = ({ setDateFromTitle, setTypeZvit }) => {
               </>
             )}
           </CommandLineButton>
-          <CommandLineButton disabled={dayOrePariod === 'oneDay'}>
-            {dayOrePariod === 'period' ? (
-              <>
-                Доходи за період <BsBarChartLine />
-              </>
-            ) : (
-              <>
-                Доходи за період <FaRegCalendarPlus />
-              </>
-            )}
-          </CommandLineButton>
+
           <CommandLineButton
             onClick={() => createZvitForPeriod(selectedPeriod)}
             disabled={dayOrePariod === 'oneDay'}
