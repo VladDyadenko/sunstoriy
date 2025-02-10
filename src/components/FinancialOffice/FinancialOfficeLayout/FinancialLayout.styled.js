@@ -17,3 +17,9 @@ export const ContantLineWrapper = styled.div`
   height: 100vh;
   padding: 10px;
 `;
+export const ZvitContainer = styled.div`
+  border: 1px solid var(--main-yellow);
+  padding: 7px;
+  border-radius: 15px;
+  margin-bottom: 30px;
+`;

@@ -12,15 +12,17 @@ import {
 import {
   CommandLineButton,
   CommandLineWrapper,
-  FinancialCommandTitle,
 } from './FinancialButtonContainer.styled';
 
 import dayjs from 'dayjs';
 import ExpenseContainer from 'components/Expense/ExpenseContainer';
-import { getZvitOneMonthTotal } from 'redux/zvit/api';
+import { useDispatch } from 'react-redux';
+import { createZvitSelectedPeriod } from 'redux/zvit/zvitOperetion';
+import ZvitReportTitle from 'ui/ZvitReportTitle/ZvitReportTitle';
 const { RangePicker } = DatePicker;
 
-const FinancialButtonContainer = () => {
+const FinancialButtonContainer = ({ setDateFromTitle, setTypeZvit }) => {
+  const dispatch = useDispatch();
   const today = dayjs();
 
   const [dayOrePariod, setDayOrePariod] = useState('oneDay');
@@ -59,14 +61,22 @@ const FinancialButtonContainer = () => {
     setSelectedPeriod(formattedDates);
 
     setDayOrePariod(isOneDay ? 'oneDay' : 'period');
+    setDateFromTitle(
+      isOneDay
+        ? `Обороти за ${dateStrings[0].split('-').reverse().join('-')}`
+        : `Обороти з ${dateStrings[0]
+            .split('-')
+            .reverse()
+            .join('-')} по ${dateStrings[1].split('-').reverse().join('-')}`
+    );
   }
 
-  const fetchZvitOneMonthTotal = async period => {
+  const createZvitForPeriod = async period => {
     if (!period) return;
+    setTypeZvit('report_for_period');
 
     try {
-      const { totalData } = await getZvitOneMonthTotal(period);
-      console.log('✅ totalProfit:', totalData);
+      await dispatch(createZvitSelectedPeriod(period));
     } catch (error) {
       console.error('❌ Error fetching total profit:', error);
     }
@@ -83,12 +93,9 @@ const FinancialButtonContainer = () => {
             gap: 10,
           }}
         >
-          <FinancialCommandTitle>Фінансові показники:</FinancialCommandTitle>
+          <ZvitReportTitle title="Фінансові показники:" />
           <RangePicker defaultValue={[today, today]} onChange={selectDay} />
-          <CommandLineButton
-            onClick={() => fetchZvitOneMonthTotal(selectedPeriod)}
-            disabled={dayOrePariod === 'period'}
-          >
+          <CommandLineButton disabled={dayOrePariod === 'period'}>
             {dayOrePariod === 'period' ? (
               <>
                 Доходи за день <FaRegCalendarPlus />
@@ -99,7 +106,10 @@ const FinancialButtonContainer = () => {
               </>
             )}
           </CommandLineButton>
-          <CommandLineButton disabled={dayOrePariod === 'period'}>
+          <CommandLineButton
+            onClick={() => createZvitForPeriod(selectedPeriod)}
+            disabled={dayOrePariod === 'period'}
+          >
             {dayOrePariod === 'period' ? (
               <>
                 Звіт за день <FaRegCalendarPlus />
@@ -110,10 +120,7 @@ const FinancialButtonContainer = () => {
               </>
             )}
           </CommandLineButton>
-          <CommandLineButton
-            onClick={() => fetchZvitOneMonthTotal(selectedPeriod)}
-            disabled={dayOrePariod === 'oneDay'}
-          >
+          <CommandLineButton disabled={dayOrePariod === 'oneDay'}>
             {dayOrePariod === 'period' ? (
               <>
                 Доходи за період <BsBarChartLine />
@@ -124,7 +131,10 @@ const FinancialButtonContainer = () => {
               </>
             )}
           </CommandLineButton>
-          <CommandLineButton disabled={dayOrePariod === 'oneDay'}>
+          <CommandLineButton
+            onClick={() => createZvitForPeriod(selectedPeriod)}
+            disabled={dayOrePariod === 'oneDay'}
+          >
             {dayOrePariod === 'period' ? (
               <>
                 Звіт за період <BsClipboardPulse />
@@ -146,10 +156,12 @@ const FinancialButtonContainer = () => {
             marginTop: 35,
           }}
         >
-          <FinancialCommandTitle>Зарплата вчителів:</FinancialCommandTitle>
+          <ZvitReportTitle title="Зарплата вчителів:" />
           <CommandLineButton disabled={dayOrePariod === 'period'}>
             {dayOrePariod === 'period' ? (
-              <FaRegCalendarPlus />
+              <>
+                День <FaRegCalendarPlus />
+              </>
             ) : (
               <>
                 День <BsEmojiHeartEyes />
@@ -177,7 +189,7 @@ const FinancialButtonContainer = () => {
             marginTop: 35,
           }}
         >
-          <FinancialCommandTitle>Інші платежи:</FinancialCommandTitle>
+          <ZvitReportTitle title="Внесення розходів" />
           <CommandLineButton
             onClick={() => setOpen(true)}
             disabled={dayOrePariod === 'period'}

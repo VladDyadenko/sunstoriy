@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   ContantLineWrapper,
   WrapperFinancialOffice,
+  ZvitContainer,
 } from './FinancialLayout.styled';
 import FinancialButtonContainer from '../FinancialButtonContainer/FinancialButtonContainer';
 import Container from 'components/Container/Container';
@@ -9,14 +10,23 @@ import { getZvitOneMonthTotal } from 'redux/zvit/api';
 import ReportCurrentMonth from '../PeriodReport/PeriodReport';
 import { useSelector } from 'react-redux';
 import { selectExpense } from 'redux/expense/expenceSelector';
+import {
+  selectZvitLoadinge,
+  selectZvitSelectedPeriod,
+} from 'redux/zvit/zvitSelector';
+import ZvitReportTitle from 'ui/ZvitReportTitle/ZvitReportTitle';
 
 const FinancialLayout = () => {
   const [indicatorsCurrentMonth, setIndicatorsCurrentMonth] = useState([]);
-  // console.log('показники місяця', indicatorsCurrentMonth);
+  const [loading, setLoading] = useState(true);
+  const [typeZvit, setTypeZvit] = useState('');
+  const [dateFromTitle, setDateFromTitle] = useState('');
 
   const expenseMarker = useSelector(selectExpense);
-  const [loading, setLoading] = useState(true);
+  const dataFromZvitPeriod = useSelector(selectZvitSelectedPeriod);
+  const zvitIsLoading = useSelector(selectZvitLoadinge);
 
+  const { totalData } = dataFromZvitPeriod;
   useEffect(() => {
     const fetchZvitOneMonthTotal = async () => {
       const now = new Date();
@@ -44,12 +54,30 @@ const FinancialLayout = () => {
   return (
     <Container>
       <WrapperFinancialOffice>
-        <FinancialButtonContainer />
+        <FinancialButtonContainer
+          setDateFromTitle={setDateFromTitle}
+          setTypeZvit={setTypeZvit}
+        />
         <ContantLineWrapper>
-          <ReportCurrentMonth
-            loading={loading}
-            indicatorsCurrentMonth={indicatorsCurrentMonth}
-          />
+          <ZvitContainer>
+            <ZvitReportTitle title="Поточні цифри місяця" />
+            <ReportCurrentMonth
+              loading={loading}
+              indicatorsCurrentMonth={indicatorsCurrentMonth}
+            />
+          </ZvitContainer>
+
+          {typeZvit === 'report_for_period' &&
+            totalData &&
+            Object.keys(totalData).length > 0 && (
+              <ZvitContainer>
+                <ZvitReportTitle title={`${dateFromTitle}`} />
+                <ReportCurrentMonth
+                  loading={zvitIsLoading}
+                  indicatorsCurrentMonth={totalData}
+                />
+              </ZvitContainer>
+            )}
         </ContantLineWrapper>
       </WrapperFinancialOffice>
     </Container>

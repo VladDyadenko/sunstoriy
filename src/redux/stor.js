@@ -17,6 +17,7 @@ import { lessonReducer } from './Lesson/lessonSlice';
 import { officesReducer } from './offices/officesSlice';
 import { smsReducer } from './sms/smsSlice';
 import { expenseReducer } from './expense/expenseSlice';
+import { zvitReducer } from './zvit/zvitSlice';
 
 const persistConfig = {
   key: 'auth',
@@ -33,6 +34,7 @@ export const store = configureStore({
     offices: officesReducer,
     sendSms: smsReducer,
     expense: expenseReducer,
+    zvit: zvitReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

@@ -25,17 +25,8 @@ export const StyledTable = styled(Table)`
     font-weight: 400;
     background-color: #e6f7ff !important; /* Колір фону */
     color: #1890ff; /* Колір тексту */
+    border-left: 10px;
   }
-`;
-export const ReportTitle = styled.h3`
-  font-family: 'RobotoSlab';
-  font-weight: 400;
-  text-align: center;
-  margin-bottom: 10px;
-  padding: 7px 0;
-  color: #1890ff;
-  background-color: #e6f7ff;
-  border-radius: 10px;
 `;
 export const StyledCellNegative = styled.span`
   color: var(--main-red);

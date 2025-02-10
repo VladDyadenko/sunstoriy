@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  ReportTitle,
   StyledCell,
   StyledCellNegative,
   StyledTable,
@@ -12,7 +11,7 @@ const ReportCurrentMonth = ({ indicatorsCurrentMonth, loading }) => {
     expense = {},
     income = {},
     workedIncom = 0,
-    previousMonthProfit = {},
+    previousPeriodProfit = {},
   } = indicatorsCurrentMonth;
 
   const columns = [
@@ -89,7 +88,7 @@ const ReportCurrentMonth = ({ indicatorsCurrentMonth, loading }) => {
     {
       key: 'cash',
       category: 'Готівка',
-      profitPrev: previousMonthProfit?.cash || 0,
+      profitPrev: previousPeriodProfit?.cash || 0,
       profit: profit?.kasa || 0,
       currentExpense: expense?.cash || 0,
       currentIncome: income?.cash || 0,
@@ -98,7 +97,7 @@ const ReportCurrentMonth = ({ indicatorsCurrentMonth, loading }) => {
     {
       key: 'privat',
       category: 'ПриватБанк',
-      profitPrev: previousMonthProfit?.privatBank || 0,
+      profitPrev: previousPeriodProfit?.privatBank || 0,
       profit: profit?.privatBank || 0,
       currentExpense: expense?.privatBank || 0,
       currentIncome: income?.privatBank || 0,
@@ -107,7 +106,7 @@ const ReportCurrentMonth = ({ indicatorsCurrentMonth, loading }) => {
     {
       key: 'mono',
       category: 'МоноБанк',
-      profitPrev: previousMonthProfit?.monoBank || 0,
+      profitPrev: previousPeriodProfit?.monoBank || 0,
       profit: profit?.monoBank || 0,
       currentExpense: expense?.monoBank || 0,
       currentIncome: income?.monoBank || 0,
@@ -116,7 +115,7 @@ const ReportCurrentMonth = ({ indicatorsCurrentMonth, loading }) => {
     {
       key: 'balance',
       category: 'Ітого:',
-      profitPrev: previousMonthProfit?.amount || 0,
+      profitPrev: previousPeriodProfit?.amount || 0,
       profit: profit?.amount || 0,
       currentExpense: expense?.amount || 0,
       currentIncome: income?.amount || 0,
@@ -126,7 +125,6 @@ const ReportCurrentMonth = ({ indicatorsCurrentMonth, loading }) => {
 
   return (
     <div>
-      <ReportTitle>Поточні цифри місяця</ReportTitle>
       <StyledTable
         columns={columns}
         dataSource={dataSource}
