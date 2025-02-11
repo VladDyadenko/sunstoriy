@@ -9,12 +9,19 @@ import Container from 'components/Container/Container';
 import { getZvitOneMonthTotal } from 'redux/zvit/api';
 import ReportCurrentMonth from '../PeriodReport/PeriodReport';
 import { useSelector } from 'react-redux';
-import { selectExpense } from 'redux/expense/expenceSelector';
+import {
+  selectExpense,
+  selectExpenseByDate,
+  selectExpenseLoading,
+  selectZvitStatusExpense,
+} from 'redux/expense/expenceSelector';
 import {
   selectZvitLoadinge,
   selectZvitSelectedPeriod,
+  selectZvitStatus,
 } from 'redux/zvit/zvitSelector';
 import ZvitReportTitle from 'ui/ZvitReportTitle/ZvitReportTitle';
+import TableExpensesZvit from 'components/Zvit/TableExpensesZvit/TableExpensesZvit';
 
 const FinancialLayout = () => {
   const [indicatorsCurrentMonth, setIndicatorsCurrentMonth] = useState([]);
@@ -23,10 +30,22 @@ const FinancialLayout = () => {
   const [dateFromTitle, setDateFromTitle] = useState('');
 
   const expenseMarker = useSelector(selectExpense);
-  const dataFromZvitPeriod = useSelector(selectZvitSelectedPeriod);
+  const { totalData } = useSelector(selectZvitSelectedPeriod);
   const zvitIsLoading = useSelector(selectZvitLoadinge);
+  const expensZvitLoading = useSelector(selectExpenseLoading);
+  const { expenses } = useSelector(selectExpenseByDate);
+  const statusZvitPeriod = useSelector(selectZvitStatus);
+  const statusZvitExpense = useSelector(selectZvitStatusExpense);
 
-  const { totalData } = dataFromZvitPeriod;
+  useEffect(() => {
+    if (statusZvitPeriod) {
+      setTypeZvit('report_for_period');
+    }
+    if (statusZvitExpense) {
+      setTypeZvit('expenses_by_period');
+    }
+  }, [statusZvitExpense, statusZvitPeriod]);
+
   useEffect(() => {
     const fetchZvitOneMonthTotal = async () => {
       const now = new Date();
@@ -41,6 +60,7 @@ const FinancialLayout = () => {
 
       try {
         setLoading(true);
+        setTypeZvit('');
         const { totalData } = await getZvitOneMonthTotal(formattedDates);
         setIndicatorsCurrentMonth(totalData);
       } catch (error) {
@@ -56,7 +76,7 @@ const FinancialLayout = () => {
       <WrapperFinancialOffice>
         <FinancialButtonContainer
           setDateFromTitle={setDateFromTitle}
-          setTypeZvit={setTypeZvit}
+          zvitIsLoading={zvitIsLoading}
         />
         <ContantLineWrapper>
           <ZvitContainer>
@@ -68,16 +88,37 @@ const FinancialLayout = () => {
           </ZvitContainer>
 
           {typeZvit === 'report_for_period' &&
-            totalData &&
-            Object.keys(totalData).length > 0 && (
-              <ZvitContainer>
-                <ZvitReportTitle title={`${dateFromTitle}`} />
-                <ReportCurrentMonth
-                  loading={zvitIsLoading}
-                  indicatorsCurrentMonth={totalData}
-                />
-              </ZvitContainer>
-            )}
+          totalData &&
+          Object.keys(totalData).length > 0 ? (
+            <ZvitContainer>
+              <ZvitReportTitle title={`${dateFromTitle}`} />
+              <ReportCurrentMonth
+                loading={zvitIsLoading}
+                indicatorsCurrentMonth={totalData}
+              />
+            </ZvitContainer>
+          ) : typeZvit === '' ||
+            typeZvit === 'expenses_by_period' ||
+            (totalData && Object.keys(totalData).length === 0) ? null : (
+            <>
+              <ZvitReportTitle title={`${dateFromTitle}`} />
+              <h4>Даних в обраному періоді немає</h4>
+            </>
+          )}
+          {typeZvit === 'expenses_by_period' && expenses?.length > 0 ? (
+            <ZvitContainer>
+              <ZvitReportTitle title={`${dateFromTitle}`} />
+              <TableExpensesZvit
+                expensZvitLoading={expensZvitLoading}
+                expenses={expenses}
+              />
+            </ZvitContainer>
+          ) : typeZvit === '' || typeZvit === 'report_for_period' ? null : (
+            <>
+              <ZvitReportTitle title={`${dateFromTitle}`} />
+              <h4>Витрат в обраному періоді немає</h4>
+            </>
+          )}
         </ContantLineWrapper>
       </WrapperFinancialOffice>
     </Container>

@@ -20,9 +20,11 @@ import ExpenseContainer from 'components/Expense/ExpenseContainer';
 import { useDispatch } from 'react-redux';
 import { createZvitSelectedPeriod } from 'redux/zvit/zvitOperetion';
 import ZvitReportTitle from 'ui/ZvitReportTitle/ZvitReportTitle';
+import { CirclesWithBar } from 'react-loader-spinner';
+import Expenses from 'components/Zvit/Expenses/Expenses';
 const { RangePicker } = DatePicker;
 
-const FinancialButtonContainer = ({ setDateFromTitle, setTypeZvit }) => {
+const FinancialButtonContainer = ({ zvitIsLoading, setDateFromTitle }) => {
   const dispatch = useDispatch();
   const today = dayjs();
 
@@ -68,7 +70,6 @@ const FinancialButtonContainer = ({ setDateFromTitle, setTypeZvit }) => {
 
   const createZvitForPeriod = async period => {
     if (!period) return;
-    setTypeZvit('report_for_period');
 
     try {
       await dispatch(createZvitSelectedPeriod(period)).then(() =>
@@ -120,7 +121,24 @@ const FinancialButtonContainer = ({ setDateFromTitle, setTypeZvit }) => {
               </>
             ) : (
               <>
-                Звіт за день <BsClipboardPulse />
+                {zvitIsLoading ? (
+                  <CirclesWithBar
+                    height="21"
+                    width="50"
+                    color="#ffffff"
+                    wrapperStyle={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                    visible={true}
+                    ariaLabel="circles-with-bar-loading"
+                  />
+                ) : (
+                  <>
+                    Звіт за день <BsClipboardPulse />
+                  </>
+                )}
               </>
             )}
           </CommandLineButton>
@@ -131,7 +149,24 @@ const FinancialButtonContainer = ({ setDateFromTitle, setTypeZvit }) => {
           >
             {dayOrePariod === 'period' ? (
               <>
-                Звіт за період <BsClipboardPulse />
+                {zvitIsLoading ? (
+                  <CirclesWithBar
+                    height="21"
+                    width="50"
+                    color="#ffffff"
+                    wrapperStyle={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                    visible={true}
+                    ariaLabel="circles-with-bar-loading"
+                  />
+                ) : (
+                  <>
+                    Звіт за період <BsClipboardPulse />
+                  </>
+                )}
               </>
             ) : (
               <>
@@ -140,6 +175,12 @@ const FinancialButtonContainer = ({ setDateFromTitle, setTypeZvit }) => {
               </>
             )}
           </CommandLineButton>
+          <Expenses
+            selectedPeriod={selectedPeriod}
+            dayOrePariod={dayOrePariod}
+            selectedDateString={selectedDateString}
+            setDateFromTitle={setDateFromTitle}
+          />
         </div>
         <div
           style={{

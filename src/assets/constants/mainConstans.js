@@ -24,19 +24,31 @@ export const currentLessonCost = 450;
 
 export const categoryExpense = [
   {
-    category: 'rent',
+    category: 'Оренда',
     title: 'Оренда',
   },
   {
-    category: 'equipment',
+    category: 'Обладнання',
     title: 'Обладнання',
   },
   {
-    category: 'salary',
-    title: 'Заробітна плата',
+    category: 'ЗП Оля',
+    title: 'ЗП Оля',
   },
   {
-    category: 'other',
+    category: 'ЗП Маша',
+    title: 'ЗП Маша',
+  },
+  {
+    category: 'ЗП Таня',
+    title: 'ЗП Таня',
+  },
+  {
+    category: 'Інше',
     title: 'Інше',
+  },
+  {
+    category: 'Податки',
+    title: 'Податки',
   },
 ];

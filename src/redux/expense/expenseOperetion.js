@@ -36,3 +36,24 @@ export const addExpense = createAsyncThunk(
     }
   }
 );
+
+export const getExpensesByDate = createAsyncThunk(
+  'expense/getExpenseByDate',
+  async (choesData, thunkAPI) => {
+    try {
+      const { data } = await axios.get('/expense/expenses_by_date', {
+        params: choesData,
+      });
+
+      if (data) {
+        Notify.success('Успішно');
+      }
+      return data;
+    } catch (err) {
+      if (err) {
+        Notify.failure(err.response.data.message);
+      }
+      return thunkAPI.rejectWithValue(err.message);
+    }
+  }
+);

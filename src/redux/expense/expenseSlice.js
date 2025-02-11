@@ -1,11 +1,18 @@
-import { addExpense, fetchExpenses } from './expenseOperetion';
+import { createZvitSelectedPeriod } from 'redux/zvit/zvitOperetion';
+import {
+  addExpense,
+  fetchExpenses,
+  getExpensesByDate,
+} from './expenseOperetion';
 
 const { createSlice } = require('@reduxjs/toolkit');
 
 const initialState = {
   expense: [],
+  expensesPeriod: [],
   isloading: false,
   operetion: null,
+  zvitStatus: '',
   error: null,
 };
 
@@ -40,6 +47,23 @@ const expenseSlice = createSlice({
       .addCase(addExpense.rejected, (state, action) => {
         state.isloading = false;
         state.operetion = null;
+        state.error = action.payload;
+      })
+      .addCase(getExpensesByDate.pending, state => {
+        state.isloading = true;
+        state.zvitStatus = '';
+      })
+      .addCase(getExpensesByDate.fulfilled, (state, action) => {
+        state.isloading = false;
+        state.zvitStatus = 'expenses_by_period';
+        state.error = null;
+        state.expensesPeriod = action.payload;
+      })
+      .addCase(createZvitSelectedPeriod.pending, state => {
+        state.zvitStatus = ''; // Очистка при створенні звіту
+      })
+      .addCase(getExpensesByDate.rejected, (state, action) => {
+        state.isloading = false;
         state.error = action.payload;
       });
   },

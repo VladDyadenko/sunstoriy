@@ -128,15 +128,13 @@ const ReportCurrentMonth = ({ indicatorsCurrentMonth, loading }) => {
   ];
 
   return (
-    <div>
-      <StyledTable
-        columns={columns}
-        dataSource={dataSource}
-        size="small"
-        pagination={false}
-        loading={loading}
-      />
-    </div>
+    <StyledTable
+      columns={columns}
+      dataSource={dataSource}
+      size="small"
+      pagination={false}
+      loading={loading}
+    />
   );
 };
 
