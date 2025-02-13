@@ -71,10 +71,10 @@ const expenseSlice = createSlice({
         state.isloading = false;
         state.zvitStatus = 'expenses_by_period';
         state.error = null;
-        state.expensesPeriod = payload.expenses;
+        state.expensesPeriod = payload;
       })
       .addCase(createZvitSelectedPeriod.pending, state => {
-        state.zvitStatus = ''; // Очистка при створенні звіту
+        state.zvitStatus = '';
       })
       .addCase(getExpensesByDate.rejected, (state, action) => {
         state.isloading = false;

@@ -36,7 +36,7 @@ const FinancialLayout = () => {
   const { totalData } = useSelector(selectZvitSelectedPeriod);
   const zvitIsLoading = useSelector(selectZvitLoadinge);
   const expensZvitLoading = useSelector(selectExpenseLoading);
-  const { expenses, finalValues } = useSelector(selectExpenseByDate);
+  const { expenses } = useSelector(selectExpenseByDate);
   const statusZvitPeriod = useSelector(selectZvitStatus);
   const statusZvitExpense = useSelector(selectZvitStatusExpense);
 
@@ -75,8 +75,6 @@ const FinancialLayout = () => {
     };
     fetchZvitOneMonthTotal();
   }, [expenseMarker]);
-
-  // console.log('expenses', expenses);
 
   return (
     <Container>
@@ -126,7 +124,6 @@ const FinancialLayout = () => {
               <TableExpensesZvit
                 expensZvitLoading={expensZvitLoading}
                 expenses={expenses}
-                finalValues={finalValues}
               />
             </ZvitContainer>
           ) : typeZvit === '' || typeZvit === 'report_for_period' ? null : (
