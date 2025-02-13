@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/sunstoriy/static/css/main.58462fbc.css",
-    "main.js": "/sunstoriy/static/js/main.6bfcfd5a.js",
+    "main.js": "/sunstoriy/static/js/main.cf48c989.js",
     "static/js/447.af3dbd27.chunk.js": "/sunstoriy/static/js/447.af3dbd27.chunk.js",
     "static/js/359.36fa93dc.chunk.js": "/sunstoriy/static/js/359.36fa93dc.chunk.js",
     "static/js/111.7363be87.chunk.js": "/sunstoriy/static/js/111.7363be87.chunk.js",
@@ -37,7 +37,7 @@
     "static/media/symbol-defs.svg": "/sunstoriy/static/media/symbol-defs.3ea2db432ca94c24613bc9cc08df3ce9.svg",
     "index.html": "/sunstoriy/index.html",
     "main.58462fbc.css.map": "/sunstoriy/static/css/main.58462fbc.css.map",
-    "main.6bfcfd5a.js.map": "/sunstoriy/static/js/main.6bfcfd5a.js.map",
+    "main.cf48c989.js.map": "/sunstoriy/static/js/main.cf48c989.js.map",
     "447.af3dbd27.chunk.js.map": "/sunstoriy/static/js/447.af3dbd27.chunk.js.map",
     "359.36fa93dc.chunk.js.map": "/sunstoriy/static/js/359.36fa93dc.chunk.js.map",
     "111.7363be87.chunk.js.map": "/sunstoriy/static/js/111.7363be87.chunk.js.map",
@@ -57,6 +57,6 @@
   },
   "entrypoints": [
     "static/css/main.58462fbc.css",
-    "static/js/main.6bfcfd5a.js"
+    "static/js/main.cf48c989.js"
   ]
 }
