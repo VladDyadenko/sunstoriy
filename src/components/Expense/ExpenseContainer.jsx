@@ -1,15 +1,40 @@
 import { Drawer, Form, InputNumber, Select, Input, Button, Radio } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import { categoryExpense } from 'assets/constants/mainConstans';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addExpense } from 'redux/expense/expenseOperetion';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addExpense, updateExpense } from 'redux/expense/expenseOperetion';
 import { DateDescription, DateTitle } from './ExpenseContainer.styled';
+import { selectExpenseSelected } from 'redux/expense/expenceSelector';
+import { clearExpenseSelected } from 'redux/expense/expenseSlice';
 
-const ExpenseContainer = ({ selectedPeriod, open, onCloseDrawerExpense }) => {
+const ExpenseContainer = ({
+  setOpen,
+  selectedPeriod,
+  open,
+  onCloseDrawerExpense,
+}) => {
   const [form] = useForm();
   const [paymentMethod, setPaymentMethod] = useState(null);
   const dispatch = useDispatch();
+  const updateExpenseInfo = useSelector(selectExpenseSelected);
+
+  useEffect(() => {
+    if (updateExpenseInfo) {
+      setOpen(true);
+      form.setFieldsValue({
+        date: updateExpenseInfo.date
+          ? updateExpenseInfo.date.split('T')[0]
+          : selectedPeriod,
+        category: updateExpenseInfo.category || 'Інше',
+        amount: updateExpenseInfo.amount || null,
+        paymentForm: updateExpenseInfo.paymentForm || 'cash',
+        bank: updateExpenseInfo.bank || '',
+        description: updateExpenseInfo.description || '',
+      });
+      setPaymentMethod(updateExpenseInfo.paymentForm || 'cash');
+    }
+  }, [updateExpenseInfo, setOpen, form, selectedPeriod]);
 
   return (
     <>
@@ -24,20 +49,28 @@ const ExpenseContainer = ({ selectedPeriod, open, onCloseDrawerExpense }) => {
           form={form}
           initialValues={{
             date: null,
-            category: 'salary',
+            category: 'Інше',
             amount: null,
             paymentForm: 'cash',
             bank: '',
             description: '',
           }}
           onFinish={async values => {
-            if (values.paymentForm === 'cash') {
-              values.bank = '';
+            if (updateExpenseInfo) {
+              const expenseData = { id: updateExpenseInfo._id, values };
+              await dispatch(updateExpense(expenseData)).then(async () => {
+                dispatch(clearExpenseSelected());
+                onCloseDrawerExpense();
+              });
+            } else {
+              if (values.paymentForm === 'cash') {
+                values.bank = '';
+              }
+              values.date = selectedPeriod;
+              await dispatch(addExpense(values)).then(() => {
+                onCloseDrawerExpense();
+              });
             }
-            values.date = selectedPeriod;
-            await dispatch(addExpense(values)).then(() => {
-              onCloseDrawerExpense();
-            });
           }}
         >
           <DateTitle>

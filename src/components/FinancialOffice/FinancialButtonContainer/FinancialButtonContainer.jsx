@@ -24,13 +24,19 @@ import { CirclesWithBar } from 'react-loader-spinner';
 import Expenses from 'components/Zvit/Expenses/Expenses';
 const { RangePicker } = DatePicker;
 
-const FinancialButtonContainer = ({ zvitIsLoading, setDateFromTitle }) => {
+const FinancialButtonContainer = ({
+  dayOrePariod,
+  setDayOrePariod,
+  setDateFromTitle,
+  zvitIsLoading,
+  selectedPeriod,
+  setSelectedPeriod,
+  selectedDateString,
+  setSelectedDateString,
+}) => {
   const dispatch = useDispatch();
   const today = dayjs();
 
-  const [dayOrePariod, setDayOrePariod] = useState('oneDay');
-  const [selectedPeriod, setSelectedPeriod] = useState(null);
-  const [selectedDateString, setSelectedDateString] = useState(null);
   const [dateFromExpense, setDateFromExpense] = useState(
     new Date().toISOString().split('T')[0]
   );
@@ -256,6 +262,7 @@ const FinancialButtonContainer = ({ zvitIsLoading, setDateFromTitle }) => {
           <ExpenseContainer
             onCloseDrawerExpense={onCloseDrawerExpense}
             open={open}
+            setOpen={setOpen}
             selectedPeriod={dateFromExpense}
           />
         </div>

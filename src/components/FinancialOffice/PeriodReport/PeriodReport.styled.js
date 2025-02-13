@@ -20,12 +20,19 @@ export const StyledTable = styled(Table)`
     background-color: #e6f7ff; /* Колір при наведенні */
   }
 
-  .ant-table-row[data-row-key='balance'] {
+  .ant-table-row[data-row-key='balance'],
+  .ant-table-row[data-row-key='total'] {
     font-size: 16px;
     font-weight: 400;
     background-color: #e6f7ff !important; /* Колір фону */
     color: #1890ff; /* Колір тексту */
     border-left: 10px;
+  }
+  .ant-btn-icon .anticon.anticon-delete > svg {
+    transition: all 0.05s cubic-bezier(0.645, 0.045, 0.355, 1);
+  }
+  .ant-btn-icon .anticon.anticon-delete > svg:hover {
+    fill: red;
   }
 `;
 export const StyledCellNegative = styled.span`

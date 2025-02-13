@@ -28,12 +28,15 @@ const FinancialLayout = () => {
   const [loading, setLoading] = useState(true);
   const [typeZvit, setTypeZvit] = useState('');
   const [dateFromTitle, setDateFromTitle] = useState('');
+  const [selectedPeriod, setSelectedPeriod] = useState(null);
+  const [selectedDateString, setSelectedDateString] = useState(null);
+  const [dayOrePariod, setDayOrePariod] = useState('oneDay');
 
   const expenseMarker = useSelector(selectExpense);
   const { totalData } = useSelector(selectZvitSelectedPeriod);
   const zvitIsLoading = useSelector(selectZvitLoadinge);
   const expensZvitLoading = useSelector(selectExpenseLoading);
-  const { expenses } = useSelector(selectExpenseByDate);
+  const { expenses, finalValues } = useSelector(selectExpenseByDate);
   const statusZvitPeriod = useSelector(selectZvitStatus);
   const statusZvitExpense = useSelector(selectZvitStatusExpense);
 
@@ -61,6 +64,7 @@ const FinancialLayout = () => {
       try {
         setLoading(true);
         setTypeZvit('');
+
         const { totalData } = await getZvitOneMonthTotal(formattedDates);
         setIndicatorsCurrentMonth(totalData);
       } catch (error) {
@@ -71,12 +75,21 @@ const FinancialLayout = () => {
     };
     fetchZvitOneMonthTotal();
   }, [expenseMarker]);
+
+  // console.log('expenses', expenses);
+
   return (
     <Container>
       <WrapperFinancialOffice>
         <FinancialButtonContainer
+          dayOrePariod={dayOrePariod}
+          setDayOrePariod={setDayOrePariod}
           setDateFromTitle={setDateFromTitle}
           zvitIsLoading={zvitIsLoading}
+          selectedPeriod={selectedPeriod}
+          setSelectedPeriod={setSelectedPeriod}
+          selectedDateString={selectedDateString}
+          setSelectedDateString={setSelectedDateString}
         />
         <ContantLineWrapper>
           <ZvitContainer>
@@ -105,12 +118,15 @@ const FinancialLayout = () => {
               <h4>Даних в обраному періоді немає</h4>
             </>
           )}
-          {typeZvit === 'expenses_by_period' && expenses?.length > 0 ? (
+          {(typeZvit === 'expenses_by_period' ||
+            statusZvitExpense === 'expenses_by_period') &&
+          expenses?.length > 0 ? (
             <ZvitContainer>
               <ZvitReportTitle title={`${dateFromTitle}`} />
               <TableExpensesZvit
                 expensZvitLoading={expensZvitLoading}
                 expenses={expenses}
+                finalValues={finalValues}
               />
             </ZvitContainer>
           ) : typeZvit === '' || typeZvit === 'report_for_period' ? null : (
