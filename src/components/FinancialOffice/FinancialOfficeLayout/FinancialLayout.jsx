@@ -10,15 +10,12 @@ import { getZvitOneMonthTotal } from 'redux/zvit/api';
 import ReportCurrentMonth from '../PeriodReport/PeriodReport';
 import { useSelector } from 'react-redux';
 import {
-  selectExpense,
   selectExpenseByDate,
   selectExpenseLoading,
-  selectZvitStatusExpense,
 } from 'redux/expense/expenceSelector';
 import {
   selectZvitLoadinge,
   selectZvitSelectedPeriod,
-  selectZvitStatus,
 } from 'redux/zvit/zvitSelector';
 import ZvitReportTitle from 'ui/ZvitReportTitle/ZvitReportTitle';
 import TableExpensesZvit from 'components/Zvit/TableExpensesZvit/TableExpensesZvit';
@@ -37,25 +34,13 @@ const FinancialLayout = () => {
   const [selectedDateString, setSelectedDateString] = useState(null);
   const [dayOrePariod, setDayOrePariod] = useState('oneDay');
 
-  const expenseMarker = useSelector(selectExpense);
   const { totalData } = useSelector(selectZvitSelectedPeriod);
   const zvitIsLoading = useSelector(selectZvitLoadinge);
   const expensZvitLoading = useSelector(selectExpenseLoading);
   const { expenses } = useSelector(selectExpenseByDate);
-  const statusZvitPeriod = useSelector(selectZvitStatus);
-  const statusZvitExpense = useSelector(selectZvitStatusExpense);
 
   const salaris = useSelector(selectSalaryForPeriod);
   const salaryLoading = useSelector(selectSalaryLoading);
-
-  useEffect(() => {
-    if (statusZvitPeriod) {
-      setTypeZvit('report_for_period');
-    }
-    if (statusZvitExpense) {
-      setTypeZvit('expenses_by_period');
-    }
-  }, [statusZvitExpense, statusZvitPeriod]);
 
   useEffect(() => {
     const fetchZvitOneMonthTotal = async () => {
@@ -82,12 +67,30 @@ const FinancialLayout = () => {
       }
     };
     fetchZvitOneMonthTotal();
-  }, [expenseMarker]);
+  }, []);
+
+  // Перевірка даних в totalData, що там є значення, не рівні 0
+  function hasNonZeroValue(obj) {
+    if (typeof obj === 'object' && obj !== null) {
+      for (const key in obj) {
+        if (Object.hasOwnProperty.call(obj, key)) {
+          if (hasNonZeroValue(obj[key])) {
+            return true;
+          }
+        }
+      }
+    } else if (obj !== 0) {
+      return true;
+    }
+    return false;
+  }
+  const isTotalDate = hasNonZeroValue(totalData);
 
   return (
     <Container>
       <WrapperFinancialOffice>
         <FinancialButtonContainer
+          setTypeZvit={setTypeZvit}
           dayOrePariod={dayOrePariod}
           setDayOrePariod={setDayOrePariod}
           setDateFromTitle={setDateFromTitle}
@@ -105,45 +108,74 @@ const FinancialLayout = () => {
               indicatorsCurrentMonth={indicatorsCurrentMonth}
             />
           </ZvitContainer>
-
-          {typeZvit === 'report_for_period' &&
-          totalData &&
-          Object.keys(totalData).length > 0 ? (
+          {typeZvit === 'report_period' && totalData && isTotalDate ? (
             <ZvitContainer>
-              <ZvitReportTitle title={`${dateFromTitle}`} />
+              <ZvitReportTitle
+                zvitName={`Обороти`}
+                title={`${dateFromTitle}`}
+              />
               <ReportCurrentMonth
                 loading={zvitIsLoading}
                 indicatorsCurrentMonth={totalData}
               />
             </ZvitContainer>
           ) : typeZvit === '' ||
-            typeZvit === 'expenses_by_period' ||
-            (totalData && Object.keys(totalData).length === 0) ? null : (
+            typeZvit === 'report_expenses' ||
+            typeZvit === 'report_salaries' ? null : (
             <>
-              <ZvitReportTitle title={`${dateFromTitle}`} />
+              <ZvitReportTitle
+                zvitName={`Обороти`}
+                title={`${dateFromTitle}`}
+              />
               <h4>Даних в обраному періоді немає</h4>
             </>
           )}
-          {(typeZvit === 'expenses_by_period' ||
-            statusZvitExpense === 'expenses_by_period') &&
+          {typeZvit === 'report_expenses' &&
+          expenses &&
           expenses?.length > 0 ? (
             <ZvitContainer>
-              <ZvitReportTitle title={`${dateFromTitle}`} />
+              <ZvitReportTitle
+                zvitName={`Розходи`}
+                title={`${dateFromTitle}`}
+              />
               <TableExpensesZvit
                 expensZvitLoading={expensZvitLoading}
                 expenses={expenses}
               />
             </ZvitContainer>
-          ) : typeZvit === '' || typeZvit === 'report_for_period' ? null : (
+          ) : typeZvit === '' ||
+            typeZvit === 'report_period' ||
+            typeZvit === 'report_salaries' ? null : (
             <>
-              <ZvitReportTitle title={`${dateFromTitle}`} />
+              <ZvitReportTitle
+                zvitName={`Розходи`}
+                title={`${dateFromTitle}`}
+              />
               <h4>Витрат в обраному періоді немає</h4>
             </>
           )}
-          <ZvitContainer>
-            <ZvitReportTitle title={`${dateFromTitle}`} />
-            <SalaryZvitTable salaris={salaris} salaryLoading={salaryLoading} />
-          </ZvitContainer>
+          {typeZvit === 'report_salaries' && salaris && salaris?.length > 0 ? (
+            <ZvitContainer>
+              <ZvitReportTitle
+                zvitName={`Зарплата`}
+                title={`${dateFromTitle}`}
+              />
+              <SalaryZvitTable
+                salaris={salaris}
+                salaryLoading={salaryLoading}
+              />
+            </ZvitContainer>
+          ) : typeZvit === '' ||
+            typeZvit === 'report_period' ||
+            typeZvit === 'report_expenses' ? null : (
+            <>
+              <ZvitReportTitle
+                zvitName={`Зарплата`}
+                title={`${dateFromTitle}`}
+              />
+              <h4>Зарплата в обраному періоді не нарахована</h4>
+            </>
+          )}
         </ContantLineWrapper>
       </WrapperFinancialOffice>
     </Container>

@@ -32,18 +32,6 @@ export const categoryExpense = [
     title: 'Обладнання',
   },
   {
-    category: 'ЗП Оля',
-    title: 'ЗП Оля',
-  },
-  {
-    category: 'ЗП Маша',
-    title: 'ЗП Маша',
-  },
-  {
-    category: 'ЗП Таня',
-    title: 'ЗП Таня',
-  },
-  {
     category: 'Інше',
     title: 'Інше',
   },

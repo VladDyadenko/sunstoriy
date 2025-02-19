@@ -41,7 +41,7 @@ const ExpenseContainer = ({
       <Drawer
         title="Поточні витрати"
         placement="right"
-        width={340}
+        width={400}
         onClose={onCloseDrawerExpense}
         open={open}
       >
@@ -61,6 +61,7 @@ const ExpenseContainer = ({
               await dispatch(updateExpense(expenseData)).then(async () => {
                 dispatch(clearExpenseSelected());
                 onCloseDrawerExpense();
+                form.resetFields();
               });
             } else {
               if (values.paymentForm === 'cash') {
@@ -69,6 +70,7 @@ const ExpenseContainer = ({
               values.date = selectedPeriod;
               await dispatch(addExpense(values)).then(() => {
                 onCloseDrawerExpense();
+                form.resetFields();
               });
             }
           }}

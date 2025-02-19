@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import React, { useState } from 'react';
 import { DatePicker } from 'antd';
 import { FaRegCalendarPlus } from 'react-icons/fa';
@@ -17,11 +17,13 @@ import ExpenseContainer from 'components/Expense/ExpenseContainer';
 import { createZvitSelectedPeriod } from 'redux/zvit/zvitOperetion';
 import ZvitReportTitle from 'ui/ZvitReportTitle/ZvitReportTitle';
 import { CirclesWithBar } from 'react-loader-spinner';
-import Expenses from 'components/Zvit/Expenses/Expenses';
 import { funFormattedDate } from 'assets/constants/transformation';
 import { formatDateTitle } from 'assets/constants/reusableFunctions';
 import { getSalarisByDate } from 'redux/salary/salaryOperetion';
 import SalarisForm from 'components/SalarisForm/SalarisForm';
+import { selectSalaryLoading } from 'redux/salary/salarySelector';
+import { getExpensesByDate } from 'redux/expense/expenseOperetion';
+import { selectExpenseLoading } from 'redux/expense/expenceSelector';
 const { RangePicker } = DatePicker;
 
 const FinancialButtonContainer = ({
@@ -33,9 +35,13 @@ const FinancialButtonContainer = ({
   setSelectedPeriod,
   selectedDateString,
   setSelectedDateString,
+  setTypeZvit,
 }) => {
   const dispatch = useDispatch();
   const today = dayjs();
+
+  const salariesLoading = useSelector(selectSalaryLoading);
+  const loading = useSelector(selectExpenseLoading);
 
   const [dateFromExpense, setDateFromExpense] = useState(
     new Date().toISOString().split('T')[0]
@@ -60,13 +66,22 @@ const FinancialButtonContainer = ({
 
   const createZvitForPeriod = async period => {
     if (!period) return;
-
+    setTypeZvit('report_period');
     await dispatch(createZvitSelectedPeriod(period)).then(() =>
+      setDateFromTitle(formatDateTitle(dayOrePariod, selectedDateString))
+    );
+  };
+  const getExpensesBySelectedPeriod = async period => {
+    if (!period) return;
+    setTypeZvit('report_expenses');
+
+    await dispatch(getExpensesByDate(period)).then(() =>
       setDateFromTitle(formatDateTitle(dayOrePariod, selectedDateString))
     );
   };
   const createSalaryZvitForPeriod = async period => {
     if (!period) return;
+    setTypeZvit('report_salaries');
 
     await dispatch(getSalarisByDate(period)).then(() =>
       setDateFromTitle(formatDateTitle(dayOrePariod, selectedDateString))
@@ -115,12 +130,28 @@ const FinancialButtonContainer = ({
               )}
             </>
           </CommandLineButton>
-          <Expenses
-            selectedPeriod={selectedPeriod}
-            dayOrePariod={dayOrePariod}
-            selectedDateString={selectedDateString}
-            setDateFromTitle={setDateFromTitle}
-          />
+          <CommandLineButton
+            onClick={() => getExpensesBySelectedPeriod(selectedPeriod)}
+          >
+            {loading ? (
+              <CirclesWithBar
+                height="21"
+                width="50"
+                color="#ffffff"
+                wrapperStyle={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                visible={true}
+                ariaLabel="circles-with-bar-loading"
+              />
+            ) : (
+              <>
+                Розходи за період <BsClipboardPulse />
+              </>
+            )}
+          </CommandLineButton>
         </div>
         <div
           style={{
@@ -135,9 +166,24 @@ const FinancialButtonContainer = ({
           <CommandLineButton
             onClick={() => createSalaryZvitForPeriod(selectedPeriod)}
           >
-            <>
-              За вибраний період <BsEmojiHeartEyes />
-            </>
+            {salariesLoading ? (
+              <CirclesWithBar
+                height="21"
+                width="50"
+                color="#ffffff"
+                wrapperStyle={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                visible={true}
+                ariaLabel="circles-with-bar-loading"
+              />
+            ) : (
+              <>
+                За вибраний період <BsEmojiHeartEyes />
+              </>
+            )}
           </CommandLineButton>
         </div>
         <div
@@ -158,20 +204,6 @@ const FinancialButtonContainer = ({
               Виберіть день <FaRegCalendarPlus />
             </>
           </CommandLineButton>
-          {/* <CommandLineButton
-            htmlType="button"
-            disabled={dayOrePariod === 'period'}
-          >
-            {dayOrePariod === 'period' ? (
-              <>
-                Виберіть день <FaRegCalendarPlus />
-              </>
-            ) : (
-              <>
-                Внеси дохід <BsEmojiHeartEyes />
-              </>
-            )}
-          </CommandLineButton> */}
           <ExpenseContainer
             onCloseDrawerExpense={onCloseDrawerExpense}
             open={open}
