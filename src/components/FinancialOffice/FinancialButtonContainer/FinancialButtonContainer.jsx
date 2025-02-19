@@ -1,27 +1,27 @@
+import { useDispatch } from 'react-redux';
 import React, { useState } from 'react';
 import { DatePicker } from 'antd';
 import { FaRegCalendarPlus } from 'react-icons/fa';
+import dayjs from 'dayjs';
 import 'dayjs/locale/uk'; // Імпортуємо українську локаль
 import locale from 'antd/es/date-picker/locale/uk_UA';
 
-import {
-  BsClipboardPulse,
-  BsEmojiHeartEyes,
-  BsEmojiFrown,
-} from 'react-icons/bs';
+import { BsClipboardPulse, BsEmojiHeartEyes } from 'react-icons/bs';
 
 import {
   CommandLineButton,
   CommandLineWrapper,
 } from './FinancialButtonContainer.styled';
 
-import dayjs from 'dayjs';
 import ExpenseContainer from 'components/Expense/ExpenseContainer';
-import { useDispatch } from 'react-redux';
 import { createZvitSelectedPeriod } from 'redux/zvit/zvitOperetion';
 import ZvitReportTitle from 'ui/ZvitReportTitle/ZvitReportTitle';
 import { CirclesWithBar } from 'react-loader-spinner';
 import Expenses from 'components/Zvit/Expenses/Expenses';
+import { funFormattedDate } from 'assets/constants/transformation';
+import { formatDateTitle } from 'assets/constants/reusableFunctions';
+import { getSalarisByDate } from 'redux/salary/salaryOperetion';
+import SalarisForm from 'components/SalarisForm/SalarisForm';
 const { RangePicker } = DatePicker;
 
 const FinancialButtonContainer = ({
@@ -51,24 +51,8 @@ const FinancialButtonContainer = ({
     setDateFromExpense(dateStrings[0]);
     setSelectedDateString(dateStrings);
 
-    // Отримуємо дати у форматі JavaScript Date
-    const startDate = new Date(dates[0].toDate());
-    const endDate = new Date(dates[1].toDate());
+    const { formattedDates, isOneDay } = funFormattedDate(dates);
 
-    // Обнуляємо години для початку дня
-    startDate.setUTCHours(0, 0, 0, 0);
-    endDate.setUTCHours(23, 59, 59, 999);
-
-    const isOneDay =
-      startDate.getUTCFullYear() === endDate.getUTCFullYear() &&
-      startDate.getUTCMonth() === endDate.getUTCMonth() &&
-      startDate.getUTCDate() === endDate.getUTCDate();
-
-    // Форматуємо для бекенду
-    const formattedDates = {
-      startDate: startDate.toISOString(), // 2025-02-01T00:00:00.000Z
-      endDate: endDate.toISOString(), // 2025-02-08T23:59:59.999Z
-    };
     setSelectedPeriod(formattedDates);
 
     setDayOrePariod(isOneDay ? 'oneDay' : 'period');
@@ -77,26 +61,16 @@ const FinancialButtonContainer = ({
   const createZvitForPeriod = async period => {
     if (!period) return;
 
-    try {
-      await dispatch(createZvitSelectedPeriod(period)).then(() =>
-        setDateFromTitle(
-          dayOrePariod === 'oneDay'
-            ? `Обороти за ${selectedDateString[0]
-                .split('-')
-                .reverse()
-                .join('-')}`
-            : `Обороти з ${selectedDateString[0]
-                .split('-')
-                .reverse()
-                .join('-')} по ${selectedDateString[1]
-                .split('-')
-                .reverse()
-                .join('-')}`
-        )
-      );
-    } catch (error) {
-      console.error('❌ Error fetching total profit:', error);
-    }
+    await dispatch(createZvitSelectedPeriod(period)).then(() =>
+      setDateFromTitle(formatDateTitle(dayOrePariod, selectedDateString))
+    );
+  };
+  const createSalaryZvitForPeriod = async period => {
+    if (!period) return;
+
+    await dispatch(getSalarisByDate(period)).then(() =>
+      setDateFromTitle(formatDateTitle(dayOrePariod, selectedDateString))
+    );
   };
 
   return (
@@ -110,76 +84,36 @@ const FinancialButtonContainer = ({
             gap: 10,
           }}
         >
-          <ZvitReportTitle title="Фінансові показники:" />
           <RangePicker
             defaultValue={[today, today]}
             onChange={selectDay}
             locale={locale}
+            style={{ marginBottom: 20 }}
           />
-
+          <ZvitReportTitle title="Фінансові показники:" />
           <CommandLineButton
             onClick={() => createZvitForPeriod(selectedPeriod)}
-            disabled={dayOrePariod === 'period'}
           >
-            {dayOrePariod === 'period' ? (
-              <>
-                Звіт за день <FaRegCalendarPlus />
-              </>
-            ) : (
-              <>
-                {zvitIsLoading ? (
-                  <CirclesWithBar
-                    height="21"
-                    width="50"
-                    color="#ffffff"
-                    wrapperStyle={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                    visible={true}
-                    ariaLabel="circles-with-bar-loading"
-                  />
-                ) : (
-                  <>
-                    Звіт за день <BsClipboardPulse />
-                  </>
-                )}
-              </>
-            )}
-          </CommandLineButton>
-
-          <CommandLineButton
-            onClick={() => createZvitForPeriod(selectedPeriod)}
-            disabled={dayOrePariod === 'oneDay'}
-          >
-            {dayOrePariod === 'period' ? (
-              <>
-                {zvitIsLoading ? (
-                  <CirclesWithBar
-                    height="21"
-                    width="50"
-                    color="#ffffff"
-                    wrapperStyle={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                    visible={true}
-                    ariaLabel="circles-with-bar-loading"
-                  />
-                ) : (
-                  <>
-                    Звіт за період <BsClipboardPulse />
-                  </>
-                )}
-              </>
-            ) : (
-              <>
-                Звіт за період
-                <FaRegCalendarPlus />
-              </>
-            )}
+            <>
+              {zvitIsLoading ? (
+                <CirclesWithBar
+                  height="21"
+                  width="50"
+                  color="#ffffff"
+                  wrapperStyle={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                  visible={true}
+                  ariaLabel="circles-with-bar-loading"
+                />
+              ) : (
+                <>
+                  Обіг коштів за період <BsClipboardPulse />
+                </>
+              )}
+            </>
           </CommandLineButton>
           <Expenses
             selectedPeriod={selectedPeriod}
@@ -198,27 +132,12 @@ const FinancialButtonContainer = ({
           }}
         >
           <ZvitReportTitle title="Зарплата вчителів:" />
-          <CommandLineButton disabled={dayOrePariod === 'period'}>
-            {dayOrePariod === 'period' ? (
-              <>
-                День <FaRegCalendarPlus />
-              </>
-            ) : (
-              <>
-                День <BsEmojiHeartEyes />
-              </>
-            )}
-          </CommandLineButton>
-          <CommandLineButton disabled={dayOrePariod === 'oneDay'}>
-            {dayOrePariod === 'period' ? (
-              <>
-                Період <BsEmojiHeartEyes />
-              </>
-            ) : (
-              <>
-                Період <FaRegCalendarPlus />
-              </>
-            )}
+          <CommandLineButton
+            onClick={() => createSalaryZvitForPeriod(selectedPeriod)}
+          >
+            <>
+              За вибраний період <BsEmojiHeartEyes />
+            </>
           </CommandLineButton>
         </div>
         <div
@@ -235,17 +154,11 @@ const FinancialButtonContainer = ({
             onClick={() => setOpen(true)}
             disabled={dayOrePariod === 'period'}
           >
-            {dayOrePariod === 'period' ? (
-              <>
-                Виберіть день <FaRegCalendarPlus />
-              </>
-            ) : (
-              <>
-                Додай витрати <BsEmojiFrown />
-              </>
-            )}
+            <>
+              Виберіть день <FaRegCalendarPlus />
+            </>
           </CommandLineButton>
-          <CommandLineButton
+          {/* <CommandLineButton
             htmlType="button"
             disabled={dayOrePariod === 'period'}
           >
@@ -258,13 +171,14 @@ const FinancialButtonContainer = ({
                 Внеси дохід <BsEmojiHeartEyes />
               </>
             )}
-          </CommandLineButton>
+          </CommandLineButton> */}
           <ExpenseContainer
             onCloseDrawerExpense={onCloseDrawerExpense}
             open={open}
             setOpen={setOpen}
             selectedPeriod={dateFromExpense}
           />
+          <SalarisForm selectedPeriod={dateFromExpense} />
         </div>
       </CommandLineWrapper>
     </>

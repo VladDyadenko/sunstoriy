@@ -29,8 +29,10 @@ export const schemaChildUpdate = yup.object().shape({
     .max(40, 'Задовге!'),
   surname: yup.string().min(2, 'Закоротке!').max(40, 'Задовге!'),
   mather: yup.string().min(2, 'Закоротке!').max(40, 'Задовге!'),
-
-  matherPhone: yup.string(),
+  matherPhone: yup
+    .string()
+    .required("Номер обов'язковий!")
+    .matches(/^\d{12}$/, 'Номер повинен містити рівно 12 цифр!'),
   father: yup.string().min(2, 'Закоротке!').max(40, 'Задовге!'),
   fatherPhone: yup.string(),
 });

@@ -59,6 +59,7 @@ const TeacherForm = ({ teacher }) => {
       const teacherData = {
         name: teacher.name ? teacher.name : '',
         surname: teacher.surname ? teacher.surname : '',
+        salaryRate: teacher.salaryRate ? teacher.salaryRate : '',
         teacherImage: teacher.teacherImage ? teacher.teacherImage : '',
         phone: teacher.phone ? teacher.phone : '',
         email: teacher.email ? teacher.email : '',
@@ -159,6 +160,18 @@ const TeacherForm = ({ teacher }) => {
                 placeholder="example@example.com"
               />
             </ContactContainer>
+            <ContactContainer>
+              <ContactDescr>Зарплата</ContactDescr>
+              <FieldTeacherPhone
+                name="salaryRate"
+                type="number"
+                autoComplete="off"
+                placeholder="вкажіть ставку"
+              />
+            </ContactContainer>
+            {touched.salaryRate && errors.salaryRate && (
+              <ErrorInfo>{errors.salaryRate}</ErrorInfo>
+            )}
             <SelectContainer>
               <SelectDescr>Спеціалізація:</SelectDescr>
               <Select

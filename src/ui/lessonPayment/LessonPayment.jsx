@@ -7,10 +7,21 @@ import { Drawer } from 'antd';
 import PaymentForm from './PaymentForm';
 
 const LessonPayment = ({ lesson, closePopover, isLessonPaymented }) => {
-  const { _id, bank, paymentForm, price, isHappend } = lesson;
+  const {
+    _id,
+    bank,
+    paymentForm,
+    price,
+    isHappend,
+    sum,
+    dateLesson,
+    timeLesson,
+    office,
+    teacher,
+  } = lesson;
 
   const initialPaymentValues = {
-    sum: price,
+    sum: sum ? sum : price,
     paymentForm: paymentForm ? paymentForm : 'noPayment',
     bank: bank ? bank : '',
     isHappend: isHappend === 'Відпрацьоване',
@@ -18,7 +29,7 @@ const LessonPayment = ({ lesson, closePopover, isLessonPaymented }) => {
   const operetion = useSelector(smsOperetion);
 
   const [open, setOpen] = useState(false);
-  const [amountPaid, setAmountPaid] = useState(price);
+  const [amountPaid, setAmountPaid] = useState(sum ? sum : price);
 
   const showDrawer = () => {
     setOpen(true);
@@ -62,6 +73,10 @@ const LessonPayment = ({ lesson, closePopover, isLessonPaymented }) => {
           onCloseDrawer={onCloseDrawer}
           id={_id}
           setAmountPaid={setAmountPaid}
+          dateLesson={dateLesson}
+          timeLesson={timeLesson}
+          office={office}
+          teacher={teacher}
         />
       </Drawer>
     </>

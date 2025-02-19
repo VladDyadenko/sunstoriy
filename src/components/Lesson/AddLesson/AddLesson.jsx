@@ -148,21 +148,11 @@ const AddLesson = ({ lesson, pathname }) => {
               const id = lesson._id;
               const combinedData = { id, values };
               await dispatch(updateLesson(combinedData)).then(() => {
-                // const data = {
-                //   offices,
-                //   dateCurrentLesson,
-                // };
-                // dispatch(choseLessonGraph(data));
                 navigate(-1);
               });
             } else {
               await dispatch(addLesson(values)).then(() => {
                 setAddSuccessLesson(true);
-                // const data = {
-                //   offices,
-                //   dateCurrentLesson,
-                // };
-                // dispatch(choseLessonGraph(data));
                 navigate(-1);
               });
             }

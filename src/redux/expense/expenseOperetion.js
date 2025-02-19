@@ -24,6 +24,7 @@ export const addExpense = createAsyncThunk(
           'Content-Type': 'application/json',
         },
       });
+
       if (data) {
         Notify.success('Витрати успішно додані');
       }

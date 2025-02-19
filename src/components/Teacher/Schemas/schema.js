@@ -9,6 +9,7 @@ export const initialValuesTeacherForm = {
   color: '',
   about: '',
   specialization: [],
+  salaryRate: Number,
 };
 
 export const schemaTeacherUpdate = yup.object().shape({
@@ -19,6 +20,10 @@ export const schemaTeacherUpdate = yup.object().shape({
     .max(40, 'Задовге!'),
   surname: yup.string().min(2, 'Закоротке!').max(40, 'Задовге!'),
   price: yup.number(),
+  salaryRate: yup
+    .number()
+    .typeError('Вкажіть дані!')
+    .required("Ставка обов'язкова!"),
 });
 export const options = [
   {

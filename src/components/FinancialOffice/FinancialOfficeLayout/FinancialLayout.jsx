@@ -22,6 +22,11 @@ import {
 } from 'redux/zvit/zvitSelector';
 import ZvitReportTitle from 'ui/ZvitReportTitle/ZvitReportTitle';
 import TableExpensesZvit from 'components/Zvit/TableExpensesZvit/TableExpensesZvit';
+import SalaryZvitTable from 'components/Zvit/Salary/SalaryZvitTable/SalaryZvitTable';
+import {
+  selectSalaryForPeriod,
+  selectSalaryLoading,
+} from 'redux/salary/salarySelector';
 
 const FinancialLayout = () => {
   const [indicatorsCurrentMonth, setIndicatorsCurrentMonth] = useState([]);
@@ -39,6 +44,9 @@ const FinancialLayout = () => {
   const { expenses } = useSelector(selectExpenseByDate);
   const statusZvitPeriod = useSelector(selectZvitStatus);
   const statusZvitExpense = useSelector(selectZvitStatusExpense);
+
+  const salaris = useSelector(selectSalaryForPeriod);
+  const salaryLoading = useSelector(selectSalaryLoading);
 
   useEffect(() => {
     if (statusZvitPeriod) {
@@ -132,6 +140,10 @@ const FinancialLayout = () => {
               <h4>Витрат в обраному періоді немає</h4>
             </>
           )}
+          <ZvitContainer>
+            <ZvitReportTitle title={`${dateFromTitle}`} />
+            <SalaryZvitTable salaris={salaris} salaryLoading={salaryLoading} />
+          </ZvitContainer>
         </ContantLineWrapper>
       </WrapperFinancialOffice>
     </Container>

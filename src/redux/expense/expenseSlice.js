@@ -51,9 +51,9 @@ const expenseSlice = createSlice({
         state.operetion = null;
         state.error = null;
         state.expense.push(action.payload);
-        if (state.expensesPeriod.expenses.length > 0) {
-          state.expensesPeriod.expenses.push(action.payload);
-          state.expensesPeriod.expenses.sort(
+        if (state.expensesPeriod?.expenses?.length > 0) {
+          state.expensesPeriod?.expenses?.push(action.payload);
+          state.expensesPeriod?.expenses?.sort(
             (a, b) => new Date(a.date) - new Date(b.date)
           );
         }

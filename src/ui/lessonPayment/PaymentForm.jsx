@@ -8,6 +8,10 @@ function PaymentForm({
   id,
   onCloseDrawer,
   setAmountPaid,
+  dateLesson,
+  timeLesson,
+  office,
+  teacher,
 }) {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
@@ -27,10 +31,12 @@ function PaymentForm({
           values.sum = 0;
         }
         values.isHappend = values.isHappend ? 'Відпрацьоване' : 'Заплановане';
-
+        values.dateLesson = dateLesson;
+        values.timeLesson = timeLesson;
+        values.office = office;
+        values.teacher = teacher;
         setAmountPaid(values.sum);
         onCloseDrawer();
-
         const combinedData = { id, values };
 
         await dispatch(updateLesson(combinedData)).then(() => {});
@@ -57,7 +63,7 @@ function PaymentForm({
             setPaymentMethod(e.target.value);
             if (e.target.value !== 'cashless') {
               form.setFieldsValue({ bank: undefined });
-              form.resetFields(['bank', 'sum']);
+              form.resetFields(['bank']);
             }
           }}
         >
