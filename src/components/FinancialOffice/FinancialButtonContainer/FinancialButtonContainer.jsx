@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useState } from 'react';
-import { DatePicker } from 'antd';
+import { DatePicker, Divider } from 'antd';
 import { FaRegCalendarPlus } from 'react-icons/fa';
 import dayjs from 'dayjs';
 import 'dayjs/locale/uk'; // Імпортуємо українську локаль
@@ -11,6 +11,7 @@ import { BsClipboardPulse, BsEmojiHeartEyes } from 'react-icons/bs';
 import {
   CommandLineButton,
   CommandLineWrapper,
+  SectionsContainer,
 } from './FinancialButtonContainer.styled';
 
 import ExpenseContainer from 'components/Expense/ExpenseContainer';
@@ -91,19 +92,12 @@ const FinancialButtonContainer = ({
   return (
     <>
       <CommandLineWrapper>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: 10,
-          }}
-        >
+        <SectionsContainer>
           <RangePicker
             defaultValue={[today, today]}
             onChange={selectDay}
             locale={locale}
-            style={{ marginBottom: 20 }}
+            style={{ marginBottom: 20, borderColor: '#fce010' }}
           />
           <ZvitReportTitle title="Фінансові показники:" />
           <CommandLineButton
@@ -152,16 +146,12 @@ const FinancialButtonContainer = ({
               </>
             )}
           </CommandLineButton>
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: 10,
-            marginTop: 35,
-          }}
-        >
+        </SectionsContainer>
+        <Divider
+          style={{ borderWidth: 1, borderColor: '#fce010' }}
+          variant="solid"
+        />
+        <SectionsContainer>
           <ZvitReportTitle title="Зарплата вчителів:" />
           <CommandLineButton
             onClick={() => createSalaryZvitForPeriod(selectedPeriod)}
@@ -185,16 +175,12 @@ const FinancialButtonContainer = ({
               </>
             )}
           </CommandLineButton>
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: 10,
-            marginTop: 35,
-          }}
-        >
+        </SectionsContainer>
+        <Divider
+          style={{ borderWidth: 1, borderColor: '#fce010' }}
+          variant="solid"
+        />
+        <SectionsContainer>
           <ZvitReportTitle title="Внесення розходів" />
           <CommandLineButton
             onClick={() => setOpen(true)}
@@ -211,7 +197,7 @@ const FinancialButtonContainer = ({
             selectedPeriod={dateFromExpense}
           />
           <SalarisForm selectedPeriod={dateFromExpense} />
-        </div>
+        </SectionsContainer>
       </CommandLineWrapper>
     </>
   );

@@ -20,6 +20,13 @@ export const CommandLineWrapper = styled.div`
   /* border: 2px solid var(--main-green); */
   padding: 10px;
 `;
+export const SectionsContainer = styled.div`
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+`;
 
 export const CommandLineButton = styled(Button)`
   ${btnStyledAll}
