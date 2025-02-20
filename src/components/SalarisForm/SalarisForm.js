@@ -51,8 +51,7 @@ const SalarisForm = ({ selectedPeriod }) => {
     }
   }, [updateSalaryData, form]);
 
-  const currentDay = new Date().toISOString().split('T')[0];
-
+  // const currentDay = new Date().toISOString().split('T')[0];
   const currentDayDescr = new Date()
     .toLocaleDateString('uk-UA', {
       day: '2-digit',
@@ -79,7 +78,7 @@ const SalarisForm = ({ selectedPeriod }) => {
         </p>
         <p>
           Дата виплати:
-          <DateDescription>{currentDay}</DateDescription>
+          <DateDescription>{selectedPeriod}</DateDescription>
         </p>
         <p>
           Сума до виплати:
@@ -118,7 +117,7 @@ const SalarisForm = ({ selectedPeriod }) => {
             if (values.amount_cash > 0 || values.amount_cash < 0) {
               dispatch(
                 addExpense({
-                  date: currentDay,
+                  date: selectedPeriod,
                   salaryId: updateSalaryData?._id,
                   category: `Зарплата ${updateSalaryData?.name} ${updateSalaryData?.surname}`,
                   amount: values.amount_cash,
@@ -133,7 +132,7 @@ const SalarisForm = ({ selectedPeriod }) => {
             if (values.amount_cashless > 0 || values.amount_cashless < 0) {
               dispatch(
                 addExpense({
-                  date: currentDay,
+                  date: selectedPeriod,
                   salaryId: updateSalaryData?._id,
                   category: `Зарплата ${updateSalaryData?.name} ${updateSalaryData?.surname}`,
                   amount: values.amount_cashless,

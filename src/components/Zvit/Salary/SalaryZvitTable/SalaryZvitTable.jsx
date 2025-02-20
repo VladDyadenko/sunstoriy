@@ -9,36 +9,80 @@ import {
   StyledCellNegative,
   StyledTable,
 } from 'components/FinancialOffice/PeriodReport/PeriodReport.styled';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteSalaryById, getSalaryById } from 'redux/salary/salaryOperetion';
 
 const SalaryZvitTable = ({ salaryLoading, salaris }) => {
   const dispatch = useDispatch();
 
+  const [filters, setFilters] = useState({});
+  const [salariesData, setSalariesData] = useState(salaris);
+
+  const uniqueDates = [
+    ...new Set(
+      salaris.map(salary => new Date(salary.date).toLocaleDateString('uk-UA'))
+    ),
+  ];
+  useEffect(() => {
+    setSalariesData(applyFilters(salaris, filters));
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filters, salaris]);
+
+  const applyFilters = (data, filters) => {
+    let filteredData = data;
+    const dateFilterKey = columns.find(col => col.dataIndex === 'date')?.key;
+    const specialistFilterKey = columns.find(
+      col => col.dataIndex === 'specialist'
+    )?.key;
+
+    if (filters[dateFilterKey] && filters[dateFilterKey].length) {
+      filteredData = filteredData.filter(salary => {
+        return filters[dateFilterKey].includes(
+          new Date(salary.date).toLocaleDateString('uk-UA')
+        );
+      });
+    }
+    if (filters[specialistFilterKey] && filters[specialistFilterKey].length) {
+      filteredData = filteredData.filter(salary =>
+        filters[specialistFilterKey].includes(
+          `${salary.name} ${salary.surname}`
+        )
+      );
+    }
+
+    return filteredData;
+  };
+  const handleTableChange = (_, filters) => {
+    setFilters(filters);
+  };
   const columns = [
     {
       key: '1',
       title: 'Дата',
       dataIndex: 'date',
-      // filters: uniqueDates.map(date => ({ text: date, value: date })),
-      // onFilter: (value, record) =>
-      //   record.key === 'total' || record.date === value,
+      filters: uniqueDates.map(date => ({ text: date, value: date })),
+      onFilter: (value, record) =>
+        record.key === 'total' || record.date === value,
     },
     {
       key: '2',
       title: 'Нараховано',
       dataIndex: 'salaryStatus',
-      // filters: [...new Set(expenses.map(expense => expense.category))].map(
-      //   category => ({ text: category, value: category })
-      // ),
-      // onFilter: (value, record) =>
-      //   record.key === 'total' || record.category === value,
     },
     {
       key: '3',
       title: 'Фахівець',
       dataIndex: 'specialist',
+      filters: [
+        ...new Set(salaris.map(salary => `${salary.name} ${salary.surname}`)),
+      ].map(fullName => ({ text: fullName, value: fullName })),
+      onFilter: (value, record) => {
+        if (record.key === 'total') return true;
+        const transformValue = value.replace(/([а-яa-z])([А-ЯA-Z])/g, '$1 $2');
+        return record.specialist === transformValue;
+      },
     },
     {
       key: 'group',
@@ -72,7 +116,9 @@ const SalaryZvitTable = ({ salaryLoading, salaris }) => {
 
         if (record.key === 'total') {
           return <StyledCell>{value}</StyledCell>;
-        } else return <StyledCellNegative>{value}</StyledCellNegative>;
+        } else {
+          return <StyledCellNegative>{value}</StyledCellNegative>;
+        }
       },
     },
     {
@@ -123,7 +169,7 @@ const SalaryZvitTable = ({ salaryLoading, salaris }) => {
         ),
     },
   ];
-  const dataSource = salaris.map(salary => {
+  const dataSource = salariesData.map(salary => {
     const {
       _id,
       date,
@@ -152,19 +198,19 @@ const SalaryZvitTable = ({ salaryLoading, salaris }) => {
     };
   });
 
-  const total = salaris.reduce(
+  const total = salariesData.reduce(
     (sum, item) => sum + (item.amount_accrued ? item.amount_accrued : 0),
     0
   );
-  const totalDebt = salaris.reduce(
+  const totalDebt = salariesData.reduce(
     (sum, item) => sum + (item.amount_debt ? item.amount_debt : 0),
     0
   );
-  const totalCash = salaris.reduce(
+  const totalCash = salariesData.reduce(
     (sum, item) => sum + (item.amount_cash ? item.amount_cash : 0),
     0
   );
-  const totalPrivat = salaris.reduce(
+  const totalPrivat = salariesData.reduce(
     (sum, item) =>
       sum +
       (item.amount_cashless && item.bank === 'PrivatBank'
@@ -172,7 +218,7 @@ const SalaryZvitTable = ({ salaryLoading, salaris }) => {
         : 0),
     0
   );
-  const totalMono = salaris.reduce(
+  const totalMono = salariesData.reduce(
     (sum, item) =>
       sum +
       (item.amount_cashless && item.bank === 'MonoBank'
@@ -198,7 +244,7 @@ const SalaryZvitTable = ({ salaryLoading, salaris }) => {
       size="small"
       pagination={false}
       loading={salaryLoading}
-      // onChange={handleTableChange}
+      onChange={handleTableChange}
     />
   );
 };

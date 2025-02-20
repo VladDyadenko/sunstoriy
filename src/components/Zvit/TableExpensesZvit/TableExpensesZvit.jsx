@@ -23,6 +23,7 @@ const TableExpensesZvit = ({ expensZvitLoading, expenses }) => {
     setExpensesData(filteredData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [expenses, filters]);
+
   const uniqueDates = [
     ...new Set(
       expenses.map(expense =>
