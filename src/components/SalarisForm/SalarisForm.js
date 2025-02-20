@@ -22,6 +22,7 @@ import { selectSalarySelected } from 'redux/salary/salarySelector';
 import { clearSalarySelected } from 'redux/salary/salarySlice';
 
 const SalarisForm = ({ selectedPeriod }) => {
+  console.log('🚀 ~ SalarisForm ~ selectedPeriod:', selectedPeriod);
   const [form] = useForm();
   const dispatch = useDispatch();
   const updateSalaryData = useSelector(selectSalarySelected);
@@ -50,14 +51,6 @@ const SalarisForm = ({ selectedPeriod }) => {
       });
     }
   }, [updateSalaryData, form]);
-
-  // const currentDay = new Date().toISOString().split('T')[0];
-  const currentDayDescr = new Date()
-    .toLocaleDateString('uk-UA', {
-      day: '2-digit',
-      month: '2-digit',
-    })
-    .replace(/\./g, '.');
 
   return (
     <Drawer
@@ -103,12 +96,11 @@ const SalarisForm = ({ selectedPeriod }) => {
           values.comment = [
             values.amount_cash ? `${values.amount_cash} грн` : null,
             values.amount_cashless ? `${values.amount_cashless} грн` : null,
-            `виплачено ${currentDayDescr}`,
+            `виплачено ${selectedPeriod}`,
           ]
             .filter(Boolean)
             .join(' ');
 
-          console.log('values', values);
           const salaryData = { id: updateSalaryData._id, values };
 
           await dispatch(updateSalary(salaryData)).then(() => {
