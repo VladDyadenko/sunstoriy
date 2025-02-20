@@ -22,7 +22,6 @@ import { selectSalarySelected } from 'redux/salary/salarySelector';
 import { clearSalarySelected } from 'redux/salary/salarySlice';
 
 const SalarisForm = ({ selectedPeriod }) => {
-  console.log('🚀 ~ SalarisForm ~ selectedPeriod:', selectedPeriod);
   const [form] = useForm();
   const dispatch = useDispatch();
   const updateSalaryData = useSelector(selectSalarySelected);

@@ -114,7 +114,7 @@ const AddLesson = ({ lesson, pathname }) => {
         teacherName: lesson.teacherName ? lesson.teacherName : '',
         teacherSurname: lesson.teacherSurname ? lesson.teacherSurname : '',
         teacherColor: lesson.teacherColor ? lesson.teacherColor : '',
-        price: lesson.price ? lesson.price : { currentLessonCost },
+        price: lesson.price ? lesson.price : currentLessonCost,
         plan: lesson.plan ? lesson.plan : '',
         review: lesson.review ? lesson.review : '',
         dateLesson: lesson.dateLesson ? lesson.dateLesson : null,
@@ -203,6 +203,7 @@ const AddLesson = ({ lesson, pathname }) => {
                 <PriceLesson
                   setFieldValue={setFieldValue}
                   currentPrice={price}
+                  lesson={lesson}
                 />
               </FormMainInfo>
               <DatePickerLesson

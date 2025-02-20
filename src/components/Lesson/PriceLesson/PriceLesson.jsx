@@ -4,16 +4,14 @@ import {
   PriceContainer,
   TitlePriceLesson,
 } from './PriceLesson.styled';
-import { currentLessonCost } from 'assets/constants/mainConstans';
 
-const PriceLesson = ({ setFieldValue, currentPrice }) => {
-  const [price, setPrice] = useState(currentLessonCost);
-
+const PriceLesson = ({ setFieldValue, currentPrice, lesson }) => {
+  const [price, setPrice] = useState(lesson ? lesson.price : currentPrice);
   useEffect(() => {
-    if (currentPrice) {
-      setPrice(currentPrice);
+    if (lesson) {
+      setPrice(lesson.price);
     }
-  }, [currentPrice]);
+  }, [lesson]);
 
   const handleInputChange = e => {
     const currentPrice = e.target.value;
@@ -23,7 +21,7 @@ const PriceLesson = ({ setFieldValue, currentPrice }) => {
   return (
     <PriceContainer>
       <TitlePriceLesson>Вартість:</TitlePriceLesson>
-      <InputPrice type="text" value={price} onChange={handleInputChange} />
+      <InputPrice type="number" value={price} onChange={handleInputChange} />
       <TitlePriceLesson>грн.</TitlePriceLesson>
     </PriceContainer>
   );
