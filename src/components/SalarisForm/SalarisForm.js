@@ -119,6 +119,7 @@ const SalarisForm = ({ selectedPeriod }) => {
               dispatch(
                 addExpense({
                   date: currentDay,
+                  salaryId: updateSalaryData?._id,
                   category: `Зарплата ${updateSalaryData?.name} ${updateSalaryData?.surname}`,
                   amount: values.amount_cash,
                   paymentForm: 'cash',
@@ -133,6 +134,7 @@ const SalarisForm = ({ selectedPeriod }) => {
               dispatch(
                 addExpense({
                   date: currentDay,
+                  salaryId: updateSalaryData?._id,
                   category: `Зарплата ${updateSalaryData?.name} ${updateSalaryData?.surname}`,
                   amount: values.amount_cashless,
                   paymentForm: 'cashless',
