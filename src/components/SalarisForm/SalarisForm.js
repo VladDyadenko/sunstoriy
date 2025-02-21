@@ -25,28 +25,25 @@ const SalarisForm = ({ selectedPeriod }) => {
   const [form] = useForm();
   const dispatch = useDispatch();
   const updateSalaryData = useSelector(selectSalarySelected);
-
   const [open, setOpen] = useState(false);
   const [paymentSelected, setPaymentSelected] = useState(null);
+  const [paymentMethod, setPaymentMethod] = useState(null);
 
   const onCloseDrawerSalary = () => {
     setOpen(false);
   };
-
+  const onCencelSalarySelected = () => {
+    setOpen(false);
+    dispatch(clearSalarySelected());
+  };
   useEffect(() => {
     if (updateSalaryData) {
       setOpen(true);
-    }
-  }, [updateSalaryData]);
 
-  useEffect(() => {
-    if (updateSalaryData) {
-      setOpen(true);
-      // Встановлюємо початкові значення для форми
       form.setFieldsValue({
         amount_cash: null,
         amount_cashless: null,
-        amount_debt: updateSalaryData?.amount_debt, // Початкове значення для заборгованості
+        amount_debt: updateSalaryData?.amount_debt,
       });
     }
   }, [updateSalaryData, form]);
@@ -144,6 +141,7 @@ const SalarisForm = ({ selectedPeriod }) => {
         <Form.Item label="Форма виплати" name="paymentMethod">
           <Checkbox.Group
             onChange={values => {
+              setPaymentMethod(values);
               setPaymentSelected(values);
               if (!values?.includes('cashless')) {
                 form.setFieldsValue({ bank: undefined });
@@ -157,7 +155,15 @@ const SalarisForm = ({ selectedPeriod }) => {
         </Form.Item>
         {/* Поле для виплати готівкою */}
         {paymentSelected?.includes('cash') && (
-          <Form.Item label="Сума готівкою" name="amount_cash">
+          <Form.Item
+            rules={
+              paymentMethod.includes('cash') && [
+                { required: true, message: 'Вкажіть суму' },
+              ]
+            }
+            label="Сума готівкою"
+            name="amount_cash"
+          >
             <InputNumber
               style={{ width: '100%' }}
               placeholder="Сума готівкою"
@@ -185,7 +191,15 @@ const SalarisForm = ({ selectedPeriod }) => {
                 <Select.Option value="MonoBank">Монобанк</Select.Option>
               </Select>
             </Form.Item>
-            <Form.Item label="Сума безготівково" name="amount_cashless">
+            <Form.Item
+              rules={
+                paymentMethod.includes('cashless') && [
+                  { required: true, message: 'Вкажіть суму' },
+                ]
+              }
+              label="Сума безготівково"
+              name="amount_cashless"
+            >
               <InputNumber
                 style={{ width: '100%' }}
                 placeholder="Сума безготівково"
@@ -217,7 +231,7 @@ const SalarisForm = ({ selectedPeriod }) => {
           <Button
             style={{ width: '100%' }}
             type="primary"
-            onClick={() => setOpen(false)}
+            onClick={() => onCencelSalarySelected()}
             htmlType="button"
           >
             Відмінити
