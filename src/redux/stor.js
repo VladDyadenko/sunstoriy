@@ -35,9 +35,10 @@ export const store = configureStore({
     offices: officesReducer,
     sendSms: smsReducer,
     expense: expenseReducer,
-    zvit: zvitReducer,
     salary: salaryReducer,
+    zvit: zvitReducer,
   },
+  devTools: true,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {

@@ -2,6 +2,9 @@ import styled from 'styled-components';
 import { Table } from 'antd';
 
 export const StyledTable = styled(Table)`
+  font-family: 'RobotoSlab';
+  font-weight: 400;
+
   .ant-table {
     font-size: 14px;
   }
@@ -10,6 +13,10 @@ export const StyledTable = styled(Table)`
     background-color: #f0f2f5 !important; /* Колір фону заголовків */
     font-weight: bold;
     text-align: center;
+  }
+
+  .ant-table-tbody > tr:nth-child(even) {
+    background-color: #e6f7ff; /* Світло-сірий бекграунд через строчку */
   }
 
   .ant-table-tbody > tr > td {
@@ -36,7 +43,14 @@ export const StyledTable = styled(Table)`
   }
 `;
 export const StyledCellNegative = styled.span`
+  font-weight: 500;
+  font-size: 16px;
   color: var(--main-red);
+`;
+export const StyledCellPositive = styled.span`
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--main-green);
 `;
 export const StyledCell = styled.span`
   color: inherit;

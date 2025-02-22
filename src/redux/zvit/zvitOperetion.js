@@ -21,3 +21,22 @@ export const createZvitSelectedPeriod = createAsyncThunk(
     }
   }
 );
+export const getZvitChildrensPeriod = createAsyncThunk(
+  'zvit/createZvitChildrens',
+  async (choesData, thunkAPI) => {
+    try {
+      const { data } = await axios.get(`/zvit/childrens_period`, {
+        params: choesData,
+      });
+      if (data) {
+        Notify.success('Успішно');
+      }
+      return data;
+    } catch (err) {
+      if (err) {
+        Notify.failure(err.response.data.message);
+      }
+      return thunkAPI.rejectWithValue(err.message);
+    }
+  }
+);

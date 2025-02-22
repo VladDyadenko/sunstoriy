@@ -14,7 +14,9 @@ import {
   selectExpenseLoading,
 } from 'redux/expense/expenceSelector';
 import {
+  selectZvitChildrens,
   selectZvitLoadinge,
+  selectZvitLoadingeChildrens,
   selectZvitSelectedPeriod,
 } from 'redux/zvit/zvitSelector';
 import ZvitReportTitle from 'ui/ZvitReportTitle/ZvitReportTitle';
@@ -24,6 +26,7 @@ import {
   selectSalaryForPeriod,
   selectSalaryLoading,
 } from 'redux/salary/salarySelector';
+import ChildrensPeriodZvit from 'components/Zvit/ChildrensPeriodZvit/ChildrensPeriodZvit';
 
 const FinancialLayout = () => {
   const [indicatorsCurrentMonth, setIndicatorsCurrentMonth] = useState([]);
@@ -36,11 +39,16 @@ const FinancialLayout = () => {
 
   const { totalData } = useSelector(selectZvitSelectedPeriod);
   const zvitIsLoading = useSelector(selectZvitLoadinge);
-  const expensZvitLoading = useSelector(selectExpenseLoading);
+
   const { expenses } = useSelector(selectExpenseByDate);
+  const expensZvitLoading = useSelector(selectExpenseLoading);
 
   const salaris = useSelector(selectSalaryForPeriod);
   const salaryLoading = useSelector(selectSalaryLoading);
+
+  const childrens = useSelector(selectZvitChildrens);
+  const childrensLoading = useSelector(selectZvitLoadingeChildrens);
+  const isLoad = zvitIsLoading || salaryLoading || childrensLoading;
 
   useEffect(() => {
     const fetchZvitOneMonthTotal = async () => {
@@ -99,6 +107,7 @@ const FinancialLayout = () => {
           setSelectedPeriod={setSelectedPeriod}
           selectedDateString={selectedDateString}
           setSelectedDateString={setSelectedDateString}
+          childrensLoading={childrensLoading}
         />
         <ContantLineWrapper>
           <ZvitContainer>
@@ -108,6 +117,33 @@ const FinancialLayout = () => {
               indicatorsCurrentMonth={indicatorsCurrentMonth}
             />
           </ZvitContainer>
+          {typeZvit === 'report_childrens' &&
+          childrens &&
+          childrens.length > 0 ? (
+            <ZvitContainer>
+              <ZvitReportTitle
+                zvitName={`Інформація по дітям`}
+                title={`${dateFromTitle}`}
+              />
+              <ChildrensPeriodZvit
+                childrens={childrens}
+                childrensLoading={childrensLoading}
+              />
+            </ZvitContainer>
+          ) : typeZvit === '' ||
+            typeZvit === 'report_expenses' ||
+            typeZvit === 'report_salaries' ||
+            typeZvit === 'report_period' ||
+            isLoad ? null : (
+            <>
+              <ZvitReportTitle
+                zvitName={`Інформація по дітям`}
+                title={`${dateFromTitle}`}
+              />
+              <h4>Даних в обраному періоді немає</h4>
+            </>
+          )}
+
           {typeZvit === 'report_period' && totalData && isTotalDate ? (
             <ZvitContainer>
               <ZvitReportTitle
@@ -121,7 +157,9 @@ const FinancialLayout = () => {
             </ZvitContainer>
           ) : typeZvit === '' ||
             typeZvit === 'report_expenses' ||
-            typeZvit === 'report_salaries' ? null : (
+            typeZvit === 'report_salaries' ||
+            typeZvit === 'report_childrens' ||
+            isLoad ? null : (
             <>
               <ZvitReportTitle
                 zvitName={`Обороти`}
@@ -145,7 +183,9 @@ const FinancialLayout = () => {
             </ZvitContainer>
           ) : typeZvit === '' ||
             typeZvit === 'report_period' ||
-            typeZvit === 'report_salaries' ? null : (
+            typeZvit === 'report_salaries' ||
+            typeZvit === 'report_childrens' ||
+            isLoad ? null : (
             <>
               <ZvitReportTitle
                 zvitName={`Розходи`}
@@ -167,7 +207,9 @@ const FinancialLayout = () => {
             </ZvitContainer>
           ) : typeZvit === '' ||
             typeZvit === 'report_period' ||
-            typeZvit === 'report_expenses' ? null : (
+            typeZvit === 'report_expenses' ||
+            typeZvit === 'report_childrens' ||
+            isLoad ? null : (
             <>
               <ZvitReportTitle
                 zvitName={`Зарплата`}

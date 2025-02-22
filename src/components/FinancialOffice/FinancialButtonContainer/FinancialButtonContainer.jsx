@@ -15,7 +15,10 @@ import {
 } from './FinancialButtonContainer.styled';
 
 import ExpenseContainer from 'components/Expense/ExpenseContainer';
-import { createZvitSelectedPeriod } from 'redux/zvit/zvitOperetion';
+import {
+  createZvitSelectedPeriod,
+  getZvitChildrensPeriod,
+} from 'redux/zvit/zvitOperetion';
 import ZvitReportTitle from 'ui/ZvitReportTitle/ZvitReportTitle';
 import { CirclesWithBar } from 'react-loader-spinner';
 import { funFormattedDate } from 'assets/constants/transformation';
@@ -37,6 +40,7 @@ const FinancialButtonContainer = ({
   selectedDateString,
   setSelectedDateString,
   setTypeZvit,
+  childrensLoading,
 }) => {
   const dispatch = useDispatch();
   const today = dayjs();
@@ -85,6 +89,14 @@ const FinancialButtonContainer = ({
     setTypeZvit('report_salaries');
 
     await dispatch(getSalarisByDate(period)).then(() =>
+      setDateFromTitle(formatDateTitle(dayOrePariod, selectedDateString))
+    );
+  };
+  const createChildrensZvitForPeriod = async period => {
+    if (!period) return;
+    setTypeZvit('report_childrens');
+
+    await dispatch(getZvitChildrensPeriod(period)).then(() =>
       setDateFromTitle(formatDateTitle(dayOrePariod, selectedDateString))
     );
   };
@@ -157,6 +169,31 @@ const FinancialButtonContainer = ({
             onClick={() => createSalaryZvitForPeriod(selectedPeriod)}
           >
             {salariesLoading ? (
+              <CirclesWithBar
+                height="21"
+                width="50"
+                color="#ffffff"
+                wrapperStyle={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                visible={true}
+                ariaLabel="circles-with-bar-loading"
+              />
+            ) : (
+              <>
+                За вибраний період <BsEmojiHeartEyes />
+              </>
+            )}
+          </CommandLineButton>
+        </SectionsContainer>
+        <SectionsContainer>
+          <ZvitReportTitle title="Звіт по дітям:" />
+          <CommandLineButton
+            onClick={() => createChildrensZvitForPeriod(selectedPeriod)}
+          >
+            {childrensLoading ? (
               <CirclesWithBar
                 height="21"
                 width="50"
