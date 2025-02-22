@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Title = styled.h3`
+export const TitleButton = styled.h3`
   width: 100%;
   font-family: 'RobotoSlab';
   font-weight: 400;
@@ -10,6 +10,5 @@ export const Title = styled.h3`
   padding: 7px 0;
   color: #fff;
   background-color: var(--blue-tint);
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
+  border-radius: 5px;
 `;

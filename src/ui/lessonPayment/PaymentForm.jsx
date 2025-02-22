@@ -1,8 +1,15 @@
-import React, { useState } from 'react';
-import { Button, Checkbox, Form, InputNumber, Radio, Select } from 'antd';
+import React, { useEffect, useState } from 'react';
+import {
+  Alert,
+  Button,
+  Checkbox,
+  Form,
+  InputNumber,
+  Radio,
+  Select,
+} from 'antd';
 import { useDispatch } from 'react-redux';
 import { updateLesson } from 'redux/Lesson/lessonOperetion';
-
 function PaymentForm({
   initialPaymentValues,
   id,
@@ -12,11 +19,22 @@ function PaymentForm({
   timeLesson,
   office,
   teacher,
+  price,
+  isHappend,
 }) {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
 
   const [paymentMethod, setPaymentMethod] = useState(null);
+  const sumForm = Form.useWatch('sum', form);
+  const isHappendForm = Form.useWatch('isHappend', form);
+
+  // Перевірка на аванс і урок, який запланований. Якщо аванс внести
+  // в запланований урок, він не відстежиться в звітності по дітях коректно
+  const [advancePayment, setAdvancePayment] = useState(false);
+  useEffect(() => {
+    setAdvancePayment(sumForm > price && !isHappendForm);
+  }, [price, sumForm, isHappendForm]);
 
   return (
     <Form
@@ -30,6 +48,7 @@ function PaymentForm({
           values.bank = '';
           values.sum = 0;
         }
+
         values.isHappend = values.isHappend ? 'Відпрацьоване' : 'Заплановане';
         values.dateLesson = dateLesson;
         values.timeLesson = timeLesson;
@@ -100,6 +119,14 @@ function PaymentForm({
       >
         <InputNumber />
       </Form.Item>
+      {advancePayment && (
+        <Alert
+          message="Аванс (сума більше вартості уроку) можна вносити тільки у відпрацьований урок!"
+          type="error"
+          showIcon
+          style={{ marginBottom: 16 }}
+        />
+      )}
       <div
         style={{
           width: '100%',
@@ -117,7 +144,12 @@ function PaymentForm({
         >
           Відмінити
         </Button>
-        <Button style={{ width: '100%' }} type="primary" htmlType="submit">
+        <Button
+          disabled={advancePayment}
+          style={{ width: '100%' }}
+          type="primary"
+          htmlType="submit"
+        >
           Зберегти зміни
         </Button>
       </div>

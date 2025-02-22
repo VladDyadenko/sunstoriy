@@ -19,7 +19,6 @@ import {
   createZvitSelectedPeriod,
   getZvitChildrensPeriod,
 } from 'redux/zvit/zvitOperetion';
-import ZvitReportTitle from 'ui/ZvitReportTitle/ZvitReportTitle';
 import { CirclesWithBar } from 'react-loader-spinner';
 import { funFormattedDate } from 'assets/constants/transformation';
 import { formatDateTitle } from 'assets/constants/reusableFunctions';
@@ -28,6 +27,7 @@ import SalarisForm from 'components/SalarisForm/SalarisForm';
 import { selectSalaryLoading } from 'redux/salary/salarySelector';
 import { getExpensesByDate } from 'redux/expense/expenseOperetion';
 import { selectExpenseLoading } from 'redux/expense/expenceSelector';
+import ZvitButtonTitle from 'ui/ZvitButtonTitle/ZvitButtonTitle';
 const { RangePicker } = DatePicker;
 
 const FinancialButtonContainer = ({
@@ -111,7 +111,7 @@ const FinancialButtonContainer = ({
             locale={locale}
             style={{ marginBottom: 20, borderColor: '#fce010' }}
           />
-          <ZvitReportTitle title="Фінансові показники:" />
+          <ZvitButtonTitle title="Фінансові показники:" />
           <CommandLineButton
             onClick={() => createZvitForPeriod(selectedPeriod)}
           >
@@ -164,7 +164,7 @@ const FinancialButtonContainer = ({
           variant="solid"
         />
         <SectionsContainer>
-          <ZvitReportTitle title="Зарплата вчителів:" />
+          <ZvitButtonTitle title="Зарплата фахівців:" />
           <CommandLineButton
             onClick={() => createSalaryZvitForPeriod(selectedPeriod)}
           >
@@ -188,8 +188,12 @@ const FinancialButtonContainer = ({
             )}
           </CommandLineButton>
         </SectionsContainer>
+        <Divider
+          style={{ borderWidth: 1, borderColor: '#fce010' }}
+          variant="solid"
+        />
         <SectionsContainer>
-          <ZvitReportTitle title="Звіт по дітям:" />
+          <ZvitButtonTitle title="Звіт по дітям:" />
           <CommandLineButton
             onClick={() => createChildrensZvitForPeriod(selectedPeriod)}
           >
@@ -218,7 +222,7 @@ const FinancialButtonContainer = ({
           variant="solid"
         />
         <SectionsContainer>
-          <ZvitReportTitle title="Внесення розходів" />
+          <ZvitButtonTitle title="Внесення розходів" />
           <CommandLineButton
             onClick={() => setOpen(true)}
             disabled={dayOrePariod === 'period'}

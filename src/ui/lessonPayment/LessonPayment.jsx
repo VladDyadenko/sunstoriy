@@ -77,6 +77,7 @@ const LessonPayment = ({ lesson, closePopover, isLessonPaymented }) => {
           timeLesson={timeLesson}
           office={office}
           teacher={teacher}
+          isHappend={isHappend}
         />
       </Drawer>
     </>

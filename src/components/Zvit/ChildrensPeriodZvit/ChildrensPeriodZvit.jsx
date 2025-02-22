@@ -80,7 +80,9 @@ const ChildrensPeriodZvit = ({ childrens, childrensLoading }) => {
 
   const dataSource = childrens?.map(children => ({
     key: children.child,
-    childName: `${children.childName} ${children.childSurname}`,
+    childName: `${children.childName}${
+      children.childSurname ? ` ${children.childSurname}` : ''
+    }`,
     start: {
       balance: children.start.balance,
     },
@@ -93,7 +95,6 @@ const ChildrensPeriodZvit = ({ childrens, childrensLoading }) => {
       balance: children.end.balance,
     },
   }));
-
   return (
     <StyledTable
       columns={columns}

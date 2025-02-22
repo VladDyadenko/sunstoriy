@@ -174,6 +174,7 @@ body,
     --main-text-black:#2a2a2a;
     --lightSeaGreen:#20B2AA;
     --teal:#008080;
+    --blue-tint:#00ace6;
 
     --teacher-color-1:#006400;
     --teacher-color-2:#4B0082;
