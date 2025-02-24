@@ -25,20 +25,27 @@ export const funFormattedDate = date => {
   const startDate = new Date(date[0].toDate());
   const endDate = new Date(date[1].toDate());
 
-  // Обнуляємо години для початку дня
-  startDate.setUTCHours(0, 0, 0, 0);
-  endDate.setUTCHours(23, 59, 59, 999);
+  // Обнуляємо години для початку дня (локальний час)
+  startDate.setHours(0, 0, 0, 0);
+  endDate.setHours(23, 59, 59, 999);
+
+  // Отримуємо зсув часового поясу в хвилинах
+  const timezoneOffset = startDate.getTimezoneOffset() * 60 * 1000;
+
+  // Корегуємо дати на зсув часового поясу
+  const startDateUTC = new Date(startDate.getTime() - timezoneOffset);
+  const endDateUTC = new Date(endDate.getTime() - timezoneOffset);
 
   // Форматуємо для бекенду
   const formattedDates = {
-    startDate: startDate.toISOString(), // 2025-02-01T00:00:00.000Z
-    endDate: endDate.toISOString(), // 2025-02-08T23:59:59.999Z
+    startDate: startDateUTC.toISOString(), // 2025-02-24T00:00:00.000Z
+    endDate: endDateUTC.toISOString(), // 2025-02-24T23:59:59.999Z
   };
 
   const isOneDay =
-    startDate.getUTCFullYear() === endDate.getUTCFullYear() &&
-    startDate.getUTCMonth() === endDate.getUTCMonth() &&
-    startDate.getUTCDate() === endDate.getUTCDate();
+    startDate.getFullYear() === endDate.getFullYear() &&
+    startDate.getMonth() === endDate.getMonth() &&
+    startDate.getDate() === endDate.getDate();
 
   return { formattedDates, isOneDay };
 };
