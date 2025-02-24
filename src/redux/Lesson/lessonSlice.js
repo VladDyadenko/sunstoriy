@@ -2,14 +2,14 @@ import {
   addLesson,
   choseLessonGraph,
   deleteLessonById,
-  fetchLessons,
+  // fetchLessons,
   updateLesson,
 } from './lessonOperetion';
 
 const { createSlice } = require('@reduxjs/toolkit');
 
 const initialState = {
-  lesson: [],
+  // lesson: [],
   choseLesson: [],
   lessonsSensornaya: [],
   isloading: false,
@@ -25,18 +25,18 @@ const lessonSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder
-      .addCase(fetchLessons.pending, state => {
-        state.isloading = true;
-      })
-      .addCase(fetchLessons.fulfilled, (state, action) => {
-        state.isloading = false;
-        state.error = null;
-        state.lesson = action.payload;
-      })
-      .addCase(fetchLessons.rejected, (state, action) => {
-        state.isloading = false;
-        state.error = action.payload;
-      })
+      // .addCase(fetchLessons.pending, state => {
+      //   state.isloading = true;
+      // })
+      // .addCase(fetchLessons.fulfilled, (state, action) => {
+      //   state.isloading = false;
+      //   state.error = null;
+      //   state.lesson = action.payload;
+      // })
+      // .addCase(fetchLessons.rejected, (state, action) => {
+      //   state.isloading = false;
+      //   state.error = action.payload;
+      // })
       .addCase(addLesson.pending, state => {
         state.isloading = true;
         state.operetion = 'addLesson';
@@ -109,10 +109,9 @@ const lessonSlice = createSlice({
         if (indexLesson !== -1) {
           state.lesson.splice(indexLesson, 1);
         }
-        const index = state.choseLesson.findIndex(vel => vel._id === id);
-        if (index !== -1) {
-          state.choseLesson.splice(index, 1);
-        }
+        state.choseLesson = state.choseLesson.filter(
+          lesson => lesson._id !== action.meta.arg
+        );
       })
       .addCase(deleteLessonById.rejected, (state, action) => {
         state.operetion = null;

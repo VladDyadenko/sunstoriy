@@ -6,10 +6,22 @@ import {
   StyledTable,
 } from 'components/FinancialOffice/PeriodReport/PeriodReport.styled';
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { getZvitChildByIdAndPeriod } from 'redux/zvit/zvitOperetion';
 
-const ChildrensPeriodZvit = ({ childrens, childrensLoading }) => {
-  const handleChildClick = data => {
-    console.log(data);
+const ChildrensPeriodZvit = ({
+  childrens,
+  childrensLoading,
+  selectedPeriod,
+  setOpenDrawer,
+}) => {
+  const dispatch = useDispatch();
+
+  const handleChildClick = async id => {
+    const choesData = { id, selectedPeriod };
+    await dispatch(getZvitChildByIdAndPeriod(choesData)).then(() =>
+      setOpenDrawer(true)
+    );
   };
   const columns = [
     {

@@ -1,6 +1,7 @@
 import { getExpensesByDate } from 'redux/expense/expenseOperetion';
 import {
   createZvitSelectedPeriod,
+  getZvitChildByIdAndPeriod,
   getZvitChildrensPeriod,
 } from './zvitOperetion';
 
@@ -9,8 +10,10 @@ const { createSlice } = require('@reduxjs/toolkit');
 const initialState = {
   zvitSelectedPeriod: {},
   childrensSelected: [],
+  selectedChildData: null,
   isloading: false,
   isloadingChildrens: false,
+  isloadingChild: false,
   operetion: null,
   zvitStatus: '',
   error: null,
@@ -54,6 +57,22 @@ const zvitSlice = createSlice({
       })
       .addCase(getZvitChildrensPeriod.rejected, (state, action) => {
         state.isloadingChildrens = false;
+        state.operetion = null;
+        state.error = action.payload;
+      })
+      .addCase(getZvitChildByIdAndPeriod.pending, state => {
+        state.isloadingChild = true;
+        state.operetion = null;
+      })
+      .addCase(getZvitChildByIdAndPeriod.fulfilled, (state, { payload }) => {
+        state.isloadingChild = false;
+        state.operetion = 'createChildZvit';
+        state.error = null;
+        const { totalData } = payload;
+        state.selectedChildData = totalData;
+      })
+      .addCase(getZvitChildByIdAndPeriod.rejected, (state, action) => {
+        state.isloadingChild = false;
         state.operetion = null;
         state.error = action.payload;
       });

@@ -31,8 +31,9 @@ export const SectionsContainer = styled.div`
 export const CommandLineButton = styled(Button)`
   ${btnStyledAll}
   background-color: var(--main-green);
+
   &:hover {
-    background-color: var(--bg-main-color);
+    background-color: var(--bg-main-color) !important;
   }
 
   &:disabled {

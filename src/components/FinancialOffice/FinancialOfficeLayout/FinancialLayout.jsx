@@ -14,6 +14,7 @@ import {
   selectExpenseLoading,
 } from 'redux/expense/expenceSelector';
 import {
+  selectZvitChild,
   selectZvitChildrens,
   selectZvitLoadinge,
   selectZvitLoadingeChildrens,
@@ -27,6 +28,7 @@ import {
   selectSalaryLoading,
 } from 'redux/salary/salarySelector';
 import ChildrensPeriodZvit from 'components/Zvit/ChildrensPeriodZvit/ChildrensPeriodZvit';
+import ChildPeriodZvit from 'components/Zvit/ChildPeriodZvit/ChildPeriodZvit';
 
 const FinancialLayout = () => {
   const [indicatorsCurrentMonth, setIndicatorsCurrentMonth] = useState([]);
@@ -37,6 +39,8 @@ const FinancialLayout = () => {
   const [selectedDateString, setSelectedDateString] = useState(null);
   const [dayOrePariod, setDayOrePariod] = useState('oneDay');
 
+  const [openDrawer, setOpenDrawer] = useState(false);
+
   const { totalData } = useSelector(selectZvitSelectedPeriod);
   const zvitIsLoading = useSelector(selectZvitLoadinge);
 
@@ -45,6 +49,8 @@ const FinancialLayout = () => {
 
   const salaris = useSelector(selectSalaryForPeriod);
   const salaryLoading = useSelector(selectSalaryLoading);
+
+  const childSelectedData = useSelector(selectZvitChild);
 
   const childrens = useSelector(selectZvitChildrens);
   const childrensLoading = useSelector(selectZvitLoadingeChildrens);
@@ -128,6 +134,13 @@ const FinancialLayout = () => {
               <ChildrensPeriodZvit
                 childrens={childrens}
                 childrensLoading={childrensLoading}
+                selectedPeriod={selectedPeriod}
+                setOpenDrawer={setOpenDrawer}
+              />
+              <ChildPeriodZvit
+                openDrawer={openDrawer}
+                setOpenDrawer={setOpenDrawer}
+                childSelectedData={childSelectedData}
               />
             </ZvitContainer>
           ) : typeZvit === '' ||

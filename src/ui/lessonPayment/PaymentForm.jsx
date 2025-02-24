@@ -94,9 +94,9 @@ function PaymentForm({
 
       <Form.Item
         rules={
-          paymentMethod === 'cashless' && [
-            { required: true, message: 'Оберіть банк' },
-          ]
+          paymentMethod === 'cashless'
+            ? [{ required: true, message: 'Оберіть банк' }]
+            : []
         }
         label="Виберіть банк"
         name="bank"
@@ -110,9 +110,9 @@ function PaymentForm({
 
       <Form.Item
         rules={
-          (paymentMethod === 'cashless' || paymentMethod === 'cash') && [
-            { required: true, message: 'Внесіть суму оплати' },
-          ]
+          paymentMethod === 'cashless' || paymentMethod === 'cash'
+            ? [{ required: true, message: 'Внесіть суму оплати' }]
+            : []
         }
         label="Сума"
         name="sum"

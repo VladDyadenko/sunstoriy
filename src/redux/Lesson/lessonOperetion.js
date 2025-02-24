@@ -2,14 +2,14 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { Notify } from 'notiflix';
 
-export const fetchLessons = createAsyncThunk('lessons', async (_, thunkAPI) => {
-  try {
-    const { data } = await axios.get('/lesson');
-    return data;
-  } catch (err) {
-    return thunkAPI.rejectWithValue(err.message);
-  }
-});
+// export const fetchLessons = createAsyncThunk('lessons', async (_, thunkAPI) => {
+//   try {
+//     const { data } = await axios.get('/lesson');
+//     return data;
+//   } catch (err) {
+//     return thunkAPI.rejectWithValue(err.message);
+//   }
+// });
 
 export const addLesson = createAsyncThunk(
   'lesson/addLesson',
