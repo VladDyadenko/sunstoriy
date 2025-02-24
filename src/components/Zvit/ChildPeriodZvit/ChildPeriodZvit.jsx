@@ -5,9 +5,9 @@ import { StyledTable } from 'components/FinancialOffice/PeriodReport/PeriodRepor
 import { DescrBalance, TitleChildZvit } from './ChildPeriodZvit.styled';
 
 const ChildPeriodZvit = ({ childSelectedData, openDrawer, setOpenDrawer }) => {
-  const handleCloseDrawer = () => {
-    setOpenDrawer(false);
-  };
+  // const handleCloseDrawer = () => {
+  //   setOpenDrawer(false);
+  // };
   const columns = [
     {
       key: '1',
