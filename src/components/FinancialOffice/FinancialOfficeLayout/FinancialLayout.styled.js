@@ -4,7 +4,7 @@ export const WrapperFinancialOffice = styled.div`
   width: 100%;
   padding: 10px;
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: center;
 
   border-radius: 8px;
@@ -14,7 +14,6 @@ export const WrapperFinancialOffice = styled.div`
 export const ContantLineWrapper = styled.div`
   width: 100%;
   max-width: 80%;
-  height: 100vh;
   padding: 10px;
 `;
 export const ZvitContainer = styled.div`

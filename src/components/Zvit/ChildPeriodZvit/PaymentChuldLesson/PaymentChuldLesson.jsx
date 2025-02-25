@@ -39,7 +39,7 @@ const PaymentChuldLesson = ({
         </p>
         <Form
           form={form}
-          initialValues={{ sum: 0 }}
+          initialValues={{ sum: 0, paymentForm: 'cash' }}
           onFinish={async values => {
             if (values.paymentForm === 'cash') {
               values.bank = '';
