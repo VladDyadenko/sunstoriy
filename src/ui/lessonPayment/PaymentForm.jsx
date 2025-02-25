@@ -20,7 +20,6 @@ function PaymentForm({
   office,
   teacher,
   price,
-  isHappend,
 }) {
   const [form] = Form.useForm();
   const dispatch = useDispatch();

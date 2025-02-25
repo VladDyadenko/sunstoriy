@@ -67,11 +67,7 @@ const lessonSlice = createSlice({
           state.lesson[indexLesson] = action.payload;
         }
 
-        if (action?.payload?.paymentForm) {
-          state.islessonStatus = action.payload._id;
-        }
-
-        if (action?.payload?.isHappend) {
+        if (action?.payload?.paymentForm || action?.payload?.isHappend) {
           state.islessonStatus = action.payload._id;
         }
       })

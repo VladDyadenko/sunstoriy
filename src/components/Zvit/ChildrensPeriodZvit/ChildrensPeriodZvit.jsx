@@ -6,6 +6,7 @@ import {
   StyledTable,
 } from 'components/FinancialOffice/PeriodReport/PeriodReport.styled';
 import React from 'react';
+import { ThreeDots } from 'react-loader-spinner';
 import { useDispatch } from 'react-redux';
 import { getZvitChildByIdAndPeriod } from 'redux/zvit/zvitOperetion';
 
@@ -14,6 +15,7 @@ const ChildrensPeriodZvit = ({
   childrensLoading,
   selectedPeriod,
   setOpenDrawer,
+  childrenLoading,
 }) => {
   const dispatch = useDispatch();
 
@@ -28,15 +30,32 @@ const ChildrensPeriodZvit = ({
       key: '1',
       title: "Ім'я дитини",
       dataIndex: 'childName',
-      render: (text, record) => (
-        <Button
-          type="link"
-          htmlType="button"
-          onClick={() => handleChildClick(record.key)}
-        >
-          {text}
-        </Button>
-      ),
+      render: (text, record) => {
+        return childrenLoading === record.key ? (
+          <ThreeDots
+            visible={true}
+            height="32"
+            width="148"
+            color="#4fa94d"
+            radius="9"
+            ariaLabel="three-dots-loading"
+            wrapperStyle={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+            wrapperClass=""
+          />
+        ) : (
+          <Button
+            type="link"
+            htmlType="button"
+            onClick={() => handleChildClick(record.key)}
+          >
+            {text}
+          </Button>
+        );
+      },
     },
 
     {
@@ -107,6 +126,7 @@ const ChildrensPeriodZvit = ({
       balance: children.end.balance,
     },
   }));
+
   return (
     <StyledTable
       columns={columns}

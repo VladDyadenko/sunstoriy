@@ -11,8 +11,8 @@ export const TitleChildZvit = styled.p`
 `;
 export const DescrBalance = styled.span`
   margin-left: 100px;
-  font-size: 16px;
+  font-size: 18px;
+  color: var(--main-green);
   font-family: 'RobotoSlab';
   font-weight: 400;
-  color: var(--main-text-black);
 `;

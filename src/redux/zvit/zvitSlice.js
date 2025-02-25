@@ -60,8 +60,8 @@ const zvitSlice = createSlice({
         state.operetion = null;
         state.error = action.payload;
       })
-      .addCase(getZvitChildByIdAndPeriod.pending, state => {
-        state.isloadingChild = true;
+      .addCase(getZvitChildByIdAndPeriod.pending, (state, { meta }) => {
+        state.isloadingChild = `${meta.arg.id}`;
         state.operetion = null;
       })
       .addCase(getZvitChildByIdAndPeriod.fulfilled, (state, { payload }) => {

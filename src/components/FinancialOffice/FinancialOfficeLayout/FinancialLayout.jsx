@@ -17,6 +17,7 @@ import {
   selectZvitChild,
   selectZvitChildrens,
   selectZvitLoadinge,
+  selectZvitLoadingeChild,
   selectZvitLoadingeChildrens,
   selectZvitSelectedPeriod,
 } from 'redux/zvit/zvitSelector';
@@ -54,6 +55,8 @@ const FinancialLayout = () => {
 
   const childrens = useSelector(selectZvitChildrens);
   const childrensLoading = useSelector(selectZvitLoadingeChildrens);
+  const childrenLoading = useSelector(selectZvitLoadingeChild);
+
   const isLoad = zvitIsLoading || salaryLoading || childrensLoading;
 
   useEffect(() => {
@@ -136,11 +139,15 @@ const FinancialLayout = () => {
                 childrensLoading={childrensLoading}
                 selectedPeriod={selectedPeriod}
                 setOpenDrawer={setOpenDrawer}
+                childrenLoading={childrenLoading}
               />
+
               <ChildPeriodZvit
+                selectedPeriod={selectedPeriod}
                 openDrawer={openDrawer}
                 setOpenDrawer={setOpenDrawer}
                 childSelectedData={childSelectedData}
+                childrenLoading={childrenLoading}
               />
             </ZvitContainer>
           ) : typeZvit === '' ||
