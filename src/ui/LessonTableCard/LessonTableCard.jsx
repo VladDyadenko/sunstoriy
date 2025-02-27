@@ -32,7 +32,10 @@ import SendSms from 'ui/Sms/SendSms';
 import StatusLesson from 'components/StatusLesson/StatusLesson';
 import LessonPayment from 'ui/lessonPayment/LessonPayment';
 import { useEffect, useState } from 'react';
-import { selectIslessonStatus } from 'redux/Lesson/lessonSelector';
+import {
+  selectIslessonStatus,
+  selectLessonOperetion,
+} from 'redux/Lesson/lessonSelector';
 import { FcOk } from 'react-icons/fc';
 import { getLessonById } from 'redux/Lesson/api';
 
@@ -40,31 +43,46 @@ function LessonTableCard({ lesson, onLessonsDelete }) {
   const operetion = useSelector(selectOfficesOperetion);
 
   const isLessonStatus = useSelector(selectIslessonStatus);
-
-  const { paymentForm, isHappend, _id } = lesson;
-
+  const isLessonOperetion = useSelector(selectLessonOperetion);
   const [openPopover, setOpenPopover] = useState(false);
-  const [isLessonPaymented, setIsLessonPaymented] = useState(
-    paymentForm ? paymentForm : ''
-  );
+
+  const [updateLesson, setUpdateLesson] = useState({});
+
+  const {
+    _id,
+    bank,
+    paymentForm,
+    price,
+    isHappend,
+    sum,
+    dateLesson,
+    teacher,
+    timeLesson,
+    office,
+  } = Object.keys(updateLesson) > 0 ? updateLesson : lesson;
+  const [currentPayment, setCurrentPayment] = useState(sum ? sum : []);
+  const [amountPaid, setAmountPaid] = useState(0);
   const [lessonHappended, setLessonHappended] = useState(
     isHappend ? isHappend : ''
   );
+  const visiblePaymentList =
+    amountPaid && amountPaid !== 0 && currentPayment?.length > 0;
 
   useEffect(() => {
-    if (lesson) {
-      setIsLessonPaymented(paymentForm || '');
-      setLessonHappended(isHappend || '');
+    if (currentPayment?.length > 0) {
+      const totalSum = val => val?.reduce((acm, item) => acm + item.amount, 0);
+
+      setAmountPaid(totalSum(currentPayment));
     }
-  }, [isHappend, lesson, paymentForm]);
+  }, [currentPayment]);
 
   useEffect(() => {
     const fetchLesson = async () => {
       if (isLessonStatus === _id) {
         try {
-          const val = await getLessonById(isLessonStatus);
-          setIsLessonPaymented(val.paymentForm || '');
-          setLessonHappended(val.isHappend || '');
+          const lesson = await getLessonById(isLessonStatus);
+          setUpdateLesson(lesson ? lesson : {});
+          if (lesson?.isHappend) setLessonHappended(lesson?.isHappend);
         } catch (error) {
           console.error('Помилка при завантаженні уроку:', error);
         }
@@ -72,7 +90,7 @@ function LessonTableCard({ lesson, onLessonsDelete }) {
     };
 
     fetchLesson();
-  }, [_id, isLessonStatus]);
+  }, [_id, isLessonOperetion, isLessonStatus]);
 
   const handleOpenPopover = isOpen => {
     setOpenPopover(isOpen);
@@ -98,9 +116,20 @@ function LessonTableCard({ lesson, onLessonsDelete }) {
   const content = (
     <ButtonContainer>
       <LessonPayment
-        lesson={lesson}
+        office={office}
+        timeLesson={timeLesson}
+        teacher={teacher}
+        currentPayment={currentPayment}
+        setCurrentPayment={setCurrentPayment}
+        dateLesson={dateLesson}
+        paymentForm={paymentForm}
+        bank={bank}
+        isHappend={isHappend}
+        amountPaid={amountPaid}
+        price={price}
+        id={_id}
         closePopover={closePopover}
-        isLessonPaymented={isLessonPaymented}
+        visiblePaymentList={visiblePaymentList}
       />
       <CardLessonLink to={`/lesson/${_id}?source=buttonViewing`}>
         Переглянути
@@ -167,11 +196,11 @@ function LessonTableCard({ lesson, onLessonsDelete }) {
           </InfoTeacher>
         </InfoContainer>
         <PaymentContainer>
-          {lessonHappended && lessonHappended === 'Відпрацьоване' && <FcOk />}
+          {lessonHappended && lessonHappended === 'Відпрацьоване' ? (
+            <FcOk />
+          ) : null}
 
-          {isLessonPaymented &&
-            (isLessonPaymented === 'cash' ||
-              isLessonPaymented === 'cashless') && <IconPaymentLesson />}
+          {visiblePaymentList ? <IconPaymentLesson /> : null}
         </PaymentContainer>
       </InfoAndPaymentContainer>
       <InfoColor

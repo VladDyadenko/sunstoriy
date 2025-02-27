@@ -11,6 +11,81 @@ export const fetchLessons = createAsyncThunk('lessons', async (_, thunkAPI) => {
   }
 });
 
+export const addPayment = createAsyncThunk(
+  'lesson/addPayment',
+  async (combinedData, thunkAPI) => {
+    const { id, values } = combinedData;
+    try {
+      const { data } = await axios.post(`/lesson/${id}/payment`, values, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (data) {
+        Notify.success('Оплата успішно додана');
+      }
+      return data;
+    } catch (err) {
+      if (err) {
+        Notify.failure(err.response.data.message);
+      }
+      return thunkAPI.rejectWithValue(err.message);
+    }
+  }
+);
+
+export const updatePayment = createAsyncThunk(
+  'lesson/updatePayment',
+  async (combinedData, thunkAPI) => {
+    const { lessonId, paymentId, values } = combinedData;
+    try {
+      const { data } = await axios.patch(
+        `/lesson/${lessonId}/payment/${paymentId}`,
+        values,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      if (data) {
+        Notify.success('Оплата змінена');
+      }
+      return data;
+    } catch (err) {
+      if (err) {
+        Notify.failure(err.response.data.message);
+      }
+      return thunkAPI.rejectWithValue(err.message);
+    }
+  }
+);
+export const deletePayment = createAsyncThunk(
+  'lesson/deletePayment',
+  async (combinedData, thunkAPI) => {
+    const { lessonId, paymentId } = combinedData;
+    try {
+      const { data } = await axios.delete(
+        `/lesson/${lessonId}/payment/${paymentId}`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      if (data) {
+        Notify.success('Платіж видалений');
+      }
+      return data;
+    } catch (err) {
+      if (err) {
+        Notify.failure(err.response.data.message);
+      }
+      return thunkAPI.rejectWithValue(err.message);
+    }
+  }
+);
+
 export const addLesson = createAsyncThunk(
   'lesson/addLesson',
   async (lessonData, thunkAPI) => {

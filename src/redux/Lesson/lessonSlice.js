@@ -1,9 +1,11 @@
 import {
   addLesson,
+  addPayment,
   choseLessonGraph,
   deleteLessonById,
-  fetchLessons,
+  deletePayment,
   updateLesson,
+  updatePayment,
 } from './lessonOperetion';
 
 const { createSlice } = require('@reduxjs/toolkit');
@@ -25,18 +27,18 @@ const lessonSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder
-      .addCase(fetchLessons.pending, state => {
-        state.isloading = true;
-      })
-      .addCase(fetchLessons.fulfilled, (state, action) => {
-        state.isloading = false;
-        state.error = null;
-        state.lesson = action.payload;
-      })
-      .addCase(fetchLessons.rejected, (state, action) => {
-        state.isloading = false;
-        state.error = action.payload;
-      })
+      // .addCase(fetchLessons.pending, state => {
+      //   state.isloading = true;
+      // })
+      // .addCase(fetchLessons.fulfilled, (state, action) => {
+      //   state.isloading = false;
+      //   state.error = null;
+      //   state.lesson = action.payload;
+      // })
+      // .addCase(fetchLessons.rejected, (state, action) => {
+      //   state.isloading = false;
+      //   state.error = action.payload;
+      // })
       .addCase(addLesson.pending, state => {
         state.isloading = true;
         state.operetion = 'addLesson';
@@ -45,7 +47,6 @@ const lessonSlice = createSlice({
         state.isloading = false;
         state.operetion = null;
         state.error = null;
-        state.lesson.push(action.payload);
       })
       .addCase(addLesson.rejected, (state, action) => {
         state.isloading = false;
@@ -61,11 +62,11 @@ const lessonSlice = createSlice({
         state.isloading = false;
         state.operetion = null;
         state.error = null;
-        const id = action.payload._id;
-        const indexLesson = state.lesson.findIndex(vel => vel._id === id);
-        if (indexLesson !== -1) {
-          state.lesson[indexLesson] = action.payload;
-        }
+        // const id = action.payload._id;
+        // const indexLesson = state.lesson.findIndex(vel => vel._id === id);
+        // if (indexLesson !== -1) {
+        //   state.lesson[indexLesson] = action.payload;
+        // }
 
         if (action?.payload?.paymentForm || action?.payload?.isHappend) {
           state.islessonStatus = action.payload._id;
@@ -100,11 +101,11 @@ const lessonSlice = createSlice({
         state.operetion = null;
         state.isloading = false;
         state.error = null;
-        const id = action.meta.arg;
-        const indexLesson = state.lesson.findIndex(vel => vel._id === id);
-        if (indexLesson !== -1) {
-          state.lesson.splice(indexLesson, 1);
-        }
+        // const id = action.meta.arg;
+        // const indexLesson = state.lesson.findIndex(vel => vel._id === id);
+        // if (indexLesson !== -1) {
+        //   state.lesson.splice(indexLesson, 1);
+        // }
         state.choseLesson = state.choseLesson.filter(
           lesson => lesson._id !== action.meta.arg
         );
@@ -112,6 +113,64 @@ const lessonSlice = createSlice({
       .addCase(deleteLessonById.rejected, (state, action) => {
         state.operetion = null;
         state.isloading = false;
+        state.error = action.payload;
+      }) // Логіка для addPayment
+      .addCase(addPayment.pending, state => {
+        state.isloading = true;
+        state.operetion = 'addPayment';
+      })
+      .addCase(addPayment.fulfilled, (state, action) => {
+        state.isloading = false;
+        state.operetion = null;
+        state.error = null;
+        const lessonId = action.meta.arg.id;
+        state.islessonStatus = lessonId;
+      })
+      .addCase(addPayment.rejected, (state, action) => {
+        state.isloading = false;
+        state.operetion = null;
+        state.error = action.payload;
+      })
+
+      // Логіка для updatePayment
+      .addCase(updatePayment.pending, state => {
+        state.isloading = true;
+        state.operetion = 'updatePayment';
+      })
+      .addCase(updatePayment.fulfilled, (state, action) => {
+        state.isloading = false;
+        state.operetion = null;
+        state.error = null;
+        const lessonId = action.meta.arg.lessonId;
+        state.islessonStatus = lessonId;
+      })
+      .addCase(updatePayment.rejected, (state, action) => {
+        state.isloading = false;
+        state.operetion = null;
+        state.error = action.payload;
+      })
+
+      // Логіка для deletePayment
+      .addCase(deletePayment.pending, state => {
+        state.isloading = true;
+        state.operetion = 'deletePayment';
+      })
+      .addCase(deletePayment.fulfilled, (state, action) => {
+        state.isloading = false;
+        state.operetion = null;
+        state.error = null;
+        const lessonId = action.meta.arg.lessonId;
+        const updatedLesson = action.payload;
+        const indexLesson = state.lesson.findIndex(
+          lesson => lesson._id === lessonId
+        );
+        if (indexLesson !== -1) {
+          state.lesson[indexLesson] = updatedLesson;
+        }
+      })
+      .addCase(deletePayment.rejected, (state, action) => {
+        state.isloading = false;
+        state.operetion = null;
         state.error = action.payload;
       });
   },
