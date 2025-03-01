@@ -18,7 +18,6 @@ import {
   createZvitSelectedPeriod,
   getZvitChildrensPeriod,
 } from 'redux/zvit/zvitOperetion';
-import { CirclesWithBar } from 'react-loader-spinner';
 import { formatDateTitle } from 'assets/constants/reusableFunctions';
 import { getSalarisByDate } from 'redux/salary/salaryOperetion';
 import SalarisForm from 'components/SalarisForm/SalarisForm';
@@ -27,6 +26,7 @@ import { getExpensesByDate } from 'redux/expense/expenseOperetion';
 import { selectExpenseLoading } from 'redux/expense/expenceSelector';
 import ZvitButtonTitle from 'ui/ZvitButtonTitle/ZvitButtonTitle';
 import RangePickerForm from 'ui/RangePickerForm/RangePickerForm';
+import ButtonLoader from 'ui/ButtonLoader/ButtonLoader';
 
 const FinancialButtonContainer = ({
   dayOrePariod,
@@ -102,18 +102,7 @@ const FinancialButtonContainer = ({
           >
             <>
               {zvitIsLoading ? (
-                <CirclesWithBar
-                  height="21"
-                  width="50"
-                  color="#ffffff"
-                  wrapperStyle={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                  visible={true}
-                  ariaLabel="circles-with-bar-loading"
-                />
+                <ButtonLoader height="21" width="50" />
               ) : (
                 <>
                   Обіг коштів за період <BsClipboardPulse />
@@ -125,18 +114,7 @@ const FinancialButtonContainer = ({
             onClick={() => getExpensesBySelectedPeriod(selectedPeriod)}
           >
             {loading ? (
-              <CirclesWithBar
-                height="21"
-                width="50"
-                color="#ffffff"
-                wrapperStyle={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-                visible={true}
-                ariaLabel="circles-with-bar-loading"
-              />
+              <ButtonLoader height="21" width="50" />
             ) : (
               <>
                 Розходи за період <BsClipboardPulse />
@@ -154,18 +132,7 @@ const FinancialButtonContainer = ({
             onClick={() => createSalaryZvitForPeriod(selectedPeriod)}
           >
             {salariesLoading ? (
-              <CirclesWithBar
-                height="21"
-                width="50"
-                color="#ffffff"
-                wrapperStyle={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-                visible={true}
-                ariaLabel="circles-with-bar-loading"
-              />
+              <ButtonLoader height="21" width="50" />
             ) : (
               <>
                 За вибраний період <BsEmojiHeartEyes />
@@ -183,18 +150,7 @@ const FinancialButtonContainer = ({
             onClick={() => createChildrensZvitForPeriod(selectedPeriod)}
           >
             {childrensLoading ? (
-              <CirclesWithBar
-                height="21"
-                width="50"
-                color="#ffffff"
-                wrapperStyle={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-                visible={true}
-                ariaLabel="circles-with-bar-loading"
-              />
+              <ButtonLoader height="21" width="50" />
             ) : (
               <>
                 За вибраний період <BsEmojiHeartEyes />

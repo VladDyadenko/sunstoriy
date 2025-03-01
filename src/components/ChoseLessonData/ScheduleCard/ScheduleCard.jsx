@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { CirclesWithBar } from 'react-loader-spinner';
 import { Popconfirm } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import {
@@ -15,6 +14,7 @@ import {
 } from './ScheduleCard.styled';
 import { deleteLessonById } from 'redux/Lesson/lessonOperetion';
 import { selectLessonOperetion } from 'redux/Lesson/lessonSelector';
+import ButtonLoader from 'ui/ButtonLoader/ButtonLoader';
 
 const ScheduleCard = ({ lessonData }) => {
   const { childName, childSurname, teacherName, teacherColor, _id } =
@@ -49,14 +49,7 @@ const ScheduleCard = ({ lessonData }) => {
         >
           <ButtonLessonDelete>
             {operetion === _id ? (
-              <CirclesWithBar
-                height="24"
-                width="24"
-                color="#ffffff"
-                wrapperStyle={{}}
-                visible={true}
-                ariaLabel="circles-with-bar-loading"
-              />
+              <ButtonLoader height="24" width="24" />
             ) : (
               <IconLessonDelete />
             )}

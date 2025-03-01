@@ -9,11 +9,10 @@ import {
 import { DescrBalance, TitleChildZvit } from './ChildPeriodZvit.styled';
 import { ZvitContainer } from 'components/FinancialOffice/FinancialOfficeLayout/FinancialLayout.styled';
 import { EditOutlined, QuestionCircleOutlined } from '@ant-design/icons';
-import PaymentChuldLesson from './PaymentChuldLesson/PaymentChuldLesson';
 import { useEffect, useState } from 'react';
+import ZvitChildPayments from './ZvitChildPayments/ZvitChildPayments';
 
 const ChildPeriodZvit = ({
-  selectedPeriod,
   childSelectedData,
   openDrawer,
   setOpenDrawer,
@@ -49,8 +48,8 @@ const ChildPeriodZvit = ({
     }
   }, [childSelectedData]);
 
-  const handlePaymentLesson = (id, price, sum) => {
-    const lessonFinanseData = { id, price, sum };
+  const handlePaymentLesson = (id, price, sum, payments, salaryData) => {
+    const lessonFinanseData = { id, price, sum, payments, salaryData };
     setOpenPaymentDrawer(true);
     setSelectedLessonData(lessonFinanseData);
   };
@@ -116,7 +115,13 @@ const ChildPeriodZvit = ({
                 />
               }
               onConfirm={() =>
-                handlePaymentLesson(record.key, record.price, record.sum)
+                handlePaymentLesson(
+                  record.key,
+                  record.price,
+                  record.sum,
+                  record.payments,
+                  record.salaryData
+                )
               }
             >
               <Button type="primary" icon={<EditOutlined />} />
@@ -129,7 +134,16 @@ const ChildPeriodZvit = ({
   ];
 
   const dataSource = selectedChildData?.details.map(lesson => {
-    const { balance, dateLesson, office, price, sum, lessonId } = lesson;
+    const {
+      balance,
+      dateLesson,
+      office,
+      price,
+      sum,
+      lessonId,
+      payments,
+      salaryData,
+    } = lesson;
     return {
       key: lessonId,
       date: new Date(dateLesson).toLocaleDateString('uk-UA'),
@@ -138,8 +152,11 @@ const ChildPeriodZvit = ({
       price,
       sum,
       balance,
+      payments,
+      salaryData,
     };
   });
+
   dataSource?.push({
     key: 'total',
     date: 'Ітог:',
@@ -202,14 +219,17 @@ const ChildPeriodZvit = ({
           </div>
         </ZvitContainer>
       </Drawer>
-      <PaymentChuldLesson
-        selectedChildData={selectedChildData}
-        selectedPeriod={selectedPeriod}
-        setOpenPaymentDrawer={setOpenPaymentDrawer}
-        setSelectedLessonData={setSelectedLessonData}
-        openPaymentDrawer={openPaymentDrawer}
-        selectedLessonData={selectedLessonData}
-      />
+      <Drawer
+        open={openPaymentDrawer}
+        title="Внесення оплати за заняття"
+        placement="right"
+        width={460}
+      >
+        <ZvitChildPayments
+          selectedLessonData={selectedLessonData}
+          setOpenPaymentDrawer={setOpenPaymentDrawer}
+        />
+      </Drawer>
     </>
   );
 };

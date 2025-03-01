@@ -1,19 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { smsOperetion } from 'redux/sms/smsSelector';
 import { useState } from 'react';
-import { CirclesWithBar } from 'react-loader-spinner';
-import {
-  DateInfoTitle,
-  PaymentContainer,
-  PaymentLessonBtn,
-  PaymentTitle,
-  PaymentTitleContainer,
-  PaymentTitleOther,
-} from './LessonPayment.styled';
-import { Button, Drawer, List, Popconfirm } from 'antd';
+import { PaymentLessonBtn } from './LessonPayment.styled';
+import { Drawer } from 'antd';
 import PaymentForm from './PaymentForm';
 import RangePickerForm from 'ui/RangePickerForm/RangePickerForm';
 import { deletePayment } from 'redux/Lesson/lessonOperetion';
+import ButtonLoader from 'ui/ButtonLoader/ButtonLoader';
+import PaymentsLessonList from './PaymentsLessonList/PaymentsLessonList';
 
 const LessonPayment = ({
   paymentForm,
@@ -77,14 +71,7 @@ const LessonPayment = ({
     <>
       <PaymentLessonBtn type="button" onClick={showDrawer}>
         {operetion === id ? (
-          <CirclesWithBar
-            height="24"
-            width="24"
-            color="#ffffff"
-            wrapperStyle={{}}
-            visible={true}
-            ariaLabel="circles-with-bar-loading"
-          />
+          <ButtonLoader height="24" width="24" />
         ) : visiblePaymentList ? (
           `Оплачено: ${amountPaid} грн`
         ) : (
@@ -101,99 +88,16 @@ const LessonPayment = ({
       >
         <RangePickerForm setDateFromExpense={setDateFromExpense} />
         {visiblePaymentList ? (
-          <PaymentContainer
-            header={
-              <PaymentTitleContainer>
-                <PaymentTitle>Список платежів:</PaymentTitle>
-                <Button type="dashed" onClick={() => setEditingPayment(null)}>
-                  Вийти з редагування
-                </Button>
-              </PaymentTitleContainer>
-            }
-            dataSource={currentPayment}
-            renderItem={payment => {
-              const descrFormTransform =
-                payment?.paymentForm === 'cash' ? 'Готівка' : 'Безготівкова';
-              const descrBankTransform =
-                payment?.paymentForm === 'cashless'
-                  ? payment?.bank === 'MonoBank'
-                    ? 'Монобанк'
-                    : 'Приватбанк'
-                  : '';
-              return (
-                <List.Item
-                  style={{
-                    backgroundColor:
-                      editingPayment?._id === payment._id
-                        ? '#f0f0f0'
-                        : 'transparent',
-                  }}
-                  actions={[
-                    <Button
-                      type="primary"
-                      size="small"
-                      ghost
-                      onClick={() => setEditingPayment(payment)}
-                    >
-                      Редагувати
-                    </Button>,
-                    <Popconfirm
-                      title="Ви впевнені, що хочете видалити цей платіж?"
-                      onConfirm={() => handleDeletePayment(payment._id)}
-                      okText="Так"
-                      cancelText="Ні"
-                    >
-                      <Button type="primary" size="small" danger ghost>
-                        Видалити
-                      </Button>
-                    </Popconfirm>,
-                  ]}
-                >
-                  <div
-                    style={{
-                      width: '100%',
-                      display: 'flex',
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                    }}
-                  >
-                    <List.Item.Meta
-                      title="Сума"
-                      description={`${payment.amount} грн`}
-                    />
-                    <List.Item.Meta
-                      title="Форма"
-                      description={`
-                      ${descrFormTransform ? `${descrFormTransform}` : ''}
-                      `}
-                    />
-                    {descrBankTransform === '' ? null : (
-                      <List.Item.Meta
-                        title="Банк"
-                        description={`${
-                          descrBankTransform ? `${descrBankTransform}` : ''
-                        }`}
-                      />
-                    )}
-
-                    <List.Item.Meta
-                      title="Дата платежу"
-                      description={`${
-                        payment.date ? `${payment.date.split('T')[0]}` : ''
-                      }`}
-                    />
-                  </div>
-                </List.Item>
-              );
-            }}
+          <PaymentsLessonList
+            setEditingPayment={setEditingPayment}
+            editingPayment={editingPayment}
+            currentPayment={currentPayment}
+            handleDeletePayment={handleDeletePayment}
+            dateFromExpense={dateFromExpense}
           />
         ) : null}
-        <PaymentTitle>Внесіть дані платежу:</PaymentTitle>
-        <PaymentTitleOther>
-          Дата оплати: <DateInfoTitle>{dateFromExpense}</DateInfoTitle>
-        </PaymentTitleOther>
         <PaymentForm
+          isZvitForm={false}
           salaryData={salaryData}
           price={price}
           initialPaymentValues={initialPaymentValues}

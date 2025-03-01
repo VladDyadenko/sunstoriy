@@ -52,7 +52,6 @@ const FinancialLayout = () => {
   const salaryLoading = useSelector(selectSalaryLoading);
 
   const childSelectedData = useSelector(selectZvitChild);
-
   const childrens = useSelector(selectZvitChildrens);
   const childrensLoading = useSelector(selectZvitLoadingeChildrens);
   const childrenLoading = useSelector(selectZvitLoadingeChild);

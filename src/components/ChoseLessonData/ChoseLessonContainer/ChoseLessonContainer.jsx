@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { Collapse } from 'antd';
-import { CirclesWithBar } from 'react-loader-spinner';
 import {
   selectChoseLessons,
   selectLessonOperetion,
@@ -16,6 +15,7 @@ import {
 } from './ChoseLessonContainer.styled';
 import OfficeScheduleOnDay from '../OfficeScheduleOnDay/OfficeScheduleOnDay';
 import ChooseDataLessons from '../ChooseDataLessons/ChooseDataLessons';
+import ButtonLoader from 'ui/ButtonLoader/ButtonLoader';
 
 const ChoseLessonContainer = ({
   dateCurrentLesson,
@@ -63,19 +63,8 @@ const ChoseLessonContainer = ({
           currentDefaultOffice={defaultOffices}
         />
         <ButtonSelectPeriod type="button" onClick={handleChosePeriod}>
-          {operetion === 'choseLesson' ? (
-            <CirclesWithBar
-              height="16"
-              width="50"
-              color="#ffffff"
-              wrapperStyle={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-              visible={true}
-              ariaLabel="circles-with-bar-loading"
-            />
+          {operetion === 'choseLesson' ? ( <ButtonLoader height="16" width="50" />
+       
           ) : (
             <>
               <IconBtn />

@@ -3,7 +3,6 @@ import dayjs from 'dayjs';
 import { Formik } from 'formik';
 import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { CirclesWithBar } from 'react-loader-spinner';
 import {
   ChoseInfoContainer,
   ErrorInfo,
@@ -28,6 +27,7 @@ import { addLesson, updateLesson } from 'redux/Lesson/lessonOperetion';
 import ChoseLessonContainer from 'components/ChoseLessonData/ChoseLessonContainer/ChoseLessonContainer';
 import { selectLessonOperetion } from 'redux/Lesson/lessonSelector';
 import { currentLessonCost } from 'assets/constants/mainConstans';
+import ButtonLoader from 'ui/ButtonLoader/ButtonLoader';
 const today = new Date(dayjs().format('YYYY-MM-DD')).valueOf();
 
 const AddLesson = ({ lesson, pathname }) => {
@@ -229,19 +229,8 @@ const AddLesson = ({ lesson, pathname }) => {
             <TextAreaTitle>Зауваження по заняттю:</TextAreaTitle>
             <FieldTextarea name="review" component="textarea" rows={6} />
             <FormButtonLesson type="submit">
-              {operetion === 'addLesson' ? (
-                <CirclesWithBar
-                  height="21"
-                  width="50"
-                  color="#ffffff"
-                  wrapperStyle={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                  visible={true}
-                  ariaLabel="circles-with-bar-loading"
-                />
+              {operetion === 'addLesson' ? (<ButtonLoader height="21" width="50" />
+         
               ) : buttonView ? (
                 'Зберегти зміни'
               ) : (

@@ -1,7 +1,6 @@
 import { useSelector } from 'react-redux';
 import { Popconfirm } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
-import { CirclesWithBar } from 'react-loader-spinner';
 import { Popover } from 'antd';
 import {
   IconLessonDelete,
@@ -38,6 +37,7 @@ import {
 } from 'redux/Lesson/lessonSelector';
 import { FcOk } from 'react-icons/fc';
 import { getLessonById } from 'redux/Lesson/api';
+import ButtonLoader from 'ui/ButtonLoader/ButtonLoader';
 
 function LessonTableCard({ lesson, onLessonsDelete }) {
   const operetion = useSelector(selectOfficesOperetion);
@@ -164,14 +164,7 @@ function LessonTableCard({ lesson, onLessonsDelete }) {
       >
         <LessonDelete>
           {operetion === _id ? (
-            <CirclesWithBar
-              height="24"
-              width="24"
-              color="#ffffff"
-              wrapperStyle={{}}
-              visible={true}
-              ariaLabel="circles-with-bar-loading"
-            />
+            <ButtonLoader height="24" width="24" />
           ) : (
             <DescrDeleteBtn>
               Видалити

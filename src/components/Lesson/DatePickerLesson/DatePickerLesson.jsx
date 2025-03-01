@@ -11,7 +11,7 @@ import {
 import { getDatesByDayOfWeek } from './dateUtils';
 import { ErrorInfo, FormButtonLesson } from '../AddLesson/AddLesson.styled';
 import PickerWithTypeLesson from 'ui/PickerWithTypeLesson/PickerWithTypeLesson';
-import { CirclesWithBar } from 'react-loader-spinner';
+import ButtonLoader from 'ui/ButtonLoader/ButtonLoader';
 
 const { Option } = Select;
 
@@ -161,18 +161,7 @@ const DatePickerLesson = ({
         </TimeContainers>
         <FormButtonLesson type="submit">
           {operetion === 'addLesson' ? (
-            <CirclesWithBar
-              height="21"
-              width="50"
-              color="#ffffff"
-              wrapperStyle={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-              visible={true}
-              ariaLabel="circles-with-bar-loading"
-            />
+            <ButtonLoader height="21" width="50" />
           ) : buttonView ? (
             'Зберегти зміни'
           ) : (

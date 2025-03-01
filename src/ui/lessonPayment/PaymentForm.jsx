@@ -16,16 +16,21 @@ import {
   updatePayment,
 } from 'redux/Lesson/lessonOperetion';
 import { selectIslessonLoading } from 'redux/Lesson/lessonSelector';
+import {
+  clearPaymentOperetion,
+  creatPaymentOperetion,
+} from 'redux/Lesson/lessonSlice';
 
 function PaymentForm({
+  isZvitForm,
   initialPaymentValues,
   id,
   onCloseDrawer,
   price,
   dateFromExpense,
   editingPayment,
-  setCurrentPayment,
   setEditingPayment,
+  setCurrentPayment,
   salaryData,
 }) {
   const [form] = Form.useForm();
@@ -57,8 +62,10 @@ function PaymentForm({
       bank: values.bank,
       isHappend: statusLesson,
     };
-    salaryData.isHappend = statusLesson;
-    const lessonData = { id, values: salaryData };
+    const lessonData = {
+      id,
+      values: { ...salaryData, isHappend: statusLesson },
+    };
     if (values.paymentForm === 'cash') {
       paymentData.bank = '';
     }
@@ -69,6 +76,7 @@ function PaymentForm({
 
     const combinedData = { id, values: paymentData };
     await dispatch(addPayment(combinedData)).then(async ({ payload }) => {
+     isZvitForm && dispatch(creatPaymentOperetion());
       if (
         payload.isHappend &&
         (payload.isHappend === 'Відпрацьоване' ||
@@ -82,6 +90,7 @@ function PaymentForm({
         }
       }
       setCurrentPayment(payload.sum);
+      isZvitForm && dispatch(clearPaymentOperetion());
       onCloseDrawer();
     });
   };
@@ -95,8 +104,10 @@ function PaymentForm({
       bank: values.bank,
       isHappend: statusLesson,
     };
-    salaryData.isHappend = statusLesson;
-    const lessonData = { id, values: salaryData };
+    const lessonData = {
+      id,
+      values: { ...salaryData, isHappend: statusLesson },
+    };
     if (values.paymentForm === 'cash') {
       paymentData.bank = '';
     }
@@ -110,6 +121,7 @@ function PaymentForm({
       values: paymentData,
     };
     await dispatch(updatePayment(combinedData)).then(async ({ payload }) => {
+    isZvitForm && dispatch(creatPaymentOperetion());
       if (
         payload.isHappend &&
         (payload.isHappend === 'Відпрацьоване' ||
@@ -123,6 +135,7 @@ function PaymentForm({
         }
       }
       setCurrentPayment(payload.sum);
+     isZvitForm && dispatch(clearPaymentOperetion());
       setEditingPayment(null);
       onCloseDrawer();
     });

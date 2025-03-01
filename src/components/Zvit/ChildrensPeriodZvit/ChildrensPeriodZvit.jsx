@@ -5,10 +5,14 @@ import {
   StyledCellPositive,
   StyledTable,
 } from 'components/FinancialOffice/PeriodReport/PeriodReport.styled';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ThreeDots } from 'react-loader-spinner';
-import { useDispatch } from 'react-redux';
-import { getZvitChildByIdAndPeriod } from 'redux/zvit/zvitOperetion';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectLessonOperetionPayment } from 'redux/Lesson/lessonSelector';
+import {
+  getZvitChildByIdAndPeriod,
+  getZvitChildrensPeriod,
+} from 'redux/zvit/zvitOperetion';
 
 const ChildrensPeriodZvit = ({
   childrens,
@@ -19,9 +23,24 @@ const ChildrensPeriodZvit = ({
 }) => {
   const dispatch = useDispatch();
 
+  const [currentIdChild, setCurrentIdChild] = useState('');
+
+  const paymentOperetion = useSelector(selectLessonOperetionPayment);
+  useEffect(() => {
+    if (paymentOperetion === 'addPayment' && selectedPeriod) {
+      const fetchData = async () => {
+        const choesData = { id: currentIdChild, selectedPeriod };
+        await dispatch(getZvitChildrensPeriod(selectedPeriod));
+        await dispatch(getZvitChildByIdAndPeriod(choesData));
+      };
+      fetchData();
+    }
+  }, [currentIdChild, dispatch, paymentOperetion, selectedPeriod]);
+
   const handleChildClick = async id => {
     const choesData = { id, selectedPeriod };
-    await dispatch(getZvitChildByIdAndPeriod(choesData)).then(() =>
+    await dispatch(getZvitChildByIdAndPeriod(choesData)).then(
+      () => setCurrentIdChild(id),
       setOpenDrawer(true)
     );
   };

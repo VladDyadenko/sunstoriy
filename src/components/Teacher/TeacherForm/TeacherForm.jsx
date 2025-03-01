@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Formik } from 'formik';
 import { Select } from 'antd';
-import { CirclesWithBar } from 'react-loader-spinner';
 import {
   initialValuesTeacherForm,
   options,
@@ -30,6 +29,7 @@ import {
 import UpdateAvatar from 'ui/UpdateAvatar/UpdateAvatar';
 import { addTeacher, updateTeacher } from 'redux/teacher/teacherOperetion';
 import { selectTeacherOperetion } from 'redux/teacher/teacherSelector';
+import ButtonLoader from 'ui/ButtonLoader/ButtonLoader';
 
 const TeacherForm = ({ teacher }) => {
   const [valuesTeacherForm, setValuesChildForm] = useState(
@@ -200,18 +200,7 @@ const TeacherForm = ({ teacher }) => {
 
             <FormButton type="submit">
               {operetion === 'addTeacher' ? (
-                <CirclesWithBar
-                  height="21"
-                  width="50"
-                  color="#ffffff"
-                  wrapperStyle={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                  visible={true}
-                  ariaLabel="circles-with-bar-loading"
-                />
+                <ButtonLoader height="21" width="50" />
               ) : buttonView ? (
                 'Зберегти зміни'
               ) : (

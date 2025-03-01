@@ -17,6 +17,7 @@ const initialState = {
   isloading: false,
   marker: null,
   operetion: null,
+  operetionPayment: null,
   error: null,
   islessonStatus: null,
 };
@@ -24,7 +25,14 @@ const initialState = {
 const lessonSlice = createSlice({
   name: 'lesson',
   initialState,
-  reducers: {},
+  reducers: {
+    creatPaymentOperetion: state => {
+      state.operetionPayment = 'addPayment';
+    },
+    clearPaymentOperetion: state => {
+      state.operetionPayment = null;
+    },
+  },
   extraReducers: builder => {
     builder
       // .addCase(fetchLessons.pending, state => {
@@ -177,3 +185,5 @@ const lessonSlice = createSlice({
 });
 
 export const lessonReducer = lessonSlice.reducer;
+export const { creatPaymentOperetion, clearPaymentOperetion } =
+  lessonSlice.actions;

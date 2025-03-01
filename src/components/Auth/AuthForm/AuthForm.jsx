@@ -1,5 +1,4 @@
 import { Formik } from 'formik';
-import { CirclesWithBar } from 'react-loader-spinner';
 import {
   initialValuesRegister,
   initialValuesSignIn,
@@ -18,6 +17,7 @@ import InputAuth from '../InputAuth/InputAuth';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerThunk, signinThunk } from 'redux/auth/authOperetion';
 import { selectOperetion } from 'redux/auth/authSelector';
+import ButtonLoader from 'ui/ButtonLoader/ButtonLoader';
 
 function AuthForm({ isRegistration }) {
   const dispatch = useDispatch();
@@ -79,18 +79,7 @@ function AuthForm({ isRegistration }) {
             <Btnwrapper>
               <BtnRegister type="submit">
                 {operetion === 'registration' ? (
-                  <CirclesWithBar
-                    height="18"
-                    width="50"
-                    color="#ffffff"
-                    wrapperStyle={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                    visible={true}
-                    ariaLabel="circles-with-bar-loading"
-                  />
+                  <ButtonLoader height="18" width="50" />
                 ) : isRegistration ? (
                   'Зареєструватися'
                 ) : (

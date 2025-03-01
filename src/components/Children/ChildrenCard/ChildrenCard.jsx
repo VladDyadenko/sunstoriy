@@ -1,5 +1,5 @@
 import { Popconfirm } from 'antd';
-import { CirclesWithBar } from 'react-loader-spinner';
+
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import {
   ButtonCard,
@@ -19,6 +19,7 @@ import defaultImg from 'assets/images/Children/children_5.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteChildById } from 'redux/child/childOperetion';
 import { selectChildrenOperetion } from 'redux/child/childSelector';
+import ButtonLoader from 'ui/ButtonLoader/ButtonLoader';
 
 function ChildrenCard({ child }) {
   const { childImage, name, surname, _id, mather, age } = child;
@@ -55,14 +56,7 @@ function ChildrenCard({ child }) {
         >
           <ButtonChildDelete primary="true">
             {operetion === _id ? (
-              <CirclesWithBar
-                height="30"
-                width="30"
-                color="#ffffff"
-                wrapperStyle={{}}
-                visible={true}
-                ariaLabel="circles-with-bar-loading"
-              />
+              <ButtonLoader height="30" width="30" />
             ) : (
               <IconChildDelete />
             )}

@@ -1,5 +1,5 @@
+import ButtonLoader from 'ui/ButtonLoader/ButtonLoader';
 import { BtnIcon, FormButton, FormInput, Wrapper } from './SearchModule.styled';
-import { CirclesWithBar } from 'react-loader-spinner';
 
 const SearchModule = ({ operetion, userSearch, setUserSearch }) => {
   const handleInputChange = e => {
@@ -23,18 +23,7 @@ const SearchModule = ({ operetion, userSearch, setUserSearch }) => {
       />
       <FormButton type="button" onClick={resetSearch}>
         {operetion === 'fatchChildByName' ? (
-          <CirclesWithBar
-            height="25"
-            width="50"
-            color="#ffffff"
-            wrapperStyle={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-            visible={true}
-            ariaLabel="circles-with-bar-loading"
-          />
+          <ButtonLoader height="25" width="50" />
         ) : (
           <BtnIcon />
         )}

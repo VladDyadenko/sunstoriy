@@ -1,7 +1,6 @@
 import dayjs from 'dayjs';
 import { useEffect, useState, memo } from 'react';
 import { useSelector } from 'react-redux';
-import { CirclesWithBar } from 'react-loader-spinner';
 import { Select } from 'antd';
 import PickerWithTypeLesson from 'ui/PickerWithTypeLesson/PickerWithTypeLesson';
 import {
@@ -13,6 +12,7 @@ import {
 import { getDates, handleDateChange } from './GetDateFunction';
 import { selectLessonOperetion } from 'redux/Lesson/lessonSelector';
 import { localStorageHelper } from 'helpers/helperLocalStorage';
+import ButtonLoader from 'ui/ButtonLoader/ButtonLoader';
 const { Option } = Select;
 
 const SelectDate = ({
@@ -91,19 +91,8 @@ const SelectDate = ({
         </DescrContainer>
       ) : null}
       <ButtonChoseDate type="button" onClick={handleChosePeriod}>
-        {operetion === 'choseLesson' ? (
-          <CirclesWithBar
-            height="22"
-            width="50"
-            color="#0456ba"
-            wrapperStyle={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-            visible={true}
-            ariaLabel="circles-with-bar-loading"
-          />
+        {operetion === 'choseLesson' ? (<ButtonLoader height="22" width="50" />
+  
         ) : (
           <>
             <IconBtn />

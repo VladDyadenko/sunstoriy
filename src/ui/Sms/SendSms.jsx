@@ -3,7 +3,6 @@ import { sendSms } from 'redux/sms/smsOperetion';
 import { SendSmsBtn } from './SendSms.styled';
 import { Popconfirm } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
-import { CirclesWithBar } from 'react-loader-spinner';
 import {
   formatDate,
   formatTime,
@@ -11,6 +10,7 @@ import {
 } from 'assets/constants/ConvertToCyrillica';
 import { smsOperetion } from 'redux/sms/smsSelector';
 import { useEffect, useState } from 'react';
+import ButtonLoader from 'ui/ButtonLoader/ButtonLoader';
 
 const SendSms = ({ lesson }) => {
   const dispatch = useDispatch();
@@ -100,14 +100,7 @@ const SendSms = ({ lesson }) => {
       >
         <SendSmsBtn disabled={statusSendSms} type="button">
           {operetion === _id ? (
-            <CirclesWithBar
-              height="24"
-              width="24"
-              color="#ffffff"
-              wrapperStyle={{}}
-              visible={true}
-              ariaLabel="circles-with-bar-loading"
-            />
+            <ButtonLoader height="24" width="24" />
           ) : statusSendSms ? (
             'СМС Надіслано'
           ) : (
