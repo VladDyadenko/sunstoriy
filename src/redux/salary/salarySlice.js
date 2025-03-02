@@ -51,7 +51,6 @@ const salarySlice = createSlice({
         state.isloading = false;
         state.operetion = null;
         state.error = null;
-        console.log('payload', payload);
         const id = payload._id;
         const index = state.salaryPeriod?.findIndex(vel => vel._id === id);
         if (index !== -1) {

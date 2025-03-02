@@ -26,6 +26,8 @@ const AllLessonsPage = () => {
     'Корекційний',
     'Preschool',
     'Preschool-інклюзія',
+    'Реабілітолог',
+    'Діагностика',
   ]);
 
   const dispatch = useDispatch();

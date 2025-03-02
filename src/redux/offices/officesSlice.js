@@ -1,11 +1,15 @@
 import {
   correctionLessons,
+  deleteDiagnostikaLessonById,
   deleteLogopedLessonById,
+  deleteMassageLessonById,
   deletePreschoolInclusionLessonById,
   deletePreschoolLessonById,
   deleteSensornayaLessonById,
   deleteСorrectionLessonById,
+  diagnostikaLessons,
   logopedLessons,
+  massageLessons,
   preschoolInclusionLessons,
   preschoolLessons,
   sensornayaLessons,
@@ -18,6 +22,8 @@ const initialState = {
   lessonsLogoped: [],
   lessonsСorrection: [],
   lessonsPreschool: [],
+  lessonsMassage: [],
+  lessonsDiagnostika: [],
   preschoolInclusion: [],
   isloading: false,
   marker: null,
@@ -42,6 +48,36 @@ const officesSlice = createSlice({
         state.lessonsSensornaya = payload;
       })
       .addCase(sensornayaLessons.rejected, (state, action) => {
+        state.isloading = false;
+        state.operetion = null;
+        state.error = action.payload;
+      })
+      .addCase(massageLessons.pending, state => {
+        state.isloading = true;
+        state.operetion = 'massageLessons';
+      })
+      .addCase(massageLessons.fulfilled, (state, { payload }) => {
+        state.isloading = false;
+        state.operetion = null;
+        state.error = null;
+        state.lessonsMassage = payload;
+      })
+      .addCase(massageLessons.rejected, (state, action) => {
+        state.isloading = false;
+        state.operetion = null;
+        state.error = action.payload;
+      })
+      .addCase(diagnostikaLessons.pending, state => {
+        state.isloading = true;
+        state.operetion = 'diagnostikaLessons';
+      })
+      .addCase(diagnostikaLessons.fulfilled, (state, { payload }) => {
+        state.isloading = false;
+        state.operetion = null;
+        state.error = null;
+        state.lessonsDiagnostika = payload;
+      })
+      .addCase(diagnostikaLessons.rejected, (state, action) => {
         state.isloading = false;
         state.operetion = null;
         state.error = action.payload;
@@ -123,6 +159,48 @@ const officesSlice = createSlice({
         }
       })
       .addCase(deleteSensornayaLessonById.rejected, (state, action) => {
+        state.operetion = null;
+        state.isloading = false;
+        state.error = action.payload;
+      })
+      .addCase(deleteMassageLessonById.pending, (state, { meta }) => {
+        state.operetion = `${meta.arg}`;
+        state.isloading = true;
+      })
+      .addCase(deleteMassageLessonById.fulfilled, (state, action) => {
+        state.operetion = null;
+        state.isloading = false;
+        state.error = null;
+        const id = action.meta.arg;
+        const indexLesson = state.lessonsMassage.findIndex(
+          vel => vel._id === id
+        );
+        if (indexLesson !== -1) {
+          state.lessonsMassage.splice(indexLesson, 1);
+        }
+      })
+      .addCase(deleteMassageLessonById.rejected, (state, action) => {
+        state.operetion = null;
+        state.isloading = false;
+        state.error = action.payload;
+      })
+      .addCase(deleteDiagnostikaLessonById.pending, (state, { meta }) => {
+        state.operetion = `${meta.arg}`;
+        state.isloading = true;
+      })
+      .addCase(deleteDiagnostikaLessonById.fulfilled, (state, action) => {
+        state.operetion = null;
+        state.isloading = false;
+        state.error = null;
+        const id = action.meta.arg;
+        const indexLesson = state.lessonsDiagnostika.findIndex(
+          vel => vel._id === id
+        );
+        if (indexLesson !== -1) {
+          state.lessonsDiagnostika.splice(indexLesson, 1);
+        }
+      })
+      .addCase(deleteDiagnostikaLessonById.rejected, (state, action) => {
         state.operetion = null;
         state.isloading = false;
         state.error = action.payload;

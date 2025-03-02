@@ -12,6 +12,10 @@ import AuthPage from 'page/AuthPage/AuthPage';
 import AllLessonsPage from 'page/AllLessonsPage/AllLessonsPage';
 
 const SensornayaPage = lazy(() => import('page/SensornayaPage/SensornayaPage'));
+const MassagePage = lazy(() => import('page/MassagePage/MassagePage'));
+const DiagnostikaPage = lazy(() =>
+  import('page/DiagnostikaPage/DiagnostikaPage')
+);
 const LogopedPage = lazy(() => import('page/LogopedPage/LogopedPage'));
 const MainPage = lazy(() => import('page/MainPage/MainPage'));
 const CorrectionPage = lazy(() => import('page/CorrectionPage/CorrectionPage'));
@@ -67,6 +71,8 @@ function App() {
             element={<PreschoolInclusionPage />}
           />
           <Route path="/logoped" element={<LogopedPage />} />
+          <Route path="/massage" element={<MassagePage />} />
+          <Route path="/diagnostika" element={<DiagnostikaPage />} />
           <Route path="/correction" element={<CorrectionPage />} />
           <Route path="/allLessons" element={<AllLessonsPage />} />
           <Route path="/children" element={<ChildrenPage />} />

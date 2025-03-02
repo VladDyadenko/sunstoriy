@@ -210,3 +210,83 @@ export const deletePreschoolInclusionLessonById = createAsyncThunk(
     }
   }
 );
+// масаж
+export const massageLessons = createAsyncThunk(
+  'lesson/lessonMassage',
+  async (date, thunkAPI) => {
+    try {
+      const choesData = { offices: ['Реабілітолог'], dateCurrentLesson: date };
+      const { data } = await axios.get('/lesson/office/office_date', {
+        params: choesData,
+      });
+      if (data.length > 0) {
+        Notify.success('Заняття вибраного періоду');
+      } else Notify.warning('Заняття на цю дату(період) не заплановані');
+
+      return data;
+    } catch (err) {
+      if (err) {
+        Notify.failure(err.response.data.message);
+      }
+      return [];
+    }
+  }
+);
+
+export const deleteMassageLessonById = createAsyncThunk(
+  'lesson/deleteMassageLesson',
+  async (id, thunkAPI) => {
+    try {
+      const res = await axios.patch(`lesson/delete/${id}`);
+      if (res) {
+        Notify.success('Заняття видалене зі списку!');
+      }
+      return res.data;
+    } catch (err) {
+      if (err) {
+        Notify.failure(err.response.data.message);
+      }
+      return thunkAPI.rejectWithValue(err.message);
+    }
+  }
+);
+// діагностика
+export const diagnostikaLessons = createAsyncThunk(
+  'lesson/lessonDiagnostika',
+  async (date, thunkAPI) => {
+    try {
+      const choesData = { offices: ['Діагностика'], dateCurrentLesson: date };
+      const { data } = await axios.get('/lesson/office/office_date', {
+        params: choesData,
+      });
+      if (data.length > 0) {
+        Notify.success('Заняття вибраного періоду');
+      } else Notify.warning('Заняття на цю дату(період) не заплановані');
+
+      return data;
+    } catch (err) {
+      if (err) {
+        Notify.failure(err.response.data.message);
+      }
+      return [];
+    }
+  }
+);
+
+export const deleteDiagnostikaLessonById = createAsyncThunk(
+  'lesson/deleteDiagnostikaLesson',
+  async (id, thunkAPI) => {
+    try {
+      const res = await axios.patch(`lesson/delete/${id}`);
+      if (res) {
+        Notify.success('Заняття видалене зі списку!');
+      }
+      return res.data;
+    } catch (err) {
+      if (err) {
+        Notify.failure(err.response.data.message);
+      }
+      return thunkAPI.rejectWithValue(err.message);
+    }
+  }
+);

@@ -4,5 +4,6 @@ export const offices = [
   { name: 'Корекційний' },
   { name: 'Preschool' },
   { name: 'Preschool-інклюзія' },
+  { name: 'Реабілітолог' },
+  { name: 'Діагностика' },
 ];
-

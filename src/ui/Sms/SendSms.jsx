@@ -43,22 +43,28 @@ const SendSms = ({ lesson }) => {
 
   function phraseOfficeToSms(text) {
     if (text === 'Сенсорна') {
-      return 'у Сенсорній кімнаті';
+      return 'занятті у Сенсорній кімнаті';
+    }
+    if (text === 'Реабілітолог') {
+      return 'масаж';
+    }
+    if (text === 'Діагностика') {
+      return 'на діагностику';
     }
     if (text === 'Логопед') {
-      return 'з Логопедом';
+      return 'занятті з Логопедом';
     }
     if (text === 'Корекційний') {
-      return 'з Корекційним педагогом';
+      return 'занятті з Корекційним педагогом';
     }
     if (text === 'Preschool-інклюзія' || text === 'Preschool') {
-      return 'з підготовки до школи';
+      return 'занятті з підготовки до школи';
     } else {
-      return 'з фахівцем';
+      return 'занятті з фахівцем';
     }
   }
 
-  const templateSms = `Доброго дня, ${matherSms}! Очікуємо Вас на занятті ${phraseOfficeToSms(
+  const templateSms = `Доброго дня, ${matherSms}! Очікуємо Вас на ${phraseOfficeToSms(
     office
   )} ${formatDateSms} на ${formatTimeSms} годину!`;
   const messageInSms = transliterate(templateSms);

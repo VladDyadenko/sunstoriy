@@ -145,6 +145,9 @@ const AddLesson = ({ lesson, pathname }) => {
         onSubmit={async values => {
           if (buttonView) {
             if (lesson) {
+              if (!values.childSurname) values.childSurname = '';
+              if (!values.teacherSurname) values.teacherSurname = '';
+
               const id = lesson._id;
               const combinedData = { id, values };
               await dispatch(updateLesson(combinedData)).then(() => {
@@ -229,8 +232,8 @@ const AddLesson = ({ lesson, pathname }) => {
             <TextAreaTitle>Зауваження по заняттю:</TextAreaTitle>
             <FieldTextarea name="review" component="textarea" rows={6} />
             <FormButtonLesson type="submit">
-              {operetion === 'addLesson' ? (<ButtonLoader height="21" width="50" />
-         
+              {operetion === 'addLesson' ? (
+                <ButtonLoader height="21" width="50" />
               ) : buttonView ? (
                 'Зберегти зміни'
               ) : (

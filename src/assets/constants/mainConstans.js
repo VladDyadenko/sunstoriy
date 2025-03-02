@@ -17,6 +17,8 @@ export const navSitePage = [
   { page: 'Логопед', path: '/logoped' },
   { page: 'Психолог', path: '/correction' },
   { page: 'Preschool-інклюзія', path: '/preschoolInclusion' },
+  { page: 'Реабілітолог', path: '/massage' },
+  { page: 'Діагностика', path: '/diagnostika' },
   { page: 'Preschool', path: '/preschool' },
   { page: 'Кабінет', path: '/adminpage' },
 ];
