@@ -1,7 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState, memo } from 'react';
-import dayjs from 'dayjs';
-
+import { useState, memo } from 'react';
 import MainTable from 'ui/MainTable/MainTable';
 import Container from 'components/Container/Container';
 import { MainWrapper } from 'components/ContainerMain/ContainerMain.styled';
@@ -11,71 +9,31 @@ import {
   deleteSensornayaLessonById,
   sensornayaLessons,
 } from 'redux/offices/officesOperetion';
-import { getDates } from 'components/FilterLesson/SelectDate/GetDateFunction';
 import SelectDate from 'components/FilterLesson/SelectDate/SelectDate';
 import { localStorageHelper } from 'helpers/helperLocalStorage';
 import ButtonAddLesson from 'ui/ButtonAddLesson/ButtonAddLesson';
+import { useLessonsDates } from 'hooks/useLessonsDates';
+import { useUniqueTeacher } from 'hooks/useUniqueTeacher';
+import { useFilteredLessonsTeachers } from 'hooks/useFilteredLessonsTeachers';
 
 function SensornayaPage() {
+  const dispatch = useDispatch();
+
   const lessonsChosePeriod = useSelector(selectLessonsSensornaya);
 
   const [teachers, setTeachers] = useState(null);
   const [teacher, setTeacher] = useState([]);
+  const [type, setType] = useState('Період');
   const [lessons, setLessons] = useState(null);
   const [dateCurrentLesson, setLessonDates] = useState(
     localStorageHelper.getData('Sensornaya')
   );
 
-  const dispatch = useDispatch();
+  useLessonsDates('Sensornaya', setLessonDates, sensornayaLessons);
 
-  useEffect(() => {
-    const storedDate = localStorageHelper.getData('Sensornaya');
+  useUniqueTeacher(lessonsChosePeriod, setTeachers);
 
-    if (storedDate) {
-      setLessonDates(storedDate);
-      dispatch(sensornayaLessons(storedDate));
-    } else {
-      const startDateFormat = dayjs().startOf('week').format('YYYY-MM-DD');
-      const endDateFormat = dayjs().endOf('week').format('YYYY-MM-DD');
-      const dateString = [startDateFormat, endDateFormat];
-
-      const startDate = new Date(dateString[0]);
-      const endDate = new Date(dateString[1]);
-      const dates = getDates(startDate, endDate);
-      const initialDates = dates?.map(date => date.valueOf());
-      const initialDateValues = initialDates?.map(date => date.valueOf());
-      setLessonDates(initialDateValues);
-      localStorageHelper.setData('Sensornaya', initialDateValues);
-      if (initialDateValues.length > 0) {
-        dispatch(sensornayaLessons(initialDateValues));
-      }
-    }
-  }, [dispatch]);
-
-  useEffect(() => {
-    const uniqueTeachers = Array.from(
-      new Set(
-        lessonsChosePeriod?.map(
-          lesson => `${lesson.teacherName} ${lesson.teacherSurname}`
-        )
-      )
-    );
-    setTeachers(uniqueTeachers);
-  }, [lessonsChosePeriod]);
-
-  useEffect(() => {
-    if (lessonsChosePeriod && teacher && teacher.length > 0) {
-      const filteredLessons = lessonsChosePeriod?.filter(lesson => {
-        const teacherFullName = `${lesson.teacherName} ${lesson.teacherSurname}`;
-        return teacher.includes(teacherFullName);
-      });
-
-      setLessons(filteredLessons);
-    } else {
-      setLessons(lessonsChosePeriod);
-    }
-  }, [lessonsChosePeriod, teacher]);
-  const [type, setType] = useState('Період');
+  useFilteredLessonsTeachers(lessonsChosePeriod, setLessons, teacher);
 
   const items = [
     {

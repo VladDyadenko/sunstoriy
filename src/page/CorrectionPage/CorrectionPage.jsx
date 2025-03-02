@@ -1,8 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
-import dayjs from 'dayjs';
+import { useState } from 'react';
 import Container from '../../components/Container/Container';
-import { getDates } from 'components/FilterLesson/SelectDate/GetDateFunction';
 import FilterLesson from 'components/FilterLesson/FilterLesson';
 import { MainWrapper } from 'components/ContainerMain/ContainerMain.styled';
 import MainTable from 'ui/MainTable/MainTable';
@@ -14,8 +12,13 @@ import {
 import SelectDate from 'components/FilterLesson/SelectDate/SelectDate';
 import { localStorageHelper } from 'helpers/helperLocalStorage';
 import ButtonAddLesson from 'ui/ButtonAddLesson/ButtonAddLesson';
+import { useLessonsDates } from 'hooks/useLessonsDates';
+import { useUniqueTeacher } from 'hooks/useUniqueTeacher';
+import { useFilteredLessonsTeachers } from 'hooks/useFilteredLessonsTeachers';
 
 function CorrectionPage() {
+  const dispatch = useDispatch();
+
   const lessonsChosePeriod = useSelector(selectLessonsСorrection);
 
   const [teachers, setTeachers] = useState(null);
@@ -26,55 +29,11 @@ function CorrectionPage() {
   );
   const [type, setType] = useState('Період');
 
-  const dispatch = useDispatch();
+  useUniqueTeacher(lessonsChosePeriod, setTeachers);
 
-  useEffect(() => {
-    const storedDate = localStorageHelper.getData('Correction');
+  useFilteredLessonsTeachers(lessonsChosePeriod, setLessons, teacher);
 
-    if (storedDate) {
-      setLessonDates(storedDate);
-      dispatch(correctionLessons(storedDate));
-    } else {
-      const startDateFormat = dayjs().startOf('week').format('YYYY-MM-DD');
-      const endDateFormat = dayjs().endOf('week').format('YYYY-MM-DD');
-      const dateString = [startDateFormat, endDateFormat];
-
-      const startDate = new Date(dateString[0]);
-      const endDate = new Date(dateString[1]);
-      const dates = getDates(startDate, endDate);
-      const initialDates = dates?.map(date => date.valueOf());
-      const initialDateValues = initialDates?.map(date => date.valueOf());
-      setLessonDates(initialDateValues);
-      localStorageHelper.setData('Correction', initialDateValues);
-      if (initialDateValues.length > 0) {
-        dispatch(correctionLessons(initialDateValues));
-      }
-    }
-  }, [dispatch]);
-
-  useEffect(() => {
-    const uniqueTeachers = Array.from(
-      new Set(
-        lessonsChosePeriod?.map(
-          lesson => `${lesson.teacherName} ${lesson.teacherSurname}`
-        )
-      )
-    );
-    setTeachers(uniqueTeachers);
-  }, [lessonsChosePeriod]);
-
-  useEffect(() => {
-    if (lessonsChosePeriod && teacher && teacher.length > 0) {
-      const filteredLessons = lessonsChosePeriod?.filter(lesson => {
-        const teacherFullName = `${lesson.teacherName} ${lesson.teacherSurname}`;
-        return teacher.includes(teacherFullName);
-      });
-
-      setLessons(filteredLessons);
-    } else {
-      setLessons(lessonsChosePeriod);
-    }
-  }, [lessonsChosePeriod, teacher]);
+  useLessonsDates('Correction', setLessonDates, correctionLessons);
 
   const items = [
     {
