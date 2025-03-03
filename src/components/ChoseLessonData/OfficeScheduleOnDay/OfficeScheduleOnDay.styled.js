@@ -11,7 +11,7 @@ export const OfficeWrapper = styled.ul`
   display: flex;
   align-items: start;
   flex-direction: column;
-  padding: 5px;
+  /* padding: 5px; */
   margin-right: 8px;
   margin-left: -15px;
   gap: 10px;
@@ -21,12 +21,17 @@ export const OfficeWrapper = styled.ul`
   }
 `;
 export const LessonMainWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 10px;
+
   overflow: auto;
 `;
 
 export const TimeContainer = styled.div`
   width: 100%;
-  padding: 5px;
+  /* padding: 5px; */
 `;
 export const CardWrapper = styled.div`
   width: 100%;
@@ -36,8 +41,8 @@ export const OfficeContainer = styled.div`
   display: flex;
   justify-content: start;
   gap: 10px;
-  margin-top: 2px;
-  padding: 5px;
+  /* margin-top: 2px; */
+  /* padding: 5px; */
 `;
 export const TimeLessonWrapper = styled.ul`
   display: flex;
@@ -51,10 +56,12 @@ export const TimeEmpty = styled.div`
   min-width: 70px;
   height: 34px;
   border-radius: 8px;
-  border: 2px solid var(--main-dark-blue);
+  background: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15);
 
   @media (min-width: 768px) {
-    min-width: 110px;
+    min-width: 115px;
   }
 `;
 export const AddLessonLink = styled(Link)`
@@ -77,15 +84,18 @@ export const TimeOneLesson = styled.li`
   align-items: center;
   justify-content: center;
   font-family: 'RobotoSlab';
-  font-weight: 400;
+  font-weight: 900;
   font-size: 10px;
+  letter-spacing: 0.1rem;
   min-width: 230px;
   height: 34px;
   padding: 5px;
   background-color: var(--main-blue);
-  color: #191970;
   border-radius: 8px;
-  border: 2px solid var(--main-dark-blue);
+  color: var(--text-lessons-time);
+  background: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15);
 
   @media (min-width: 768px) {
     min-width: 250px;
@@ -96,24 +106,27 @@ export const OfficeName = styled.li`
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 70px;
-  height: 84px;
-  padding: 5px;
-  margin-top: 2px;
+  min-width: 90px;
+  height: 90px;
+  /* padding: 5px;
+  margin-top: 2px; */
   font-family: 'RobotoSlab';
-  font-weight: 400;
+  font-weight: 900;
   font-size: 10px;
-  background-color: var(--main-blue);
-  color: #191970;
+  letter-spacing: 0.1rem;
   border-radius: 8px;
-  border: 2px solid var(--main-dark-blue);
+  color: var(--text-lessons-time);
+  background: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15);
 
   @media (min-width: 768px) {
-    min-width: 110px;
+    min-width: 115px;
     font-size: 14px;
   }
 `;
 export const DescrLessonWrapper = styled.ul`
+  height: 90px;
   display: flex;
   justify-content: start;
   gap: 10px;
@@ -135,12 +148,15 @@ export const LessonContainer = styled.li`
   height: 100%;
   flex-direction: column;
   border-radius: 8px;
-  /* border: 2px solid transparent; */
-  transition: cubic-bezier(0.4, 0, 0.2, 1) 250ms;
+  border: 1px solid #ddd;
+  background: #fff;
+  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease-in-out;
 
-  border: 2px solid ${props => props['aria-current'] || '#fff'};
-  color: ${props => props['aria-current'] || '#fff'};
-
+  &:hover {
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.25);
+    transform: translateY(-2px);
+  }
   @media (min-width: 768px) {
     width: 250px;
     font-size: 14px;
@@ -152,6 +168,15 @@ export const LessonFreeContainer = styled.li`
   height: 100%;
   flex-direction: column;
   border-radius: 8px;
+  border: 1px solid #ddd;
+  background: #fff;
+  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.25);
+    transform: translateY(-2px);
+  }
 
   @media (min-width: 768px) {
     width: 250px;

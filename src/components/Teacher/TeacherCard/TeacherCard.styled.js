@@ -7,16 +7,22 @@ import { AiFillEdit } from 'react-icons/ai';
 export const TeacherCardWrapper = styled.div`
   position: relative;
   width: 250px;
-  min-height: 330px;
+  min-height: 350px;
   padding: 15px 10px;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   justify-content: start;
   align-items: center;
-  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  box-shadow: 0px 10px 13px -6px rgba(0, 0, 0, 0.2),
-    0px 20px 31px 3px rgba(0, 0, 0, 0.14), 0px 8px 38px 7px rgba(0, 0, 0, 0.12);
+  background-color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+  }
 `;
 export const ImedgeContainer = styled.div`
   border-radius: 50%;
@@ -69,7 +75,7 @@ export const ButtonTeacherDelete = styled(Button)`
   transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 
   &:hover {
-    background-color: #da292b;
+    background-color: #da292b !important;
   }
 `;
 export const IconTeacherDelete = styled(AiOutlineDelete)`

@@ -11,17 +11,20 @@ export const TimeContainer = styled.ul`
   }
 `;
 export const TableItem = styled.li`
+  /* color: var(--main-green); */
+  /* background-color: var(--main-blue); */
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   border-radius: 8px;
   min-width: 50px;
-  height: 80px;
+  height: 90px;
   margin-bottom: 10px;
-  background-color: var(--main-blue);
-  color: var(--main-green);
-  border: 2px solid var(--main-green);
+  color: var(--text-lessons-time);
+  background: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.5);
 `;
 export const TableItemDefault = styled.li`
   display: flex;
@@ -47,11 +50,15 @@ export const AddLessonLink = styled.li`
   align-items: center;
   justify-content: center;
   border-radius: 8px;
-  background-color: var(--main-blue);
-  border: 2px solid var(--main-green);
-  height: 70px;
+  /* background-color: var(--main-blue);
+  border: 2px solid var(--main-green); */
+  height: 80px;
   min-width: 50px;
   margin-bottom: 10px;
+  color: var(--text-lessons-time);
+  background: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.5);
 `;
 export const IconAddLessonLink = styled(BsPlusCircleDotted)`
   width: 30px;

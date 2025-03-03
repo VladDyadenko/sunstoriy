@@ -183,7 +183,10 @@ body,
 
     --main-red:#e94734;
 
-    --main-disabled:#777582
+    --main-disabled:#777582;
+
+    --text-lessons-time:rgba(0, 0, 0, 0.45);
+    --lessons-background:#F5F5F5;
   }
 
 

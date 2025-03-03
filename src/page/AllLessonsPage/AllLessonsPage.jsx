@@ -6,10 +6,10 @@ import { getDates } from 'components/FilterLesson/SelectDate/GetDateFunction';
 import { choseLessonGraph } from 'redux/Lesson/lessonOperetion';
 import { selectChoseLessons } from 'redux/Lesson/lessonSelector';
 import AllPageFilter from 'components/AllPageFilter/AllPageFilter';
-import { Collapse } from 'antd';
 import OfficeScheduleOnDay from 'components/ChoseLessonData/OfficeScheduleOnDay/OfficeScheduleOnDay';
 import { localStorageHelper } from 'helpers/helperLocalStorage';
 import { arrayOffices } from 'assets/constants/AddLessonsConstans';
+import { AllLessonCollaps } from './AllLessonsPage.styled';
 
 const abortController = new AbortController();
 
@@ -86,7 +86,7 @@ const AllLessonsPage = () => {
         setLessons={setLessons}
         lessons={lessons}
       />
-      <Collapse style={{ overflow: 'auto' }} items={items} />
+      <AllLessonCollaps items={items} />
     </Container>
   );
 };

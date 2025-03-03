@@ -7,9 +7,11 @@ import { FcMoneyTransfer } from 'react-icons/fc';
 
 export const Wrapper = styled.div`
   display: flex;
-  align-items: start;
+  align-items: unset;
   justify-content: space-between;
   height: 100%;
+  background: #fff;
+  border-radius: 12px;
 `;
 export const InfoColor = styled.div`
   width: 33%;
@@ -18,7 +20,7 @@ export const InfoColor = styled.div`
   display: flex;
   align-items: center;
   border-top-right-radius: 4px;
-  border-top-left-radius: 4px;
+  border-bottom-right-radius: 4px;
   justify-content: center;
   flex-direction: column;
   gap: 5px;
@@ -43,12 +45,12 @@ export const ButtonContainer = styled.div`
 `;
 export const InfoContainer = styled.div`
   min-width: 80%;
-  padding: 7px 5px;
+  padding: 10px;
   display: flex;
   align-items: start;
   justify-content: center;
   flex-direction: column;
-  gap: 3px;
+  gap: 4px;
   /* & p {
     margin-bottom: 3px;
   } */
@@ -61,6 +63,7 @@ export const InfoTeacher = styled.p`
   font-weight: 500;
   font-size: 12px;
   line-height: 1.05;
+  letter-spacing: 0.1rem;
   ${props => {
     if (props['aria-description'] === 'cancel') {
       return `color: #a9a9a9`;
@@ -79,6 +82,8 @@ export const InfoChild = styled.p`
   font-weight: 500;
   line-height: 1.05;
   font-size: 12px;
+  letter-spacing: 0.1rem;
+  line-height: 1.3;
   ${props => {
     if (props['aria-description'] === 'cancel') {
       return `color: #a9a9a9`;
