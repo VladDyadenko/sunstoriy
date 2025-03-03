@@ -69,7 +69,12 @@ const StatusLesson = ({ lessonData }) => {
   const styleDescr = lessonData ? lessonData.status : '';
 
   return (
-    <Popover content={content} title="Зміна, відміна занять:">
+    <Popover
+      trigger="hover"
+      content={content}
+      mouseEnterDelay={0.4}
+      title="Зміна, відміна занять:"
+    >
       <LessonButtonCancel type="primary" aria-description={styleDescr}>
         {buttonText}
       </LessonButtonCancel>

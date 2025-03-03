@@ -2,8 +2,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState, memo } from 'react';
 import { selectLessonsPreschoolInclusion } from 'redux/offices/officesSelector';
 import {
-  deletePreschoolInclusionLessonById,
-  preschoolInclusionLessons,
+  selectedLessonsByDateTeacher,
+  deleteLessonByOfficeAndId,
 } from 'redux/offices/officesOperetion';
 import Container from 'components/Container/Container';
 import FilterLesson from 'components/FilterLesson/FilterLesson';
@@ -32,7 +32,8 @@ const PreschoolInclusionPage = () => {
   useLessonsDates(
     'PreschoolInclusion',
     setLessonDates,
-    preschoolInclusionLessons
+    selectedLessonsByDateTeacher,
+    ['Preschool-інклюзія']
   );
 
   useUniqueTeacher(lessonsChosePeriod, setTeachers);
@@ -46,6 +47,7 @@ const PreschoolInclusionPage = () => {
       children: (
         <SelectDate
           pageName="PreschoolInclusion"
+          office="Preschool-інклюзія"
           type={type}
           setType={setType}
           setLessonDates={setLessonDates}
@@ -54,7 +56,7 @@ const PreschoolInclusionPage = () => {
           teacher={teacher}
           setTeacher={setTeacher}
           onLessonsChange={lessons =>
-            dispatch(preschoolInclusionLessons(lessons))
+            dispatch(selectedLessonsByDateTeacher(lessons))
           }
         />
       ),
@@ -73,7 +75,7 @@ const PreschoolInclusionPage = () => {
             <MainTable
               lessons={lessons}
               onLessonsDelete={lesson => {
-                return dispatch(deletePreschoolInclusionLessonById(lesson._id));
+                return dispatch(deleteLessonByOfficeAndId(lesson._id));
               }}
               office="Preschool-інклюзія"
             />

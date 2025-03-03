@@ -7,7 +7,8 @@ import { getDates } from 'components/FilterLesson/SelectDate/GetDateFunction';
 export const useLessonsDates = (
   storadeOfficeKey,
   setLessonDates,
-  reqMethodOffice
+  reqMethodOffice,
+  offices
 ) => {
   const dispatch = useDispatch();
 
@@ -15,8 +16,9 @@ export const useLessonsDates = (
     const storedDate = localStorageHelper.getData(storadeOfficeKey);
 
     if (storedDate) {
+      const choesData = { offices, dateCurrentLesson: storedDate };
       setLessonDates(storedDate);
-      dispatch(reqMethodOffice(storedDate));
+      dispatch(reqMethodOffice(choesData));
     } else {
       const startDateFormat = dayjs().startOf('week').format('YYYY-MM-DD');
       const endDateFormat = dayjs().endOf('week').format('YYYY-MM-DD');
@@ -30,8 +32,10 @@ export const useLessonsDates = (
       setLessonDates(initialDateValues);
       localStorageHelper.setData(storadeOfficeKey, initialDateValues);
       if (initialDateValues.length > 0) {
-        dispatch(reqMethodOffice(initialDateValues));
+        const choesData = { offices, dateCurrentLesson: storedDate };
+        dispatch(reqMethodOffice(choesData));
       }
     }
-  }, [dispatch, reqMethodOffice, setLessonDates, storadeOfficeKey]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, reqMethodOffice, setLessonDates]);
 };

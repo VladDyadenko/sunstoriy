@@ -8,8 +8,8 @@ import { MainWrapper } from 'components/ContainerMain/ContainerMain.styled';
 import FilterLesson from 'components/FilterLesson/FilterLesson';
 import { selectLessonsDiagnostika } from 'redux/offices/officesSelector';
 import {
-  deleteDiagnostikaLessonById,
-  diagnostikaLessons,
+  selectedLessonsByDateTeacher,
+  deleteLessonByOfficeAndId,
 } from 'redux/offices/officesOperetion';
 import SelectDate from 'components/FilterLesson/SelectDate/SelectDate';
 import { localStorageHelper } from 'helpers/helperLocalStorage';
@@ -31,7 +31,9 @@ const DiagnostikaPage = () => {
   );
   const [type, setType] = useState('Період');
 
-  useLessonsDates('Diagnostika', setLessonDates, diagnostikaLessons);
+  useLessonsDates('Diagnostika', setLessonDates, selectedLessonsByDateTeacher, [
+    'Діагностика',
+  ]);
 
   useUniqueTeacher(lessonsChosePeriod, setTeachers);
 
@@ -44,6 +46,7 @@ const DiagnostikaPage = () => {
       children: (
         <SelectDate
           pageName="Diagnostika"
+          office="Діагностика"
           type={type}
           setType={setType}
           setLessonDates={setLessonDates}
@@ -51,7 +54,9 @@ const DiagnostikaPage = () => {
           teachers={teachers}
           teacher={teacher}
           setTeacher={setTeacher}
-          onLessonsChange={lessons => dispatch(diagnostikaLessons(lessons))}
+          onLessonsChange={lessons =>
+            dispatch(selectedLessonsByDateTeacher(lessons))
+          }
         />
       ),
     },
@@ -69,7 +74,7 @@ const DiagnostikaPage = () => {
             <MainTable
               lessons={lessons}
               onLessonsDelete={lesson => {
-                return dispatch(deleteDiagnostikaLessonById(lesson._id));
+                return dispatch(deleteLessonByOfficeAndId(lesson._id));
               }}
               office="Діагностика"
             />

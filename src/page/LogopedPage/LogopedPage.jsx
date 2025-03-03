@@ -5,8 +5,8 @@ import { MainWrapper } from 'components/ContainerMain/ContainerMain.styled';
 import Container from 'components/Container/Container';
 import { selectLessonsLogoped } from 'redux/offices/officesSelector';
 import {
-  deleteLogopedLessonById,
-  logopedLessons,
+  selectedLessonsByDateTeacher,
+  deleteLessonByOfficeAndId,
 } from 'redux/offices/officesOperetion';
 import FilterLesson from 'components/FilterLesson/FilterLesson';
 import SelectDate from 'components/FilterLesson/SelectDate/SelectDate';
@@ -29,11 +29,12 @@ const LogopedPage = () => {
 
   const dispatch = useDispatch();
 
+  useLessonsDates('Logoped', setLessonDates, selectedLessonsByDateTeacher, [
+    'Логопед',
+  ]);
   useUniqueTeacher(lessonsChosePeriod, setTeachers);
 
   useFilteredLessonsTeachers(lessonsChosePeriod, setLessons, teacher);
-
-  useLessonsDates('Logoped', setLessonDates, logopedLessons);
 
   const items = [
     {
@@ -42,6 +43,7 @@ const LogopedPage = () => {
       children: (
         <SelectDate
           pageName="Logoped"
+          office="Логопед"
           type={type}
           setType={setType}
           setLessonDates={setLessonDates}
@@ -49,7 +51,9 @@ const LogopedPage = () => {
           teachers={teachers}
           teacher={teacher}
           setTeacher={setTeacher}
-          onLessonsChange={lessons => dispatch(logopedLessons(lessons))}
+          onLessonsChange={lessons =>
+            dispatch(selectedLessonsByDateTeacher(lessons))
+          }
         />
       ),
     },
@@ -67,7 +71,7 @@ const LogopedPage = () => {
             <MainTable
               lessons={lessons}
               onLessonsDelete={lesson => {
-                return dispatch(deleteLogopedLessonById(lesson._id));
+                return dispatch(deleteLessonByOfficeAndId(lesson._id));
               }}
               office="Логопед"
             />

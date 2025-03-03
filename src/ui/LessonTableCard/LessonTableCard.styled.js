@@ -115,7 +115,7 @@ export const LessonDelete = styled(Button)`
   ${btnStyled}
   background-color: #fa4a3b;
   &:hover {
-    background-color: #da292b;
+    background-color: #da292b !important;
   }
 `;
 

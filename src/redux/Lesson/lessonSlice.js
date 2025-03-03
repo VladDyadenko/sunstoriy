@@ -109,11 +109,7 @@ const lessonSlice = createSlice({
         state.operetion = null;
         state.isloading = false;
         state.error = null;
-        // const id = action.meta.arg;
-        // const indexLesson = state.lesson.findIndex(vel => vel._id === id);
-        // if (indexLesson !== -1) {
-        //   state.lesson.splice(indexLesson, 1);
-        // }
+
         state.choseLesson = state.choseLesson.filter(
           lesson => lesson._id !== action.meta.arg
         );

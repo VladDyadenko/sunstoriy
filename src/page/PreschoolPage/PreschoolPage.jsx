@@ -2,8 +2,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState, memo } from 'react';
 import { selectLessonsPreschool } from 'redux/offices/officesSelector';
 import {
-  deletePreschoolLessonById,
-  preschoolLessons,
+  selectedLessonsByDateTeacher,
+  deleteLessonByOfficeAndId,
 } from 'redux/offices/officesOperetion';
 import Container from 'components/Container/Container';
 import FilterLesson from 'components/FilterLesson/FilterLesson';
@@ -29,7 +29,9 @@ const PreschoolPage = () => {
 
   const dispatch = useDispatch();
 
-  useLessonsDates('Preschool', setLessonDates, preschoolLessons);
+  useLessonsDates('Preschool', setLessonDates, selectedLessonsByDateTeacher, [
+    'Preschool',
+  ]);
 
   useUniqueTeacher(lessonsChosePeriod, setTeachers);
 
@@ -42,6 +44,7 @@ const PreschoolPage = () => {
       children: (
         <SelectDate
           pageName="Preschool"
+          office="Preschool"
           type={type}
           setType={setType}
           setLessonDates={setLessonDates}
@@ -49,7 +52,9 @@ const PreschoolPage = () => {
           teachers={teachers}
           teacher={teacher}
           setTeacher={setTeacher}
-          onLessonsChange={lessons => dispatch(preschoolLessons(lessons))}
+          onLessonsChange={lessons =>
+            dispatch(selectedLessonsByDateTeacher(lessons))
+          }
         />
       ),
     },
@@ -67,7 +72,7 @@ const PreschoolPage = () => {
             <MainTable
               lessons={lessons}
               onLessonsDelete={lesson => {
-                return dispatch(deletePreschoolLessonById(lesson._id));
+                return dispatch(deleteLessonByOfficeAndId(lesson._id));
               }}
               office="Preschool"
             />

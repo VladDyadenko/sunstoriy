@@ -6,8 +6,8 @@ import { MainWrapper } from 'components/ContainerMain/ContainerMain.styled';
 import FilterLesson from 'components/FilterLesson/FilterLesson';
 import { selectLessonsSensornaya } from 'redux/offices/officesSelector';
 import {
-  deleteSensornayaLessonById,
-  sensornayaLessons,
+  deleteLessonByOfficeAndId,
+  selectedLessonsByDateTeacher,
 } from 'redux/offices/officesOperetion';
 import SelectDate from 'components/FilterLesson/SelectDate/SelectDate';
 import { localStorageHelper } from 'helpers/helperLocalStorage';
@@ -20,21 +20,21 @@ function SensornayaPage() {
   const dispatch = useDispatch();
 
   const lessonsChosePeriod = useSelector(selectLessonsSensornaya);
-
   const [teachers, setTeachers] = useState(null);
   const [teacher, setTeacher] = useState([]);
-  const [type, setType] = useState('Період');
   const [lessons, setLessons] = useState(null);
   const [dateCurrentLesson, setLessonDates] = useState(
     localStorageHelper.getData('Sensornaya')
   );
+  const [type, setType] = useState('Період');
 
-  useLessonsDates('Sensornaya', setLessonDates, sensornayaLessons);
+  useLessonsDates('Sensornaya', setLessonDates, selectedLessonsByDateTeacher, [
+    'Сенсорна',
+  ]);
 
   useUniqueTeacher(lessonsChosePeriod, setTeachers);
 
   useFilteredLessonsTeachers(lessonsChosePeriod, setLessons, teacher);
-
   const items = [
     {
       key: 1,
@@ -42,6 +42,7 @@ function SensornayaPage() {
       children: (
         <SelectDate
           pageName="Sensornaya"
+          office="Сенсорна"
           type={type}
           setType={setType}
           setLessonDates={setLessonDates}
@@ -49,7 +50,9 @@ function SensornayaPage() {
           teachers={teachers}
           teacher={teacher}
           setTeacher={setTeacher}
-          onLessonsChange={lessons => dispatch(sensornayaLessons(lessons))}
+          onLessonsChange={lessons =>
+            dispatch(selectedLessonsByDateTeacher(lessons))
+          }
         />
       ),
     },
@@ -67,7 +70,7 @@ function SensornayaPage() {
             <MainTable
               lessons={lessons}
               onLessonsDelete={lesson => {
-                return dispatch(deleteSensornayaLessonById(lesson._id));
+                return dispatch(deleteLessonByOfficeAndId(lesson._id));
               }}
               office="Сенсорна"
             />

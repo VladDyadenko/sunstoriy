@@ -25,6 +25,7 @@ const SelectDate = ({
   teacher,
   setTeacher,
   onLessonsChange,
+  office,
 }) => {
   const [day, setDay] = useState('1');
   const operetion = useSelector(selectLessonOperetion);
@@ -44,7 +45,11 @@ const SelectDate = ({
       const date = dates?.map(date => date.valueOf());
 
       if (date?.length > 0) {
-        onLessonsChange(date);
+        const choesData = {
+          offices: [office],
+          dateCurrentLesson: date,
+        };
+        onLessonsChange(choesData);
         localStorageHelper.setData(pageName, date);
       }
     }
@@ -52,7 +57,11 @@ const SelectDate = ({
   }, [day, dateCurrentLesson]);
 
   const handleChosePeriod = () => {
-    onLessonsChange(dateCurrentLesson);
+    const choesData = {
+      offices: [office],
+      dateCurrentLesson: dateCurrentLesson,
+    };
+    onLessonsChange(choesData);
   };
   return (
     <Wrapper>
@@ -91,8 +100,8 @@ const SelectDate = ({
         </DescrContainer>
       ) : null}
       <ButtonChoseDate type="button" onClick={handleChosePeriod}>
-        {operetion === 'choseLesson' ? (<ButtonLoader height="22" width="50" />
-  
+        {operetion === 'choseLesson' ? (
+          <ButtonLoader height="22" width="50" />
         ) : (
           <>
             <IconBtn />

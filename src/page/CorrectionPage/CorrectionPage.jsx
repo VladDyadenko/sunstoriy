@@ -6,8 +6,8 @@ import { MainWrapper } from 'components/ContainerMain/ContainerMain.styled';
 import MainTable from 'ui/MainTable/MainTable';
 import { selectLessonsСorrection } from 'redux/offices/officesSelector';
 import {
-  correctionLessons,
-  deleteСorrectionLessonById,
+  selectedLessonsByDateTeacher,
+  deleteLessonByOfficeAndId,
 } from 'redux/offices/officesOperetion';
 import SelectDate from 'components/FilterLesson/SelectDate/SelectDate';
 import { localStorageHelper } from 'helpers/helperLocalStorage';
@@ -29,11 +29,16 @@ function CorrectionPage() {
   );
   const [type, setType] = useState('Період');
 
+  useLessonsDates(
+    'Correction',
+    setLessonDates,
+    selectedLessonsByDateTeacher,
+    ['Корекційний']
+  );
   useUniqueTeacher(lessonsChosePeriod, setTeachers);
 
   useFilteredLessonsTeachers(lessonsChosePeriod, setLessons, teacher);
 
-  useLessonsDates('Correction', setLessonDates, correctionLessons);
 
   const items = [
     {
@@ -42,6 +47,7 @@ function CorrectionPage() {
       children: (
         <SelectDate
           pageName="Correction"
+          office="Корекційний"
           type={type}
           setType={setType}
           setLessonDates={setLessonDates}
@@ -49,7 +55,9 @@ function CorrectionPage() {
           teachers={teachers}
           teacher={teacher}
           setTeacher={setTeacher}
-          onLessonsChange={lessons => dispatch(correctionLessons(lessons))}
+          onLessonsChange={lessons =>
+            dispatch(selectedLessonsByDateTeacher(lessons))
+          }
         />
       ),
     },
@@ -67,7 +75,7 @@ function CorrectionPage() {
             <MainTable
               lessons={lessons}
               onLessonsDelete={lesson => {
-                return dispatch(deleteСorrectionLessonById(lesson._id));
+                return dispatch(deleteLessonByOfficeAndId(lesson._id));
               }}
               office="Корекційний"
             />

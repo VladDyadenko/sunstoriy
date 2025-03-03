@@ -205,6 +205,8 @@ function LessonTableCard({ lesson, onLessonsDelete }) {
           onOpenChange={handleOpenPopover}
           trigger="hover"
           content={content}
+          mouseEnterDelay={0.4}
+          mouseLeaveDelay={0.2}
           title="Внесіть зміни:"
         >
           <LessonButton type="primary">

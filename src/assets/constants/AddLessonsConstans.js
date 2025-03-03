@@ -7,3 +7,13 @@ export const offices = [
   { name: 'Реабілітолог' },
   { name: 'Діагностика' },
 ];
+
+export const arrayOffices = [
+  'Сенсорна',
+  'Логопед',
+  'Корекційний',
+  'Preschool',
+  'Preschool-інклюзія',
+  'Реабілітолог',
+  'Діагностика',
+];

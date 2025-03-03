@@ -9,6 +9,7 @@ import AllPageFilter from 'components/AllPageFilter/AllPageFilter';
 import { Collapse } from 'antd';
 import OfficeScheduleOnDay from 'components/ChoseLessonData/OfficeScheduleOnDay/OfficeScheduleOnDay';
 import { localStorageHelper } from 'helpers/helperLocalStorage';
+import { arrayOffices } from 'assets/constants/AddLessonsConstans';
 
 const abortController = new AbortController();
 
@@ -20,15 +21,7 @@ const AllLessonsPage = () => {
   );
   const [uniquDates, setUniquDates] = useState(null);
   const [lessons, setLessons] = useState(null);
-  const [offices, setOffices] = useState([
-    'Сенсорна',
-    'Логопед',
-    'Корекційний',
-    'Preschool',
-    'Preschool-інклюзія',
-    'Реабілітолог',
-    'Діагностика',
-  ]);
+  const [offices, setOffices] = useState(arrayOffices);
 
   const dispatch = useDispatch();
 
