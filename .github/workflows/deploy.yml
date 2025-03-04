@@ -18,13 +18,17 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
 
-      - name: Install, lint, build 🔧
+      - name: Install dependencies
+        run: npm install
+
+      - name: Lint
+        run: npm run lint:js
+
+      - name: Build 🔧
+        run: npm run build
         env:
           REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
-        run: |
-          npm install
-          npm run lint:js
-          npm run build
+          CI: false
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
