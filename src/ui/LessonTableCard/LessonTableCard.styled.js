@@ -14,7 +14,7 @@ export const Wrapper = styled.div`
   border-radius: 12px;
 `;
 export const InfoColor = styled.div`
-  width: 33%;
+  width: 70px;
   height: 100%;
   padding: 5px;
   display: flex;
@@ -44,7 +44,7 @@ export const ButtonContainer = styled.div`
   gap: 5px;
 `;
 export const InfoContainer = styled.div`
-  min-width: 80%;
+  min-width: 190px;
   padding: 10px;
   display: flex;
   align-items: start;
@@ -196,7 +196,6 @@ export const PaymentContainer = styled.div`
 export const InfoAndPaymentContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 80%;
 `;
 
 export const IconButtonCopy = styled(FaRegCopy)`

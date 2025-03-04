@@ -87,7 +87,7 @@ export const TimeOneLesson = styled.li`
   font-weight: 900;
   font-size: 10px;
   letter-spacing: 0.1rem;
-  min-width: 230px;
+  min-width: 300px;
   height: 34px;
   padding: 5px;
   background-color: var(--main-blue);
@@ -98,7 +98,7 @@ export const TimeOneLesson = styled.li`
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15);
 
   @media (min-width: 768px) {
-    min-width: 250px;
+    min-width: 300px;
     font-size: 14px;
   }
 `;
@@ -144,7 +144,7 @@ export const LessonContainer = styled.li`
   font-size: 10px;
   font-family: 'RobotoSlab';
   font-weight: 400;
-  width: 230px;
+  width: 300px;
   height: 100%;
   flex-direction: column;
   border-radius: 8px;
@@ -158,7 +158,7 @@ export const LessonContainer = styled.li`
     transform: translateY(-2px);
   }
   @media (min-width: 768px) {
-    width: 250px;
+    width: 300px;
     font-size: 14px;
   }
 `;

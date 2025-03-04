@@ -36,9 +36,8 @@ export const DayDeafult = styled.div`
   font-weight: 400;
   border-radius: 8px;
   height: 80px;
-  width: 100%;
-  min-width: 200px;
-  max-width: 250px;
+  /* width: 100%; */
+  width: 300px;
   padding: 12px;
   margin-bottom: 10px;
   letter-spacing: 0.1rem;
@@ -59,7 +58,7 @@ export const DayDeafultInfo = styled.p`
   /* margin-bottom: 10px; */
 `;
 export const DayContainer = styled.div`
-  width: 250px;
+  width: 300px;
   text-align: center;
   border-radius: 8px;
   margin-bottom: 10px;
@@ -76,7 +75,7 @@ export const LessonsItem = styled.li`
   font-weight: 400;
   cursor: pointer;
   height: 90px;
-  width: 250px;
+  width: 300px;
   flex-direction: column;
   border-radius: 8px;
   margin-bottom: 10px;

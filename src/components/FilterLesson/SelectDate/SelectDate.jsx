@@ -10,9 +10,9 @@ import {
   Wrapper,
 } from './SelectDate.styled';
 import { getDates, handleDateChange } from './GetDateFunction';
-import { selectLessonOperetion } from 'redux/Lesson/lessonSelector';
 import { localStorageHelper } from 'helpers/helperLocalStorage';
 import ButtonLoader from 'ui/ButtonLoader/ButtonLoader';
+import { selectOfficesLoading } from 'redux/offices/officesSelector';
 const { Option } = Select;
 
 const SelectDate = ({
@@ -28,8 +28,7 @@ const SelectDate = ({
   office,
 }) => {
   const [day, setDay] = useState('1');
-  const operetion = useSelector(selectLessonOperetion);
-
+  const operetion = useSelector(selectOfficesLoading);
   const handleChange = (date, dateString) => {
     handleDateChange(date, dateString, setLessonDates, day, type, pageName);
   };

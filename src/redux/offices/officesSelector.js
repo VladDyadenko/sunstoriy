@@ -8,3 +8,4 @@ export const selectLessonsMassage = state => state.offices.lessonsMassage;
 export const selectLessonsDiagnostika = state =>
   state.offices.lessonsDiagnostika;
 export const selectOfficesOperetion = state => state.offices.operetion;
+export const selectOfficesLoading = state => state.offices.isloading;

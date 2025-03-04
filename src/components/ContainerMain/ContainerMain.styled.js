@@ -9,7 +9,6 @@ export const MainWrapper = styled.div`
   justify-content: start;
   gap: 10px;
   background-color: var(--lessons-background);
-  height: 100vh;
   margin-top: 10px;
   padding: 20px 5px;
 `;
