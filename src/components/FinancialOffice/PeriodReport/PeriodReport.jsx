@@ -6,6 +6,10 @@ import {
 } from './PeriodReport.styled';
 
 const ReportCurrentMonth = ({ indicatorsCurrentMonth, loading }) => {
+  console.log(
+    '🚀 ~ ReportCurrentMonth ~ indicatorsCurrentMonth:',
+    indicatorsCurrentMonth
+  );
   const {
     profit = {},
     expense = {},
@@ -93,7 +97,7 @@ const ReportCurrentMonth = ({ indicatorsCurrentMonth, loading }) => {
       key: 'cash',
       category: 'Готівка',
       profitPrev: previousPeriodProfit?.cash || 0,
-      profit: profit?.kasa || 0,
+      profit: profit?.cash || 0,
       currentExpense: expense?.cash || 0,
       currentIncome: income?.cash || 0,
       workedLessons: workedIncom,
