@@ -1,8 +1,7 @@
 import axios from 'axios';
 import { Notify } from 'notiflix';
 
-// axios.defaults.baseURL = 'http://localhost:5000//';
-axios.defaults.baseURL = 'https://sunstoriy-back.onrender.com/';
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 const tokenOperation = {
   setToken: token => {
