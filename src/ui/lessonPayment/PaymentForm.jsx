@@ -20,6 +20,11 @@ import {
   clearPaymentOperetion,
   creatPaymentOperetion,
 } from 'redux/Lesson/lessonSlice';
+import {
+  DateInfoTitle,
+  PaymentTitle,
+  PaymentTitleOther,
+} from './PaymentsLessonList/PaymentsLessonList.styled';
 
 function PaymentForm({
   isZvitForm,
@@ -76,7 +81,7 @@ function PaymentForm({
 
     const combinedData = { id, values: paymentData };
     await dispatch(addPayment(combinedData)).then(async ({ payload }) => {
-     isZvitForm && dispatch(creatPaymentOperetion());
+      isZvitForm && dispatch(creatPaymentOperetion());
       if (
         payload.isHappend &&
         (payload.isHappend === 'Відпрацьоване' ||
@@ -121,7 +126,7 @@ function PaymentForm({
       values: paymentData,
     };
     await dispatch(updatePayment(combinedData)).then(async ({ payload }) => {
-    isZvitForm && dispatch(creatPaymentOperetion());
+      isZvitForm && dispatch(creatPaymentOperetion());
       if (
         payload.isHappend &&
         (payload.isHappend === 'Відпрацьоване' ||
@@ -135,7 +140,7 @@ function PaymentForm({
         }
       }
       setCurrentPayment(payload.sum);
-     isZvitForm && dispatch(clearPaymentOperetion());
+      isZvitForm && dispatch(clearPaymentOperetion());
       setEditingPayment(null);
       onCloseDrawer();
     });
@@ -143,6 +148,10 @@ function PaymentForm({
 
   return (
     <>
+      <PaymentTitle>Внесіть дані платежу:</PaymentTitle>
+      <PaymentTitleOther>
+        Дата оплати: <DateInfoTitle>{dateFromExpense}</DateInfoTitle>
+      </PaymentTitleOther>
       <Form
         form={form}
         initialValues={editingPayment || initialPaymentValues}

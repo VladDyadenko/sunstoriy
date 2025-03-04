@@ -19,10 +19,7 @@ import AddChildLesson from '../AddChildLesson/AddChildLesson';
 import AddTeacherToLesson from '../AddTeacherToLesson/AddTeacherToLesson';
 import PriceLesson from '../PriceLesson/PriceLesson';
 
-import {
-  initialValuesLessonForm,
-  schemaAddLessonUpdate,
-} from '../Schema/schema';
+import { initialLessonState, schemaAddLessonUpdate } from '../Schema/schema';
 import { addLesson, updateLesson } from 'redux/Lesson/lessonOperetion';
 import ChoseLessonContainer from 'components/ChoseLessonData/ChoseLessonContainer/ChoseLessonContainer';
 import { selectLessonOperetion } from 'redux/Lesson/lessonSelector';
@@ -31,22 +28,11 @@ import ButtonLoader from 'ui/ButtonLoader/ButtonLoader';
 const today = new Date(dayjs().format('YYYY-MM-DD')).valueOf();
 
 const AddLesson = ({ lesson, pathname }) => {
-  const [valuesLesson, setValuesLesson] = useState(initialValuesLessonForm);
+  const [lessonData, setLessonData] = useState(initialLessonState);
   const [typeLesson, setTypeLesson] = useState('Сенсорна');
   const [addSuccessLesson, setAddSuccessLesson] = useState(false);
-  const [child, setChild] = useState('');
-  const [childName, setChildName] = useState('');
-  const [childSurname, setChildSurname] = useState('');
-  const [mather, setMather] = useState('');
-  const [matherPhone, setMatherPhone] = useState('');
-  const [teacher, setTeacher] = useState('');
-  const [teacherName, setTeacherName] = useState('');
-  const [teacherSurname, setTeacherSurname] = useState('');
-  const [teacherColor, setTeacherColor] = useState('');
-  const [price, setPrice] = useState(currentLessonCost);
-  const [dateLesson, setDateLesson] = useState(null);
-  const [timeLesson, setTimeLesson] = useState('');
   const [buttonView, setButtonView] = useState(true);
+
   const [dateCurrentLesson, setDateCurrentLesson] = useState(today);
 
   const [offices, setOffices] = useState(['Сенсорна']);
@@ -60,110 +46,103 @@ const AddLesson = ({ lesson, pathname }) => {
   const source = searchParams.get('source');
   const dateFreeLesson = searchParams.get('dateFreeLesson');
   const timeFreeLessonString = searchParams.get('timeFreeLesson');
-  const timeFreeLesson = JSON.parse(timeFreeLessonString);
   const officeFreeLesson = searchParams.get('officeFreeLesson');
+  const timeFreeLesson = JSON.parse(timeFreeLessonString);
 
   const lessonCopyString = searchParams.get('lessonCopy');
   const lessonCopy = JSON.parse(lessonCopyString);
 
-  useEffect(() => {
-    if (source === 'buttonViewing') {
-      setButtonView(false);
-    }
-  }, [source]);
+  // Оновлення окремих полів даних заняття
+  const updateLessonField = (field, value) => {
+    setLessonData(prev => ({ ...prev, [field]: value }));
+  };
 
   useEffect(() => {
     if (timeFreeLesson && dateFreeLesson) {
-      setTimeLesson(timeFreeLesson);
-      setDateLesson(dateFreeLesson);
-      setTypeLesson(officeFreeLesson);
+      updateLessonField('timeLesson', timeFreeLesson);
+      updateLessonField('dateLesson', dateFreeLesson);
+      updateLessonField('office', officeFreeLesson);
     }
     const today = dayjs().format('YYYY-MM-DD');
     const selectedDate = new Date(today);
     setDateCurrentLesson(selectedDate.valueOf());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
-  useEffect(() => {
+    // Якщо це копіювання існуючого заняття
     if (lessonCopy) {
-      setChildName(lessonCopy.childName);
-      setChildSurname(lessonCopy.childSurname);
-      setMather(lessonCopy.mather);
-      setMatherPhone(lessonCopy.matherPhone);
-      setTypeLesson(lessonCopy.office);
-      setTeacherName(lessonCopy.teacherName);
-      setTeacherSurname(lessonCopy.teacherSurname);
-      setChild(lessonCopy.child);
-      setTeacher(lessonCopy.teacher);
-      setTeacherColor(lessonCopy.teacherColor);
+      setLessonData(prev => ({
+        ...prev,
+        childName: lessonCopy.childName,
+        childSurname: lessonCopy.childSurname,
+        mather: lessonCopy.mather,
+        matherPhone: lessonCopy.matherPhone,
+        office: lessonCopy.office,
+        teacherName: lessonCopy.teacherName,
+        teacherSurname: lessonCopy.teacherSurname,
+        child: lessonCopy.child,
+        teacher: lessonCopy.teacher,
+        teacherColor: lessonCopy.teacherColor,
+      }));
     }
 
+    // Режим перегляду
+    if (source === 'buttonViewing') {
+      setButtonView(false);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Завантаження даних при редагуванні існуючого заняття
   useEffect(() => {
     if (lesson) {
-      const lessonData = {
-        office: lesson.office ? lesson.office : '',
-        child: lesson.child ? lesson.child : '',
-        childName: lesson.childName ? lesson.childName : '',
-        childSurname: lesson.childSurname ? lesson.childSurname : '',
-        mather: lesson.mather ? lesson.mather : '',
-        matherPhone: lesson.matherPhone ? lesson.matherPhone : '',
-        teacher: lesson.teacher ? lesson.teacher : '',
-        teacherName: lesson.teacherName ? lesson.teacherName : '',
-        teacherSurname: lesson.teacherSurname ? lesson.teacherSurname : '',
-        teacherColor: lesson.teacherColor ? lesson.teacherColor : '',
-        price: lesson.price ? lesson.price : currentLessonCost,
-        plan: lesson.plan ? lesson.plan : '',
-        review: lesson.review ? lesson.review : '',
-        dateLesson: lesson.dateLesson ? lesson.dateLesson : null,
-        timeLesson: lesson.timeLesson ? lesson.timeLesson : '',
-      };
-      setValuesLesson(lessonData);
-      setTypeLesson(lessonData.office);
-      setChild(lessonData.child);
-      setChildName(lessonData.childName);
-      setMather(lessonData.mather);
-      setMatherPhone(lessonData.matherPhone);
-      setChildSurname(lessonData.childSurname);
-      setTeacher(lessonData.teacher);
-      setTeacherName(lessonData.teacherName);
-      setTeacherSurname(lessonData.teacherSurname);
-      setTeacherColor(lessonData.teacherColor);
-      setPrice(lessonData.price);
-      setDateLesson(lessonData.dateLesson);
-      setTimeLesson(lessonData.timeLesson);
+      setLessonData({
+        office: lesson.office || 'Сенсорна',
+        child: lesson.child || '',
+        childName: lesson.childName || '',
+        childSurname: lesson.childSurname || '',
+        mather: lesson.mather || '',
+        matherPhone: lesson.matherPhone || '',
+        teacher: lesson.teacher || '',
+        teacherName: lesson.teacherName || '',
+        teacherSurname: lesson.teacherSurname || '',
+        teacherColor: lesson.teacherColor || '',
+        price: lesson.price || currentLessonCost,
+        plan: lesson.plan || '',
+        review: lesson.review || '',
+        dateLesson: lesson.dateLesson || null,
+        timeLesson: lesson.timeLesson || '',
+      });
     }
   }, [lesson]);
+
+  const handleSubmit = async values => {
+    if (buttonView) {
+      if (lesson) {
+        if (!values.childSurname) values.childSurname = '';
+        if (!values.teacherSurname) values.teacherSurname = '';
+
+        const id = lesson._id;
+        const combinedData = { id, values };
+        await dispatch(updateLesson(combinedData)).then(() => {
+          navigate(-1);
+        });
+      } else {
+        await dispatch(addLesson(values)).then(() => {
+          setAddSuccessLesson(true);
+          navigate(-1);
+        });
+      }
+    } else {
+      navigate(-1);
+      setButtonView(true);
+    }
+  };
   return (
     <>
       <Formik
         enableReinitialize={true}
-        initialValues={valuesLesson}
+        initialValues={lessonData}
         validationSchema={schemaAddLessonUpdate}
-        onSubmit={async values => {
-          if (buttonView) {
-            if (lesson) {
-              if (!values.childSurname) values.childSurname = '';
-              if (!values.teacherSurname) values.teacherSurname = '';
-
-              const id = lesson._id;
-              const combinedData = { id, values };
-              await dispatch(updateLesson(combinedData)).then(() => {
-                navigate(-1);
-              });
-            } else {
-              await dispatch(addLesson(values)).then(() => {
-                setAddSuccessLesson(true);
-                navigate(-1);
-              });
-            }
-          } else {
-            navigate(-1);
-            setButtonView(true);
-          }
-        }}
+        onSubmit={handleSubmit}
       >
         {({ setFieldValue, errors, touched }) => (
           <FormLesson>
@@ -181,11 +160,11 @@ const AddLesson = ({ lesson, pathname }) => {
                 <AddChildLesson
                   setFieldValue={setFieldValue}
                   addSuccessLesson={addSuccessLesson}
-                  child={child}
-                  childName={childName}
-                  childSurname={childSurname}
-                  mather={mather}
-                  matherPhone={matherPhone}
+                  child={lessonData.child}
+                  childName={lessonData.childName}
+                  childSurname={lessonData.childSurname}
+                  mather={lessonData.mather}
+                  matherPhone={lessonData.matherPhone}
                   pathname={pathname}
                 />
                 {touched.child && errors.child && (
@@ -194,10 +173,10 @@ const AddLesson = ({ lesson, pathname }) => {
                 <AddTeacherToLesson
                   setFieldValue={setFieldValue}
                   addSuccessLesson={addSuccessLesson}
-                  teacher={teacher}
-                  teacherName={teacherName}
-                  teacherSurname={teacherSurname}
-                  teacherColor={teacherColor}
+                  teacher={lessonData.teacher}
+                  teacherName={lessonData.teacherName}
+                  teacherSurname={lessonData.teacherSurname}
+                  teacherColor={lessonData.teacherColor}
                   pathname={pathname}
                 />
                 {touched.teacher && errors.teacher && (
@@ -205,17 +184,17 @@ const AddLesson = ({ lesson, pathname }) => {
                 )}
                 <PriceLesson
                   setFieldValue={setFieldValue}
-                  currentPrice={price}
+                  currentPrice={lessonData.price}
                   lesson={lesson}
                 />
               </FormMainInfo>
               <DatePickerLesson
-                dateLessonCurrent={dateLesson}
+                dateLessonCurrent={lessonData.dateLesson}
                 setFieldValue={setFieldValue}
                 errors={errors}
                 touched={touched}
                 addSuccessLesson={addSuccessLesson}
-                timeLessonCurrent={timeLesson}
+                timeLessonCurrent={lessonData.timeLesson}
                 setDateCurrentLesson={setDateCurrentLesson}
                 operetion={operetion}
                 buttonView={buttonView}

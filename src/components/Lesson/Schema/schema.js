@@ -1,11 +1,13 @@
 import { currentLessonCost } from 'assets/constants/mainConstans';
 import * as yup from 'yup';
 
-export const initialValuesLessonForm = {
+export const initialLessonState = {
   office: '',
   child: '',
   childName: '',
   childSurname: '',
+  mather: '',
+  matherPhone: '',
   teacher: '',
   teacherName: '',
   teacherSurname: '',
@@ -13,7 +15,7 @@ export const initialValuesLessonForm = {
   price: currentLessonCost,
   plan: '',
   review: '',
-  dateLesson: '',
+  dateLesson: null,
   timeLesson: '',
 };
 

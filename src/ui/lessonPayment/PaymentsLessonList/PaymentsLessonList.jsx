@@ -1,12 +1,10 @@
 import { Button, List, Popconfirm } from 'antd';
 import React from 'react';
 import {
-  DateInfoTitle,
   PaymentContainer,
   PaymentInfoContainer,
   PaymentTitle,
   PaymentTitleContainer,
-  PaymentTitleOther,
 } from './PaymentsLessonList.styled';
 
 const PaymentsLessonList = ({
@@ -14,14 +12,9 @@ const PaymentsLessonList = ({
   currentPayment,
   editingPayment,
   handleDeletePayment,
-  dateFromExpense,
 }) => {
   return (
     <>
-      <PaymentTitle>Внесіть дані платежу:</PaymentTitle>
-      <PaymentTitleOther>
-        Дата оплати: <DateInfoTitle>{dateFromExpense}</DateInfoTitle>
-      </PaymentTitleOther>
       <PaymentContainer
         header={
           <PaymentTitleContainer>
