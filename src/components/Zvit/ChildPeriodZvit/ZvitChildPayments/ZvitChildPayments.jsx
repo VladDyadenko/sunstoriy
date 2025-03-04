@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { deletePayment } from 'redux/Lesson/lessonOperetion';
+import {
+  clearPaymentOperetion,
+  creatPaymentOperetion,
+} from 'redux/Lesson/lessonSlice';
 import PaymentForm from 'ui/lessonPayment/PaymentForm';
 import PaymentsLessonList from 'ui/lessonPayment/PaymentsLessonList/PaymentsLessonList';
 import RangePickerForm from 'ui/RangePickerForm/RangePickerForm';
@@ -32,11 +36,16 @@ const ZvitChildPayments = ({ selectedLessonData, setOpenPaymentDrawer }) => {
   );
   const handleDeletePayment = async paymentId => {
     const combinedData = { lessonId: id, paymentId };
-    await dispatch(deletePayment(combinedData)).then(({ payload }) => {
-      setCurrentPayment(payload.sum);
-      setEditingPayment(null);
-      setOpenPaymentDrawer(false);
-    });
+    await dispatch(deletePayment(combinedData))
+      .then(({ payload }) => {
+        dispatch(creatPaymentOperetion());
+        setCurrentPayment(payload.sum);
+        setEditingPayment(null);
+        setOpenPaymentDrawer(false);
+      })
+      .finally(() => {
+        dispatch(clearPaymentOperetion());
+      });
   };
   const onCloseDrawer = () => {
     setOpenPaymentDrawer(false);

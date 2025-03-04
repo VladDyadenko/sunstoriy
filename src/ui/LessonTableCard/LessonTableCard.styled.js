@@ -61,7 +61,7 @@ export const InfoTeacher = styled.p`
   white-space: nowrap;
   font-family: 'RobotoSlab';
   font-weight: 500;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.05;
   letter-spacing: 0.1rem;
   ${props => {
@@ -81,7 +81,7 @@ export const InfoChild = styled.p`
   font-family: 'RobotoSlab';
   font-weight: 500;
   line-height: 1.05;
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.1rem;
   line-height: 1.3;
   ${props => {
