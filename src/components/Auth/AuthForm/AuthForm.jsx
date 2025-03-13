@@ -126,7 +126,9 @@ function AuthForm({ isRegistration }) {
                 )}
               </BtnRegister>
               <BtnGoogle type="button" onClick={handleGoogleLogin}>
-                Увійти через Google
+                {isRegistration
+                  ? 'Зареєструватися через Google'
+                  : 'Увійти через Google'}
               </BtnGoogle>
             </Btnwrapper>
           </FormAuth>

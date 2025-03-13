@@ -31,6 +31,9 @@ jobs:
           REACT_APP_GOOGLE_AUTH_URL: ${{ secrets.REACT_APP_GOOGLE_AUTH_URL }}
           CI: false
 
+      - name: Check environment variable
+        run: echo $REACT_APP_GOOGLE_AUTH_URL
+
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
