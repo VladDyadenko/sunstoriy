@@ -17,8 +17,6 @@ function ChildPage() {
 
     async function fetchChild() {
       try {
-        console.log('Component mounted');
-
         const child = await getChildById(childId);
         if (!child) {
           return;

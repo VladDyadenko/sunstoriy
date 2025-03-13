@@ -41,7 +41,6 @@ function UploadFiles({ setFieldValue, childFiles, arrayFile }) {
   }, [arrayFile]);
 
   const handleOpenDocument = (fileData, fileName) => {
-    console.log(fileData);
     const a = document.createElement('a');
     a.href = fileData.file; // Поменяйте fileData.file на актуальный путь к файлу
     a.download = fileName; // Имя файла для сохранения
@@ -161,8 +160,6 @@ function UploadFiles({ setFieldValue, childFiles, arrayFile }) {
                       const fileNameSubstr = preview.fileName
                         ? preview.fileName
                         : file.name;
-                      console.log(file);
-                      console.log(fileNameSubstr);
                       handleOpenDocument(file, fileNameSubstr);
                     }
                   }}

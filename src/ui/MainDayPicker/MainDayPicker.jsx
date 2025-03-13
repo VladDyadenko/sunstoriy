@@ -17,7 +17,6 @@ export default function MainDayPicker({ onClose, setCurrentDate }) {
     from: startOfCurrentWeek.valueOf(),
     to: endOfCurrentWeek.valueOf(),
   });
-  console.log(range);
   const defaultFooter = (
     <PickerFooter>
       {format(startOfCurrentWeek, 'dd.MM.yyyy')} –

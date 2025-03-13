@@ -5,6 +5,7 @@ import { PrivateRoute } from 'route/PrivateRoute';
 import { AdminRoute } from 'route/AdminRoute';
 import RestrictedRoute from 'route/RestrictedRoute';
 import { currentThunk } from 'redux/auth/authOperetion';
+import GoogleAuthCallback from 'components/Auth/GoogleAuth/GoogleAuthCallback';
 
 import MainLayout from './layouts/MainLayout/MainLayout';
 import WelcomePage from 'page/WelcomePage/WelcomePage';
@@ -59,6 +60,10 @@ function App() {
         <Route
           path="/auth/:id"
           element={<RestrictedRoute component={<AuthPage />} />}
+        />
+        <Route
+          path="/auth/success-google"
+          element={<RestrictedRoute component={<GoogleAuthCallback />} />}
         />
         <Route path="/" element={<PrivateRoute component={<MainLayout />} />}>
           <Route path="/main" element={<MainPage />} />

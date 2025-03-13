@@ -10,6 +10,7 @@ export const initialValuesRegister = {
   name: '',
   email: '',
   password: '',
+  passwordRepeat: '',
 };
 export const schemaRegister = yup.object().shape({
   name: yup
@@ -33,6 +34,10 @@ export const schemaRegister = yup.object().shape({
       return passwordRegexp.test(value);
     })
     .required(),
+  passwordRepeat: yup
+    .string()
+    .required()
+    .oneOf([yup.ref('password')], 'Паролі повинні збігатися'),
 });
 
 export const initialValuesSignIn = {

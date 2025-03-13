@@ -7,7 +7,6 @@ export const fetchExpenses = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const { expenses } = await axios.get('/expense');
-      console.log(expenses);
       return expenses;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);

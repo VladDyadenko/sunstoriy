@@ -19,22 +19,24 @@ import {
   UserIconContainer,
   UserNameIcon,
 } from './UserProfile.stiled';
+import { useNavigate } from 'react-router-dom';
 
 function UserProfile({ onClose }) {
+  const navigate = useNavigate();
   const user = useSelector(selectAuthUser);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     setState({
-      name: user.name,
-      avatar: user.avatarUrl,
+      name: user?.name,
+      avatar: user?.avatarUrl,
     });
   }, [user]);
 
   const [state, setState] = useState({
-    name: user.name,
-    avatar: user.avatarUrl,
+    name: user?.name,
+    avatar: user?.avatarUrl,
   });
 
   const avatarURL =
@@ -70,6 +72,13 @@ function UserProfile({ onClose }) {
       return;
     });
   };
+
+  const handleLogout = async () => {
+    await dispatch(logoutThunk());
+    onClose();
+    navigate('/login');
+  };
+
   return (
     <>
       <form
@@ -97,7 +106,7 @@ function UserProfile({ onClose }) {
             type="text"
             name="name"
             id="name"
-            value={state.name}
+            value={state?.name}
             onChange={handleChange}
           />
           <EditIconContainer>
@@ -108,9 +117,6 @@ function UserProfile({ onClose }) {
         <ModalSaveButton type="submit">Зберегти зміни</ModalSaveButton>
       </form>
 
-      {/* <ModalLogOutButton type="button" onClick={() => dispatch(logoutThunk())}>
-        Вийти з програми
-      </ModalLogOutButton> */}
       <Popconfirm
         title="Вийти"
         description="Ви впевнені, що хочете вийти з програми?"
@@ -122,7 +128,7 @@ function UserProfile({ onClose }) {
           />
         }
         onCancel={() => onClose()}
-        onConfirm={() => dispatch(logoutThunk())}
+        onConfirm={handleLogout}
       >
         <ModalLogOutButton primary="true">Вийти з програми</ModalLogOutButton>
       </Popconfirm>

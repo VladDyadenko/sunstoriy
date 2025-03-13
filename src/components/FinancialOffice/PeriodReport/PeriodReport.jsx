@@ -6,10 +6,6 @@ import {
 } from './PeriodReport.styled';
 
 const ReportCurrentMonth = ({ indicatorsCurrentMonth, loading }) => {
-  console.log(
-    '🚀 ~ ReportCurrentMonth ~ indicatorsCurrentMonth:',
-    indicatorsCurrentMonth
-  );
   const {
     profit = {},
     expense = {},

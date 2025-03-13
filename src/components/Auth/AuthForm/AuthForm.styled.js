@@ -102,3 +102,18 @@ export const StyledNavLink = styled(NavLink)`
     animation: easeOut;
   }
 `;
+
+export const BtnGoogle = styled.button`
+  width: 100%;
+  padding: 13px;
+  background: #4285f4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+
+  &:hover {
+    background: #357abd;
+  }
+`;

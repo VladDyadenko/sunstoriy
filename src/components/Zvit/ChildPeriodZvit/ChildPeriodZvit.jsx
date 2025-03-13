@@ -22,6 +22,10 @@ const ChildPeriodZvit = ({
   const [selectedLessonData, setSelectedLessonData] = useState('');
   const [selectedChildData, setSelectedChildData] = useState(null);
 
+  const onClose = () => {
+    setOpenPaymentDrawer(false);
+  };
+
   const totalPrice = selectedChildData?.details.reduce(
     (acm, item) => acm + (item.price ? item.price : 0),
     0
@@ -221,6 +225,7 @@ const ChildPeriodZvit = ({
       </Drawer>
       <Drawer
         open={openPaymentDrawer}
+        onClose={onClose}
         title="Внесення оплати за заняття"
         placement="right"
         width={460}

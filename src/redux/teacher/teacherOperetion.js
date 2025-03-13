@@ -42,7 +42,6 @@ export const addTeacher = createAsyncThunk(
           formData.append(key, value);
         } else if (Array.isArray(value)) {
           for (const file of value) {
-            console.log(file);
             formData.append(key, file, file.name);
           }
         } else if (value !== '') {
@@ -84,7 +83,6 @@ export const updateTeacher = createAsyncThunk(
           formData.append(key, value);
         } else if (Array.isArray(value)) {
           for (const file of value) {
-            console.log(file);
             formData.append(key, file, file.name);
           }
         } else if (value !== '') {

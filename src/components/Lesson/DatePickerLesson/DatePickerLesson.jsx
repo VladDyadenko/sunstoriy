@@ -77,7 +77,6 @@ const DatePickerLesson = ({
         const dayOfWeek = parseInt(day);
         const dates = getDatesByDayOfWeek(startDate, endDate, dayOfWeek);
         const date = dates.map(date => date.valueOf());
-        console.log('date_in', date);
 
         setDateCurrentLesson(date);
         setFieldValue('dateLesson', date);
