@@ -51,17 +51,17 @@ export const ButtonChoseDate = styled.button`
   font-weight: 500;
   font-size: 14px;
   border-radius: 8px;
-  color: var(--main-dark-blue);
-  background: var(--header-main-color);
-  border: 1px solid var(--main-dark-blue);
+  background: var(--main-dark-blue);
+  color: var(--header-main-color);
+  border: 1px solid transparent;
 
   cursor: pointer;
   transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 
   &:hover {
-    background: var(--main-dark-blue);
-    color: var(--header-main-color);
-    border: 1px solid transparent;
+    color: var(--main-dark-blue);
+    background: var(--header-main-color);
+    border: 1px solid var(--main-dark-blue);
   }
 `;
 export const IconBtn = styled(BsDownload)`

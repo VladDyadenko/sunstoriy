@@ -12,7 +12,7 @@ import {
 import { getDates, handleDateChange } from './GetDateFunction';
 import { localStorageHelper } from 'helpers/helperLocalStorage';
 import ButtonLoader from 'ui/ButtonLoader/ButtonLoader';
-import { selectOfficesLoading } from 'redux/offices/officesSelector';
+import { selectOfficesOperetion } from 'redux/offices/officesSelector';
 const { Option } = Select;
 
 const SelectDate = ({
@@ -28,7 +28,7 @@ const SelectDate = ({
   office,
 }) => {
   const [day, setDay] = useState('1');
-  const operetion = useSelector(selectOfficesLoading);
+  const operetion = useSelector(selectOfficesOperetion);
   const handleChange = (date, dateString) => {
     handleDateChange(date, dateString, setLessonDates, day, type, pageName);
   };
@@ -99,7 +99,7 @@ const SelectDate = ({
         </DescrContainer>
       ) : null}
       <ButtonChoseDate type="button" onClick={handleChosePeriod}>
-        {operetion === 'choseLesson' ? (
+        {operetion === 'choseLesson' || operetion === 'allLessons' ? (
           <ButtonLoader height="22" width="50" />
         ) : (
           <>

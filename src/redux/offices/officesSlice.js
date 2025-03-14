@@ -13,6 +13,7 @@ const initialState = {
   lessonsMassage: [],
   lessonsDiagnostika: [],
   preschoolInclusion: [],
+  allLessons: [], // Додано новий стан для всіх уроків
   isloading: false,
   marker: null,
   operetion: null,
@@ -27,6 +28,7 @@ const officeMap = {
   Реабілітолог: 'lessonsMassage',
   Діагностика: 'lessonsDiagnostika',
 };
+
 const officesSlice = createSlice({
   name: 'offices',
   initialState,
@@ -35,21 +37,32 @@ const officesSlice = createSlice({
     builder
       .addCase(selectedLessonsByDateTeacher.pending, (state, { meta }) => {
         state.isloading = true;
-        state.operetion = meta.arg.offices;
+        if (meta.arg.offices?.length > 1) {
+          state.operetion = 'allLessons';
+        }
+        state.operetion = 'choseLesson';
       })
-      .addCase(selectedLessonsByDateTeacher.fulfilled, (state, { payload }) => {
-        state.isloading = false;
-        state.operetion = null;
-        state.error = null;
+      .addCase(
+        selectedLessonsByDateTeacher.fulfilled,
+        (state, { payload, meta }) => {
+          state.isloading = false;
+          state.operetion = null;
+          state.error = null;
 
-        if (payload && payload.length > 0) {
-          const office = payload[0].office;
-          const stateKey = officeMap[office];
-          if (stateKey) {
-            state[stateKey] = payload;
+          if (payload && payload.length > 0) {
+            const offices = meta.arg.offices;
+            if (offices?.length > 1) {
+              state.allLessons = payload;
+            } else {
+              const office = payload[0].office;
+              const stateKey = officeMap[office];
+              if (stateKey) {
+                state[stateKey] = payload;
+              }
+            }
           }
         }
-      })
+      )
       .addCase(selectedLessonsByDateTeacher.rejected, (state, action) => {
         state.isloading = false;
         state.operetion = null;

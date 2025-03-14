@@ -164,7 +164,7 @@ export const LessonContainer = styled.li`
 `;
 export const LessonFreeContainer = styled.li`
   cursor: pointer;
-  width: 230px;
+  width: 300px;
   height: 100%;
   flex-direction: column;
   border-radius: 8px;
@@ -179,6 +179,6 @@ export const LessonFreeContainer = styled.li`
   }
 
   @media (min-width: 768px) {
-    width: 250px;
+    width: 300px;
   }
 `;

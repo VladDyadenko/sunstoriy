@@ -2,11 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { Collapse } from 'antd';
-import {
-  selectChoseLessons,
-  selectLessonOperetion,
-} from 'redux/Lesson/lessonSelector';
-import { choseLessonGraph } from 'redux/Lesson/lessonOperetion';
+import { selectLessonOperetion } from 'redux/Lesson/lessonSelector';
 import {
   BtnContainer,
   ButtonSelectPeriod,
@@ -16,6 +12,8 @@ import {
 import OfficeScheduleOnDay from '../OfficeScheduleOnDay/OfficeScheduleOnDay';
 import ChooseDataLessons from '../ChooseDataLessons/ChooseDataLessons';
 import ButtonLoader from 'ui/ButtonLoader/ButtonLoader';
+import { selectedLessonsByDateTeacher } from 'redux/offices/officesOperetion';
+import { selectAllLessons } from 'redux/offices/officesSelector';
 
 const ChoseLessonContainer = ({
   dateCurrentLesson,
@@ -25,7 +23,7 @@ const ChoseLessonContainer = ({
 }) => {
   const [lessons, setLessons] = useState([]);
   const [lessonDates, setLessonDates] = useState([]);
-  const choseLessons = useSelector(selectChoseLessons);
+  const choseLessons = useSelector(selectAllLessons);
   const operetion = useSelector(selectLessonOperetion);
 
   const dispatch = useDispatch();
@@ -52,7 +50,7 @@ const ChoseLessonContainer = ({
 
   const handleChosePeriod = e => {
     const data = { offices, dateCurrentLesson };
-    dispatch(choseLessonGraph(data));
+    dispatch(selectedLessonsByDateTeacher(data));
   };
 
   return (
@@ -63,8 +61,8 @@ const ChoseLessonContainer = ({
           currentDefaultOffice={defaultOffices}
         />
         <ButtonSelectPeriod type="button" onClick={handleChosePeriod}>
-          {operetion === 'choseLesson' ? ( <ButtonLoader height="16" width="50" />
-       
+          {operetion === 'allLessons' ? (
+            <ButtonLoader height="16" width="50" />
           ) : (
             <>
               <IconBtn />

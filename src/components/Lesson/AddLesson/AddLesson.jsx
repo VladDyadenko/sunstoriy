@@ -61,7 +61,8 @@ const AddLesson = ({ lesson, pathname }) => {
     if (timeFreeLesson && dateFreeLesson) {
       updateLessonField('timeLesson', timeFreeLesson);
       updateLessonField('dateLesson', dateFreeLesson);
-      updateLessonField('office', officeFreeLesson);
+      updateLessonField('offices', officeFreeLesson);
+      setTypeLesson(officeFreeLesson);
     }
     const today = dayjs().format('YYYY-MM-DD');
     const selectedDate = new Date(today);
@@ -82,6 +83,7 @@ const AddLesson = ({ lesson, pathname }) => {
         teacher: lessonCopy.teacher,
         teacherColor: lessonCopy.teacherColor,
       }));
+      setTypeLesson(lessonCopy.office);
     }
 
     // Режим перегляду
@@ -95,7 +97,7 @@ const AddLesson = ({ lesson, pathname }) => {
   useEffect(() => {
     if (lesson) {
       setLessonData({
-        office: lesson.office || 'Сенсорна',
+        office: lesson.office || '',
         child: lesson.child || '',
         childName: lesson.childName || '',
         childSurname: lesson.childSurname || '',
@@ -111,6 +113,7 @@ const AddLesson = ({ lesson, pathname }) => {
         dateLesson: lesson.dateLesson || null,
         timeLesson: lesson.timeLesson || '',
       });
+      setTypeLesson(lesson.office);
     }
   }, [lesson]);
 

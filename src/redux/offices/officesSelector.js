@@ -5,6 +5,7 @@ export const selectLessonsPreschoolInclusion = state =>
   state.offices.preschoolInclusion;
 export const selectLessonsLogoped = state => state.offices.lessonsLogoped;
 export const selectLessonsMassage = state => state.offices.lessonsMassage;
+export const selectAllLessons = state => state.offices.allLessons;
 export const selectLessonsDiagnostika = state =>
   state.offices.lessonsDiagnostika;
 export const selectOfficesOperetion = state => state.offices.operetion;

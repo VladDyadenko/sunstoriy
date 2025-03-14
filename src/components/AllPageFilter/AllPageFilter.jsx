@@ -1,10 +1,12 @@
-import { memo, useEffect, useState } from 'react';
+import { memo, useState } from 'react';
 import { ContainerDataOffices } from './AllPageFilter.styled';
 import ChooseDataLessons from 'components/ChoseLessonData/ChooseDataLessons/ChooseDataLessons';
 import FilterLesson from 'components/FilterLesson/FilterLesson';
 import SelectDate from 'components/FilterLesson/SelectDate/SelectDate';
 import { useDispatch } from 'react-redux';
-import { choseLessonGraph } from 'redux/Lesson/lessonOperetion';
+import { useUniqueTeacher } from 'hooks/useUniqueTeacher';
+import { useFilteredLessonsTeachers } from 'hooks/useFilteredLessonsTeachers';
+import { selectedLessonsByDateTeacher } from 'redux/offices/officesOperetion';
 
 const AllPageFilter = ({
   choseLessons,
@@ -12,7 +14,6 @@ const AllPageFilter = ({
   setOffices,
   dateCurrentLesson,
   setLessonDates,
-  lessons,
   setLessons,
 }) => {
   const [type, setType] = useState('Одне заняття');
@@ -21,27 +22,31 @@ const AllPageFilter = ({
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const uniqueTeachers = Array.from(
-      new Set(
-        choseLessons?.map(
-          lesson => `${lesson.teacherName} ${lesson.teacherSurname}`
-        )
-      )
-    );
-    setTeachers(uniqueTeachers);
+  useUniqueTeacher(choseLessons, setTeachers);
 
-    if (choseLessons && teacher && teacher.length > 0) {
-      const filteredLessons = choseLessons?.filter(lesson => {
-        const teacherFullName = `${lesson.teacherName} ${lesson.teacherSurname}`;
-        return teacher.includes(teacherFullName);
-      });
+  useFilteredLessonsTeachers(choseLessons, setLessons, teacher);
 
-      setLessons(filteredLessons);
-    } else {
-      setLessons(choseLessons);
-    }
-  }, [choseLessons, setLessons, teacher]);
+  // useEffect(() => {
+  //   const uniqueTeachers = Array.from(
+  //     new Set(
+  //       choseLessons?.map(
+  //         lesson => `${lesson.teacherName} ${lesson.teacherSurname}`
+  //       )
+  //     )
+  //   );
+  //   setTeachers(uniqueTeachers);
+
+  //   if (choseLessons && teacher && teacher.length > 0) {
+  //     const filteredLessons = choseLessons?.filter(lesson => {
+  //       const teacherFullName = `${lesson.teacherName} ${lesson.teacherSurname}`;
+  //       return teacher.includes(teacherFullName);
+  //     });
+
+  //     setLessons(filteredLessons);
+  //   } else {
+  //     setLessons(choseLessons);
+  //   }
+  // }, [choseLessons, setLessons, teacher]);
 
   const items = [
     {
@@ -58,9 +63,12 @@ const AllPageFilter = ({
             teachers={teachers}
             teacher={teacher}
             setTeacher={setTeacher}
-            onLessonsChange={dateCurrentLesson =>
-              dispatch(choseLessonGraph({ offices, dateCurrentLesson }))
-            }
+            onLessonsChange={choesData => {
+              const { dateCurrentLesson } = choesData;
+              return dispatch(
+                selectedLessonsByDateTeacher({ offices, dateCurrentLesson })
+              );
+            }}
           />
           <ContainerDataOffices>
             <ChooseDataLessons

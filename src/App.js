@@ -11,6 +11,7 @@ import MainLayout from './layouts/MainLayout/MainLayout';
 import WelcomePage from 'page/WelcomePage/WelcomePage';
 import AuthPage from 'page/AuthPage/AuthPage';
 import AllLessonsPage from 'page/AllLessonsPage/AllLessonsPage';
+import SchedulePage from 'page/SchedulePage/SchedulePage';
 
 const SensornayaPage = lazy(() => import('page/SensornayaPage/SensornayaPage'));
 const MassagePage = lazy(() => import('page/MassagePage/MassagePage'));
@@ -76,6 +77,7 @@ function App() {
             element={<PreschoolInclusionPage />}
           />
           <Route path="/logoped" element={<LogopedPage />} />
+          <Route path="/shedule" element={<SchedulePage />} />
           <Route path="/massage" element={<MassagePage />} />
           <Route path="/diagnostika" element={<DiagnostikaPage />} />
           <Route path="/correction" element={<CorrectionPage />} />
