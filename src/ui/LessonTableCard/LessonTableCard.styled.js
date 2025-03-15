@@ -60,7 +60,7 @@ export const InfoTeacher = styled.p`
   text-align: left;
   white-space: nowrap;
   font-family: 'RobotoSlab';
-  font-weight: 500;
+  font-weight: 700;
   font-size: 13px;
   line-height: 1.05;
   letter-spacing: 0.1rem;
@@ -79,7 +79,7 @@ export const InfoChild = styled.p`
   white-space: nowrap;
   text-align: left;
   font-family: 'RobotoSlab';
-  font-weight: 500;
+  font-weight: 800;
   line-height: 1.05;
   font-size: 13px;
   letter-spacing: 0.1rem;

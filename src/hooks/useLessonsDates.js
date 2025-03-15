@@ -1,24 +1,16 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
 import { localStorageHelper } from 'helpers/helperLocalStorage';
 import { getDates } from 'components/FilterLesson/SelectDate/GetDateFunction';
 
-export const useLessonsDates = (
-  storadeOfficeKey,
-  setLessonDates,
-  reqMethodOffice,
-  offices
-) => {
-  const dispatch = useDispatch();
-
+export const useLessonsDates = (storadeOfficeKey, setLessonDates, offices) => {
   useEffect(() => {
     const storedDate = localStorageHelper.getData(storadeOfficeKey);
 
     if (storedDate && offices.length > 0) {
-      const choesData = { offices, dateCurrentLesson: storedDate };
+      // const choesData = { offices, dateCurrentLesson: storedDate };
       setLessonDates(storedDate);
-      dispatch(reqMethodOffice(choesData));
+      // dispatch(reqMethodOffice(choesData));
     } else {
       const startDateFormat = dayjs().startOf('week').format('YYYY-MM-DD');
       const endDateFormat = dayjs().endOf('week').format('YYYY-MM-DD');
@@ -31,11 +23,11 @@ export const useLessonsDates = (
       const initialDateValues = initialDates?.map(date => date.valueOf());
       setLessonDates(initialDateValues);
       localStorageHelper.setData(storadeOfficeKey, initialDateValues);
-      if (initialDateValues.length > 0 && offices.length > 0) {
-        const choesData = { offices, dateCurrentLesson: initialDateValues };
-        dispatch(reqMethodOffice(choesData));
-      }
+      // if (initialDateValues.length > 0 && offices.length > 0) {
+      //   const choesData = { offices, dateCurrentLesson: initialDateValues };
+      //   dispatch(reqMethodOffice(choesData));
+      // }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reqMethodOffice, setLessonDates]);
+  }, [setLessonDates]);
 };

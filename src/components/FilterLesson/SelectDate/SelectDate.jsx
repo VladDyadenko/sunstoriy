@@ -1,5 +1,4 @@
-import dayjs from 'dayjs';
-import { useEffect, useState, memo } from 'react';
+import { useState, memo } from 'react';
 import { useSelector } from 'react-redux';
 import { Select } from 'antd';
 import PickerWithTypeLesson from 'ui/PickerWithTypeLesson/PickerWithTypeLesson';
@@ -9,8 +8,7 @@ import {
   IconBtn,
   Wrapper,
 } from './SelectDate.styled';
-import { getDates, handleDateChange } from './GetDateFunction';
-import { localStorageHelper } from 'helpers/helperLocalStorage';
+import { handleDateChange } from './GetDateFunction';
 import ButtonLoader from 'ui/ButtonLoader/ButtonLoader';
 import { selectOfficesOperetion } from 'redux/offices/officesSelector';
 const { Option } = Select;
@@ -33,27 +31,27 @@ const SelectDate = ({
     handleDateChange(date, dateString, setLessonDates, day, type, pageName);
   };
 
-  useEffect(() => {
-    if (type === 'Період' || type === 'Період та день тижня') {
-      const startDate = dayjs(dateCurrentLesson[0]).toDate();
-      const endDate = dayjs(
-        dateCurrentLesson[dateCurrentLesson.length - 1]
-      ).toDate();
-      const dayOfWeek = parseInt(day);
-      const dates = getDates(startDate, endDate, dayOfWeek, type);
-      const date = dates?.map(date => date.valueOf());
+  // useEffect(() => {
+  //   if (type === 'Період' || type === 'Період та день тижня') {
+  //     const startDate = dayjs(dateCurrentLesson[0]).toDate();
+  //     const endDate = dayjs(
+  //       dateCurrentLesson[dateCurrentLesson.length - 1]
+  //     ).toDate();
+  //     const dayOfWeek = parseInt(day);
+  //     const dates = getDates(startDate, endDate, dayOfWeek, type);
+  //     const date = dates?.map(date => date.valueOf());
 
-      if (date?.length > 0) {
-        const choesData = {
-          offices: [office],
-          dateCurrentLesson: date,
-        };
-        onLessonsChange(choesData);
-        localStorageHelper.setData(pageName, date);
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [day, dateCurrentLesson]);
+  //     if (date?.length > 0) {
+  //       const choesData = {
+  //         offices: [office],
+  //         dateCurrentLesson: date,
+  //       };
+  //       onLessonsChange(choesData);
+  //       localStorageHelper.setData(pageName, date);
+  //     }
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [day, dateCurrentLesson]);
 
   const handleChosePeriod = () => {
     const choesData = {
