@@ -39,52 +39,27 @@ const UploadFiles = ({
 
   useEffect(() => {
     if (arrayFile) {
-      // Изменяем обработку входящих данных
       const formattedFiles = Array.isArray(arrayFile)
         ? arrayFile.map(file => {
-            // Проверяем различные варианты структуры файла
             if (typeof file === 'string') {
-              return { name: file, path: file };
+              return { name: file, path: file, type: 'unknown' };
             }
-            // Если это объект, извлекаем нужные поля
             return {
-              name: file.filename || file.originalname || file.name || file,
-              path: file.path || file,
-              type: file.mimetype || file.type,
+              name: String(
+                file.filename || file.originalname || file.name || file
+              ),
+              path: String(file.path || file),
+              type: String(file.mimetype || file.type || 'unknown'),
             };
           })
         : typeof arrayFile === 'string'
-        ? [{ name: arrayFile, path: arrayFile }]
+        ? [{ name: arrayFile, path: arrayFile, type: 'unknown' }]
         : [];
 
       setFiles(formattedFiles);
-      setFieldValue('childFiles', formattedFiles);
+      setFieldValue('childFiles', JSON.parse(JSON.stringify(formattedFiles)));
     }
   }, [arrayFile, setFieldValue]);
-
-  // const handleFileChange = async e => {
-  //   const selectedFiles = Array.from(e.target.files);
-  //   const validFiles = selectedFiles.filter(
-  //     file =>
-  //       file.type === 'application/pdf' ||
-  //       file.type === 'text/plain' ||
-  //       file.type ===
-  //         'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-  //   );
-
-  //   for (const file of validFiles) {
-  //     const result = await dispatch(uploadFile({ file, childId }));
-  //     if (result.payload) {
-  //       const newFile = {
-  //         name: result.payload.filename,
-  //         path: result.payload.path,
-  //         type: result.payload.mimetype,
-  //       };
-  //       setFiles(prev => [...prev, newFile]);
-  //       setFieldValue('childFiles', [...childFiles, newFile]);
-  //     }
-  //   }
-  // };
 
   const handleFileClick = async file => {
     if (!file) return;
@@ -130,12 +105,15 @@ const UploadFiles = ({
             const result = await dispatch(uploadFile({ file, childId }));
             if (result.payload) {
               const newFile = {
-                name: result.payload.filename,
-                path: result.payload.path,
-                type: result.payload.mimetype,
+                name: String(result.payload.filename),
+                path: String(result.payload.path),
+                type: String(result.payload.mimetype || 'unknown'),
               };
               setFiles(prev => [...prev, newFile]);
-              setFieldValue('childFiles', [...childFiles, newFile]);
+              setFieldValue('childFiles', [
+                ...childFiles,
+                JSON.parse(JSON.stringify(newFile)),
+              ]);
               onSuccess();
             } else {
               onError(new Error('Upload failed'));
