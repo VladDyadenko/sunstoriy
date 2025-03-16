@@ -3,14 +3,12 @@ import { sendSms } from 'redux/sms/smsOperetion';
 import { SendSmsBtn } from './SendSms.styled';
 import { Popconfirm } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
-import {
-  formatDate,
-  formatTime,
-  transliterate,
-} from 'assets/constants/ConvertToCyrillica';
 import { smsOperetion } from 'redux/sms/smsSelector';
 import { useEffect, useState } from 'react';
 import ButtonLoader from 'ui/ButtonLoader/ButtonLoader';
+import { transliterate } from 'utils/Transliterate';
+import { formatDate } from 'utils/formatDate';
+import { formatTime } from 'utils/formatTime';
 
 const SendSms = ({ lesson }) => {
   const dispatch = useDispatch();

@@ -13,7 +13,7 @@ import {
   DayContainer,
   MainTableContainer,
 } from './MainTable.styled';
-import { formatDateRange, formatDay } from 'assets/constants/transformation';
+import { formatDateRange, formatDay } from 'utils/dateTransform';
 
 function MainTable({ lessons, onLessonsDelete, office }) {
   const [uniquTime, setUniquTime] = useState(null);

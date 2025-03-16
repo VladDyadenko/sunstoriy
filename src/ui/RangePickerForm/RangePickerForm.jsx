@@ -3,7 +3,7 @@ import React from 'react';
 import dayjs from 'dayjs';
 import locale from 'antd/es/date-picker/locale/uk_UA';
 import 'dayjs/locale/uk';
-import { funFormattedDate } from 'assets/constants/transformation';
+import { funFormattedDate } from 'utils/dateTransform';
 
 const { RangePicker } = DatePicker;
 

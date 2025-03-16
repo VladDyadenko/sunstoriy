@@ -17,10 +17,10 @@ import {
   TimeLessonWrapper,
   TimeOneLesson,
 } from './OfficeScheduleOnDay.styled';
-import { formatTimeRange } from 'assets/constants/transformation';
 import LessonTableCard from 'ui/LessonTableCard/LessonTableCard';
 import FreeTableItem from 'ui/FreeTableItem/FreeTableItem';
 import { deleteLessonById } from 'redux/Lesson/lessonOperetion';
+import { formatTimeRange } from 'utils/dateTransform';
 
 const extractTimeFromISOString = dateTimeString => {
   const timeString = new Date(dateTimeString).toLocaleTimeString('en-US', {

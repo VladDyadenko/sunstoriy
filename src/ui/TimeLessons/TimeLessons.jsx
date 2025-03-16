@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { formatTimeRange } from 'assets/constants/transformation';
 import {
   AddLessonLink,
   IconAddLessonLink,
@@ -7,6 +6,7 @@ import {
   TimeContainer,
   TimeItem,
 } from './TimeLessons.stayled';
+import { formatTimeRange } from 'utils/dateTransform';
 
 function TimeLessons({ timeLessonOnList, officeName }) {
   const infoOffice = JSON.stringify({ office: officeName });

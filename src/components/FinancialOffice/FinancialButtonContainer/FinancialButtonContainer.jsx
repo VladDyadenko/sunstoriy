@@ -18,7 +18,6 @@ import {
   createZvitSelectedPeriod,
   getZvitChildrensPeriod,
 } from 'redux/zvit/zvitOperetion';
-import { formatDateTitle } from 'assets/constants/reusableFunctions';
 import { getSalarisByDate } from 'redux/salary/salaryOperetion';
 import SalarisForm from 'components/SalarisForm/SalarisForm';
 import { selectSalaryLoading } from 'redux/salary/salarySelector';
@@ -27,6 +26,7 @@ import { selectExpenseLoading } from 'redux/expense/expenceSelector';
 import ZvitButtonTitle from 'ui/ZvitButtonTitle/ZvitButtonTitle';
 import RangePickerForm from 'ui/RangePickerForm/RangePickerForm';
 import ButtonLoader from 'ui/ButtonLoader/ButtonLoader';
+import { formatDateTitle } from 'utils/formatDateTitle';
 
 const FinancialButtonContainer = ({
   dayOrePariod,

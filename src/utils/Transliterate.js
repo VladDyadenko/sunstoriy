@@ -1,4 +1,3 @@
-/* eslint-disable no-dupe-keys */
 export function transliterate(text) {
   const cyrillicMap = {
     а: 'a',
@@ -72,6 +71,7 @@ export function transliterate(text) {
     є: 'e',
     Є: 'Ye',
     ь: "'",
+    // eslint-disable-next-line no-dupe-keys
     ь: "'",
     Ъ: "'",
   };
@@ -80,30 +80,4 @@ export function transliterate(text) {
     .split('')
     .map(char => cyrillicMap[char] || char)
     .join('');
-}
-
-export function formatDate(isoDate) {
-  const date = new Date(isoDate);
-  const day = date.getDate();
-  const month = date.getMonth() + 1;
-  const year = date.getFullYear();
-
-  const formattedDay = day < 10 ? '0' + day : day;
-  const formattedMonth = month < 10 ? '0' + month : month;
-
-  return `${formattedDay}/${formattedMonth}/${year}`;
-}
-
-export function formatTime(isoDate) {
-  const date = new Date(isoDate);
-
-  date.setHours(date.getHours());
-
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-
-  const formattedHours = hours < 10 ? '0' + hours : hours;
-  const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
-
-  return `${formattedHours}:${formattedMinutes}`;
 }
