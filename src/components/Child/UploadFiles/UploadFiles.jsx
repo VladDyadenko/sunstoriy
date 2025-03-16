@@ -62,29 +62,29 @@ const UploadFiles = ({
     }
   }, [arrayFile, setFieldValue]);
 
-  const handleFileChange = async e => {
-    const selectedFiles = Array.from(e.target.files);
-    const validFiles = selectedFiles.filter(
-      file =>
-        file.type === 'application/pdf' ||
-        file.type === 'text/plain' ||
-        file.type ===
-          'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-    );
+  // const handleFileChange = async e => {
+  //   const selectedFiles = Array.from(e.target.files);
+  //   const validFiles = selectedFiles.filter(
+  //     file =>
+  //       file.type === 'application/pdf' ||
+  //       file.type === 'text/plain' ||
+  //       file.type ===
+  //         'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+  //   );
 
-    for (const file of validFiles) {
-      const result = await dispatch(uploadFile({ file, childId }));
-      if (result.payload) {
-        const newFile = {
-          name: result.payload.filename,
-          path: result.payload.path,
-          type: result.payload.mimetype,
-        };
-        setFiles(prev => [...prev, newFile]);
-        setFieldValue('childFiles', [...childFiles, newFile]);
-      }
-    }
-  };
+  //   for (const file of validFiles) {
+  //     const result = await dispatch(uploadFile({ file, childId }));
+  //     if (result.payload) {
+  //       const newFile = {
+  //         name: result.payload.filename,
+  //         path: result.payload.path,
+  //         type: result.payload.mimetype,
+  //       };
+  //       setFiles(prev => [...prev, newFile]);
+  //       setFieldValue('childFiles', [...childFiles, newFile]);
+  //     }
+  //   }
+  // };
 
   const handleFileClick = async file => {
     if (!file) return;
