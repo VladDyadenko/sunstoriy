@@ -123,3 +123,79 @@ export const deleteChildById = createAsyncThunk(
     }
   }
 );
+
+export const downloadFile = createAsyncThunk(
+  'child/downloadFile',
+  async (fileName, thunkAPI) => {
+    try {
+      // Добавляем обработку кодировки имени файла
+      const encodedFileName = encodeURIComponent(fileName);
+      const response = await axios.get(`/child/files/${encodedFileName}`, {
+        responseType: 'blob',
+      });
+
+      const contentType = response.headers['content-type'];
+      const blob = new Blob([response.data], { type: contentType });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', fileName);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+      return { success: true, fileName };
+    } catch (err) {
+      if (err) {
+        Notify.failure('Помилка завантаження файлу');
+      }
+      return thunkAPI.rejectWithValue(err.message);
+    }
+  }
+);
+
+export const uploadFile = createAsyncThunk(
+  'child/uploadFile',
+  async ({ file, childId }, thunkAPI) => {
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const { data } = await axios.post(
+        `/child/files/upload/${childId}`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+
+      if (data) {
+        Notify.success('Файл успішно завантажено');
+      }
+      return data;
+    } catch (err) {
+      if (err) {
+        Notify.failure('Помилка завантаження файлу');
+      }
+      return thunkAPI.rejectWithValue(err.message);
+    }
+  }
+);
+
+export const deleteFile = createAsyncThunk(
+  'child/deleteFile',
+  async ({ fileName, childId }, thunkAPI) => {
+    try {
+      await axios.delete(`/child/files/${fileName}/${childId}`);
+      Notify.success('Файл успішно видалено');
+      return fileName;
+    } catch (err) {
+      if (err) {
+        Notify.failure('Помилка видалення файлу');
+      }
+      return thunkAPI.rejectWithValue(err.message);
+    }
+  }
+);

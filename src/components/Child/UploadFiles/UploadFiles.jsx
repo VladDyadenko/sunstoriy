@@ -1,188 +1,207 @@
-import { useEffect, useRef, useState } from 'react';
-import { ChildImage } from '../ChildUpdateFile/ChildUpdateFile.styled';
-import { Modal } from 'antd';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
-  ButtonUpdateFile,
-  DeleteDocButton,
-  DocContainer,
-  FileName,
-  IconDelete,
-  IconDoc,
-  IconDocAdd,
-  PreviewBlock,
-  PreviewImageContainer,
+  downloadFile,
+  uploadFile,
+  deleteFile,
+} from 'redux/child/childOperetion';
+import {
   UploadTitle,
+  PreviewBlock,
+  DeleteDocButton,
+  IconDelete,
+  DocContainer,
+  IconDoc,
+  FileName,
+  FileInput,
 } from './UploadFiles.styled';
-import { decodeUTF8 } from '../decodeUTF8';
+import { Popconfirm } from 'antd';
+import { QuestionCircleOutlined } from '@ant-design/icons';
+import { selectChildrenOperetion } from 'redux/child/childSelector';
+import { CirclesWithBar } from 'react-loader-spinner';
+import { useLocation } from 'react-router-dom';
 
-function UploadFiles({ setFieldValue, childFiles, arrayFile }) {
-  const fileRef = useRef(null);
+const UploadFiles = ({
+  arrayFile,
+  childFiles = [],
+  setFieldValue,
+  childId,
+}) => {
+  const [files, setFiles] = useState([]);
+  const [loadingFile, setLoadingFile] = useState(null);
+  const dispatch = useDispatch();
 
-  const [previews, setPreviews] = useState(arrayFile);
-  const [imagePreview, setImagePreview] = useState(null);
-  const [previewOpen, setPreviewOpen] = useState(false);
+  const operetion = useSelector(selectChildrenOperetion);
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+
+  const source = searchParams.get('source');
 
   useEffect(() => {
-    const formattedPreviews = arrayFile.map(fileName => {
-      const trimmedFileName = fileName.replace(
-        './uploads/child/childFiles-',
-        ''
-      );
+    if (arrayFile) {
+      // Изменяем обработку входящих данных
+      const formattedFiles = Array.isArray(arrayFile)
+        ? arrayFile.map(file => {
+            // Проверяем различные варианты структуры файла
+            if (typeof file === 'string') {
+              return { name: file, path: file };
+            }
+            // Если это объект, извлекаем нужные поля
+            return {
+              name: file.filename || file.originalname || file.name || file,
+              path: file.path || file,
+              type: file.mimetype || file.type,
+            };
+          })
+        : typeof arrayFile === 'string'
+        ? [{ name: arrayFile, path: arrayFile }]
+        : [];
 
-      const decodedFileName = decodeUTF8(trimmedFileName);
+      setFiles(formattedFiles);
+      setFieldValue('childFiles', formattedFiles);
+    }
+  }, [arrayFile, setFieldValue]);
 
-      return {
-        file: decodedFileName,
-        fileName: decodedFileName,
-      };
-    });
+  const handleFileChange = async e => {
+    const selectedFiles = Array.from(e.target.files);
+    const validFiles = selectedFiles.filter(
+      file =>
+        file.type === 'application/pdf' ||
+        file.type === 'text/plain' ||
+        file.type ===
+          'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+    );
 
-    setPreviews(formattedPreviews);
-  }, [arrayFile]);
-
-  const handleOpenDocument = (fileData, fileName) => {
-    const a = document.createElement('a');
-    a.href = fileData.file; // Поменяйте fileData.file на актуальный путь к файлу
-    a.download = fileName; // Имя файла для сохранения
-    a.rel = 'noopener noreferrer'; // Добавьте рекомендуемые атрибуты безопасности
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-  };
-
-  const handlePreviewImage = imageSrc => {
-    setPreviewOpen(true);
-    setImagePreview(imageSrc);
-  };
-
-  const handleCancelImagePreview = () => {
-    setImagePreview(null);
-  };
-
-  const handleFileDelete = index => {
-    const newChildFiles = [...childFiles];
-    const newPreviews = [...previews];
-
-    newChildFiles.splice(index, 1); // Удаляем файл из списка childFiles
-    newPreviews.splice(index, 1); // Удаляем превью из списка previews
-
-    setFieldValue('childFiles', newChildFiles); // Обновляем состояние childFiles
-    setPreviews(newPreviews); // Обновляем состояние previews
-  };
-
-  const handleFileChange = async event => {
-    const selectedFiles = event.target.files;
-    const newFilesArray = Array.from(selectedFiles);
-
-    const newPreviews = [];
-    for (const file of newFilesArray) {
-      const reader = new FileReader();
-      await new Promise(resolve => {
-        reader.onload = () => {
-          newPreviews.push(reader.result);
-          resolve();
+    for (const file of validFiles) {
+      const result = await dispatch(uploadFile({ file, childId }));
+      if (result.payload) {
+        const newFile = {
+          name: result.payload.filename,
+          path: result.payload.path,
+          type: result.payload.mimetype,
         };
-        reader.readAsDataURL(file);
-      });
+        setFiles(prev => [...prev, newFile]);
+        setFieldValue('childFiles', [...childFiles, newFile]);
+      }
+    }
+  };
+
+  const handleFileClick = async file => {
+    if (!file) return;
+    const fileName = file.name || (typeof file === 'string' ? file : null);
+    if (fileName) {
+      setLoadingFile(fileName);
+      try {
+        await dispatch(downloadFile(fileName)).unwrap();
+      } finally {
+        setLoadingFile(null);
+      }
+    }
+  };
+
+  const handleDelete = async file => {
+    if (!file || !childId) return;
+    const fileName = file.name || (typeof file === 'string' ? file : null);
+    if (!fileName) {
+      console.error('No file name provided for deletion');
+      return;
     }
 
-    setFieldValue('childFiles', [...childFiles, ...newFilesArray]);
-    setPreviews([...previews, ...newPreviews]);
+    try {
+      await dispatch(deleteFile({ fileName, childId })).unwrap();
+      const updatedFiles = files.filter(f => (f.name || f) !== fileName);
+      setFiles(updatedFiles);
+      setFieldValue('childFiles', updatedFiles);
+    } catch (error) {
+      console.error('Error deleting file:', error);
+    }
   };
 
   return (
-    <>
-      <Modal
-        open={previewOpen}
-        onCancel={() => {
-          setPreviewOpen(false);
-          handleCancelImagePreview();
-        }}
-        footer={null}
-      >
-        <img
-          alt="preview"
-          style={{
-            width: '100%',
-          }}
-          src={imagePreview}
-        />
-      </Modal>
-      <input
+    <div>
+      <UploadTitle>Додати документи (PDF, TXT, DOCX):</UploadTitle>
+      <FileInput
         type="file"
-        hidden
-        ref={fileRef}
-        onChange={handleFileChange}
         multiple
-        accept=".jpg,.jpeg,.png,.pdf,.doc,.docx,.txt"
+        accept=".pdf,.txt,.docx"
+        disabled={source === 'buttonViewing'}
+        onChange={handleFileChange}
       />
-      <UploadTitle>Загрузіть сюди необхідні файли:</UploadTitle>
       <PreviewBlock>
-        {previews.length > 0 &&
-          previews.map((preview, index) => {
-            const file = childFiles[index];
-            const fileNameSubstr = preview.fileName
-              ? preview.fileName.substring(0, 10)
-              : file.name.substring(0, 10);
-            if (file && file.type && file.type.startsWith('image/')) {
-              // Если это изображение, отображаем как изображение
-              return (
-                <PreviewImageContainer
-                  key={index}
-                  onClick={() => handlePreviewImage(preview)}
-                >
-                  <ChildImage
-                    src={preview}
-                    alt={`preview-${index}`}
-                    width={95}
-                    height={95}
+        {files.map((file, index) => {
+          const fileName = file.name || file;
+          const isLoading = loadingFile === fileName;
+          return (
+            <DocContainer
+              key={index}
+              onClick={() => handleFileClick(file)}
+              title="Натисніть для завантаження"
+              style={{ position: 'relative' }}
+            >
+              {isLoading ? (
+                <CirclesWithBar
+                  height="20px"
+                  width="20px"
+                  color="#006400"
+                  wrapperStyle={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                  visible={true}
+                  ariaLabel="circles-with-bar-loading"
+                />
+              ) : (
+                <IconDoc />
+              )}
+              <FileName>{fileName}</FileName>
+              <Popconfirm
+                title="Видалити файл?"
+                description="Ви впевнені, що хочете видалити цей файл?"
+                icon={
+                  <QuestionCircleOutlined
+                    style={{
+                      color: 'red',
+                    }}
                   />
+                }
+                onConfirm={e => {
+                  e.stopPropagation();
+                  handleDelete(file);
+                }}
+              >
+                {operetion === childId ? (
+                  <CirclesWithBar
+                    height="25px"
+                    width="25px"
+                    color="#539536"
+                    wrapperStyle={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                    visible={true}
+                    ariaLabel="circles-with-bar-loading"
+                  />
+                ) : (
                   <DeleteDocButton
+                    disabled={source === 'buttonViewing'}
                     type="button"
+                    title="Видалити файл"
                     onClick={e => {
                       e.stopPropagation();
-                      handleFileDelete(index);
                     }}
                   >
                     <IconDelete />
                   </DeleteDocButton>
-                </PreviewImageContainer>
-              );
-            } else {
-              return (
-                <DocContainer
-                  key={index}
-                  onClick={e => {
-                    e.stopPropagation();
-                    const isDeleteButtonClick =
-                      e.target.classList.contains('delete-button');
-                    if (!isDeleteButtonClick) {
-                      const fileNameSubstr = preview.fileName
-                        ? preview.fileName
-                        : file.name;
-                      handleOpenDocument(file, fileNameSubstr);
-                    }
-                  }}
-                >
-                  <IconDoc />
-                  <FileName>{fileNameSubstr}...</FileName>
-                  <DeleteDocButton
-                    type="button"
-                    onClick={() => handleFileDelete(index)}
-                    className="delete-button" // Добавляем класс для кнопки удаления
-                  >
-                    <IconDelete />
-                  </DeleteDocButton>
-                </DocContainer>
-              );
-            }
-          })}
-        <ButtonUpdateFile type="button" onClick={() => fileRef.current.click()}>
-          <IconDocAdd />
-        </ButtonUpdateFile>
+                )}
+              </Popconfirm>
+            </DocContainer>
+          );
+        })}
       </PreviewBlock>
-    </>
+    </div>
   );
-}
+};
 
 export default UploadFiles;

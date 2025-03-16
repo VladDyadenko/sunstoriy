@@ -17,12 +17,13 @@ import {
   TextAreaTitle,
 } from './ChildForm.styled';
 import ParentsContainer from '../ParentsContainer/ParentsContainer';
-// import UploadFiles from '../UploadFiles/UploadFiles';
+
 import { initialValuesChildForm, schemaChildUpdate } from '../Schemas/schema';
 import { addChild, updateChild } from 'redux/child/childOperetion';
 import UpdateAvatar from 'ui/UpdateAvatar/UpdateAvatar';
 import { selectChildrenOperetion } from 'redux/child/childSelector';
 import DatePickerForm from 'ui/DataPiker/DataPiker';
+import UploadFiles from '../UploadFiles/UploadFiles';
 
 function ChildForm({ child }) {
   const [valuesChildForm, setValuesChildForm] = useState(
@@ -134,13 +135,15 @@ function ChildForm({ child }) {
             touched={touched}
             errors={errors}
           />
-          <TextAreaTitle>Запит батьків:</TextAreaTitle>
-          <FieldTextarea name="about" component="textarea" rows={6} />
-          {/* <UploadFiles
-            arrayFile={childFiles}
+          <UploadFiles
+            arrayFile={child?.childFiles}
             childFiles={values.childFiles}
             setFieldValue={setFieldValue}
-          /> */}
+            childId={child._id}
+          />
+          <TextAreaTitle>Запит батьків:</TextAreaTitle>
+          <FieldTextarea name="about" component="textarea" rows={6} />
+
           <TextAreaTitle>Сенсорна:</TextAreaTitle>
           <FieldTextarea name="sensornaya" component="textarea" rows={6} />
           <TextAreaTitle>Логопед:</TextAreaTitle>

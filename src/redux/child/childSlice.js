@@ -4,6 +4,8 @@ import {
   fetchChildren,
   fetchChildrenByName,
   updateChild,
+  uploadFile,
+  deleteFile,
 } from './childOperetion';
 
 const { createSlice } = require('@reduxjs/toolkit');
@@ -118,6 +120,39 @@ const childrenSlice = createSlice({
         state.pagination.pageCount = action.payload.pagination.pageCount;
       })
       .addCase(deleteChildById.rejected, (state, action) => {
+        state.operetion = null;
+        state.isloading = false;
+        state.error = action.payload;
+      })
+      .addCase(uploadFile.pending, state => {
+        state.operetion = 'uploadFile';
+        state.isloading = true;
+      })
+      .addCase(uploadFile.fulfilled, (state, action) => {
+        state.operetion = null;
+        state.isloading = false;
+        state.error = null;
+      })
+      .addCase(uploadFile.rejected, (state, action) => {
+        state.operetion = null;
+        state.isloading = false;
+        state.error = action.payload;
+      })
+      .addCase(deleteFile.pending, (state, { meta }) => {
+        state.operetion = `${meta.arg.childId}`;
+        state.isloading = true;
+      })
+      .addCase(deleteFile.fulfilled, (state, action) => {
+        state.operetion = null;
+        state.isloading = false;
+        state.error = null;
+        const id = action.payload._id;
+        const index = state.child.findIndex(vel => vel._id === id);
+        if (index !== -1) {
+          state.child[index] = action.payload;
+        }
+      })
+      .addCase(deleteFile.rejected, (state, action) => {
         state.operetion = null;
         state.isloading = false;
         state.error = action.payload;
