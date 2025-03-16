@@ -13,10 +13,10 @@ import {
   DocContainer,
   IconDoc,
   FileName,
-  FileInput,
+  ButtonUpdateFile,
 } from './UploadFiles.styled';
-import { Popconfirm } from 'antd';
-import { QuestionCircleOutlined } from '@ant-design/icons';
+import { Popconfirm, Upload } from 'antd';
+import { QuestionCircleOutlined, UploadOutlined } from '@ant-design/icons';
 import { selectChildrenOperetion } from 'redux/child/childSelector';
 import { CirclesWithBar } from 'react-loader-spinner';
 import { useLocation } from 'react-router-dom';
@@ -120,13 +120,39 @@ const UploadFiles = ({
   return (
     <div>
       <UploadTitle>Додати документи (PDF, TXT, DOCX):</UploadTitle>
-      <FileInput
-        type="file"
-        multiple
+      <Upload
         accept=".pdf,.txt,.docx"
+        showUploadList={false}
+        multiple={true}
         disabled={source === 'buttonViewing'}
-        onChange={handleFileChange}
-      />
+        customRequest={async ({ file, onSuccess, onError }) => {
+          try {
+            const result = await dispatch(uploadFile({ file, childId }));
+            if (result.payload) {
+              const newFile = {
+                name: result.payload.filename,
+                path: result.payload.path,
+                type: result.payload.mimetype,
+              };
+              setFiles(prev => [...prev, newFile]);
+              setFieldValue('childFiles', [...childFiles, newFile]);
+              onSuccess();
+            } else {
+              onError(new Error('Upload failed'));
+            }
+          } catch (error) {
+            onError(error);
+          }
+        }}
+      >
+        <ButtonUpdateFile
+          type="primary"
+          icon={<UploadOutlined />}
+          disabled={source === 'buttonViewing'}
+        >
+          Виберіть файл
+        </ButtonUpdateFile>
+      </Upload>
       <PreviewBlock>
         {files.map((file, index) => {
           const fileName = file.name || file;
