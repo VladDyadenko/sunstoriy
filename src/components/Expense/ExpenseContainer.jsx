@@ -123,9 +123,9 @@ const ExpenseContainer = ({
           </Form.Item>
           <Form.Item
             rules={
-              paymentMethod === 'cashless' && [
-                { required: true, message: 'Оберіть банк' },
-              ]
+              paymentMethod === 'cashless'
+                ? [{ required: true, message: 'Оберіть банк' }]
+                : []
             }
             label="Виберіть банк"
             name="bank"
