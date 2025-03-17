@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import MainTable from 'ui/MainTable/MainTable';
 import { MainWrapper } from 'components/ContainerMain/ContainerMain.styled';
 import Container from 'components/Container/Container';
@@ -18,7 +18,6 @@ import { useLessonsDates } from 'hooks/useLessonsDates';
 
 const LogopedPage = () => {
   const lessonsChosePeriod = useSelector(selectLessonsLogoped);
-
   const [teachers, setTeachers] = useState(null);
   const [teacher, setTeacher] = useState([]);
   const [lessons, setLessons] = useState(null);
@@ -28,6 +27,15 @@ const LogopedPage = () => {
   const [type, setType] = useState('Період');
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (dateCurrentLesson) {
+      const choesData = { offices: ['Логопед'], dateCurrentLesson };
+      dispatch(selectedLessonsByDateTeacher(choesData));
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useLessonsDates('Logoped', setLessonDates, selectedLessonsByDateTeacher, [
     'Логопед',

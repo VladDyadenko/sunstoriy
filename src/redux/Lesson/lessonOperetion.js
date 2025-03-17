@@ -95,7 +95,7 @@ export const addLesson = createAsyncThunk(
           'Content-Type': 'application/json',
         },
       });
-      if (data) {
+      if (data.length > 0) {
         Notify.success('Заняття успішно додане');
       }
       return data;

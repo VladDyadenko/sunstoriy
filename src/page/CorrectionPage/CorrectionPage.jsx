@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Container from '../../components/Container/Container';
 import FilterLesson from 'components/FilterLesson/FilterLesson';
 import { MainWrapper } from 'components/ContainerMain/ContainerMain.styled';
@@ -29,16 +29,21 @@ function CorrectionPage() {
   );
   const [type, setType] = useState('Період');
 
-  useLessonsDates(
-    'Correction',
-    setLessonDates,
-    selectedLessonsByDateTeacher,
-    ['Корекційний']
-  );
+  useEffect(() => {
+    if (dateCurrentLesson) {
+      const choesData = { offices: ['Корекційний'], dateCurrentLesson };
+      dispatch(selectedLessonsByDateTeacher(choesData));
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useLessonsDates('Correction', setLessonDates, selectedLessonsByDateTeacher, [
+    'Корекційний',
+  ]);
   useUniqueTeacher(lessonsChosePeriod, setTeachers);
 
   useFilteredLessonsTeachers(lessonsChosePeriod, setLessons, teacher);
-
 
   const items = [
     {

@@ -71,16 +71,7 @@ const AllPageFilter = ({
             }}
           />
           <ContainerDataOffices>
-            <ChooseDataLessons
-              setOffices={setOffices}
-              currentDefaultOffice={[
-                'Сенсорна',
-                'Логопед',
-                'Корекційний',
-                'Preschool',
-                'Preschool-інклюзія',
-              ]}
-            />
+            <ChooseDataLessons setOffices={setOffices} />
           </ContainerDataOffices>
         </>
       ),

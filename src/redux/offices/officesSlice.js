@@ -63,6 +63,7 @@ const officesSlice = createSlice({
           }
         }
       )
+
       .addCase(selectedLessonsByDateTeacher.rejected, (state, action) => {
         state.isloading = false;
         state.operetion = null;
@@ -79,11 +80,9 @@ const officesSlice = createSlice({
         const id = action.meta.arg;
         const currentOffice = action.payload;
         const stateKey = officeMap[currentOffice];
-
-        if (stateKey) {
-          state[stateKey] = state[stateKey].filter(lesson => lesson._id !== id);
-        }
+        state[stateKey] = state[stateKey].filter(lesson => lesson._id !== id);
       })
+
       .addCase(deleteLessonByOfficeAndId.rejected, (state, action) => {
         state.operetion = null;
         state.isloading = false;

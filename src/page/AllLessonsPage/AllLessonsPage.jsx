@@ -1,7 +1,7 @@
 import { memo, useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import Container from 'components/Container/Container';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import AllPageFilter from 'components/AllPageFilter/AllPageFilter';
 import OfficeScheduleOnDay from 'components/ChoseLessonData/OfficeScheduleOnDay/OfficeScheduleOnDay';
 import { localStorageHelper } from 'helpers/helperLocalStorage';
@@ -21,11 +21,23 @@ const AllLessonsPage = () => {
   const [uniquDates, setUniquDates] = useState(null);
   const [lessons, setLessons] = useState(null);
   const [offices, setOffices] = useState(arrayOffices);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  useLessonsDates('AllLessons', setLessonDates, selectedLessonsByDateTeacher, {
-    offices,
-  });
+  useEffect(() => {
+    if (dateCurrentLesson) {
+      const choesData = { offices, dateCurrentLesson };
+      dispatch(selectedLessonsByDateTeacher(choesData));
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useLessonsDates(
+    'AllLessons',
+    setLessonDates,
+    selectedLessonsByDateTeacher,
+    offices
+  );
 
   useEffect(() => {
     if (lessons?.length > 0) {
@@ -44,7 +56,14 @@ const AllLessonsPage = () => {
     return {
       key: date,
       label: <span>{dayjs(date).format('DD-MM-YYYY')}</span>,
-      children: <OfficeScheduleOnDay lessons={lessons} date={date} />,
+      children: (
+        <OfficeScheduleOnDay
+          lessons={lessons}
+          date={date}
+          dateCurrentLesson={dateCurrentLesson}
+          offices={offices}
+        />
+      ),
     };
   });
 

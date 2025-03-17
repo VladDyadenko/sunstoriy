@@ -19,8 +19,11 @@ import {
 } from './OfficeScheduleOnDay.styled';
 import LessonTableCard from 'ui/LessonTableCard/LessonTableCard';
 import FreeTableItem from 'ui/FreeTableItem/FreeTableItem';
-import { deleteLessonById } from 'redux/Lesson/lessonOperetion';
 import { formatTimeRange } from 'utils/dateTransform';
+import {
+  deleteLessonByOfficeAndId,
+  selectedLessonsByDateTeacher,
+} from 'redux/offices/officesOperetion';
 
 const extractTimeFromISOString = dateTimeString => {
   const timeString = new Date(dateTimeString).toLocaleTimeString('en-US', {
@@ -29,7 +32,7 @@ const extractTimeFromISOString = dateTimeString => {
   return timeString;
 };
 
-const OfficeScheduleOnDay = ({ lessons, date }) => {
+const OfficeScheduleOnDay = ({ lessons, date, dateCurrentLesson, offices }) => {
   const [uniquTime, setUniquTime] = useState([]);
   const [uniquOffice, setUniquOffice] = useState([]);
   const [lessonOneDay, setLessonOneDay] = useState([]);
@@ -92,6 +95,15 @@ const OfficeScheduleOnDay = ({ lessons, date }) => {
     }
   }, [date, lessons]);
 
+  const handleDelete = lesson => {
+    dispatch(deleteLessonByOfficeAndId(lesson._id)).then(() => {
+      const choesData = {
+        offices,
+        dateCurrentLesson,
+      };
+      dispatch(selectedLessonsByDateTeacher(choesData));
+    });
+  };
   return (
     <MainWrapper>
       <OfficeWrapper>
@@ -131,9 +143,7 @@ const OfficeScheduleOnDay = ({ lessons, date }) => {
                           >
                             <LessonTableCard
                               lesson={lesson}
-                              onLessonsDelete={lesson => {
-                                return dispatch(deleteLessonById(lesson._id));
-                              }}
+                              onLessonsDelete={lesson => handleDelete(lesson)}
                             />
                           </LessonContainer>
                         );

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useState, memo } from 'react';
+import { useState, memo, useEffect } from 'react';
 import { selectLessonsPreschool } from 'redux/offices/officesSelector';
 import {
   selectedLessonsByDateTeacher,
@@ -28,6 +28,15 @@ const PreschoolPage = () => {
   const [type, setType] = useState('Період');
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (dateCurrentLesson) {
+      const choesData = { offices: ['Preschool'], dateCurrentLesson };
+      dispatch(selectedLessonsByDateTeacher(choesData));
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useLessonsDates('Preschool', setLessonDates, selectedLessonsByDateTeacher, [
     'Preschool',

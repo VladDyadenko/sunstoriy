@@ -59,9 +59,10 @@ const AddLesson = ({ lesson, pathname }) => {
 
   useEffect(() => {
     if (timeFreeLesson && dateFreeLesson) {
+      const transformDate = dayjs(dateFreeLesson).valueOf();
       updateLessonField('timeLesson', timeFreeLesson);
-      updateLessonField('dateLesson', dateFreeLesson);
-      updateLessonField('offices', officeFreeLesson);
+      updateLessonField('dateLesson', transformDate);
+      updateLessonField('office', officeFreeLesson);
       setTypeLesson(officeFreeLesson);
     }
     const today = dayjs().format('YYYY-MM-DD');
@@ -129,6 +130,7 @@ const AddLesson = ({ lesson, pathname }) => {
           navigate(-1);
         });
       } else {
+        console.log('🚀 ~ awaitdispatch ~ values:', values);
         await dispatch(addLesson(values)).then(() => {
           setAddSuccessLesson(true);
           navigate(-1);

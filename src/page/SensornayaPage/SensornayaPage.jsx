@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useState, memo } from 'react';
+import { useState, memo, useEffect } from 'react';
 import MainTable from 'ui/MainTable/MainTable';
 import Container from 'components/Container/Container';
 import { MainWrapper } from 'components/ContainerMain/ContainerMain.styled';
@@ -27,6 +27,15 @@ function SensornayaPage() {
     localStorageHelper.getData('Sensornaya')
   );
   const [type, setType] = useState('Період');
+
+  useEffect(() => {
+    if (dateCurrentLesson) {
+      const choesData = { offices: ['Сенсорна'], dateCurrentLesson };
+      dispatch(selectedLessonsByDateTeacher(choesData));
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useLessonsDates('Sensornaya', setLessonDates, selectedLessonsByDateTeacher, [
     'Сенсорна',

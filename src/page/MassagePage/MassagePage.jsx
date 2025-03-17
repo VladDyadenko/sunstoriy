@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, memo } from 'react';
 import MainTable from 'ui/MainTable/MainTable';
@@ -29,6 +29,15 @@ const MassagePage = () => {
   const [dateCurrentLesson, setLessonDates] = useState(
     localStorageHelper.getData('Massage')
   );
+
+  useEffect(() => {
+    if (dateCurrentLesson) {
+      const choesData = { offices: ['Реабілітолог'], dateCurrentLesson };
+      dispatch(selectedLessonsByDateTeacher(choesData));
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useLessonsDates('Massage', setLessonDates, selectedLessonsByDateTeacher, [
     'Реабілітолог',

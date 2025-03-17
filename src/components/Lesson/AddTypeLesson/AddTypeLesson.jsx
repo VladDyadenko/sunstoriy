@@ -6,14 +6,23 @@ const { Option } = Select;
 
 const AddTypeLesson = ({ office, setTypeLesson, setFieldValue }) => {
   useEffect(() => {
-    setFieldValue('office', office);
-  }, [setFieldValue, office]);
+    if (office) {
+      setFieldValue('office', office);
+      setTypeLesson(office);
+    }
+  }, [setFieldValue, setTypeLesson, office]);
 
   return (
     <>
       <WrapperTypeLesson>
         <TeacherLessonChose>Кабінет:</TeacherLessonChose>
-        <Select value={office} onChange={setTypeLesson}>
+        <Select
+          value={office}
+          onChange={value => {
+            setTypeLesson(value);
+            setFieldValue('office', value);
+          }}
+        >
           {offices.map(({ name }) => (
             <Option key={name} style={{ minWidth: '90px' }} value={name}>
               {name}

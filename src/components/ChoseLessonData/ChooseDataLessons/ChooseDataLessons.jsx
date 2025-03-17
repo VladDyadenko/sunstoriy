@@ -1,7 +1,7 @@
-import { offices } from 'assets/constants/AddLessonsConstans';
+import { arrayOffices, offices } from 'assets/constants/AddLessonsConstans';
 import { ChooseDataWrapper, ChooseOffices } from './ChooseDataLessons.styled';
 
-const ChooseDataLessons = ({ setOffices, currentDefaultOffice }) => {
+const ChooseDataLessons = ({ setOffices }) => {
   const options = offices.map(office => {
     return (
       <ChooseOffices.Option key={office.name} value={office.name}>
@@ -18,7 +18,7 @@ const ChooseDataLessons = ({ setOffices, currentDefaultOffice }) => {
     <ChooseDataWrapper>
       <ChooseOffices
         mode="multiple"
-        defaultValue={currentDefaultOffice}
+        defaultValue={arrayOffices}
         onChange={handleChange}
       >
         {options}

@@ -2,8 +2,15 @@ import { useEffect } from 'react';
 import dayjs from 'dayjs';
 import { localStorageHelper } from 'helpers/helperLocalStorage';
 import { getDates } from 'components/FilterLesson/SelectDate/GetDateFunction';
+// import { useDispatch } from 'react-redux';
 
-export const useLessonsDates = (storadeOfficeKey, setLessonDates, offices) => {
+export const useLessonsDates = (
+  storadeOfficeKey,
+  setLessonDates,
+  reqMethodOffice,
+  offices
+) => {
+  // const dispatch = useDispatch();
   useEffect(() => {
     const storedDate = localStorageHelper.getData(storadeOfficeKey);
 
