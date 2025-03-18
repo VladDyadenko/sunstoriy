@@ -7,6 +7,7 @@ import {
   updateNameThunk,
   refreshTokensThunk,
   googleAuthSuccess,
+  initializeAppThunk,
 } from './authOperetion';
 
 const initialState = {
@@ -148,6 +149,18 @@ const authSlice = createSlice({
       .addCase(googleAuthSuccess.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = payload;
+      })
+
+      // Initialize App
+      .addCase(initializeAppThunk.pending, state => {
+        state.isRefreshing = true;
+      })
+      .addCase(initializeAppThunk.fulfilled, (state, { payload }) => {
+        state.token = payload?.accessToken;
+        state.isRefreshing = false;
+      })
+      .addCase(initializeAppThunk.rejected, state => {
+        state.isRefreshing = false;
       });
   },
 });

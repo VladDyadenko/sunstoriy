@@ -67,24 +67,6 @@ export const FileInput = styled.input`
   margin: 10px 0;
 `;
 
-// export const ButtonUpdateFile = styled.button`
-//   width: 110px;
-//   height: 110px;
-//   padding: 5px;
-//   border: 1px dashed #a9a9a9;
-//   background-color: #fff;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   flex-direction: column;
-//   border-radius: 8px;
-//   cursor: pointer;
-
-//   &:hover {
-//     border: 1px dashed #1677ff;
-//   }
-// `;
-
 export const ButtonUpdateFile = styled(Button)`
   min-width: 150px;
   background: var(--main-green);

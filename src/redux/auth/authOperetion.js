@@ -225,3 +225,24 @@ export const googleAuthSuccess = createAsyncThunk(
     }
   }
 );
+
+export const initializeAppThunk = createAsyncThunk(
+  'auth/initialize',
+  async (_, thunkAPI) => {
+    try {
+      const { data } = await axios.get('/auth/refresh_tokens', {
+        withCredentials: true,
+        headers: { Accept: 'application/json' },
+      });
+
+      axios.defaults.headers.common.Authorization = `${data.accessToken}`;
+
+      // После успешного обновления токена, получаем данные пользователя
+      await thunkAPI.dispatch(currentThunk(data.accessToken));
+
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(null);
+    }
+  }
+);

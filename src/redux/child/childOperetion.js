@@ -187,6 +187,8 @@ export const uploadFile = createAsyncThunk(
 export const deleteFile = createAsyncThunk(
   'child/deleteFile',
   async ({ fileName, childId }, thunkAPI) => {
+    console.log('🚀 ~ childId:', childId);
+    console.log('🚀 ~ fileName:', fileName);
     try {
       await axios.delete(`/child/files/${fileName}/${childId}`);
       Notify.success('Файл успішно видалено');

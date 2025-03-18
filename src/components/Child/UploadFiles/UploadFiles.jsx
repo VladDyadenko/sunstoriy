@@ -15,7 +15,7 @@ import {
   FileName,
   ButtonUpdateFile,
 } from './UploadFiles.styled';
-import { Popconfirm, Upload } from 'antd';
+import { Popconfirm } from 'antd';
 import { QuestionCircleOutlined, UploadOutlined } from '@ant-design/icons';
 import { selectChildrenOperetion } from 'redux/child/childSelector';
 import { CirclesWithBar } from 'react-loader-spinner';
@@ -92,49 +92,58 @@ const UploadFiles = ({
     }
   };
 
+  const handleFileUpload = async event => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    try {
+      const result = await dispatch(uploadFile({ file, childId }));
+      if (result.payload) {
+        const newFile = {
+          name: String(result.payload.filename),
+          path: String(result.payload.path),
+          type: String(result.payload.mimetype || 'unknown'),
+        };
+        setFiles(prev => [...prev, newFile]);
+        setFieldValue('childFiles', [
+          ...childFiles,
+          JSON.parse(JSON.stringify(newFile)),
+        ]);
+      }
+    } catch (error) {
+      console.error('Upload failed:', error);
+    }
+    // Очищаем input после загрузки
+    event.target.value = '';
+  };
+
   return (
     <div>
       <UploadTitle>Додати документи (PDF, TXT, DOCX):</UploadTitle>
-      <Upload
-        accept=".pdf,.txt,.docx"
-        showUploadList={false}
-        multiple={true}
-        disabled={source === 'buttonViewing'}
-        customRequest={async ({ file, onSuccess, onError }) => {
-          try {
-            const result = await dispatch(uploadFile({ file, childId }));
-            if (result.payload) {
-              const newFile = {
-                name: String(result.payload.filename),
-                path: String(result.payload.path),
-                type: String(result.payload.mimetype || 'unknown'),
-              };
-              setFiles(prev => [...prev, newFile]);
-              setFieldValue('childFiles', [
-                ...childFiles,
-                JSON.parse(JSON.stringify(newFile)),
-              ]);
-              onSuccess();
-            } else {
-              onError(new Error('Upload failed'));
-            }
-          } catch (error) {
-            onError(error);
-          }
-        }}
-      >
+      <div>
+        <input
+          type="file"
+          accept=".pdf,.txt,.docx"
+          onChange={handleFileUpload}
+          disabled={source === 'buttonViewing'}
+          style={{ display: 'none' }}
+          id="file-upload"
+        />
         <ButtonUpdateFile
-          type="primary"
-          icon={<UploadOutlined />}
+          type="button"
+          onClick={() => document.getElementById('file-upload').click()}
           disabled={source === 'buttonViewing'}
         >
+          <UploadOutlined />
           Виберіть файл
         </ButtonUpdateFile>
-      </Upload>
+      </div>
+
       <PreviewBlock>
         {files.map((file, index) => {
           const fileName = file.name || file;
           const isLoading = loadingFile === fileName;
+          const isDeleting = operetion === fileName;
           return (
             <DocContainer
               key={index}
@@ -142,11 +151,11 @@ const UploadFiles = ({
               title="Натисніть для завантаження"
               style={{ position: 'relative' }}
             >
-              {isLoading ? (
+              {isLoading || isDeleting ? (
                 <CirclesWithBar
                   height="20px"
                   width="20px"
-                  color="#006400"
+                  color={isDeleting ? '#ff0000' : '#006400'}
                   wrapperStyle={{
                     display: 'flex',
                     alignItems: 'center',
@@ -173,32 +182,20 @@ const UploadFiles = ({
                   e.stopPropagation();
                   handleDelete(file);
                 }}
+                onCancel={e => {
+                  e.stopPropagation();
+                }}
               >
-                {operetion === childId ? (
-                  <CirclesWithBar
-                    height="25px"
-                    width="25px"
-                    color="#539536"
-                    wrapperStyle={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                    visible={true}
-                    ariaLabel="circles-with-bar-loading"
-                  />
-                ) : (
-                  <DeleteDocButton
-                    disabled={source === 'buttonViewing'}
-                    type="button"
-                    title="Видалити файл"
-                    onClick={e => {
-                      e.stopPropagation();
-                    }}
-                  >
-                    <IconDelete />
-                  </DeleteDocButton>
-                )}
+                <DeleteDocButton
+                  disabled={source === 'buttonViewing' || isDeleting}
+                  type="button"
+                  title="Видалити файл"
+                  onClick={e => {
+                    e.stopPropagation();
+                  }}
+                >
+                  <IconDelete />
+                </DeleteDocButton>
               </Popconfirm>
             </DocContainer>
           );
