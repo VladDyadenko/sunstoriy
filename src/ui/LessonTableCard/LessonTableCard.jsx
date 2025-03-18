@@ -54,13 +54,20 @@ function LessonTableCard({ lesson, onLessonsDelete }) {
     paymentForm,
     price,
     isHappend,
-    sum,
     dateLesson,
     teacher,
     timeLesson,
     office,
   } = Object.keys(updateLesson) > 0 ? updateLesson : lesson;
-  const [currentPayment, setCurrentPayment] = useState(sum ? sum : []);
+  const [currentPayment, setCurrentPayment] = useState([]);
+
+  useEffect(() => {
+    if (lesson?.sum && lesson.sum.length > 0) {
+      setCurrentPayment(lesson.sum);
+    } else {
+      setCurrentPayment([]);
+    }
+  }, [lesson]);
   const [amountPaid, setAmountPaid] = useState(0);
   const [lessonHappended, setLessonHappended] = useState(
     isHappend ? isHappend : ''
@@ -69,10 +76,20 @@ function LessonTableCard({ lesson, onLessonsDelete }) {
     amountPaid && amountPaid !== 0 && currentPayment?.length > 0;
 
   useEffect(() => {
-    if (currentPayment?.length > 0) {
-      const totalSum = val => val?.reduce((acm, item) => acm + item.amount, 0);
+    if (updateLesson?.sum) {
+      setCurrentPayment(updateLesson.sum);
+    }
+  }, [updateLesson]);
 
-      setAmountPaid(totalSum(currentPayment));
+  useEffect(() => {
+    if (Array.isArray(currentPayment) && currentPayment.length > 0) {
+      const totalSum = currentPayment.reduce(
+        (acm, item) => acm + item.amount,
+        0
+      );
+      setAmountPaid(totalSum);
+    } else {
+      setAmountPaid(0);
     }
   }, [currentPayment]);
 

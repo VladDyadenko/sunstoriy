@@ -102,11 +102,7 @@ const ChildPeriodZvit = ({
       title: 'Дії',
       dataIndex: 'actions',
       render: (_, record) => {
-        if (
-          record.key !== 'total' &&
-          record.price !== 0 &&
-          (record.sum === 0 || record.sum < record.price)
-        ) {
+        if (record.key !== 'total') {
           return (
             <Popconfirm
               title="Оплата заняття"

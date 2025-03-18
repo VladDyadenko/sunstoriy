@@ -63,12 +63,10 @@ const AllPageFilter = ({
             teachers={teachers}
             teacher={teacher}
             setTeacher={setTeacher}
-            onLessonsChange={choesData => {
-              const { dateCurrentLesson } = choesData;
-              return dispatch(
-                selectedLessonsByDateTeacher({ offices, dateCurrentLesson })
-              );
-            }}
+            onLessonsChange={choesData =>
+              dispatch(selectedLessonsByDateTeacher(choesData))
+            }
+            offices={offices}
           />
           <ContainerDataOffices>
             <ChooseDataLessons setOffices={setOffices} />

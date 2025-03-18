@@ -139,7 +139,6 @@ const childrenSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(deleteFile.pending, (state, { meta }) => {
-        console.log('🚀 ~ .addCase ~ meta:', meta);
         state.operetion = `${meta.arg.fileName}`;
         state.isloading = true;
       })

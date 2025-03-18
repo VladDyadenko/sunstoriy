@@ -28,10 +28,10 @@ const PreschoolInclusionPage = () => {
   const [type, setType] = useState('Період');
 
   const dispatch = useDispatch();
-
+  const offices = ['Preschool-інклюзія'];
   useEffect(() => {
     if (dateCurrentLesson) {
-      const choesData = { offices: ['Preschool-інклюзія'], dateCurrentLesson };
+      const choesData = { offices, dateCurrentLesson };
       dispatch(selectedLessonsByDateTeacher(choesData));
     }
 
@@ -64,9 +64,10 @@ const PreschoolInclusionPage = () => {
           teachers={teachers}
           teacher={teacher}
           setTeacher={setTeacher}
-          onLessonsChange={lessons =>
-            dispatch(selectedLessonsByDateTeacher(lessons))
-          }
+          onLessonsChange={choesData => {
+            return dispatch(selectedLessonsByDateTeacher(choesData));
+          }}
+          offices={offices}
         />
       ),
     },

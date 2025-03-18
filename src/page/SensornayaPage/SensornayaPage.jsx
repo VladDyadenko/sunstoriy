@@ -28,9 +28,11 @@ function SensornayaPage() {
   );
   const [type, setType] = useState('Період');
 
+  const offices = ['Сенсорна'];
+
   useEffect(() => {
-    if (dateCurrentLesson) {
-      const choesData = { offices: ['Сенсорна'], dateCurrentLesson };
+    if (dateCurrentLesson && offices.length > 0) {
+      const choesData = { offices, dateCurrentLesson };
       dispatch(selectedLessonsByDateTeacher(choesData));
     }
 
@@ -59,9 +61,10 @@ function SensornayaPage() {
           teachers={teachers}
           teacher={teacher}
           setTeacher={setTeacher}
-          onLessonsChange={lessons =>
-            dispatch(selectedLessonsByDateTeacher(lessons))
-          }
+          onLessonsChange={choesData => {
+            return dispatch(selectedLessonsByDateTeacher(choesData));
+          }}
+          offices={offices}
         />
       ),
     },

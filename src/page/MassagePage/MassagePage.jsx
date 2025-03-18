@@ -29,10 +29,10 @@ const MassagePage = () => {
   const [dateCurrentLesson, setLessonDates] = useState(
     localStorageHelper.getData('Massage')
   );
-
+  const offices = ['Реабілітолог'];
   useEffect(() => {
     if (dateCurrentLesson) {
-      const choesData = { offices: ['Реабілітолог'], dateCurrentLesson };
+      const choesData = { offices, dateCurrentLesson };
       dispatch(selectedLessonsByDateTeacher(choesData));
     }
 
@@ -62,9 +62,10 @@ const MassagePage = () => {
           teachers={teachers}
           teacher={teacher}
           setTeacher={setTeacher}
-          onLessonsChange={lessons =>
-            dispatch(selectedLessonsByDateTeacher(lessons))
-          }
+          onLessonsChange={choesData => {
+            return dispatch(selectedLessonsByDateTeacher(choesData));
+          }}
+          offices={offices}
         />
       ),
     },

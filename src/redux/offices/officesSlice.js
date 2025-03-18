@@ -49,16 +49,17 @@ const officesSlice = createSlice({
           state.operetion = null;
           state.error = null;
 
-          if (payload && payload.length > 0) {
-            const offices = meta.arg.offices;
-            if (offices?.length > 1) {
-              state.allLessons = payload;
+          const offices = meta.arg.offices;
+          if (offices?.length > 1) {
+            state.allLessons = payload && payload.length > 0 ? payload : [];
+          } else {
+            const requestedOffice = offices[0];
+            const stateKey = officeMap[requestedOffice];
+
+            if (payload && payload.length > 0) {
+              state[stateKey] = payload;
             } else {
-              const office = payload[0].office;
-              const stateKey = officeMap[office];
-              if (stateKey) {
-                state[stateKey] = payload;
-              }
+              state[stateKey] = [];
             }
           }
         }

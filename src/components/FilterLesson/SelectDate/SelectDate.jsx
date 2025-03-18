@@ -23,7 +23,7 @@ const SelectDate = ({
   teacher,
   setTeacher,
   onLessonsChange,
-  office,
+  offices,
 }) => {
   const [day, setDay] = useState('1');
   const operetion = useSelector(selectOfficesOperetion);
@@ -54,11 +54,13 @@ const SelectDate = ({
   // }, [day, dateCurrentLesson]);
 
   const handleChosePeriod = () => {
-    const choesData = {
-      offices: [office],
-      dateCurrentLesson: dateCurrentLesson,
-    };
-    onLessonsChange(choesData);
+    if (dateCurrentLesson && offices.length > 0) {
+      const choesData = {
+        offices,
+        dateCurrentLesson: dateCurrentLesson,
+      };
+      onLessonsChange(choesData);
+    }
   };
   return (
     <Wrapper>

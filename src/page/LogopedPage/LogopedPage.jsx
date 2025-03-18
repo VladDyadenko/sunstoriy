@@ -27,10 +27,10 @@ const LogopedPage = () => {
   const [type, setType] = useState('Період');
 
   const dispatch = useDispatch();
-
+  const offices = ['Логопед'];
   useEffect(() => {
     if (dateCurrentLesson) {
-      const choesData = { offices: ['Логопед'], dateCurrentLesson };
+      const choesData = { offices, dateCurrentLesson };
       dispatch(selectedLessonsByDateTeacher(choesData));
     }
 
@@ -59,9 +59,10 @@ const LogopedPage = () => {
           teachers={teachers}
           teacher={teacher}
           setTeacher={setTeacher}
-          onLessonsChange={lessons =>
-            dispatch(selectedLessonsByDateTeacher(lessons))
-          }
+          onLessonsChange={choesData => {
+            return dispatch(selectedLessonsByDateTeacher(choesData));
+          }}
+          offices={offices}
         />
       ),
     },

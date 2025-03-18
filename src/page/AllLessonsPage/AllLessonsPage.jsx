@@ -13,7 +13,6 @@ import { selectAllLessons } from 'redux/offices/officesSelector';
 
 const AllLessonsPage = () => {
   const choseLessons = useSelector(selectAllLessons);
-
   const [dateCurrentLesson, setLessonDates] = useState(
     localStorageHelper.getData('AllLessons')
   );
@@ -24,11 +23,12 @@ const AllLessonsPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (dateCurrentLesson) {
-      const choesData = { offices, dateCurrentLesson };
+    const savedDates = localStorageHelper.getData('AllLessons');
+    if (savedDates && offices.length > 0) {
+      const choesData = { offices, dateCurrentLesson: savedDates };
       dispatch(selectedLessonsByDateTeacher(choesData));
+      setLessonDates(savedDates);
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

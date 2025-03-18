@@ -2,17 +2,6 @@ import { Button } from 'antd';
 import styled from 'styled-components';
 import { btnStyledAll } from 'styles/GlobalStyles';
 
-// export const FinancialCommandTitle = styled.p`
-//   text-align: center;
-//   width: 100%;
-//   text-align: center;
-//   font-family: 'Roboto';
-//   font-size: 20px;
-//   font-weight: 400;
-//   padding-bottom: 5px;
-
-//   border-bottom: 2px solid var(--main-green);
-// `;
 export const CommandLineWrapper = styled.div`
   width: 100%;
   max-width: 20%;

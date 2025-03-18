@@ -30,10 +30,10 @@ const DiagnostikaPage = () => {
     localStorageHelper.getData('Diagnostika')
   );
   const [type, setType] = useState('Період');
-
+  const offices = ['Діагностика'];
   useEffect(() => {
     if (dateCurrentLesson) {
-      const choesData = { offices: ['Діагностика'], dateCurrentLesson };
+      const choesData = { offices, dateCurrentLesson };
       dispatch(selectedLessonsByDateTeacher(choesData));
     }
 
@@ -63,9 +63,10 @@ const DiagnostikaPage = () => {
           teachers={teachers}
           teacher={teacher}
           setTeacher={setTeacher}
-          onLessonsChange={lessons =>
-            dispatch(selectedLessonsByDateTeacher(lessons))
-          }
+          onLessonsChange={choesData => {
+            return dispatch(selectedLessonsByDateTeacher(choesData));
+          }}
+          offices={offices}
         />
       ),
     },

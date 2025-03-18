@@ -28,10 +28,10 @@ function CorrectionPage() {
     localStorageHelper.getData('Correction')
   );
   const [type, setType] = useState('Період');
-
+  const offices = ['Корекційний'];
   useEffect(() => {
     if (dateCurrentLesson) {
-      const choesData = { offices: ['Корекційний'], dateCurrentLesson };
+      const choesData = { offices, dateCurrentLesson };
       dispatch(selectedLessonsByDateTeacher(choesData));
     }
 
@@ -60,9 +60,10 @@ function CorrectionPage() {
           teachers={teachers}
           teacher={teacher}
           setTeacher={setTeacher}
-          onLessonsChange={lessons =>
-            dispatch(selectedLessonsByDateTeacher(lessons))
-          }
+          onLessonsChange={choesData => {
+            return dispatch(selectedLessonsByDateTeacher(choesData));
+          }}
+          offices={offices}
         />
       ),
     },
