@@ -48,6 +48,10 @@ function LessonTableCard({ lesson, onLessonsDelete }) {
 
   const [updateLesson, setUpdateLesson] = useState({});
 
+  const [currentStatus, setCurrentStatus] = useState(
+    lesson.status ? lesson.status : 'to_plan'
+  );
+
   const {
     _id,
     bank,
@@ -60,6 +64,10 @@ function LessonTableCard({ lesson, onLessonsDelete }) {
     office,
   } = Object.keys(updateLesson) > 0 ? updateLesson : lesson;
   const [currentPayment, setCurrentPayment] = useState([]);
+  const [amountPaid, setAmountPaid] = useState(0);
+  const [lessonHappended, setLessonHappended] = useState(
+    isHappend ? isHappend : null
+  );
 
   useEffect(() => {
     if (lesson?.sum && lesson.sum.length > 0) {
@@ -68,10 +76,15 @@ function LessonTableCard({ lesson, onLessonsDelete }) {
       setCurrentPayment([]);
     }
   }, [lesson]);
-  const [amountPaid, setAmountPaid] = useState(0);
-  const [lessonHappended, setLessonHappended] = useState(
-    isHappend ? isHappend : ''
-  );
+
+  useEffect(() => {
+    if (lesson && lesson?.isHappend) {
+      setLessonHappended(lesson.isHappend);
+    } else {
+      setLessonHappended(null);
+    }
+  }, [lesson]);
+
   const visiblePaymentList =
     amountPaid && amountPaid !== 0 && currentPayment?.length > 0;
 
@@ -99,7 +112,8 @@ function LessonTableCard({ lesson, onLessonsDelete }) {
         try {
           const lesson = await getLessonById(isLessonStatus);
           setUpdateLesson(lesson ? lesson : {});
-          if (lesson?.isHappend) setLessonHappended(lesson?.isHappend);
+          if (lesson?.isHappend) setLessonHappended(lesson.isHappend);
+          if (lesson?.status) setCurrentStatus(lesson.status);
         } catch (error) {
           console.error('Помилка при завантаженні уроку:', error);
         }
@@ -107,7 +121,7 @@ function LessonTableCard({ lesson, onLessonsDelete }) {
     };
 
     fetchLesson();
-  }, [_id, isLessonOperetion, isLessonStatus]);
+  }, [_id, isLessonOperetion, isLessonStatus, setCurrentStatus]);
 
   const handleOpenPopover = isOpen => {
     setOpenPopover(isOpen);
@@ -128,8 +142,8 @@ function LessonTableCard({ lesson, onLessonsDelete }) {
     teacherSurname: lesson.teacherSurname,
     office: lesson.office,
   };
-  const styleDescr = lesson ? lesson.status : '';
-
+  const styleDescr = currentStatus ? currentStatus : '';
+  const lessonStatus = lessonHappended && lessonHappended === 'Відпрацьоване';
   const content = (
     <ButtonContainer>
       <LessonPayment
@@ -205,10 +219,7 @@ function LessonTableCard({ lesson, onLessonsDelete }) {
           </InfoTeacher>
         </InfoContainer>
         <PaymentContainer>
-          {lessonHappended && lessonHappended === 'Відпрацьоване' ? (
-            <FcOk />
-          ) : null}
-
+          {lessonStatus ? <FcOk /> : null}
           {visiblePaymentList ? <IconPaymentLesson /> : null}
         </PaymentContainer>
       </InfoAndPaymentContainer>
@@ -229,7 +240,11 @@ function LessonTableCard({ lesson, onLessonsDelete }) {
             <IconButtonChose />
           </LessonButton>
         </Popover>
-        <StatusLesson lessonData={lesson} />
+        <StatusLesson
+          lessonData={lesson}
+          currentStatus={currentStatus}
+          setCurrentStatus={setCurrentStatus}
+        />
       </InfoColor>
     </Wrapper>
   );

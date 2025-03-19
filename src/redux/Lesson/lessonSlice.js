@@ -70,11 +70,6 @@ const lessonSlice = createSlice({
         state.isloading = false;
         state.operetion = null;
         state.error = null;
-        // const id = action.payload._id;
-        // const indexLesson = state.lesson.findIndex(vel => vel._id === id);
-        // if (indexLesson !== -1) {
-        //   state.lesson[indexLesson] = action.payload;
-        // }
 
         if (action?.payload?.paymentForm || action?.payload?.isHappend) {
           state.islessonStatus = action.payload._id;

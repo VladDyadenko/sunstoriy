@@ -6,17 +6,13 @@ import {
   PlanBtn,
   ReplaceBtn,
 } from './StatusLesson.styled';
-import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateLesson } from 'redux/Lesson/lessonOperetion';
 
-const StatusLesson = ({ lessonData }) => {
-  const { status, _id } = lessonData;
+const StatusLesson = ({ lessonData, currentStatus, setCurrentStatus }) => {
+  const { _id } = lessonData;
 
   const dispatch = useDispatch();
-  const [currentStatus, setCurrentStatus] = useState(
-    status ? status : 'to_plan'
-  );
 
   const handleChangeStatus = type => {
     setCurrentStatus(type);
@@ -66,7 +62,7 @@ const StatusLesson = ({ lessonData }) => {
   } else if (currentStatus === 'replace') {
     buttonText = 'Заміна';
   }
-  const styleDescr = lessonData ? lessonData.status : '';
+  const styleDescr = currentStatus ? currentStatus : '';
 
   return (
     <Popover
