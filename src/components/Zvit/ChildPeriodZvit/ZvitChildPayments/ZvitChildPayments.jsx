@@ -31,7 +31,7 @@ const ZvitChildPayments = ({ selectedLessonData, setOpenPaymentDrawer }) => {
   }, [payments]);
   const [editingPayment, setEditingPayment] = useState(null);
 
-  const [dateFromExpense, setDateFromExpense] = useState(
+  const [selectedDate, setSelectedDate] = useState(
     new Date().toISOString().split('T')[0]
   );
   const handleDeletePayment = async paymentId => {
@@ -52,11 +52,11 @@ const ZvitChildPayments = ({ selectedLessonData, setOpenPaymentDrawer }) => {
   };
   return (
     <>
-      <RangePickerForm setDateFromExpense={setDateFromExpense} />
+      <RangePickerForm setSelectedDate={setSelectedDate} />
       {payments && payments.length > 0 ? (
         <PaymentsLessonList
           currentPayment={currentPayment}
-          dateFromExpense={dateFromExpense}
+          dateFromExpense={selectedDate}
           handleDeletePayment={handleDeletePayment}
           setEditingPayment={setEditingPayment}
           editingPayment={editingPayment}
@@ -69,7 +69,7 @@ const ZvitChildPayments = ({ selectedLessonData, setOpenPaymentDrawer }) => {
         id={id}
         onCloseDrawer={onCloseDrawer}
         price={price}
-        dateFromExpense={dateFromExpense}
+        dateFromExpense={selectedDate}
         setEditingPayment={setEditingPayment}
         editingPayment={editingPayment}
         setCurrentPayment={setCurrentPayment}

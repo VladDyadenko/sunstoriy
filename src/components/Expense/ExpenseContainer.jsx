@@ -7,14 +7,13 @@ import { addExpense, updateExpense } from 'redux/expense/expenseOperetion';
 import { DateDescription, DateTitle } from './ExpenseContainer.styled';
 import { selectExpenseSelected } from 'redux/expense/expenceSelector';
 import { clearExpenseSelected } from 'redux/expense/expenseSlice';
+import RangePickerForm from 'ui/RangePickerForm/RangePickerForm';
 
-const ExpenseContainer = ({
-  setOpen,
-  selectedPeriod,
-  open,
-  onCloseDrawerExpense,
-}) => {
+const ExpenseContainer = ({ setOpen, open, onCloseDrawerExpense }) => {
   const [form] = useForm();
+  const [selectedDate, setSelectedDate] = useState(
+    new Date().toISOString().split('T')[0]
+  );
   const [paymentMethod, setPaymentMethod] = useState(null);
   const dispatch = useDispatch();
   const updateExpenseInfo = useSelector(selectExpenseSelected);
@@ -25,7 +24,7 @@ const ExpenseContainer = ({
       form.setFieldsValue({
         date: updateExpenseInfo.date
           ? updateExpenseInfo.date.split('T')[0]
-          : selectedPeriod,
+          : selectedDate,
         category: updateExpenseInfo.category || 'Інше',
         amount: updateExpenseInfo.amount || null,
         paymentForm: updateExpenseInfo.paymentForm || 'cash',
@@ -34,7 +33,7 @@ const ExpenseContainer = ({
       });
       setPaymentMethod(updateExpenseInfo.paymentForm || 'cash');
     }
-  }, [updateExpenseInfo, setOpen, form, selectedPeriod]);
+  }, [updateExpenseInfo, setOpen, form, selectedDate]);
 
   return (
     <>
@@ -45,6 +44,7 @@ const ExpenseContainer = ({
         onClose={onCloseDrawerExpense}
         open={open}
       >
+        <RangePickerForm setSelectedDate={setSelectedDate} />
         <Form
           form={form}
           initialValues={{
@@ -67,7 +67,7 @@ const ExpenseContainer = ({
               if (values.paymentForm === 'cash') {
                 values.bank = '';
               }
-              values.date = selectedPeriod;
+              values.date = selectedDate;
               await dispatch(addExpense(values)).then(() => {
                 onCloseDrawerExpense();
                 form.resetFields();
@@ -76,7 +76,7 @@ const ExpenseContainer = ({
           }}
         >
           <DateTitle>
-            Дата витрат: <DateDescription>{selectedPeriod}</DateDescription>
+            Дата витрат: <DateDescription>{selectedDate}</DateDescription>
           </DateTitle>
 
           <Form.Item
@@ -91,13 +91,6 @@ const ExpenseContainer = ({
                 </Select.Option>
               ))}
             </Select>
-          </Form.Item>
-          <Form.Item
-            rules={[{ required: true, message: 'Внесіть суму витрат' }]}
-            label="Сума"
-            name="amount"
-          >
-            <InputNumber style={{ width: '100%' }} placeholder="Вкажіть суму" />
           </Form.Item>
           <Form.Item
             label="Форма оплати"
@@ -135,6 +128,13 @@ const ExpenseContainer = ({
               <Select.Option value="PrivatBank">ПриватБанк</Select.Option>
               <Select.Option value="MonoBank">Монобанк</Select.Option>
             </Select>
+          </Form.Item>
+          <Form.Item
+            rules={[{ required: true, message: 'Внесіть суму витрат' }]}
+            label="Сума"
+            name="amount"
+          >
+            <InputNumber style={{ width: '100%' }} placeholder="Вкажіть суму" />
           </Form.Item>
           <Form.Item label="Опис витрат" name="description">
             <Input.TextArea

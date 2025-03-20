@@ -30,7 +30,7 @@ const LessonPayment = ({
   const operetion = useSelector(smsOperetion);
 
   const [open, setOpen] = useState(false);
-  const [dateFromExpense, setDateFromExpense] = useState(
+  const [selectedDate, setSelectedDate] = useState(
     new Date().toISOString().split('T')[0]
   );
   const [editingPayment, setEditingPayment] = useState(null);
@@ -86,14 +86,14 @@ const LessonPayment = ({
         onClose={onCloseDrawer}
         open={open}
       >
-        <RangePickerForm setDateFromExpense={setDateFromExpense} />
+        <RangePickerForm setSelectedDate={setSelectedDate} />
         {visiblePaymentList ? (
           <PaymentsLessonList
             setEditingPayment={setEditingPayment}
             editingPayment={editingPayment}
             currentPayment={currentPayment}
             handleDeletePayment={handleDeletePayment}
-            dateFromExpense={dateFromExpense}
+            dateFromExpense={selectedDate}
           />
         ) : null}
         <PaymentForm
@@ -103,7 +103,7 @@ const LessonPayment = ({
           initialPaymentValues={initialPaymentValues}
           onCloseDrawer={onCloseDrawer}
           id={id}
-          dateFromExpense={dateFromExpense}
+          dateFromExpense={selectedDate}
           setCurrentPayment={setCurrentPayment}
           setEditingPayment={setEditingPayment}
           editingPayment={editingPayment}

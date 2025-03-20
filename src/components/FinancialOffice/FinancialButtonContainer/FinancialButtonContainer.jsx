@@ -1,8 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useState } from 'react';
 import { Divider } from 'antd';
-import { FaRegCalendarPlus } from 'react-icons/fa';
-
 import 'dayjs/locale/uk'; // Імпортуємо українську локал
 
 import { BsClipboardPulse, BsEmojiHeartEyes } from 'react-icons/bs';
@@ -45,9 +43,9 @@ const FinancialButtonContainer = ({
   const salariesLoading = useSelector(selectSalaryLoading);
   const loading = useSelector(selectExpenseLoading);
 
-  const [dateFromExpense, setDateFromExpense] = useState(
-    new Date().toISOString().split('T')[0]
-  );
+    const [selectedDate, setSelectedDate] = useState(
+      new Date().toISOString().split('T')[0]
+    );
 
   const [open, setOpen] = useState(false);
   const onCloseDrawerExpense = () => {
@@ -92,7 +90,7 @@ const FinancialButtonContainer = ({
         <SectionsContainer>
           <RangePickerForm
             setSelectedDateString={setSelectedDateString}
-            setDateFromExpense={setDateFromExpense}
+            setSelectedDate={setSelectedDate}
             setSelectedPeriod={setSelectedPeriod}
             setDayOrePariod={setDayOrePariod}
           />
@@ -164,21 +162,15 @@ const FinancialButtonContainer = ({
         />
         <SectionsContainer>
           <ZvitButtonTitle title="Внесення розходів" />
-          <CommandLineButton
-            onClick={() => setOpen(true)}
-            disabled={dayOrePariod === 'period'}
-          >
-            <>
-              Виберіть день <FaRegCalendarPlus />
-            </>
+          <CommandLineButton onClick={() => setOpen(true)}>
+            <>Додай витрати</>
           </CommandLineButton>
           <ExpenseContainer
             onCloseDrawerExpense={onCloseDrawerExpense}
             open={open}
             setOpen={setOpen}
-            selectedPeriod={dateFromExpense}
           />
-          <SalarisForm selectedPeriod={dateFromExpense} />
+          <SalarisForm selectedPeriod={selectedDate} />
         </SectionsContainer>
       </CommandLineWrapper>
     </>

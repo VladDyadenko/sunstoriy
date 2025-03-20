@@ -9,7 +9,7 @@ const { RangePicker } = DatePicker;
 
 const RangePickerForm = ({
   setSelectedDateString = () => {},
-  setDateFromExpense = () => {},
+  setSelectedDate = () => {},
   setSelectedPeriod = () => {},
   setDayOrePariod = () => {},
 }) => {
@@ -18,8 +18,8 @@ const RangePickerForm = ({
   const selectDay = (dates, dateStrings) => {
     if (!dates || dates.length === 0) return;
 
-    if (setDateFromExpense) {
-      setDateFromExpense(dateStrings[0]);
+    if (setSelectedDate) {
+      setSelectedDate(dateStrings[0]);
     }
     if (setSelectedDateString) {
       setSelectedDateString(dateStrings);

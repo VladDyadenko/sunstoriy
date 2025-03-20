@@ -20,11 +20,17 @@ import { addExpense } from 'redux/expense/expenseOperetion';
 import { updateSalary } from 'redux/salary/salaryOperetion';
 import { selectSalarySelected } from 'redux/salary/salarySelector';
 import { clearSalarySelected } from 'redux/salary/salarySlice';
+import RangePickerForm from 'ui/RangePickerForm/RangePickerForm';
 
 const SalarisForm = ({ selectedPeriod }) => {
   const [form] = useForm();
   const dispatch = useDispatch();
   const updateSalaryData = useSelector(selectSalarySelected);
+
+  const [selectedDate, setSelectedDate] = useState(
+    new Date().toISOString().split('T')[0]
+  );
+
   const [open, setOpen] = useState(false);
   const [paymentSelected, setPaymentSelected] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState(null);
@@ -56,6 +62,7 @@ const SalarisForm = ({ selectedPeriod }) => {
       open={open}
       onClose={onCloseDrawerSalary}
     >
+      <RangePickerForm setSelectedDate={setSelectedDate} />
       <DateTitle>
         <p style={{ marginBottom: 15 }}>
           Фахівець:
@@ -67,7 +74,7 @@ const SalarisForm = ({ selectedPeriod }) => {
         </p>
         <p>
           Дата виплати:
-          <DateDescription>{selectedPeriod}</DateDescription>
+          <DateDescription>{selectedDate}</DateDescription>
         </p>
         <p>
           Сума до виплати:
@@ -92,7 +99,7 @@ const SalarisForm = ({ selectedPeriod }) => {
           values.comment = [
             values.amount_cash ? `${values.amount_cash} грн` : null,
             values.amount_cashless ? `${values.amount_cashless} грн` : null,
-            `виплачено ${selectedPeriod}`,
+            `виплачено ${selectedDate}`,
           ]
             .filter(Boolean)
             .join(' ');
@@ -105,7 +112,7 @@ const SalarisForm = ({ selectedPeriod }) => {
             if (values.amount_cash > 0 || values.amount_cash < 0) {
               dispatch(
                 addExpense({
-                  date: selectedPeriod,
+                  date: selectedDate,
                   salaryId: updateSalaryData?._id,
                   category: `Зарплата ${updateSalaryData?.name} ${updateSalaryData?.surname}`,
                   amount: values.amount_cash,
@@ -120,7 +127,7 @@ const SalarisForm = ({ selectedPeriod }) => {
             if (values.amount_cashless > 0 || values.amount_cashless < 0) {
               dispatch(
                 addExpense({
-                  date: selectedPeriod,
+                  date: selectedDate,
                   salaryId: updateSalaryData?._id,
                   category: `Зарплата ${updateSalaryData?.name} ${updateSalaryData?.surname}`,
                   amount: values.amount_cashless,

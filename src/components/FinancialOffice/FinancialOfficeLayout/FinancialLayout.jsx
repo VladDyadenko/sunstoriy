@@ -30,6 +30,7 @@ import {
 } from 'redux/salary/salarySelector';
 import ChildrensPeriodZvit from 'components/Zvit/ChildrensPeriodZvit/ChildrensPeriodZvit';
 import ChildPeriodZvit from 'components/Zvit/ChildPeriodZvit/ChildPeriodZvit';
+import { formatDateCurrentMonth } from 'utils/formatDateCurrentMonth';
 
 const FinancialLayout = () => {
   const [indicatorsCurrentMonth, setIndicatorsCurrentMonth] = useState([]);
@@ -60,21 +61,13 @@ const FinancialLayout = () => {
 
   useEffect(() => {
     const fetchZvitOneMonthTotal = async () => {
-      const now = new Date();
-
-      const startDate = new Date(now.getFullYear(), now.getMonth(), 1);
-      const endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-
-      const formattedDates = {
-        startDate: startDate.toISOString(),
-        endDate: endDate.toISOString(),
-      };
+      const currentMonth = formatDateCurrentMonth();
 
       try {
         setLoading(true);
         setTypeZvit('');
 
-        const { totalData } = await getZvitOneMonthTotal(formattedDates);
+        const { totalData } = await getZvitOneMonthTotal(currentMonth);
         setIndicatorsCurrentMonth(totalData);
       } catch (error) {
         console.error('❌ Error fetching total profit:', error);
@@ -119,7 +112,10 @@ const FinancialLayout = () => {
         />
         <ContantLineWrapper>
           <ZvitContainer>
-            <ZvitReportTitle title="Поточні цифри місяця" />
+            <ZvitReportTitle
+              setIndicatorsCurrentMonth={setIndicatorsCurrentMonth}
+              title="Поточні цифри місяця"
+            />
             <ReportCurrentMonth
               loading={loading}
               indicatorsCurrentMonth={indicatorsCurrentMonth}

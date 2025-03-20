@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 
 function MainPage() {
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(initializeAppThunk());
   }, [dispatch]);
