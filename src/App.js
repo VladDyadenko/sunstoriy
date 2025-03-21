@@ -4,7 +4,7 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import { PrivateRoute } from 'route/PrivateRoute';
 import { AdminRoute } from 'route/AdminRoute';
 import RestrictedRoute from 'route/RestrictedRoute';
-import { initializeAppThunk } from 'redux/auth/authOperetion';
+import { currentThunk } from 'redux/auth/authOperetion';
 import GoogleAuthCallback from 'components/Auth/GoogleAuth/GoogleAuthCallback';
 
 import MainLayout from './layouts/MainLayout/MainLayout';
@@ -40,12 +40,9 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(initializeAppThunk());
-  }, [dispatch]);
-
-  // useEffect(() => {
-  //   dispatch(currentThunk());
-  // }, [dispatch]);
+    dispatch(currentThunk());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const handleRouteChange = () => {

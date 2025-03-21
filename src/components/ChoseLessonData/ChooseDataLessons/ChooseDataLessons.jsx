@@ -9,7 +9,6 @@ const ChooseDataLessons = ({ setOffices }) => {
       </ChooseOffices.Option>
     );
   });
-
   const handleChange = value => {
     setOffices(value);
   };

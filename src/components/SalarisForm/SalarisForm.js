@@ -13,7 +13,6 @@ import {
   DateDescription,
   DateTitle,
 } from 'components/Expense/ExpenseContainer.styled';
-import { Notify } from 'notiflix';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addExpense } from 'redux/expense/expenseOperetion';
@@ -90,16 +89,11 @@ const SalarisForm = ({ selectedPeriod }) => {
           amount_debt: updateSalaryData?.amount_debt,
         }}
         onFinish={async values => {
-          const totalPaid =
-            (values.amount_cash || 0) + (values.amount_cashless || 0);
-          if (totalPaid > updateSalaryData?.amount_debt) {
-            return Notify.failure('Сума виплати перевищує заборгованність!');
-          }
           values.date = updateSalaryData.date;
           values.comment = [
-            values.amount_cash ? `${values.amount_cash} грн` : null,
-            values.amount_cashless ? `${values.amount_cashless} грн` : null,
-            `виплачено ${selectedDate}`,
+            values.amount_cash > 0 ? `${values.amount_cash} грн` : null,
+            values.amount_cashless > 0 ? `${values.amount_cashless} грн` : null,
+            `виплачено ${selectedDate} `,
           ]
             .filter(Boolean)
             .join(' ');
@@ -251,5 +245,4 @@ const SalarisForm = ({ selectedPeriod }) => {
     </Drawer>
   );
 };
-
 export default SalarisForm;
