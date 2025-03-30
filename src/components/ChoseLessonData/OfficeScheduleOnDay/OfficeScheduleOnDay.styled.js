@@ -53,7 +53,8 @@ export const TimeEmpty = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 70px;
+  max-width: 100px;
+  min-width: 100px;
   height: 34px;
   border-radius: 8px;
   background: #fff;
@@ -61,7 +62,8 @@ export const TimeEmpty = styled.div`
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15);
 
   @media (min-width: 768px) {
-    min-width: 115px;
+    max-width: 125px;
+    min-width: 125px;
   }
 `;
 export const AddLessonLink = styled(Link)`
@@ -106,10 +108,10 @@ export const OfficeName = styled.li`
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 90px;
+  min-width: 100px;
+  max-width: 100px;
+  padding: 5px;
   height: 90px;
-  /* padding: 5px;
-  margin-top: 2px; */
   font-family: 'RobotoSlab';
   font-weight: 900;
   font-size: 10px;
@@ -121,8 +123,10 @@ export const OfficeName = styled.li`
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15);
 
   @media (min-width: 768px) {
-    min-width: 115px;
+    max-width: 125px;
+    min-width: 125px;
     font-size: 14px;
+    padding: 10px;
   }
 `;
 export const DescrLessonWrapper = styled.ul`

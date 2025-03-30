@@ -28,15 +28,17 @@ const DatePickerLesson = ({
   const [type, setType] = useState('Одне заняття');
   const [day, setDay] = useState('1');
   const [timeLesson, setValues] = useState(null);
-
+  const [selectedDateNewLesson, setSelectedDateNewLesson] = useState(null);
   useEffect(() => {
     setDateCurrentLesson(null);
+    setSelectedDateNewLesson(null);
   }, [setDateCurrentLesson, type]);
 
   useEffect(() => {
     const today = dayjs().format('YYYY-MM-DD');
     const selectedDate = new Date(today);
     setDateCurrentLesson(selectedDate.valueOf());
+    setSelectedDateNewLesson(selectedDate.valueOf());
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -51,6 +53,7 @@ const DatePickerLesson = ({
       const dates = getDatesByDayOfWeek(startDate, endDate, dayOfWeek);
       const date = dates.map(date => date.valueOf());
       setDateCurrentLesson(date);
+      setSelectedDateNewLesson(date);
     }
   }, [day, setDateCurrentLesson, type]);
 
@@ -63,12 +66,6 @@ const DatePickerLesson = ({
     }
   }, [timeLessonCurrent]);
 
-  // useEffect(() => {
-  //   if (!addSuccessLesson || addSuccessLesson) {
-  //     setValues(null);
-  //   }
-  // }, [addSuccessLesson]);
-
   const handleDateChange = (date, dateString) => {
     if (date) {
       if (Array.isArray(dateString) && dateString.length === 2) {
@@ -79,19 +76,39 @@ const DatePickerLesson = ({
         const date = dates.map(date => date.valueOf());
 
         setDateCurrentLesson(date);
+        setSelectedDateNewLesson(date);
         setFieldValue('dateLesson', date);
       } else if (typeof dateString === 'string') {
         const selectedDate = new Date(dateString);
 
         setDateCurrentLesson(selectedDate.valueOf());
+        setSelectedDateNewLesson(selectedDate.valueOf());
         setFieldValue('dateLesson', selectedDate.valueOf());
       }
     }
   };
 
   const handleTimeLesson = vals => {
-    const sanitizedTime = vals?.map(time => time?.startOf('minute'));
+    const baseDate = selectedDateNewLesson || dateLessonCurrent; // Используем выбранную дату или дату скопированного занятия
+    if (!baseDate) return;
+
+    const baseDayjs = dayjs(baseDate); // Преобразуем baseDate в объект dayjs
+    if (!baseDayjs.isValid()) {
+      console.error('Invalid baseDate:', baseDate);
+      return;
+    }
+
+    const sanitizedTime = vals?.map(time => {
+      if (!time) return null;
+      return baseDayjs // Привязываем время к baseDate
+        .set('hour', time.hour()) // Устанавливаем час
+        .set('minute', time.minute()) // Устанавливаем минуты
+        .set('second', 0) // Устанавливаем секунды
+        .set('millisecond', 0) // Устанавливаем миллисекунды
+        .toISOString(); // Преобразуем в ISO 8601
+    });
     setValues(sanitizedTime);
+    setFieldValue('timeLesson', sanitizedTime); // Сохраняем в формате ISO 8601
   };
 
   useEffect(() => {
@@ -150,7 +167,9 @@ const DatePickerLesson = ({
           <DescrPlans>Виберіть час заняття:</DescrPlans>
           <TimePicker.RangePicker
             onChange={handleTimeLesson}
-            value={timeLesson ? [timeLesson[0], timeLesson[1]] : null}
+            value={
+              timeLesson ? [dayjs(timeLesson[0]), dayjs(timeLesson[1])] : null
+            }
             minuteStep={5}
             format="HH:mm"
           />
