@@ -22,7 +22,7 @@ export const navSitePage = [
   { page: 'Preschool', path: '/preschool' },
   { page: 'Кабінет', path: '/adminpage' },
 ];
-export const currentLessonCost = 450;
+export const currentLessonCost = 500;
 
 export const categoryExpense = [
   {
