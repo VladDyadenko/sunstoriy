@@ -102,11 +102,12 @@ const ChildPeriodZvit = ({
       title: 'Дії',
       dataIndex: 'actions',
       render: (_, record) => {
-        if (record.key !== 'total') {
+        if (record.key !== 'total' && record.office !== 'Оплата заняття') {
+          // Додаємо перевірку на null
           return (
             <Popconfirm
               title="Оплата заняття"
-              description="Внести оплату?"
+              description="Редагувати?"
               icon={
                 <QuestionCircleOutlined
                   style={{
@@ -156,7 +157,6 @@ const ChildPeriodZvit = ({
       salaryData,
     };
   });
-
   dataSource?.push({
     key: 'total',
     date: 'Ітог:',

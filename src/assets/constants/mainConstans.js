@@ -33,12 +33,41 @@ export const categoryExpense = [
     category: 'Обладнання',
     title: 'Обладнання',
   },
+
+  {
+    category: 'Комунальні витрати',
+    title: 'Комунальні витрати',
+  },
+  {
+    category: 'ЕП ФОП',
+    title: 'ЕП ФОП',
+  },
+  {
+    category: 'ЄСВ ФОП',
+    title: 'ЄСВ ФОП',
+  },
+  {
+    category: 'Податки ЗП + ЗП',
+    title: 'Податки ЗП + ЗП',
+  },
+  {
+    category: 'Матеріали',
+    title: 'Матеріали',
+  },
+  {
+    category: 'Поточні витрати',
+    title: 'Поточні витрати',
+  },
+  {
+    category: "Сім'я",
+    title: "Сім'я",
+  },
+  {
+    category: 'Послуги банку',
+    title: 'Послуги банку',
+  },
   {
     category: 'Інше',
     title: 'Інше',
-  },
-  {
-    category: 'Податки',
-    title: 'Податки',
   },
 ];
