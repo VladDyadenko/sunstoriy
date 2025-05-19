@@ -1,85 +1,18 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { Notify } from 'notiflix';
+import { axiosClassic, axiosWithAuth } from '../../api/api.interceptors';
 
-axios.defaults.baseURL = process.env.REACT_APP_API_URL;
-axios.defaults.withCredentials = true;
-
-let isRefreshing = false;
-let failedQueue = [];
-
-const processQueue = (error, token = null) => {
-  failedQueue.forEach(prom => {
-    if (error) {
-      prom.reject(error);
-    } else {
-      prom.resolve(token);
-    }
-  });
-
-  failedQueue = [];
+export const removeFromStorage = () => {
+  localStorage.removeItem('persist:auth');
 };
-
-axios.interceptors.response.use(
-  response => response,
-  async error => {
-    const originalRequest = error.config;
-
-    if (error.response?.status === 401 && !originalRequest._retry) {
-      if (isRefreshing) {
-        return new Promise(function (resolve, reject) {
-          failedQueue.push({ resolve, reject });
-        })
-          .then(token => {
-            originalRequest.headers.Authorization = `${token}`;
-            return axios(originalRequest);
-          })
-          .catch(err => {
-            return Promise.reject(err);
-          });
-      }
-
-      originalRequest._retry = true;
-      isRefreshing = true;
-
-      return new Promise(function (resolve, reject) {
-        axios
-          .get('/auth/refresh_tokens', {
-            credentials: 'include',
-            headers: {
-              Accept: 'application/json',
-            },
-          })
-          .then(({ data }) => {
-            axios.defaults.headers.common.Authorization = `${data.accessToken}`;
-            originalRequest.headers.Authorization = `${data.accessToken}`;
-            processQueue(null, data.accessToken);
-            resolve(axios(originalRequest));
-          })
-          .catch(err => {
-            processQueue(err, null);
-            reject(err);
-          })
-          .finally(() => {
-            isRefreshing = false;
-          });
-      });
-    }
-
-    return Promise.reject(error);
-  }
-);
 
 export const registerThunk = createAsyncThunk(
   'auth/register',
   async (credentials, thunkAPI) => {
     try {
-      const { data } = await axios.post('/auth/register', credentials, {
+      const { data } = await axiosClassic.post('/auth/register', credentials, {
         credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
       });
       Notify.success('Registrated succesfully!');
       return data;
@@ -94,14 +27,12 @@ export const signinThunk = createAsyncThunk(
   'auth/login',
   async (credentials, thunkAPI) => {
     try {
-      const { data } = await axios.post('/auth/login', credentials, {
-        credentials: 'include',
+      const { data } = await axiosClassic.post('/auth/login', credentials, {
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
         },
       });
-      axios.defaults.headers.common.Authorization = `Bearer ${data.accessToken}`;
       Notify.success('Login success!');
       return data;
     } catch (err) {
@@ -115,8 +46,7 @@ export const logoutThunk = createAsyncThunk(
   'auth/logout',
   async (_, thunkAPI) => {
     try {
-      await axios.get('/auth/logout', {
-        credentials: 'include',
+      await axiosWithAuth.get('/auth/logout', {
         headers: {
           Accept: 'application/json',
         },
@@ -141,11 +71,8 @@ export const currentThunk = createAsyncThunk(
     if (persistedToken === null) {
       return thunkAPI.rejectWithValue('Unable to fetch user');
     }
-
     try {
-      axios.defaults.headers.common.Authorization = persistedToken;
-      const { data } = await axios.get('/auth/current', {
-        credentials: 'include',
+      const { data } = await axiosWithAuth.get('/auth/current', {
         headers: {
           Accept: 'application/json',
         },
@@ -166,7 +93,7 @@ export const updateNameThunk = createAsyncThunk(
       if (name) formData.append('name', name);
       if (avatar) formData.append('avatar', avatar);
 
-      const { data } = await axios.patch('/auth/upload', formData, {
+      const { data } = await axiosWithAuth.patch('/auth/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       Notify.success('Profile updated successfully!');
@@ -182,18 +109,14 @@ export const refreshTokensThunk = createAsyncThunk(
   'auth/refreshTokens',
   async (_, thunkAPI) => {
     try {
-      const { data } = await axios.get('/auth/refresh_tokens', {
-        withCredentials: true, // ✅ Дозволяє браузеру передавати cookies
+      const { data } = await axiosClassic.get('/auth/refresh_tokens', {
+        withCredentials: true,
         headers: { Accept: 'application/json' },
       });
 
-      // Оновлюємо токен у заголовках axios
-      axios.defaults.headers.common.Authorization = `${data.accessToken}`;
-
-      // Повертаємо дані, щоб зберегти їх у стані Redux
       return data;
     } catch (error) {
-      localStorage.removeItem('persist:auth');
+      removeFromStorage();
       return thunkAPI.rejectWithValue('Session expired');
     }
   }
@@ -203,12 +126,7 @@ export const googleAuthSuccess = createAsyncThunk(
   'auth/googleSuccess',
   async (accessToken, thunkAPI) => {
     try {
-      // Устанавливаем токен в заголовки axios
-      axios.defaults.headers.common.Authorization = `${accessToken}`;
-
-      // Получаем данные пользователя
-      const { data } = await axios.get('/auth/current', {
-        credentials: 'include',
+      const { data } = await axiosWithAuth.get('/auth/current', {
         headers: {
           Accept: 'application/json',
         },
@@ -230,14 +148,10 @@ export const initializeAppThunk = createAsyncThunk(
   'auth/initialize',
   async (_, thunkAPI) => {
     try {
-      const { data } = await axios.get('/auth/refresh_tokens', {
+      const { data } = await axiosClassic.get('/auth/refresh_tokens', {
         withCredentials: true,
         headers: { Accept: 'application/json' },
       });
-
-      axios.defaults.headers.common.Authorization = `${data.accessToken}`;
-
-      // После успешного обновления токена, получаем данные пользователя
       await thunkAPI.dispatch(currentThunk(data.accessToken));
 
       return data;

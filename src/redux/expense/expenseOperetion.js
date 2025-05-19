@@ -1,12 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { axiosWithAuth } from 'api/api.interceptors';
 import { Notify } from 'notiflix';
 
 export const fetchExpenses = createAsyncThunk(
   'expense',
   async (_, thunkAPI) => {
     try {
-      const { expenses } = await axios.get('/expense');
+      const { expenses } = await axiosWithAuth.get('/expense');
       return expenses;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
@@ -18,7 +18,7 @@ export const addExpense = createAsyncThunk(
   'expense/addExpense',
   async (expenseData, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post('/expense', expenseData, {
+      const { data } = await axiosWithAuth.post('/expense', expenseData, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -41,7 +41,7 @@ export const getExpensesByDate = createAsyncThunk(
   'expense/getExpenseByDate',
   async (choesData, thunkAPI) => {
     try {
-      const { data } = await axios.get('/expense/expenses_by_date', {
+      const { data } = await axiosWithAuth.get('/expense/expenses_by_date', {
         params: choesData,
       });
 
@@ -61,7 +61,7 @@ export const getExpenseById = createAsyncThunk(
   'expense/getById',
   async (id, thunkAPI) => {
     try {
-      const res = await axios.get(`expense/expense/${id}`);
+      const res = await axiosWithAuth.get(`expense/expense/${id}`);
       if (res) {
         Notify.success('Успішно');
       }
@@ -80,7 +80,7 @@ export const updateExpense = createAsyncThunk(
   async (expenseData, thunkAPI) => {
     try {
       const { id, values } = expenseData;
-      const { data } = await axios.put(`/expense/${id}`, values, {
+      const { data } = await axiosWithAuth.put(`/expense/${id}`, values, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -102,7 +102,7 @@ export const deleteExpenseById = createAsyncThunk(
   'expense/deleteExpense',
   async (id, thunkAPI) => {
     try {
-      const res = await axios.patch(`expense/delete/${id}`);
+      const res = await axiosWithAuth.patch(`expense/delete/${id}`);
       if (res) {
         Notify.success('Розход видалений успішно!');
       }

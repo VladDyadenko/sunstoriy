@@ -36,13 +36,11 @@ const PreschoolInclusionPage = lazy(() =>
 
 function App() {
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(currentThunk());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     const handleRouteChange = () => {

@@ -1,12 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { axiosWithAuth } from 'api/api.interceptors';
 import { Notify } from 'notiflix';
 
 export const sendSms = createAsyncThunk(
   'sms/sendSms',
   async (smsDataInfo, thunkAPI) => {
     try {
-      const { data } = await axios.post('/sms/send', smsDataInfo, {});
+      const { data } = await axiosWithAuth.post('/sms/send', smsDataInfo, {});
       const { status } = data;
       if (status === 'ENROUTE' || status === 'DELIVRD') {
         Notify.success('СМС успішно відправлено');

@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom';
 import { selectAuth } from 'redux/auth/authSelector';
 
 export const AdminRoute = ({
-  redirectTo = '/',
+  redirectTo = '/auth/signin',
   component: Component,
   ...routerProps
 }) => {

@@ -17,10 +17,6 @@ const TeachersPage = () => {
 
   useEffect(() => {
     dispatch(fetchTeachers());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  useEffect(() => {
-    dispatch(fetchTeachers());
   }, [dispatch]);
   return (
     <>

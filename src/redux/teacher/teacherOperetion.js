@@ -1,12 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { axiosWithAuth } from 'api/api.interceptors';
 import { Notify } from 'notiflix';
 
 export const fetchTeachers = createAsyncThunk(
   'teachers',
   async (_, thunkAPI) => {
     try {
-      const { data } = await axios.get('/teacher');
+      const { data } = await axiosWithAuth.get('/teacher');
       return data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.message);
@@ -18,7 +18,9 @@ export const fetchTeacherByName = createAsyncThunk(
   'teacher/getTeacherByName',
   async (searchData, thunkAPI) => {
     try {
-      const { data } = await axios.get(`/teacher/search?query=${searchData}`);
+      const { data } = await axiosWithAuth.get(
+        `/teacher/search?query=${searchData}`
+      );
 
       return data;
     } catch (err) {
@@ -49,7 +51,7 @@ export const addTeacher = createAsyncThunk(
         }
       }
 
-      const { data } = await axios.post('/teacher', formData, {
+      const { data } = await axiosWithAuth.post('/teacher', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -90,7 +92,7 @@ export const updateTeacher = createAsyncThunk(
         }
       }
 
-      const { data } = await axios.put(`/teacher/${id}`, formData, {
+      const { data } = await axiosWithAuth.put(`/teacher/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -113,7 +115,7 @@ export const deleteTeacherById = createAsyncThunk(
   'teacher/delete',
   async (id, thunkAPI) => {
     try {
-      const res = await axios.patch(`teacher/delete/${id}`);
+      const res = await axiosWithAuth.patch(`teacher/delete/${id}`);
       if (res) {
         Notify.success('Фахівець видалений зі списку!');
       }

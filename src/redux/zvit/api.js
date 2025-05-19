@@ -1,8 +1,8 @@
-import axios from 'axios';
+import { axiosWithAuth } from 'api/api.interceptors';
 
 export const getZvitOneMonthTotal = async choesData => {
   try {
-    const { data } = await axios.get(`/zvit/one_month_total`, {
+    const { data } = await axiosWithAuth.get(`/zvit/one_month_total`, {
       params: choesData,
     });
 

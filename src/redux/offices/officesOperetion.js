@@ -1,12 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { axiosWithAuth } from 'api/api.interceptors';
 import { Notify } from 'notiflix';
 
 export const selectedLessonsByDateTeacher = createAsyncThunk(
   'lesson/selectedLessons',
   async (choesData, thunkAPI) => {
     try {
-      const { data } = await axios.get('/lesson/office/office_date', {
+      const { data } = await axiosWithAuth.get('/lesson/office/office_date', {
         params: choesData,
       });
       if (data.length > 0) {
@@ -26,7 +26,7 @@ export const deleteLessonByOfficeAndId = createAsyncThunk(
   'lesson/deleteLesson',
   async (id, thunkAPI) => {
     try {
-      const res = await axios.patch(`lesson/delete/${id}`);
+      const res = await axiosWithAuth.patch(`lesson/delete/${id}`);
       if (res) {
         Notify.success('Заняття видалене зі списку!');
       }

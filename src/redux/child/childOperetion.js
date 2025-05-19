@@ -1,12 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { axiosWithAuth } from 'api/api.interceptors';
 import { Notify } from 'notiflix';
 
 export const fetchChildren = createAsyncThunk(
   'children',
   async (page, thunkAPI) => {
     try {
-      const { data } = await axios.get(`/child?page=${page}`);
+      const { data } = await axiosWithAuth.get(`/child?page=${page}`);
 
       return data;
     } catch (err) {
@@ -21,7 +21,9 @@ export const fetchChildrenByName = createAsyncThunk(
   'child/getChildByName',
   async (searchData, thunkAPI) => {
     try {
-      const { data } = await axios.get(`/child/search?query=${searchData}`);
+      const { data } = await axiosWithAuth.get(
+        `/child/search?query=${searchData}`
+      );
       return data;
     } catch (err) {
       if (err) {
@@ -50,7 +52,7 @@ export const addChild = createAsyncThunk(
         }
       }
 
-      const { data } = await axios.post('/child', formData, {
+      const { data } = await axiosWithAuth.post('/child', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -88,7 +90,7 @@ export const updateChild = createAsyncThunk(
         }
       }
 
-      const { data } = await axios.put(`/child/${id}`, formData, {
+      const { data } = await axiosWithAuth.put(`/child/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -110,7 +112,7 @@ export const deleteChildById = createAsyncThunk(
   'child/delete',
   async (id, thunkAPI) => {
     try {
-      const res = await axios.patch(`child/delete/${id}`);
+      const res = await axiosWithAuth.patch(`child/delete/${id}`);
       if (res) {
         Notify.success('Дитина видалена зі списку!');
       }
@@ -130,9 +132,12 @@ export const downloadFile = createAsyncThunk(
     try {
       // Добавляем обработку кодировки имени файла
       const encodedFileName = encodeURIComponent(fileName);
-      const response = await axios.get(`/child/files/${encodedFileName}`, {
-        responseType: 'blob',
-      });
+      const response = await axiosWithAuth.get(
+        `/child/files/${encodedFileName}`,
+        {
+          responseType: 'blob',
+        }
+      );
 
       const contentType = response.headers['content-type'];
       const blob = new Blob([response.data], { type: contentType });
@@ -161,7 +166,7 @@ export const uploadFile = createAsyncThunk(
       const formData = new FormData();
       formData.append('file', file);
 
-      const { data } = await axios.post(
+      const { data } = await axiosWithAuth.post(
         `/child/files/upload/${childId}`,
         formData,
         {
@@ -188,7 +193,7 @@ export const deleteFile = createAsyncThunk(
   'child/deleteFile',
   async ({ fileName, childId }, thunkAPI) => {
     try {
-      await axios.delete(`/child/files/${fileName}/${childId}`);
+      await axiosWithAuth.delete(`/child/files/${fileName}/${childId}`);
       Notify.success('Файл успішно видалено');
       return fileName;
     } catch (err) {

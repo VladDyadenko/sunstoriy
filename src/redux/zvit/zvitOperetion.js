@@ -1,12 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { axiosWithAuth } from 'api/api.interceptors';
 import { Notify } from 'notiflix';
 
 export const createZvitSelectedPeriod = createAsyncThunk(
   'zvit/createZvit',
   async (choesData, thunkAPI) => {
     try {
-      const { data } = await axios.get(`/zvit/one_month_total`, {
+      const { data } = await axiosWithAuth.get(`/zvit/one_month_total`, {
         params: choesData,
       });
       if (data) {
@@ -25,7 +25,7 @@ export const getZvitChildrensPeriod = createAsyncThunk(
   'zvit/createZvitChildrens',
   async (choesData, thunkAPI) => {
     try {
-      const { data } = await axios.get(`/zvit/childrens_period`, {
+      const { data } = await axiosWithAuth.get(`/zvit/childrens_period`, {
         params: choesData,
       });
       if (data) {
@@ -46,7 +46,7 @@ export const getZvitChildByIdAndPeriod = createAsyncThunk(
   async (choesData, thunkAPI) => {
     const { id, selectedPeriod } = choesData;
     try {
-      const { data } = await axios.get(`/zvit/children_period/${id}`, {
+      const { data } = await axiosWithAuth.get(`/zvit/children_period/${id}`, {
         params: selectedPeriod,
       });
       if (data) {
