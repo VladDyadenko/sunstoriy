@@ -14,7 +14,7 @@ const Footer = () => {
       {/* <FooterNavWrapper>
         <FooterNav>
           <FooterItem>
-            <FooterLink>Діагностика</FooterLink>
+            <FooterLink>АВАтерапія</FooterLink>
           </FooterItem>
           <FooterItem>
             <FooterLink>Читалка</FooterLink>

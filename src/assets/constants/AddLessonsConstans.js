@@ -5,7 +5,7 @@ export const offices = [
   { name: 'Preschool' },
   { name: 'Preschool-інклюзія' },
   { name: 'Реабілітолог' },
-  { name: 'Діагностика' },
+  { name: 'АВАтерапія' },
 ];
 
 export const arrayOffices = [
@@ -15,5 +15,5 @@ export const arrayOffices = [
   'Preschool',
   'Preschool-інклюзія',
   'Реабілітолог',
-  'Діагностика',
+  'АВАтерапія',
 ];

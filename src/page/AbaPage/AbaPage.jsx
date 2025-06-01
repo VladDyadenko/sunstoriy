@@ -6,7 +6,7 @@ import MainTable from 'ui/MainTable/MainTable';
 import Container from 'components/Container/Container';
 import { MainWrapper } from 'components/ContainerMain/ContainerMain.styled';
 import FilterLesson from 'components/FilterLesson/FilterLesson';
-import { selectLessonsDiagnostika } from 'redux/offices/officesSelector';
+import { selectLessonsAbaterapiya } from 'redux/offices/officesSelector';
 import {
   selectedLessonsByDateTeacher,
   deleteLessonByOfficeAndId,
@@ -18,19 +18,19 @@ import { useLessonsDates } from 'hooks/useLessonsDates';
 import { useFilteredLessonsTeachers } from 'hooks/useFilteredLessonsTeachers';
 import { useUniqueTeacher } from 'hooks/useUniqueTeacher';
 
-const DiagnostikaPage = () => {
+const AbaPage = () => {
   const dispatch = useDispatch();
 
-  const lessonsChosePeriod = useSelector(selectLessonsDiagnostika);
+  const lessonsChosePeriod = useSelector(selectLessonsAbaterapiya);
 
   const [teachers, setTeachers] = useState(null);
   const [teacher, setTeacher] = useState([]);
   const [lessons, setLessons] = useState(null);
   const [dateCurrentLesson, setLessonDates] = useState(
-    localStorageHelper.getData('Diagnostika')
+    localStorageHelper.getData('Abaterapiya')
   );
   const [type, setType] = useState('Період');
-  const offices = ['Діагностика'];
+  const offices = ['АВАтерапія'];
   useEffect(() => {
     if (dateCurrentLesson) {
       const choesData = { offices, dateCurrentLesson };
@@ -40,8 +40,8 @@ const DiagnostikaPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useLessonsDates('Diagnostika', setLessonDates, selectedLessonsByDateTeacher, [
-    'Діагностика',
+  useLessonsDates('Abaterapiya', setLessonDates, selectedLessonsByDateTeacher, [
+    'АВАтерапія',
   ]);
 
   useUniqueTeacher(lessonsChosePeriod, setTeachers);
@@ -54,8 +54,8 @@ const DiagnostikaPage = () => {
       label: 'Параметри відбору',
       children: (
         <SelectDate
-          pageName="Diagnostika"
-          office="Діагностика"
+          pageName="Abaterapiya"
+          office="АВАтерапія"
           type={type}
           setType={setType}
           setLessonDates={setLessonDates}
@@ -77,7 +77,7 @@ const DiagnostikaPage = () => {
       <Container>
         <FilterLesson currentItems={items} />
         {lessonsChosePeriod?.length === 0 && (
-          <ButtonAddLesson pageName="Діагностика" />
+          <ButtonAddLesson pageName="АВАтерапія" />
         )}
         <MainWrapper>
           {lessons?.length > 0 && (
@@ -86,7 +86,7 @@ const DiagnostikaPage = () => {
               onLessonsDelete={lesson => {
                 return dispatch(deleteLessonByOfficeAndId(lesson._id));
               }}
-              office="Діагностика"
+              office="АВАтерапія"
             />
           )}
         </MainWrapper>
@@ -95,4 +95,4 @@ const DiagnostikaPage = () => {
   );
 };
 
-export default memo(DiagnostikaPage);
+export default memo(AbaPage);

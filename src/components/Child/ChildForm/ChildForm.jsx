@@ -60,6 +60,7 @@ function ChildForm({ child }) {
         fatherPhone: child.fatherPhone ? child.fatherPhone : '',
         about: child.about ? child.about : '',
         sensornaya: child.sensornaya ? child.sensornaya : '',
+        abaterapiya: child.abaterapiya ? child.abaterapiya : '',
         logoped: child.logoped ? child.logoped : '',
         correction: child.correction ? child.correction : '',
         tutor: child.tutor ? child.tutor : '',
@@ -154,6 +155,8 @@ function ChildForm({ child }) {
           <FieldTextarea name="tutor" component="textarea" rows={6} />
           <TextAreaTitle>Реабілітолог:</TextAreaTitle>
           <FieldTextarea name="reabilitation" component="textarea" rows={6} />
+          <TextAreaTitle>АВА терапія:</TextAreaTitle>
+          <FieldTextarea name="abaterapiya" component="textarea" rows={6} />
           <FormButton type="submit">
             {operetion === 'updateChild' || operetion === 'addChild' ? (
               <CirclesWithBar

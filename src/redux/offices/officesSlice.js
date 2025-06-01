@@ -11,7 +11,7 @@ const initialState = {
   lessonsСorrection: [],
   lessonsPreschool: [],
   lessonsMassage: [],
-  lessonsDiagnostika: [],
+  lessonsAbaterapiya: [],
   preschoolInclusion: [],
   allLessons: [], // Додано новий стан для всіх уроків
   isloading: false,
@@ -26,7 +26,7 @@ const officeMap = {
   Preschool: 'lessonsPreschool',
   'Preschool-інклюзія': 'preschoolInclusion',
   Реабілітолог: 'lessonsMassage',
-  Діагностика: 'lessonsDiagnostika',
+  АВАтерапія: 'lessonsAbaterapiya',
 };
 
 const officesSlice = createSlice({

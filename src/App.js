@@ -15,9 +15,7 @@ import SchedulePage from 'page/SchedulePage/SchedulePage';
 
 const SensornayaPage = lazy(() => import('page/SensornayaPage/SensornayaPage'));
 const MassagePage = lazy(() => import('page/MassagePage/MassagePage'));
-const DiagnostikaPage = lazy(() =>
-  import('page/DiagnostikaPage/DiagnostikaPage')
-);
+const AbaPage = lazy(() => import('page/AbaPage/AbaPage'));
 const LogopedPage = lazy(() => import('page/LogopedPage/LogopedPage'));
 const MainPage = lazy(() => import('page/MainPage/MainPage'));
 const CorrectionPage = lazy(() => import('page/CorrectionPage/CorrectionPage'));
@@ -78,7 +76,7 @@ function App() {
           <Route path="/logoped" element={<LogopedPage />} />
           <Route path="/shedule" element={<SchedulePage />} />
           <Route path="/massage" element={<MassagePage />} />
-          <Route path="/diagnostika" element={<DiagnostikaPage />} />
+          <Route path="/abaterapiya" element={<AbaPage />} />
           <Route path="/correction" element={<CorrectionPage />} />
           <Route path="/allLessons" element={<AllLessonsPage />} />
           <Route path="/children" element={<ChildrenPage />} />

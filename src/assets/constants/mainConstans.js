@@ -18,7 +18,7 @@ export const navSitePage = [
   { page: 'Психолог', path: '/correction' },
   { page: 'Preschool-інклюзія', path: '/preschoolInclusion' },
   { page: 'Реабілітолог', path: '/massage' },
-  { page: 'Діагностика', path: '/diagnostika' },
+  { page: 'ABA терапія', path: '/abaterapiya' },
   { page: 'Preschool', path: '/preschool' },
   { page: 'Кабінет', path: '/adminpage' },
 ];

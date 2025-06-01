@@ -14,6 +14,7 @@ export const initialValuesChildForm = {
   fatherPhone: '',
   about: '',
   sensornaya: '',
+  abaterapiya: '',
   logoped: '',
   correction: '',
   tutor: '',
