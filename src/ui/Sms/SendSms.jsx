@@ -47,7 +47,7 @@ const SendSms = ({ lesson }) => {
       return 'масаж';
     }
     if (text === 'АВАтерапія') {
-      return 'на заняття з АВА';
+      return 'на заняття з ABA';
     }
     if (text === 'Логопед') {
       return 'занятті з Логопедом';

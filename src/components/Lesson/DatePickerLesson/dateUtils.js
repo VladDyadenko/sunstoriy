@@ -10,7 +10,6 @@ export function getDatesByDayOfWeek(startDate, endDate, dayOfWeek) {
       selectedDates.push(new Date(date));
     }
   }
-
   return selectedDates;
 }
 

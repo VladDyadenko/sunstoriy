@@ -124,6 +124,7 @@ const DatePickerLesson = ({
                 <Option value="4">Четвер</Option>
                 <Option value="5">П'ятниця</Option>
                 <Option value="6">Субота</Option>
+                <Option value="0">Неділя</Option>
               </Select>
             </DescrContainer>
           ) : null}

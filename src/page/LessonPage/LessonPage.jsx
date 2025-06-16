@@ -1,6 +1,5 @@
 import { useLocation, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { Watermark } from 'antd';
 import { Notify } from 'notiflix';
 import AddLesson from 'components/Lesson/AddLesson/AddLesson';
 import Container from 'components/Container/Container';
@@ -31,9 +30,7 @@ function LessonPage() {
 
   return (
     <Container>
-      <Watermark style={{ height: '100vh' }} content="Sunstoriy">
-        <AddLesson lesson={lesson} pathname={pathname} />
-      </Watermark>
+      <AddLesson lesson={lesson} pathname={pathname} />
     </Container>
   );
 }

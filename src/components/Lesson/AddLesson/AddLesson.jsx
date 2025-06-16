@@ -34,7 +34,6 @@ const AddLesson = ({ lesson, pathname }) => {
   const [buttonView, setButtonView] = useState(true);
 
   const [dateCurrentLesson, setDateCurrentLesson] = useState(today);
-
   const [offices, setOffices] = useState(['Сенсорна']);
 
   const dispatch = useDispatch();
